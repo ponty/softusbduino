@@ -1,0 +1,252 @@
+
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>About &mdash; softusbduino 1.0.0 documentation</title>
+    
+    <link rel="stylesheet" href="_static/default.css" type="text/css" />
+    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '',
+        VERSION:     '1.0.0',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="_static/jquery.js"></script>
+    <script type="text/javascript" src="_static/underscore.js"></script>
+    <script type="text/javascript" src="_static/doctools.js"></script>
+    <link rel="top" title="softusbduino 1.0.0 documentation" href="index.html" />
+    <link rel="next" title="Usage" href="usage.html" />
+    <link rel="prev" title="Table of Contents" href="index.html" /> 
+  </head>
+  <body>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="usage.html" title="Usage"
+             accesskey="N">next</a> |</li>
+        <li class="right" >
+          <a href="index.html" title="Table of Contents"
+             accesskey="P">previous</a> |</li>
+        <li><a href="index.html">softusbduino 1.0.0 documentation</a> &raquo;</li> 
+      </ul>
+    </div>  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body">
+            
+  <div class="section" id="about">
+<h1>About<a class="headerlink" href="#about" title="Permalink to this headline">¶</a></h1>
+<p>softusbduino is a Python package and Arduino firmware library.
+They can be used together to control the Arduino board over USB in Python.</p>
+<dl class="docutils">
+<dt>Links:</dt>
+<dd><ul class="first last simple">
+<li>home: <a class="reference external" href="https://github.com/ponty/softusbduino">https://github.com/ponty/softusbduino</a></li>
+<li>documentation: <a class="reference external" href="http://ponty.github.com/softusbduino">http://ponty.github.com/softusbduino</a></li>
+</ul>
+</dd>
+<dt>Hierarchy:</dt>
+<dd>Python Application -&gt; softusbduino python library -&gt; <a class="reference external" href="http://pyusb.sourceforge.net/">PyUSB</a> -&gt; <a class="reference external" href="http://www.libusb.org/">libusb</a> -&gt;
+USB cable -&gt; <a class="reference external" href="http://vusb.wikidot.com/">V-USB</a> hardware -&gt; <a class="reference external" href="http://arduino.cc/">Arduino</a> -&gt; <a class="reference external" href="http://vusb.wikidot.com/">V-USB</a> library -&gt; softusbduino firmware</dd>
+<dt>Features:</dt>
+<dd><ul class="first last">
+<li><p class="first">Possible usage: prototyping or creating simple low speed USB devices.</p>
+</li>
+<li><p class="first">firmware should be load only once to the Arduino board.</p>
+</li>
+<li><p class="first">1 low level call takes 2 ms in tests</p>
+</li>
+<li><dl class="first docutils">
+<dt>python library functions:</dt>
+<dd><ul class="first last simple">
+<li>read or write all registers</li>
+<li>call arduino functions</li>
+<li>read many defines (example: F_CPU)</li>
+</ul>
+</dd>
+</dl>
+</li>
+<li><p class="first">Python USB back-end: <a class="reference external" href="http://pyusb.sourceforge.net/">PyUSB</a> 1.0 library</p>
+</li>
+<li><p class="first">Arduino USB back-end: <a class="reference external" href="http://vusb.wikidot.com/">V-USB</a> library</p>
+</li>
+</ul>
+</dd>
+<dt>Known problems:</dt>
+<dd><ul class="first last simple">
+<li>tested only on Linux + arduino 0022 + ATmega88 board</li>
+<li>pull-up read is not implemented</li>
+<li>PWM read is not implemented</li>
+<li>PWM config is hardcoded</li>
+</ul>
+</dd>
+<dt>similar projects:</dt>
+<dd><ul class="first last simple">
+<li><a class="reference external" href="https://github.com/HashNuke/Python-Arduino-Prototyping-API">https://github.com/HashNuke/Python-Arduino-Prototyping-API</a></li>
+<li><a class="reference external" href="http://code.google.com/p/vusb-for-arduino/">http://code.google.com/p/vusb-for-arduino/</a></li>
+</ul>
+</dd>
+</dl>
+</div>
+<div class="section" id="basic-usage-of-prototyping">
+<h1>Basic usage of prototyping<a class="headerlink" href="#basic-usage-of-prototyping" title="Permalink to this headline">¶</a></h1>
+<div class="highlight-python"><div class="highlight"><pre><span class="kn">from</span> <span class="nn">softusbduino.protoapi</span> <span class="kn">import</span> <span class="o">*</span>
+
+<span class="k">def</span> <span class="nf">setup</span><span class="p">():</span>
+    <span class="n">pinMode</span><span class="p">(</span><span class="mi">13</span><span class="p">,</span> <span class="n">OUTPUT</span><span class="p">);</span>
+
+<span class="k">def</span> <span class="nf">loop</span><span class="p">():</span>
+    <span class="n">digitalWrite</span><span class="p">(</span><span class="mi">13</span><span class="p">,</span> <span class="n">HIGH</span><span class="p">);</span>
+    <span class="n">delay</span><span class="p">(</span><span class="mi">1000</span><span class="p">);</span>
+    <span class="n">digitalWrite</span><span class="p">(</span><span class="mi">13</span><span class="p">,</span> <span class="n">LOW</span><span class="p">);</span>
+    <span class="n">delay</span><span class="p">(</span><span class="mi">1000</span><span class="p">);</span>
+
+<span class="n">sketch</span> <span class="o">=</span> <span class="n">Sketch</span><span class="p">(</span><span class="n">setup</span><span class="p">,</span> <span class="n">loop</span><span class="p">)</span>
+<span class="n">sketch</span><span class="o">.</span><span class="n">run</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="installation">
+<h1>Installation<a class="headerlink" href="#installation" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="general">
+<h2>General<a class="headerlink" href="#general" title="Permalink to this headline">¶</a></h2>
+<blockquote>
+<div><ul>
+<li><p class="first">install <a class="reference external" href="http://www.python.org/">Python</a></p>
+</li>
+<li><p class="first">install <a class="reference external" href="http://pip.openplans.org/">pip</a></p>
+</li>
+<li><p class="first">install <a class="reference external" href="http://arduino.cc/">arduino</a></p>
+</li>
+<li><dl class="first docutils">
+<dt>install SoftUsb subdirectory as arduino library</dt>
+<dd><ul class="first last">
+<li><p class="first">Manual installation: <a class="reference external" href="http://arduino.cc/en/Guide/Environment#libraries">http://arduino.cc/en/Guide/Environment#libraries</a></p>
+</li>
+<li><dl class="first docutils">
+<dt>Automatic installation:</dt>
+<dd><ul class="first last simple">
+<li>install <a class="reference external" href="https://github.com/ponty/confduino">confduino</a></li>
+<li>install the library: <tt class="docutils literal"><span class="pre">python</span> <span class="pre">-m</span> <span class="pre">confduino.libinstall</span> <span class="pre">https://github.com/ponty/softusbduino/zipball/master</span></tt></li>
+</ul>
+</dd>
+</dl>
+</li>
+</ul>
+</dd>
+</dl>
+</li>
+<li><p class="first">install python package:</p>
+<div class="highlight-python"><pre># as root
+pip install https://github.com/ponty/softusbduino/zipball/master</pre>
+</div>
+</li>
+</ul>
+</div></blockquote>
+</div>
+<div class="section" id="ubuntu">
+<h2>Ubuntu<a class="headerlink" href="#ubuntu" title="Permalink to this headline">¶</a></h2>
+<div class="highlight-python"><pre>sudo apt-get install arduino python-pip
+sudo pip install confduino
+sudo pip install https://github.com/ponty/softusbduino/zipball/master
+sudo python -m confduino.libinstall https://github.com/ponty/softusbduino/zipball/master
+# optional for examples
+sudo pip install matplotlib traits traitsui</pre>
+</div>
+</div>
+<div class="section" id="upload-firmware">
+<h2>Upload firmware<a class="headerlink" href="#upload-firmware" title="Permalink to this headline">¶</a></h2>
+<blockquote>
+<div><ol class="arabic simple">
+<li>start Arduino</li>
+<li>open examples &gt; SoftUsb &gt; Simple</li>
+<li>upload to board</li>
+</ol>
+</div></blockquote>
+</div>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar">
+        <div class="sphinxsidebarwrapper">
+  <h3><a href="index.html">Table Of Contents</a></h3>
+  <ul>
+<li><a class="reference internal" href="#">About</a></li>
+<li><a class="reference internal" href="#basic-usage-of-prototyping">Basic usage of prototyping</a></li>
+<li><a class="reference internal" href="#installation">Installation</a><ul>
+<li><a class="reference internal" href="#general">General</a></li>
+<li><a class="reference internal" href="#ubuntu">Ubuntu</a></li>
+<li><a class="reference internal" href="#upload-firmware">Upload firmware</a></li>
+</ul>
+</li>
+</ul>
+
+  <h4>Previous topic</h4>
+  <p class="topless"><a href="index.html"
+                        title="previous chapter">Table of Contents</a></p>
+  <h4>Next topic</h4>
+  <p class="topless"><a href="usage.html"
+                        title="next chapter">Usage</a></p>
+  <h3>This Page</h3>
+  <ul class="this-page-menu">
+    <li><a href="_sources/readme.txt"
+           rel="nofollow">Show Source</a></li>
+  </ul>
+<div id="searchbox" style="display: none">
+  <h3>Quick search</h3>
+    <form class="search" action="search.html" method="get">
+      <input type="text" name="q" />
+      <input type="submit" value="Go" />
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+    <p class="searchtip" style="font-size: 90%">
+    Enter search terms or a module, class or function name.
+    </p>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="usage.html" title="Usage"
+             >next</a> |</li>
+        <li class="right" >
+          <a href="index.html" title="Table of Contents"
+             >previous</a> |</li>
+        <li><a href="index.html">softusbduino 1.0.0 documentation</a> &raquo;</li> 
+      </ul>
+    </div>
+    <div class="footer">
+        &copy; Copyright 2011, ponty.
+      Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 1.1.2.
+    </div>
+  </body>
+</html>

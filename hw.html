@@ -1,0 +1,181 @@
+
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>Hardware &mdash; softusbduino 1.0.0 documentation</title>
+    
+    <link rel="stylesheet" href="_static/default.css" type="text/css" />
+    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '',
+        VERSION:     '1.0.0',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="_static/jquery.js"></script>
+    <script type="text/javascript" src="_static/underscore.js"></script>
+    <script type="text/javascript" src="_static/doctools.js"></script>
+    <link rel="top" title="softusbduino 1.0.0 documentation" href="index.html" />
+    <link rel="next" title="Build tests" href="build.html" />
+    <link rel="prev" title="Tests" href="check.html" /> 
+  </head>
+  <body>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="build.html" title="Build tests"
+             accesskey="N">next</a> |</li>
+        <li class="right" >
+          <a href="check.html" title="Tests"
+             accesskey="P">previous</a> |</li>
+        <li><a href="index.html">softusbduino 1.0.0 documentation</a> &raquo;</li> 
+      </ul>
+    </div>  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body">
+            
+  <div class="section" id="hardware">
+<h1>Hardware<a class="headerlink" href="#hardware" title="Permalink to this headline">¶</a></h1>
+<p><a class="reference external" href="http://vusb.wikidot.com/hardware">http://vusb.wikidot.com/hardware</a></p>
+<p>I use Solution B:</p>
+<img alt="http://vusb.wikidot.com/local--files/hardware/level-conversion-with-zener.gif" src="http://vusb.wikidot.com/local--files/hardware/level-conversion-with-zener.gif" />
+<p>&#8220;Solution B: Level conversion on D+ and D-
+Level conversion with Zener diodes.</p>
+<p>Instead of reducing the AVR&#8217;s power supply,
+we can limit the output voltage on D+ and D- with Zener diodes.
+We recommend 3.6 V low power types, those that look like 1N4148
+(usually 500 mW or less).
+Low power types are required because they have less capacitance
+and thus cause less distortion on the data lines.
+And 3.6 V is better than 3.3 V because 3.3 V diodes yield only ca. 2.7 V
+in conjunction with an 1.5 kâ„¦ (or more exactly 10 kâ„¦) pull-up resistor.
+With 3.3 V diodes, the device may not be detected reliably.</p>
+<p>If you use Zener diodes for level conversion,
+please measure the voltage levels to make sure that the diodes you have chosen
+match the requirements.</p>
+<p>Advantages of the Zener diode approach:</p>
+<blockquote>
+<div><ul class="simple">
+<li>Low cost.</li>
+<li>Easy to obtain.</li>
+<li>Entire design can be at 5 V.</li>
+<li>AVR can be clocked at high rates.</li>
+</ul>
+</div></blockquote>
+<p>Disadvantages:</p>
+<blockquote>
+<div><ul class="simple">
+<li>Not a clean solution, a compromise between all parameters must be found.</li>
+<li>Zener diodes come with a broad range of characteristics, especially at low currents, results may not be reproducible.</li>
+<li>High currents when sending high-level.</li>
+<li>High level is different for signaling and in idle state because signaling uses high currents to drive the diodes while idle state is driven by a 1.5 kâ„¦ pull-up resistor.&#8221;</li>
+</ul>
+</div></blockquote>
+<div class="section" id="pins">
+<h2>Pins<a class="headerlink" href="#pins" title="Permalink to this headline">¶</a></h2>
+<p>USB pins are defined in <tt class="docutils literal"><span class="pre">pinconfig.h</span></tt>:</p>
+<div class="highlight-c"><div class="highlight"><pre><span class="cp">#define USB_CFG_IOPORTNAME      D</span>
+<span class="cm">/* This is the port where the USB bus is connected. When you configure it to</span>
+<span class="cm"> * &quot;B&quot;, the registers PORTB, PINB and DDRB will be used.</span>
+<span class="cm"> */</span>
+<span class="cp">#define USB_CFG_DMINUS_BIT      4</span>
+<span class="cm">/* This is the bit number in USB_CFG_IOPORT where the USB D- line is connected.</span>
+<span class="cm"> * This may be any bit in the port.</span>
+<span class="cm"> */</span>
+<span class="cp">#define USB_CFG_DPLUS_BIT       2</span>
+<span class="cm">/* This is the bit number in USB_CFG_IOPORT where the USB D+ line is connected.</span>
+<span class="cm"> * This may be any bit in the port. Please note that D+ must also be connected</span>
+<span class="cm"> * to interrupt pin INT0! [You can also use other interrupts, see section</span>
+<span class="cm"> * &quot;Optional MCU Description&quot; below, or you can connect D- to the interrupt, as</span>
+<span class="cm"> * it is required if you use the USB_COUNT_SOF feature. If you use D- for the</span>
+<span class="cm"> * interrupt, the USB interrupt will also be triggered at Start-Of-Frame</span>
+<span class="cm"> * markers every millisecond.]</span>
+<span class="cm"> */</span>
+</pre></div>
+</div>
+<p>Pin mapping depends on board. Example:</p>
+<p><a class="reference external" href="http://arduino.cc/hu/Hacking/PinMapping">http://arduino.cc/hu/Hacking/PinMapping</a></p>
+<img alt="http://arduino.cc/en/uploads/Hacking/Arduino-To-Atmega8-Pins.png" src="http://arduino.cc/en/uploads/Hacking/Arduino-To-Atmega8-Pins.png" />
+</div>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar">
+        <div class="sphinxsidebarwrapper">
+  <h3><a href="index.html">Table Of Contents</a></h3>
+  <ul>
+<li><a class="reference internal" href="#">Hardware</a><ul>
+<li><a class="reference internal" href="#pins">Pins</a></li>
+</ul>
+</li>
+</ul>
+
+  <h4>Previous topic</h4>
+  <p class="topless"><a href="check.html"
+                        title="previous chapter">Tests</a></p>
+  <h4>Next topic</h4>
+  <p class="topless"><a href="build.html"
+                        title="next chapter">Build tests</a></p>
+  <h3>This Page</h3>
+  <ul class="this-page-menu">
+    <li><a href="_sources/hw.txt"
+           rel="nofollow">Show Source</a></li>
+  </ul>
+<div id="searchbox" style="display: none">
+  <h3>Quick search</h3>
+    <form class="search" action="search.html" method="get">
+      <input type="text" name="q" />
+      <input type="submit" value="Go" />
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+    <p class="searchtip" style="font-size: 90%">
+    Enter search terms or a module, class or function name.
+    </p>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="build.html" title="Build tests"
+             >next</a> |</li>
+        <li class="right" >
+          <a href="check.html" title="Tests"
+             >previous</a> |</li>
+        <li><a href="index.html">softusbduino 1.0.0 documentation</a> &raquo;</li> 
+      </ul>
+    </div>
+    <div class="footer">
+        &copy; Copyright 2011, ponty.
+      Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 1.1.2.
+    </div>
+  </body>
+</html>

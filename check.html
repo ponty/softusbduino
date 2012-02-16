@@ -1,0 +1,291 @@
+
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>Tests &mdash; softusbduino 1.0.0 documentation</title>
+    
+    <link rel="stylesheet" href="_static/default.css" type="text/css" />
+    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '',
+        VERSION:     '1.0.0',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="_static/jquery.js"></script>
+    <script type="text/javascript" src="_static/underscore.js"></script>
+    <script type="text/javascript" src="_static/doctools.js"></script>
+    <link rel="top" title="softusbduino 1.0.0 documentation" href="index.html" />
+    <link rel="next" title="Hardware" href="hw.html" />
+    <link rel="prev" title="Examples" href="examples.html" /> 
+  </head>
+  <body>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="hw.html" title="Hardware"
+             accesskey="N">next</a> |</li>
+        <li class="right" >
+          <a href="examples.html" title="Examples"
+             accesskey="P">previous</a> |</li>
+        <li><a href="index.html">softusbduino 1.0.0 documentation</a> &raquo;</li> 
+      </ul>
+    </div>  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body">
+            
+  <div class="section" id="tests">
+<h1>Tests<a class="headerlink" href="#tests" title="Permalink to this headline">¶</a></h1>
+<p>Test system versions:</p>
+<div class="highlight-text"><div class="highlight"><pre>$ python -m softusbduino.lsversion
+platform        Linux-3.0.0-12-generic-i686-athlon-with-LinuxMint-12-lisa
+python          2.7.2+
+</pre></div>
+</div>
+<p>Performance test:</p>
+<div class="highlight-text"><div class="highlight"><pre>$ python -m softusbduino.examples.performance
+performance test
+n= 100
+
+analogRead(0)                           3.98 ms per call,   251 call per second
+pinMode(8,0)                            3.82 ms per call,   262 call per second
+digitalRead(8)                          3.70 ms per call,   270 call per second
+digitalPinToBitMask(0)                  0.05 ms per call, 18292 call per second
+digitalPinToPort(0)                     0.12 ms per call,  8278 call per second
+portModeRegister(0)                     3.23 ms per call,   310 call per second
+defines.read_define(&quot;__TIME__&quot;)         0.09 ms per call, 10832 call per second
+defines.read_define(&quot;MCU_DEFINED&quot;)      0.12 ms per call,  8401 call per second
+readPinMode(0)                          3.83 ms per call,   261 call per second
+vcc                                    22.96 ms per call,    44 call per second
+pinCount                                0.60 ms per call,  1655 call per second
+usbMinusPin                             0.79 ms per call,  1272 call per second
+usbPlusPin                              0.76 ms per call,  1313 call per second
+firmware_test()                         0.06 ms per call, 16098 call per second
+defines.__TIME__                        0.06 ms per call, 15704 call per second
+pin(&quot;A0&quot;).an_in                         3.46 ms per call,   289 call per second
+reset()                               122.84 ms per call,     8 call per second
+</pre></div>
+</div>
+<p>Dump registers and defines:</p>
+<div class="highlight-text"><div class="highlight"><pre>$ python -m softusbduino.examples.dump
+
+=========================
+attributes:
+=========================
+Rout            =              15
+adc_accuracy    =               2
+analog_range    =       (0, 1023)
+bandgap_voltage =             1.1
+idProduct       =            1503
+idVendor        =            5824
+manufacturer    =        obdev.at
+pinCount        =              20
+productName     =       LEDCtlHID
+u_vcc           = 4.85517241379+/-0.0418549346017
+usbMinusPin     =               4
+usbPlusPin      =               2
+vcc             =   4.85517241379
+
+
+=========================
+defines:
+=========================
+A0                   =                 14
+ARDUINO              =                 22
+E2END                =                511
+E2PAGESIZE           =                  4
+FLASHEND             =               8191
+F_CPU                =           20000000
+MAGIC_NUMBER         =                 42
+MCU_DEFINED          =   __AVR_ATmega88__
+MISO                 =                 12
+MOSI                 =                 11
+RAMEND               =               1279
+SCK                  =                 13
+SOFTUSBDUINO_VERSION =              10000
+SPM_PAGESIZE         =                 64
+SS                   =                 10
+USBDRV_VERSION       =           20100715
+USB_CFG_DMINUS_BIT   =                  4
+USB_CFG_DPLUS_BIT    =                  2
+USB_CFG_IOPORT       =                  4
+XRAMEND              =               1279
+__AVR_LIBC_DATE_     =           20110216
+__AVR_LIBC_VERSION__ =              10701
+__DATE__             =        Feb 14 2012
+__TIME__             =           19:29:51
+
+=========================
+registers:
+=========================
+ACSR                 = 0x30 @0x50
+ADCH                 = 0x00 @0x79
+ADCL                 = 0xE8 @0x78
+ADCSRA               = 0x97 @0x7A
+ADCSRB               = 0x00 @0x7B
+ADMUX                = 0x4E @0x7C
+ASSR                 = 0x00 @0xB6
+CLKPR                = 0x00 @0x61
+DDRB                 = 0x00 @0x24
+DDRC                 = 0x00 @0x27
+DDRD                 = 0x00 @0x2A
+DIDR0                = 0x00 @0x7E
+DIDR1                = 0x00 @0x7F
+EEAR                 = 0x00 @0x41
+EEARH                = 0x01 @0x42
+EEARL                = 0x00 @0x41
+EECR                 = 0x00 @0x3F
+EEDR                 = 0x00 @0x40
+EICRA                = 0x02 @0x69
+EIFR                 = 0x00 @0x3C
+EIMSK                = 0x01 @0x3D
+GPIOR0               = 0x00 @0x3E
+GPIOR1               = 0x00 @0x4A
+GPIOR2               = 0x00 @0x4B
+GTCCR                = 0x00 @0x43
+ICR1                 = 0x18 @0x86
+ICR1H                = 0x00 @0x87
+ICR1L                = 0x18 @0x86
+MCUCR                = 0x00 @0x55
+MCUSR                = 0x01 @0x54
+MONDR                = 0x35 @0x51
+OCR0A                = 0x00 @0x47
+OCR0B                = 0x00 @0x48
+OCR1A                = 0x0B @0x88
+OCR1AH               = 0x00 @0x89
+OCR1AL               = 0x0B @0x88
+OCR1B                = 0x00 @0x8A
+OCR1BH               = 0x00 @0x8B
+OCR1BL               = 0x00 @0x8A
+OCR2A                = 0x00 @0xB3
+OCR2B                = 0x00 @0xB4
+OSCCAL               = 0x98 @0x66
+PCICR                = 0x00 @0x68
+PCIFR                = 0x00 @0x3B
+PCMSK0               = 0x00 @0x6B
+PCMSK1               = 0x00 @0x6C
+PCMSK2               = 0x00 @0x6D
+PINB                 = 0x00 @0x23
+PINC                 = 0x00 @0x26
+PIND                 = 0x18 @0x29
+PORTB                = 0x00 @0x25
+PORTC                = 0x00 @0x28
+PORTD                = 0x00 @0x2B
+PRR                  = 0x00 @0x64
+SMCR                 = 0x00 @0x53
+SP                   = 0xED @0x5D
+SPCR                 = 0x00 @0x4C
+SPDR                 = 0x00 @0x4E
+SPH                  = 0x04 @0x5E
+SPL                  = 0xED @0x5D
+SPMCSR               = 0x00 @0x57
+SPSR                 = 0x00 @0x4D
+SREG                 = 0x82 @0x5F
+TCCR0A               = 0x03 @0x44
+TCCR0B               = 0x03 @0x45
+TCCR1A               = 0x01 @0x80
+TCCR1B               = 0x03 @0x81
+TCCR1C               = 0x00 @0x82
+TCCR2A               = 0x01 @0xB0
+TCCR2B               = 0x04 @0xB1
+TCNT0                = 0x6F @0x46
+TCNT1                = 0x13 @0x84
+TCNT1H               = 0x00 @0x85
+TCNT1L               = 0x86 @0x84
+TCNT2                = 0x59 @0xB2
+TIFR0                = 0x07 @0x35
+TIFR1                = 0x27 @0x36
+TIFR2                = 0x07 @0x37
+TIMSK0               = 0x00 @0x6E
+TIMSK1               = 0x00 @0x6F
+TIMSK2               = 0x00 @0x70
+TWAMR                = 0x00 @0xBD
+TWAR                 = 0xFE @0xBA
+TWBR                 = 0x00 @0xB8
+TWCR                 = 0x00 @0xBC
+TWDR                 = 0xFF @0xBB
+TWSR                 = 0xF8 @0xB9
+UBRR0                = 0x00 @0xC4
+UBRR0H               = 0x00 @0xC5
+UBRR0L               = 0x00 @0xC4
+UCSR0A               = 0x20 @0xC0
+UCSR0B               = 0x00 @0xC1
+UCSR0C               = 0x06 @0xC2
+UDR0                 = 0x00 @0xC6
+WDTCSR               = 0x0E @0x60
+</pre></div>
+</div>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar">
+        <div class="sphinxsidebarwrapper">
+  <h4>Previous topic</h4>
+  <p class="topless"><a href="examples.html"
+                        title="previous chapter">Examples</a></p>
+  <h4>Next topic</h4>
+  <p class="topless"><a href="hw.html"
+                        title="next chapter">Hardware</a></p>
+  <h3>This Page</h3>
+  <ul class="this-page-menu">
+    <li><a href="_sources/check.txt"
+           rel="nofollow">Show Source</a></li>
+  </ul>
+<div id="searchbox" style="display: none">
+  <h3>Quick search</h3>
+    <form class="search" action="search.html" method="get">
+      <input type="text" name="q" />
+      <input type="submit" value="Go" />
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+    <p class="searchtip" style="font-size: 90%">
+    Enter search terms or a module, class or function name.
+    </p>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="hw.html" title="Hardware"
+             >next</a> |</li>
+        <li class="right" >
+          <a href="examples.html" title="Examples"
+             >previous</a> |</li>
+        <li><a href="index.html">softusbduino 1.0.0 documentation</a> &raquo;</li> 
+      </ul>
+    </div>
+    <div class="footer">
+        &copy; Copyright 2011, ponty.
+      Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 1.1.2.
+    </div>
+  </body>
+</html>
