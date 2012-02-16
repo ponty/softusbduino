@@ -1,5 +1,5 @@
 uncertainties
-pyusb>=1.0.0
+pyusb>0.99.0
 remember
 bunch
 bidict
