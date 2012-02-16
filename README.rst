@@ -1,6 +1,5 @@
 softusbduino is a Python package and Arduino firmware library. 
 They can be used together to control the Arduino board over USB in Python.
-Possible usage: prototyping or creating simple low speed USB devices.
 
 Links:
  * home: https://github.com/ponty/softusbduino
@@ -18,8 +17,8 @@ Features:
 	 - read or write all registers
 	 - call arduino functions
 	 - read many defines (example: F_CPU)
- - Python USB back end: PyUSB_ 1.0 library
- - Arduino USB back end: V-USB_ library
+ - Python USB back-end: PyUSB_ 1.0 library
+ - Arduino USB back-end: V-USB_ library
   
 Known problems:
  - tested only on Linux + arduino 0022 + ATmega88 board
@@ -82,7 +81,6 @@ Ubuntu
 
 Upload firmware
 ----------------
-::
 
   1. start Arduino
   2. open examples > SoftUsb > Simple
