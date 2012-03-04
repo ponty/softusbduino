@@ -8,7 +8,7 @@
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     
-    <title>Build tests &mdash; softusbduino 1.0.0 documentation</title>
+    <title>Build tests &mdash; softusbduino 1.1.0 documentation</title>
     
     <link rel="stylesheet" href="_static/default.css" type="text/css" />
     <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
@@ -16,7 +16,7 @@
     <script type="text/javascript">
       var DOCUMENTATION_OPTIONS = {
         URL_ROOT:    '',
-        VERSION:     '1.0.0',
+        VERSION:     '1.1.0',
         COLLAPSE_INDEX: false,
         FILE_SUFFIX: '.html',
         HAS_SOURCE:  true
@@ -25,7 +25,7 @@
     <script type="text/javascript" src="_static/jquery.js"></script>
     <script type="text/javascript" src="_static/underscore.js"></script>
     <script type="text/javascript" src="_static/doctools.js"></script>
-    <link rel="top" title="softusbduino 1.0.0 documentation" href="index.html" />
+    <link rel="top" title="softusbduino 1.1.0 documentation" href="index.html" />
     <link rel="next" title="Doxygen documentation" href="doxy.html" />
     <link rel="prev" title="Hardware" href="hw.html" /> 
   </head>
@@ -42,7 +42,7 @@
         <li class="right" >
           <a href="hw.html" title="Hardware"
              accesskey="P">previous</a> |</li>
-        <li><a href="index.html">softusbduino 1.0.0 documentation</a> &raquo;</li> 
+        <li><a href="index.html">softusbduino 1.1.0 documentation</a> &raquo;</li> 
       </ul>
     </div>  
 
@@ -53,323 +53,638 @@
             
   <div class="section" id="build-tests">
 <h1>Build tests<a class="headerlink" href="#build-tests" title="Permalink to this headline">¶</a></h1>
-<p>Results:</p>
+<div class="section" id="results">
+<h2>Results<a class="headerlink" href="#results" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="arduino-version-0022">
+<h3>Arduino version 0022<a class="headerlink" href="#arduino-version-0022" title="Permalink to this headline">¶</a></h3>
 <table border="1" class="docutils">
 <colgroup>
-<col width="33%" />
-<col width="33%" />
-<col width="33%" />
+<col width="25%" />
+<col width="25%" />
+<col width="25%" />
+<col width="25%" />
 </colgroup>
 <thead valign="bottom">
 <tr class="row-odd"><th class="head">index</th>
 <th class="head">board</th>
-<th class="head">Simple</th>
+<th class="head">Basic</th>
+<th class="head">OneWire</th>
 </tr>
 </thead>
 <tbody valign="top">
 <tr class="row-even"><td>1</td>
 <td>atmega8</td>
-<td><a class="reference external" href="generated_buildlog_Simple_1.txt">OK (P:3338 D:143)</a></td>
+<td><a class="reference external" href="generated_buildlog_Basic_1.txt">ERR</a></td>
+<td><a class="reference external" href="generated_buildlog_OneWire_1.txt">ERR</a></td>
 </tr>
 <tr class="row-odd"><td>2</td>
 <td>atmega88</td>
-<td><a class="reference external" href="generated_buildlog_Simple_2.txt">OK (P:3646 D:143)</a></td>
+<td><a class="reference external" href="generated_buildlog_Basic_2.txt">ERR</a></td>
+<td><a class="reference external" href="generated_buildlog_OneWire_2.txt">ERR</a></td>
 </tr>
 <tr class="row-even"><td>3</td>
 <td>bt</td>
-<td><a class="reference external" href="generated_buildlog_Simple_3.txt">OK (P:3790 D:145)</a></td>
+<td><a class="reference external" href="generated_buildlog_Basic_3.txt">ERR</a></td>
+<td><a class="reference external" href="generated_buildlog_OneWire_3.txt">ERR</a></td>
 </tr>
 <tr class="row-odd"><td>4</td>
 <td>bt328</td>
-<td><a class="reference external" href="generated_buildlog_Simple_4.txt">OK (P:3786 D:145)</a></td>
+<td><a class="reference external" href="generated_buildlog_Basic_4.txt">ERR</a></td>
+<td><a class="reference external" href="generated_buildlog_OneWire_4.txt">ERR</a></td>
 </tr>
 <tr class="row-even"><td>5</td>
 <td>diecimila</td>
-<td><a class="reference external" href="generated_buildlog_Simple_5.txt">OK (P:3790 D:145)</a></td>
+<td><a class="reference external" href="generated_buildlog_Basic_5.txt">ERR</a></td>
+<td><a class="reference external" href="generated_buildlog_OneWire_5.txt">ERR</a></td>
 </tr>
 <tr class="row-odd"><td>6</td>
 <td>fio</td>
-<td><a class="reference external" href="generated_buildlog_Simple_6.txt">ERR</a></td>
+<td><a class="reference external" href="generated_buildlog_Basic_6.txt">ERR</a></td>
+<td><a class="reference external" href="generated_buildlog_OneWire_6.txt">ERR</a></td>
 </tr>
 <tr class="row-even"><td>7</td>
 <td>lilypad</td>
-<td><a class="reference external" href="generated_buildlog_Simple_7.txt">ERR</a></td>
+<td><a class="reference external" href="generated_buildlog_Basic_7.txt">ERR</a></td>
+<td><a class="reference external" href="generated_buildlog_OneWire_7.txt">ERR</a></td>
 </tr>
 <tr class="row-odd"><td>8</td>
 <td>lilypad328</td>
-<td><a class="reference external" href="generated_buildlog_Simple_8.txt">ERR</a></td>
+<td><a class="reference external" href="generated_buildlog_Basic_8.txt">ERR</a></td>
+<td><a class="reference external" href="generated_buildlog_OneWire_8.txt">ERR</a></td>
 </tr>
 <tr class="row-even"><td>9</td>
 <td>mega</td>
-<td><a class="reference external" href="generated_buildlog_Simple_9.txt">OK (P:5036 D:145)</a></td>
+<td><a class="reference external" href="generated_buildlog_Basic_9.txt">ERR</a></td>
+<td><a class="reference external" href="generated_buildlog_OneWire_9.txt">ERR</a></td>
 </tr>
 <tr class="row-odd"><td>10</td>
 <td>mega2560</td>
-<td><a class="reference external" href="generated_buildlog_Simple_10.txt">OK (P:5040 D:145)</a></td>
+<td><a class="reference external" href="generated_buildlog_Basic_10.txt">ERR</a></td>
+<td><a class="reference external" href="generated_buildlog_OneWire_10.txt">ERR</a></td>
 </tr>
 <tr class="row-even"><td>11</td>
 <td>metaboard</td>
-<td><a class="reference external" href="generated_buildlog_Simple_11.txt">OK (P:3790 D:145)</a></td>
+<td><a class="reference external" href="generated_buildlog_Basic_11.txt">ERR</a></td>
+<td><a class="reference external" href="generated_buildlog_OneWire_11.txt">ERR</a></td>
 </tr>
 <tr class="row-odd"><td>12</td>
 <td>mini</td>
-<td><a class="reference external" href="generated_buildlog_Simple_12.txt">OK (P:3790 D:145)</a></td>
+<td><a class="reference external" href="generated_buildlog_Basic_12.txt">ERR</a></td>
+<td><a class="reference external" href="generated_buildlog_OneWire_12.txt">ERR</a></td>
 </tr>
 <tr class="row-even"><td>13</td>
 <td>pro</td>
-<td><a class="reference external" href="generated_buildlog_Simple_13.txt">ERR</a></td>
+<td><a class="reference external" href="generated_buildlog_Basic_13.txt">ERR</a></td>
+<td><a class="reference external" href="generated_buildlog_OneWire_13.txt">ERR</a></td>
 </tr>
 <tr class="row-odd"><td>14</td>
 <td>pro328</td>
-<td><a class="reference external" href="generated_buildlog_Simple_14.txt">ERR</a></td>
+<td><a class="reference external" href="generated_buildlog_Basic_14.txt">ERR</a></td>
+<td><a class="reference external" href="generated_buildlog_OneWire_14.txt">ERR</a></td>
 </tr>
 <tr class="row-even"><td>15</td>
 <td>pro5v</td>
-<td><a class="reference external" href="generated_buildlog_Simple_15.txt">OK (P:3790 D:145)</a></td>
+<td><a class="reference external" href="generated_buildlog_Basic_15.txt">ERR</a></td>
+<td><a class="reference external" href="generated_buildlog_OneWire_15.txt">ERR</a></td>
 </tr>
 <tr class="row-odd"><td>16</td>
 <td>pro5v328</td>
-<td><a class="reference external" href="generated_buildlog_Simple_16.txt">OK (P:3786 D:145)</a></td>
+<td><a class="reference external" href="generated_buildlog_Basic_16.txt">ERR</a></td>
+<td><a class="reference external" href="generated_buildlog_OneWire_16.txt">ERR</a></td>
 </tr>
 <tr class="row-even"><td>17</td>
 <td>uno</td>
-<td><a class="reference external" href="generated_buildlog_Simple_17.txt">OK (P:3786 D:145)</a></td>
+<td><a class="reference external" href="generated_buildlog_Basic_17.txt">ERR</a></td>
+<td><a class="reference external" href="generated_buildlog_OneWire_17.txt">ERR</a></td>
 </tr>
 <tr class="row-odd"><td>18</td>
 <td>arduino_OrangutanSVP1284</td>
-<td><a class="reference external" href="generated_buildlog_Simple_18.txt">OK (P:4120 D:147)</a></td>
+<td><a class="reference external" href="generated_buildlog_Basic_18.txt">ERR</a></td>
+<td><a class="reference external" href="generated_buildlog_OneWire_18.txt">ERR</a></td>
 </tr>
 <tr class="row-even"><td>19</td>
 <td>arduino_amber128</td>
-<td><a class="reference external" href="generated_buildlog_Simple_19.txt">ERR</a></td>
+<td><a class="reference external" href="generated_buildlog_Basic_19.txt">ERR</a></td>
+<td><a class="reference external" href="generated_buildlog_OneWire_19.txt">ERR</a></td>
 </tr>
 <tr class="row-odd"><td>20</td>
 <td>arduino_android2561</td>
-<td><a class="reference external" href="generated_buildlog_Simple_20.txt">ERR</a></td>
+<td><a class="reference external" href="generated_buildlog_Basic_20.txt">ERR</a></td>
+<td><a class="reference external" href="generated_buildlog_OneWire_20.txt">ERR</a></td>
 </tr>
 <tr class="row-even"><td>21</td>
 <td>arduino_android2561_16</td>
-<td><a class="reference external" href="generated_buildlog_Simple_21.txt">OK (P:4806 D:145)</a></td>
+<td><a class="reference external" href="generated_buildlog_Basic_21.txt">ERR</a></td>
+<td><a class="reference external" href="generated_buildlog_OneWire_21.txt">ERR</a></td>
 </tr>
 <tr class="row-odd"><td>22</td>
 <td>arduino_at90can128</td>
-<td><a class="reference external" href="generated_buildlog_Simple_22.txt">OK (P:4336 D:145)</a></td>
+<td><a class="reference external" href="generated_buildlog_Basic_22.txt">ERR</a></td>
+<td><a class="reference external" href="generated_buildlog_OneWire_22.txt">ERR</a></td>
 </tr>
 <tr class="row-even"><td>23</td>
 <td>arduino_at90can32</td>
-<td><a class="reference external" href="generated_buildlog_Simple_23.txt">OK (P:4326 D:145)</a></td>
+<td><a class="reference external" href="generated_buildlog_Basic_23.txt">ERR</a></td>
+<td><a class="reference external" href="generated_buildlog_OneWire_23.txt">ERR</a></td>
 </tr>
 <tr class="row-odd"><td>24</td>
 <td>arduino_at90can64</td>
-<td><a class="reference external" href="generated_buildlog_Simple_24.txt">OK (P:4326 D:145)</a></td>
+<td><a class="reference external" href="generated_buildlog_Basic_24.txt">ERR</a></td>
+<td><a class="reference external" href="generated_buildlog_OneWire_24.txt">ERR</a></td>
 </tr>
 <tr class="row-even"><td>25</td>
 <td>arduino_at90usb162</td>
-<td><a class="reference external" href="generated_buildlog_Simple_25.txt">OK (P:3730 D:145)</a></td>
+<td><a class="reference external" href="generated_buildlog_Basic_25.txt">ERR</a></td>
+<td><a class="reference external" href="generated_buildlog_OneWire_25.txt">ERR</a></td>
 </tr>
 <tr class="row-odd"><td>26</td>
 <td>arduino_at90usb646</td>
-<td><a class="reference external" href="generated_buildlog_Simple_26.txt">OK (P:4354 D:145)</a></td>
+<td><a class="reference external" href="generated_buildlog_Basic_26.txt">ERR</a></td>
+<td><a class="reference external" href="generated_buildlog_OneWire_26.txt">ERR</a></td>
 </tr>
 <tr class="row-even"><td>27</td>
 <td>arduino_at90usb647</td>
-<td><a class="reference external" href="generated_buildlog_Simple_27.txt">OK (P:4458 D:145)</a></td>
+<td><a class="reference external" href="generated_buildlog_Basic_27.txt">ERR</a></td>
+<td><a class="reference external" href="generated_buildlog_OneWire_27.txt">ERR</a></td>
 </tr>
 <tr class="row-odd"><td>28</td>
 <td>arduino_at90usbkey</td>
-<td><a class="reference external" href="generated_buildlog_Simple_28.txt">OK (P:4474 D:147)</a></td>
+<td><a class="reference external" href="generated_buildlog_Basic_28.txt">ERR</a></td>
+<td><a class="reference external" href="generated_buildlog_OneWire_28.txt">ERR</a></td>
 </tr>
 <tr class="row-even"><td>29</td>
 <td>arduino_atmega16</td>
-<td><a class="reference external" href="generated_buildlog_Simple_29.txt">ERR</a></td>
+<td><a class="reference external" href="generated_buildlog_Basic_29.txt">ERR</a></td>
+<td><a class="reference external" href="generated_buildlog_OneWire_29.txt">ERR</a></td>
 </tr>
 <tr class="row-odd"><td>30</td>
 <td>arduino_atmega165</td>
-<td><a class="reference external" href="generated_buildlog_Simple_30.txt">ERR</a></td>
+<td><a class="reference external" href="generated_buildlog_Basic_30.txt">ERR</a></td>
+<td><a class="reference external" href="generated_buildlog_OneWire_30.txt">ERR</a></td>
 </tr>
 <tr class="row-even"><td>31</td>
 <td>arduino_atmega3290p</td>
-<td><a class="reference external" href="generated_buildlog_Simple_31.txt">OK (P:4054 D:147)</a></td>
+<td><a class="reference external" href="generated_buildlog_Basic_31.txt">ERR</a></td>
+<td><a class="reference external" href="generated_buildlog_OneWire_31.txt">ERR</a></td>
 </tr>
 <tr class="row-odd"><td>32</td>
 <td>arduino_atmega8515</td>
-<td><a class="reference external" href="generated_buildlog_Simple_32.txt">OK (P:3340 D:145)</a></td>
+<td><a class="reference external" href="generated_buildlog_Basic_32.txt">ERR</a></td>
+<td><a class="reference external" href="generated_buildlog_OneWire_32.txt">ERR</a></td>
 </tr>
 <tr class="row-even"><td>33</td>
 <td>arduino_atmega8535</td>
-<td><a class="reference external" href="generated_buildlog_Simple_33.txt">OK (P:3452 D:145)</a></td>
+<td><a class="reference external" href="generated_buildlog_Basic_33.txt">ERR</a></td>
+<td><a class="reference external" href="generated_buildlog_OneWire_33.txt">ERR</a></td>
 </tr>
 <tr class="row-odd"><td>34</td>
 <td>arduino_attiny2313</td>
-<td><a class="reference external" href="generated_buildlog_Simple_34.txt">ERR</a></td>
+<td><a class="reference external" href="generated_buildlog_Basic_34.txt">ERR</a></td>
+<td><a class="reference external" href="generated_buildlog_OneWire_34.txt">ERR</a></td>
 </tr>
 <tr class="row-even"><td>35</td>
 <td>arduino_attiny26</td>
-<td><a class="reference external" href="generated_buildlog_Simple_35.txt">ERR</a></td>
+<td><a class="reference external" href="generated_buildlog_Basic_35.txt">ERR</a></td>
+<td><a class="reference external" href="generated_buildlog_OneWire_35.txt">ERR</a></td>
 </tr>
 <tr class="row-odd"><td>36</td>
 <td>arduino_attiny45</td>
-<td><a class="reference external" href="generated_buildlog_Simple_36.txt">ERR</a></td>
+<td><a class="reference external" href="generated_buildlog_Basic_36.txt">ERR</a></td>
+<td><a class="reference external" href="generated_buildlog_OneWire_36.txt">ERR</a></td>
 </tr>
 <tr class="row-even"><td>37</td>
 <td>arduino_attiny85</td>
-<td><a class="reference external" href="generated_buildlog_Simple_37.txt">ERR</a></td>
+<td><a class="reference external" href="generated_buildlog_Basic_37.txt">ERR</a></td>
+<td><a class="reference external" href="generated_buildlog_OneWire_37.txt">ERR</a></td>
 </tr>
 <tr class="row-odd"><td>38</td>
 <td>arduino_bahbots1284p</td>
-<td><a class="reference external" href="generated_buildlog_Simple_38.txt">ERR</a></td>
+<td><a class="reference external" href="generated_buildlog_Basic_38.txt">ERR</a></td>
+<td><a class="reference external" href="generated_buildlog_OneWire_38.txt">ERR</a></td>
 </tr>
 <tr class="row-even"><td>39</td>
 <td>arduino_butterfly</td>
-<td><a class="reference external" href="generated_buildlog_Simple_39.txt">ERR</a></td>
+<td><a class="reference external" href="generated_buildlog_Basic_39.txt">ERR</a></td>
+<td><a class="reference external" href="generated_buildlog_OneWire_39.txt">ERR</a></td>
 </tr>
 <tr class="row-odd"><td>40</td>
 <td>arduino_cerebot_plus</td>
-<td><a class="reference external" href="generated_buildlog_Simple_40.txt">ERR</a></td>
+<td><a class="reference external" href="generated_buildlog_Basic_40.txt">ERR</a></td>
+<td><a class="reference external" href="generated_buildlog_OneWire_40.txt">ERR</a></td>
 </tr>
 <tr class="row-even"><td>41</td>
 <td>arduino_cerebotii</td>
-<td><a class="reference external" href="generated_buildlog_Simple_41.txt">ERR</a></td>
+<td><a class="reference external" href="generated_buildlog_Basic_41.txt">ERR</a></td>
+<td><a class="reference external" href="generated_buildlog_OneWire_41.txt">ERR</a></td>
 </tr>
 <tr class="row-odd"><td>42</td>
 <td>arduino_digilent_explorer</td>
-<td><a class="reference external" href="generated_buildlog_Simple_42.txt">ERR</a></td>
+<td><a class="reference external" href="generated_buildlog_Basic_42.txt">ERR</a></td>
+<td><a class="reference external" href="generated_buildlog_OneWire_42.txt">ERR</a></td>
 </tr>
 <tr class="row-even"><td>43</td>
 <td>arduino_duino644</td>
-<td><a class="reference external" href="generated_buildlog_Simple_43.txt">OK (P:3856 D:145)</a></td>
+<td><a class="reference external" href="generated_buildlog_Basic_43.txt">ERR</a></td>
+<td><a class="reference external" href="generated_buildlog_OneWire_43.txt">ERR</a></td>
 </tr>
 <tr class="row-odd"><td>44</td>
 <td>arduino_duino644p</td>
-<td><a class="reference external" href="generated_buildlog_Simple_44.txt">OK (P:3896 D:145)</a></td>
+<td><a class="reference external" href="generated_buildlog_Basic_44.txt">ERR</a></td>
+<td><a class="reference external" href="generated_buildlog_OneWire_44.txt">ERR</a></td>
 </tr>
 <tr class="row-even"><td>45</td>
 <td>arduino_gator</td>
-<td><a class="reference external" href="generated_buildlog_Simple_45.txt">OK (P:3864 D:145)</a></td>
+<td><a class="reference external" href="generated_buildlog_Basic_45.txt">ERR</a></td>
+<td><a class="reference external" href="generated_buildlog_OneWire_45.txt">ERR</a></td>
 </tr>
 <tr class="row-odd"><td>46</td>
 <td>arduino_illuminato</td>
-<td><a class="reference external" href="generated_buildlog_Simple_46.txt">OK (P:3798 D:145)</a></td>
+<td><a class="reference external" href="generated_buildlog_Basic_46.txt">ERR</a></td>
+<td><a class="reference external" href="generated_buildlog_OneWire_46.txt">ERR</a></td>
 </tr>
 <tr class="row-even"><td>47</td>
 <td>arduino_penguino_avr</td>
-<td><a class="reference external" href="generated_buildlog_Simple_47.txt">OK (P:3522 D:143)</a></td>
+<td><a class="reference external" href="generated_buildlog_Basic_47.txt">ERR</a></td>
+<td><a class="reference external" href="generated_buildlog_OneWire_47.txt">ERR</a></td>
 </tr>
 <tr class="row-odd"><td>48</td>
 <td>arduino_teensy2_ser</td>
-<td><a class="reference external" href="generated_buildlog_Simple_48.txt">OK (P:4604 D:145)</a></td>
+<td><a class="reference external" href="generated_buildlog_Basic_48.txt">ERR</a></td>
+<td><a class="reference external" href="generated_buildlog_OneWire_48.txt">ERR</a></td>
 </tr>
 <tr class="row-even"><td>49</td>
 <td>arduino_teensypp2_ser</td>
-<td><a class="reference external" href="generated_buildlog_Simple_49.txt">OK (P:4370 D:147)</a></td>
+<td><a class="reference external" href="generated_buildlog_Basic_49.txt">ERR</a></td>
+<td><a class="reference external" href="generated_buildlog_OneWire_49.txt">ERR</a></td>
 </tr>
 <tr class="row-odd"><td>50</td>
 <td>arduino_wiring1281</td>
-<td><a class="reference external" href="generated_buildlog_Simple_50.txt">OK (P:4816 D:145)</a></td>
+<td><a class="reference external" href="generated_buildlog_Basic_50.txt">ERR</a></td>
+<td><a class="reference external" href="generated_buildlog_OneWire_50.txt">ERR</a></td>
 </tr>
 <tr class="row-even"><td>51</td>
 <td>atmega168</td>
-<td><a class="reference external" href="generated_buildlog_Simple_51.txt">OK (P:3788 D:145)</a></td>
+<td><a class="reference external" href="generated_buildlog_Basic_51.txt">ERR</a></td>
+<td><a class="reference external" href="generated_buildlog_OneWire_51.txt">ERR</a></td>
 </tr>
 <tr class="row-odd"><td>52</td>
 <td>atmega328</td>
-<td><a class="reference external" href="generated_buildlog_Simple_52.txt">OK (P:3784 D:145)</a></td>
+<td><a class="reference external" href="generated_buildlog_Basic_52.txt">ERR</a></td>
+<td><a class="reference external" href="generated_buildlog_OneWire_52.txt">ERR</a></td>
 </tr>
 <tr class="row-even"><td>53</td>
 <td>atmega48</td>
-<td><a class="reference external" href="generated_buildlog_Simple_53.txt">OK (P:3728 D:143)</a></td>
+<td><a class="reference external" href="generated_buildlog_Basic_53.txt">ERR</a></td>
+<td><a class="reference external" href="generated_buildlog_OneWire_53.txt">ERR</a></td>
 </tr>
 <tr class="row-odd"><td>54</td>
 <td>atmega640</td>
-<td><a class="reference external" href="generated_buildlog_Simple_54.txt">OK (P:5078 D:145)</a></td>
+<td><a class="reference external" href="generated_buildlog_Basic_54.txt">ERR</a></td>
+<td><a class="reference external" href="generated_buildlog_OneWire_54.txt">ERR</a></td>
 </tr>
 <tr class="row-even"><td>55</td>
 <td>atmega8</td>
-<td><a class="reference external" href="generated_buildlog_Simple_55.txt">OK (P:3336 D:143)</a></td>
+<td><a class="reference external" href="generated_buildlog_Basic_55.txt">ERR</a></td>
+<td><a class="reference external" href="generated_buildlog_OneWire_55.txt">ERR</a></td>
 </tr>
 <tr class="row-odd"><td>56</td>
 <td>atmega88</td>
-<td><a class="reference external" href="generated_buildlog_Simple_56.txt">OK (P:3726 D:145)</a></td>
+<td><a class="reference external" href="generated_buildlog_Basic_56.txt">ERR</a></td>
+<td><a class="reference external" href="generated_buildlog_OneWire_56.txt">ERR</a></td>
 </tr>
 <tr class="row-even"><td>57</td>
 <td>bt</td>
-<td><a class="reference external" href="generated_buildlog_Simple_57.txt">OK (P:3788 D:145)</a></td>
+<td><a class="reference external" href="generated_buildlog_Basic_57.txt">ERR</a></td>
+<td><a class="reference external" href="generated_buildlog_OneWire_57.txt">ERR</a></td>
 </tr>
 <tr class="row-odd"><td>58</td>
 <td>bt328</td>
-<td><a class="reference external" href="generated_buildlog_Simple_58.txt">OK (P:3784 D:145)</a></td>
+<td><a class="reference external" href="generated_buildlog_Basic_58.txt">ERR</a></td>
+<td><a class="reference external" href="generated_buildlog_OneWire_58.txt">ERR</a></td>
 </tr>
 <tr class="row-even"><td>59</td>
 <td>diecimila</td>
-<td><a class="reference external" href="generated_buildlog_Simple_59.txt">OK (P:3788 D:145)</a></td>
+<td><a class="reference external" href="generated_buildlog_Basic_59.txt">ERR</a></td>
+<td><a class="reference external" href="generated_buildlog_OneWire_59.txt">ERR</a></td>
 </tr>
 <tr class="row-odd"><td>60</td>
 <td>dvk90can1</td>
-<td><a class="reference external" href="generated_buildlog_Simple_60.txt">ERR</a></td>
+<td><a class="reference external" href="generated_buildlog_Basic_60.txt">ERR</a></td>
+<td><a class="reference external" href="generated_buildlog_OneWire_60.txt">ERR</a></td>
 </tr>
 <tr class="row-even"><td>61</td>
 <td>ecavr_atmega32</td>
-<td><a class="reference external" href="generated_buildlog_Simple_61.txt">ERR</a></td>
+<td><a class="reference external" href="generated_buildlog_Basic_61.txt">ERR</a></td>
+<td><a class="reference external" href="generated_buildlog_OneWire_61.txt">ERR</a></td>
 </tr>
 <tr class="row-odd"><td>62</td>
 <td>fio</td>
-<td><a class="reference external" href="generated_buildlog_Simple_62.txt">ERR</a></td>
+<td><a class="reference external" href="generated_buildlog_Basic_62.txt">ERR</a></td>
+<td><a class="reference external" href="generated_buildlog_OneWire_62.txt">ERR</a></td>
 </tr>
 <tr class="row-even"><td>63</td>
 <td>lilypad</td>
-<td><a class="reference external" href="generated_buildlog_Simple_63.txt">ERR</a></td>
+<td><a class="reference external" href="generated_buildlog_Basic_63.txt">ERR</a></td>
+<td><a class="reference external" href="generated_buildlog_OneWire_63.txt">ERR</a></td>
 </tr>
 <tr class="row-odd"><td>64</td>
 <td>lilypad328</td>
-<td><a class="reference external" href="generated_buildlog_Simple_64.txt">ERR</a></td>
+<td><a class="reference external" href="generated_buildlog_Basic_64.txt">ERR</a></td>
+<td><a class="reference external" href="generated_buildlog_OneWire_64.txt">ERR</a></td>
 </tr>
 <tr class="row-even"><td>65</td>
 <td>mega</td>
-<td><a class="reference external" href="generated_buildlog_Simple_65.txt">OK (P:5034 D:145)</a></td>
+<td><a class="reference external" href="generated_buildlog_Basic_65.txt">ERR</a></td>
+<td><a class="reference external" href="generated_buildlog_OneWire_65.txt">ERR</a></td>
 </tr>
 <tr class="row-odd"><td>66</td>
 <td>mega1280stk500v2</td>
-<td><a class="reference external" href="generated_buildlog_Simple_66.txt">OK (P:5034 D:145)</a></td>
+<td><a class="reference external" href="generated_buildlog_Basic_66.txt">ERR</a></td>
+<td><a class="reference external" href="generated_buildlog_OneWire_66.txt">ERR</a></td>
 </tr>
 <tr class="row-even"><td>67</td>
 <td>mega2560stk500v2</td>
-<td><a class="reference external" href="generated_buildlog_Simple_67.txt">OK (P:5038 D:145)</a></td>
+<td><a class="reference external" href="generated_buildlog_Basic_67.txt">ERR</a></td>
+<td><a class="reference external" href="generated_buildlog_OneWire_67.txt">ERR</a></td>
 </tr>
 <tr class="row-odd"><td>68</td>
 <td>mini</td>
-<td><a class="reference external" href="generated_buildlog_Simple_68.txt">OK (P:3788 D:145)</a></td>
+<td><a class="reference external" href="generated_buildlog_Basic_68.txt">ERR</a></td>
+<td><a class="reference external" href="generated_buildlog_OneWire_68.txt">ERR</a></td>
 </tr>
 <tr class="row-even"><td>69</td>
 <td>pro</td>
-<td><a class="reference external" href="generated_buildlog_Simple_69.txt">ERR</a></td>
+<td><a class="reference external" href="generated_buildlog_Basic_69.txt">ERR</a></td>
+<td><a class="reference external" href="generated_buildlog_OneWire_69.txt">ERR</a></td>
 </tr>
 <tr class="row-odd"><td>70</td>
 <td>pro328</td>
-<td><a class="reference external" href="generated_buildlog_Simple_70.txt">ERR</a></td>
+<td><a class="reference external" href="generated_buildlog_Basic_70.txt">ERR</a></td>
+<td><a class="reference external" href="generated_buildlog_OneWire_70.txt">ERR</a></td>
 </tr>
 <tr class="row-even"><td>71</td>
 <td>pro5v</td>
-<td><a class="reference external" href="generated_buildlog_Simple_71.txt">OK (P:3788 D:145)</a></td>
+<td><a class="reference external" href="generated_buildlog_Basic_71.txt">ERR</a></td>
+<td><a class="reference external" href="generated_buildlog_OneWire_71.txt">ERR</a></td>
 </tr>
 <tr class="row-odd"><td>72</td>
 <td>pro5v328</td>
-<td><a class="reference external" href="generated_buildlog_Simple_72.txt">OK (P:3784 D:145)</a></td>
+<td><a class="reference external" href="generated_buildlog_Basic_72.txt">ERR</a></td>
+<td><a class="reference external" href="generated_buildlog_OneWire_72.txt">ERR</a></td>
 </tr>
 <tr class="row-even"><td>73</td>
 <td>stk502</td>
-<td><a class="reference external" href="generated_buildlog_Simple_73.txt">ERR</a></td>
+<td><a class="reference external" href="generated_buildlog_Basic_73.txt">ERR</a></td>
+<td><a class="reference external" href="generated_buildlog_OneWire_73.txt">ERR</a></td>
 </tr>
 <tr class="row-odd"><td>74</td>
 <td>stk525</td>
-<td><a class="reference external" href="generated_buildlog_Simple_74.txt">ERR</a></td>
+<td><a class="reference external" href="generated_buildlog_Basic_74.txt">ERR</a></td>
+<td><a class="reference external" href="generated_buildlog_OneWire_74.txt">ERR</a></td>
 </tr>
 <tr class="row-even"><td>75</td>
 <td>stk525_647</td>
-<td><a class="reference external" href="generated_buildlog_Simple_75.txt">ERR</a></td>
+<td><a class="reference external" href="generated_buildlog_Basic_75.txt">ERR</a></td>
+<td><a class="reference external" href="generated_buildlog_OneWire_75.txt">ERR</a></td>
 </tr>
 </tbody>
 </table>
-<p>Board configuration:</p>
+</div>
+<div class="section" id="arduino-version-0023">
+<h3>Arduino version 0023<a class="headerlink" href="#arduino-version-0023" title="Permalink to this headline">¶</a></h3>
+<table border="1" class="docutils">
+<colgroup>
+<col width="25%" />
+<col width="25%" />
+<col width="25%" />
+<col width="25%" />
+</colgroup>
+<thead valign="bottom">
+<tr class="row-odd"><th class="head">index</th>
+<th class="head">board</th>
+<th class="head">Basic</th>
+<th class="head">OneWire</th>
+</tr>
+</thead>
+<tbody valign="top">
+<tr class="row-even"><td>76</td>
+<td>atmega168</td>
+<td><a class="reference external" href="generated_buildlog_Basic_76.txt">ERR</a></td>
+<td><a class="reference external" href="generated_buildlog_OneWire_76.txt">ERR</a></td>
+</tr>
+<tr class="row-odd"><td>77</td>
+<td>atmega328</td>
+<td><a class="reference external" href="generated_buildlog_Basic_77.txt">ERR</a></td>
+<td><a class="reference external" href="generated_buildlog_OneWire_77.txt">ERR</a></td>
+</tr>
+<tr class="row-even"><td>78</td>
+<td>atmega8</td>
+<td><a class="reference external" href="generated_buildlog_Basic_78.txt">ERR</a></td>
+<td><a class="reference external" href="generated_buildlog_OneWire_78.txt">ERR</a></td>
+</tr>
+<tr class="row-odd"><td>79</td>
+<td>bt</td>
+<td><a class="reference external" href="generated_buildlog_Basic_79.txt">ERR</a></td>
+<td><a class="reference external" href="generated_buildlog_OneWire_79.txt">ERR</a></td>
+</tr>
+<tr class="row-even"><td>80</td>
+<td>bt328</td>
+<td><a class="reference external" href="generated_buildlog_Basic_80.txt">ERR</a></td>
+<td><a class="reference external" href="generated_buildlog_OneWire_80.txt">ERR</a></td>
+</tr>
+<tr class="row-odd"><td>81</td>
+<td>diecimila</td>
+<td><a class="reference external" href="generated_buildlog_Basic_81.txt">ERR</a></td>
+<td><a class="reference external" href="generated_buildlog_OneWire_81.txt">ERR</a></td>
+</tr>
+<tr class="row-even"><td>82</td>
+<td>fio</td>
+<td><a class="reference external" href="generated_buildlog_Basic_82.txt">ERR</a></td>
+<td><a class="reference external" href="generated_buildlog_OneWire_82.txt">ERR</a></td>
+</tr>
+<tr class="row-odd"><td>83</td>
+<td>lilypad</td>
+<td><a class="reference external" href="generated_buildlog_Basic_83.txt">ERR</a></td>
+<td><a class="reference external" href="generated_buildlog_OneWire_83.txt">ERR</a></td>
+</tr>
+<tr class="row-even"><td>84</td>
+<td>lilypad328</td>
+<td><a class="reference external" href="generated_buildlog_Basic_84.txt">ERR</a></td>
+<td><a class="reference external" href="generated_buildlog_OneWire_84.txt">ERR</a></td>
+</tr>
+<tr class="row-odd"><td>85</td>
+<td>mega</td>
+<td><a class="reference external" href="generated_buildlog_Basic_85.txt">ERR</a></td>
+<td><a class="reference external" href="generated_buildlog_OneWire_85.txt">ERR</a></td>
+</tr>
+<tr class="row-even"><td>86</td>
+<td>mega2560</td>
+<td><a class="reference external" href="generated_buildlog_Basic_86.txt">ERR</a></td>
+<td><a class="reference external" href="generated_buildlog_OneWire_86.txt">ERR</a></td>
+</tr>
+<tr class="row-odd"><td>87</td>
+<td>mini</td>
+<td><a class="reference external" href="generated_buildlog_Basic_87.txt">ERR</a></td>
+<td><a class="reference external" href="generated_buildlog_OneWire_87.txt">ERR</a></td>
+</tr>
+<tr class="row-even"><td>88</td>
+<td>pro</td>
+<td><a class="reference external" href="generated_buildlog_Basic_88.txt">ERR</a></td>
+<td><a class="reference external" href="generated_buildlog_OneWire_88.txt">ERR</a></td>
+</tr>
+<tr class="row-odd"><td>89</td>
+<td>pro328</td>
+<td><a class="reference external" href="generated_buildlog_Basic_89.txt">ERR</a></td>
+<td><a class="reference external" href="generated_buildlog_OneWire_89.txt">ERR</a></td>
+</tr>
+<tr class="row-even"><td>90</td>
+<td>pro5v</td>
+<td><a class="reference external" href="generated_buildlog_Basic_90.txt">ERR</a></td>
+<td><a class="reference external" href="generated_buildlog_OneWire_90.txt">ERR</a></td>
+</tr>
+<tr class="row-odd"><td>91</td>
+<td>pro5v328</td>
+<td><a class="reference external" href="generated_buildlog_Basic_91.txt">ERR</a></td>
+<td><a class="reference external" href="generated_buildlog_OneWire_91.txt">ERR</a></td>
+</tr>
+<tr class="row-even"><td>92</td>
+<td>uno</td>
+<td><a class="reference external" href="generated_buildlog_Basic_92.txt">ERR</a></td>
+<td><a class="reference external" href="generated_buildlog_OneWire_92.txt">ERR</a></td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="section" id="arduino-version-1-0">
+<h3>Arduino version 1.0<a class="headerlink" href="#arduino-version-1-0" title="Permalink to this headline">¶</a></h3>
+<table border="1" class="docutils">
+<colgroup>
+<col width="25%" />
+<col width="25%" />
+<col width="25%" />
+<col width="25%" />
+</colgroup>
+<thead valign="bottom">
+<tr class="row-odd"><th class="head">index</th>
+<th class="head">board</th>
+<th class="head">Basic</th>
+<th class="head">OneWire</th>
+</tr>
+</thead>
+<tbody valign="top">
+<tr class="row-even"><td>93</td>
+<td>atmega168</td>
+<td><a class="reference external" href="generated_buildlog_Basic_93.txt">ERR</a></td>
+<td><a class="reference external" href="generated_buildlog_OneWire_93.txt">ERR</a></td>
+</tr>
+<tr class="row-odd"><td>94</td>
+<td>atmega328</td>
+<td><a class="reference external" href="generated_buildlog_Basic_94.txt">ERR</a></td>
+<td><a class="reference external" href="generated_buildlog_OneWire_94.txt">ERR</a></td>
+</tr>
+<tr class="row-even"><td>95</td>
+<td>atmega8</td>
+<td><a class="reference external" href="generated_buildlog_Basic_95.txt">ERR</a></td>
+<td><a class="reference external" href="generated_buildlog_OneWire_95.txt">ERR</a></td>
+</tr>
+<tr class="row-odd"><td>96</td>
+<td>bt</td>
+<td><a class="reference external" href="generated_buildlog_Basic_96.txt">ERR</a></td>
+<td><a class="reference external" href="generated_buildlog_OneWire_96.txt">ERR</a></td>
+</tr>
+<tr class="row-even"><td>97</td>
+<td>bt328</td>
+<td><a class="reference external" href="generated_buildlog_Basic_97.txt">ERR</a></td>
+<td><a class="reference external" href="generated_buildlog_OneWire_97.txt">ERR</a></td>
+</tr>
+<tr class="row-odd"><td>98</td>
+<td>diecimila</td>
+<td><a class="reference external" href="generated_buildlog_Basic_98.txt">ERR</a></td>
+<td><a class="reference external" href="generated_buildlog_OneWire_98.txt">ERR</a></td>
+</tr>
+<tr class="row-even"><td>99</td>
+<td>ethernet</td>
+<td><a class="reference external" href="generated_buildlog_Basic_99.txt">ERR</a></td>
+<td><a class="reference external" href="generated_buildlog_OneWire_99.txt">ERR</a></td>
+</tr>
+<tr class="row-odd"><td>100</td>
+<td>fio</td>
+<td><a class="reference external" href="generated_buildlog_Basic_100.txt">ERR</a></td>
+<td><a class="reference external" href="generated_buildlog_OneWire_100.txt">ERR</a></td>
+</tr>
+<tr class="row-even"><td>101</td>
+<td>lilypad</td>
+<td><a class="reference external" href="generated_buildlog_Basic_101.txt">ERR</a></td>
+<td><a class="reference external" href="generated_buildlog_OneWire_101.txt">ERR</a></td>
+</tr>
+<tr class="row-odd"><td>102</td>
+<td>lilypad328</td>
+<td><a class="reference external" href="generated_buildlog_Basic_102.txt">ERR</a></td>
+<td><a class="reference external" href="generated_buildlog_OneWire_102.txt">ERR</a></td>
+</tr>
+<tr class="row-even"><td>103</td>
+<td>mega</td>
+<td><a class="reference external" href="generated_buildlog_Basic_103.txt">ERR</a></td>
+<td><a class="reference external" href="generated_buildlog_OneWire_103.txt">ERR</a></td>
+</tr>
+<tr class="row-odd"><td>104</td>
+<td>mega2560</td>
+<td><a class="reference external" href="generated_buildlog_Basic_104.txt">ERR</a></td>
+<td><a class="reference external" href="generated_buildlog_OneWire_104.txt">ERR</a></td>
+</tr>
+<tr class="row-even"><td>105</td>
+<td>mini</td>
+<td><a class="reference external" href="generated_buildlog_Basic_105.txt">ERR</a></td>
+<td><a class="reference external" href="generated_buildlog_OneWire_105.txt">ERR</a></td>
+</tr>
+<tr class="row-odd"><td>106</td>
+<td>mini328</td>
+<td><a class="reference external" href="generated_buildlog_Basic_106.txt">ERR</a></td>
+<td><a class="reference external" href="generated_buildlog_OneWire_106.txt">ERR</a></td>
+</tr>
+<tr class="row-even"><td>107</td>
+<td>nano</td>
+<td><a class="reference external" href="generated_buildlog_Basic_107.txt">ERR</a></td>
+<td><a class="reference external" href="generated_buildlog_OneWire_107.txt">ERR</a></td>
+</tr>
+<tr class="row-odd"><td>108</td>
+<td>nano328</td>
+<td><a class="reference external" href="generated_buildlog_Basic_108.txt">ERR</a></td>
+<td><a class="reference external" href="generated_buildlog_OneWire_108.txt">ERR</a></td>
+</tr>
+<tr class="row-even"><td>109</td>
+<td>pro</td>
+<td><a class="reference external" href="generated_buildlog_Basic_109.txt">ERR</a></td>
+<td><a class="reference external" href="generated_buildlog_OneWire_109.txt">ERR</a></td>
+</tr>
+<tr class="row-odd"><td>110</td>
+<td>pro328</td>
+<td><a class="reference external" href="generated_buildlog_Basic_110.txt">ERR</a></td>
+<td><a class="reference external" href="generated_buildlog_OneWire_110.txt">ERR</a></td>
+</tr>
+<tr class="row-even"><td>111</td>
+<td>pro5v</td>
+<td><a class="reference external" href="generated_buildlog_Basic_111.txt">ERR</a></td>
+<td><a class="reference external" href="generated_buildlog_OneWire_111.txt">ERR</a></td>
+</tr>
+<tr class="row-odd"><td>112</td>
+<td>pro5v328</td>
+<td><a class="reference external" href="generated_buildlog_Basic_112.txt">ERR</a></td>
+<td><a class="reference external" href="generated_buildlog_OneWire_112.txt">ERR</a></td>
+</tr>
+<tr class="row-even"><td>113</td>
+<td>uno</td>
+<td><a class="reference external" href="generated_buildlog_Basic_113.txt">ERR</a></td>
+<td><a class="reference external" href="generated_buildlog_OneWire_113.txt">ERR</a></td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<div class="section" id="board-configurations">
+<h2>Board configurations<a class="headerlink" href="#board-configurations" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="id1">
+<h3>Arduino version 0022<a class="headerlink" href="#id1" title="Permalink to this headline">¶</a></h3>
 <table border="1" class="docutils">
 <colgroup>
 <col width="17%" />
@@ -917,6 +1232,322 @@
 </tbody>
 </table>
 </div>
+<div class="section" id="id2">
+<h3>Arduino version 0023<a class="headerlink" href="#id2" title="Permalink to this headline">¶</a></h3>
+<table border="1" class="docutils">
+<colgroup>
+<col width="17%" />
+<col width="17%" />
+<col width="17%" />
+<col width="17%" />
+<col width="17%" />
+<col width="17%" />
+</colgroup>
+<thead valign="bottom">
+<tr class="row-odd"><th class="head">index</th>
+<th class="head">package</th>
+<th class="head">id</th>
+<th class="head">name</th>
+<th class="head">MCU</th>
+<th class="head">F_CPU</th>
+</tr>
+</thead>
+<tbody valign="top">
+<tr class="row-even"><td>76</td>
+<td>arduino</td>
+<td>atmega168</td>
+<td>Arduino NG or older w/ ATmega168</td>
+<td>atmega168</td>
+<td>16000000L</td>
+</tr>
+<tr class="row-odd"><td>77</td>
+<td>arduino</td>
+<td>atmega328</td>
+<td>Arduino Duemilanove or Nano w/ ATmega328</td>
+<td>atmega328p</td>
+<td>16000000L</td>
+</tr>
+<tr class="row-even"><td>78</td>
+<td>arduino</td>
+<td>atmega8</td>
+<td>Arduino NG or older w/ ATmega8</td>
+<td>atmega8</td>
+<td>16000000L</td>
+</tr>
+<tr class="row-odd"><td>79</td>
+<td>arduino</td>
+<td>bt</td>
+<td>Arduino BT w/ ATmega168</td>
+<td>atmega168</td>
+<td>16000000L</td>
+</tr>
+<tr class="row-even"><td>80</td>
+<td>arduino</td>
+<td>bt328</td>
+<td>Arduino BT w/ ATmega328</td>
+<td>atmega328p</td>
+<td>16000000L</td>
+</tr>
+<tr class="row-odd"><td>81</td>
+<td>arduino</td>
+<td>diecimila</td>
+<td>Arduino Diecimila, Duemilanove, or Nano w/ ATmega168</td>
+<td>atmega168</td>
+<td>16000000L</td>
+</tr>
+<tr class="row-even"><td>82</td>
+<td>arduino</td>
+<td>fio</td>
+<td>Arduino Fio</td>
+<td>atmega328p</td>
+<td>8000000L</td>
+</tr>
+<tr class="row-odd"><td>83</td>
+<td>arduino</td>
+<td>lilypad</td>
+<td>LilyPad Arduino w/ ATmega168</td>
+<td>atmega168</td>
+<td>8000000L</td>
+</tr>
+<tr class="row-even"><td>84</td>
+<td>arduino</td>
+<td>lilypad328</td>
+<td>LilyPad Arduino w/ ATmega328</td>
+<td>atmega328p</td>
+<td>8000000L</td>
+</tr>
+<tr class="row-odd"><td>85</td>
+<td>arduino</td>
+<td>mega</td>
+<td>Arduino Mega (ATmega1280)</td>
+<td>atmega1280</td>
+<td>16000000L</td>
+</tr>
+<tr class="row-even"><td>86</td>
+<td>arduino</td>
+<td>mega2560</td>
+<td>Arduino Mega 2560</td>
+<td>atmega2560</td>
+<td>16000000L</td>
+</tr>
+<tr class="row-odd"><td>87</td>
+<td>arduino</td>
+<td>mini</td>
+<td>Arduino Mini</td>
+<td>atmega168</td>
+<td>16000000L</td>
+</tr>
+<tr class="row-even"><td>88</td>
+<td>arduino</td>
+<td>pro</td>
+<td>Arduino Pro or Pro Mini (3.3V, 8 MHz) w/ ATmega168</td>
+<td>atmega168</td>
+<td>8000000L</td>
+</tr>
+<tr class="row-odd"><td>89</td>
+<td>arduino</td>
+<td>pro328</td>
+<td>Arduino Pro or Pro Mini (3.3V, 8 MHz) w/ ATmega328</td>
+<td>atmega328p</td>
+<td>8000000L</td>
+</tr>
+<tr class="row-even"><td>90</td>
+<td>arduino</td>
+<td>pro5v</td>
+<td>Arduino Pro or Pro Mini (5V, 16 MHz) w/ ATmega168</td>
+<td>atmega168</td>
+<td>16000000L</td>
+</tr>
+<tr class="row-odd"><td>91</td>
+<td>arduino</td>
+<td>pro5v328</td>
+<td>Arduino Pro or Pro Mini (5V, 16 MHz) w/ ATmega328</td>
+<td>atmega328p</td>
+<td>16000000L</td>
+</tr>
+<tr class="row-even"><td>92</td>
+<td>arduino</td>
+<td>uno</td>
+<td>Arduino Uno</td>
+<td>atmega328p</td>
+<td>16000000L</td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="section" id="id3">
+<h3>Arduino version 1.0<a class="headerlink" href="#id3" title="Permalink to this headline">¶</a></h3>
+<table border="1" class="docutils">
+<colgroup>
+<col width="17%" />
+<col width="17%" />
+<col width="17%" />
+<col width="17%" />
+<col width="17%" />
+<col width="17%" />
+</colgroup>
+<thead valign="bottom">
+<tr class="row-odd"><th class="head">index</th>
+<th class="head">package</th>
+<th class="head">id</th>
+<th class="head">name</th>
+<th class="head">MCU</th>
+<th class="head">F_CPU</th>
+</tr>
+</thead>
+<tbody valign="top">
+<tr class="row-even"><td>93</td>
+<td>arduino</td>
+<td>atmega168</td>
+<td>Arduino NG or older w/ ATmega168</td>
+<td>atmega168</td>
+<td>16000000L</td>
+</tr>
+<tr class="row-odd"><td>94</td>
+<td>arduino</td>
+<td>atmega328</td>
+<td>Arduino Duemilanove w/ ATmega328</td>
+<td>atmega328p</td>
+<td>16000000L</td>
+</tr>
+<tr class="row-even"><td>95</td>
+<td>arduino</td>
+<td>atmega8</td>
+<td>Arduino NG or older w/ ATmega8</td>
+<td>atmega8</td>
+<td>16000000L</td>
+</tr>
+<tr class="row-odd"><td>96</td>
+<td>arduino</td>
+<td>bt</td>
+<td>Arduino BT w/ ATmega168</td>
+<td>atmega168</td>
+<td>16000000L</td>
+</tr>
+<tr class="row-even"><td>97</td>
+<td>arduino</td>
+<td>bt328</td>
+<td>Arduino BT w/ ATmega328</td>
+<td>atmega328p</td>
+<td>16000000L</td>
+</tr>
+<tr class="row-odd"><td>98</td>
+<td>arduino</td>
+<td>diecimila</td>
+<td>Arduino Diecimila or Duemilanove w/ ATmega168</td>
+<td>atmega168</td>
+<td>16000000L</td>
+</tr>
+<tr class="row-even"><td>99</td>
+<td>arduino</td>
+<td>ethernet</td>
+<td>Arduino Ethernet</td>
+<td>atmega328p</td>
+<td>16000000L</td>
+</tr>
+<tr class="row-odd"><td>100</td>
+<td>arduino</td>
+<td>fio</td>
+<td>Arduino Fio</td>
+<td>atmega328p</td>
+<td>8000000L</td>
+</tr>
+<tr class="row-even"><td>101</td>
+<td>arduino</td>
+<td>lilypad</td>
+<td>LilyPad Arduino w/ ATmega168</td>
+<td>atmega168</td>
+<td>8000000L</td>
+</tr>
+<tr class="row-odd"><td>102</td>
+<td>arduino</td>
+<td>lilypad328</td>
+<td>LilyPad Arduino w/ ATmega328</td>
+<td>atmega328p</td>
+<td>8000000L</td>
+</tr>
+<tr class="row-even"><td>103</td>
+<td>arduino</td>
+<td>mega</td>
+<td>Arduino Mega (ATmega1280)</td>
+<td>atmega1280</td>
+<td>16000000L</td>
+</tr>
+<tr class="row-odd"><td>104</td>
+<td>arduino</td>
+<td>mega2560</td>
+<td>Arduino Mega 2560 or Mega ADK</td>
+<td>atmega2560</td>
+<td>16000000L</td>
+</tr>
+<tr class="row-even"><td>105</td>
+<td>arduino</td>
+<td>mini</td>
+<td>Arduino Mini w/ ATmega168</td>
+<td>atmega168</td>
+<td>16000000L</td>
+</tr>
+<tr class="row-odd"><td>106</td>
+<td>arduino</td>
+<td>mini328</td>
+<td>Arduino Mini w/ ATmega328</td>
+<td>atmega328p</td>
+<td>16000000L</td>
+</tr>
+<tr class="row-even"><td>107</td>
+<td>arduino</td>
+<td>nano</td>
+<td>Arduino Nano w/ ATmega168</td>
+<td>atmega168</td>
+<td>16000000L</td>
+</tr>
+<tr class="row-odd"><td>108</td>
+<td>arduino</td>
+<td>nano328</td>
+<td>Arduino Nano w/ ATmega328</td>
+<td>atmega328p</td>
+<td>16000000L</td>
+</tr>
+<tr class="row-even"><td>109</td>
+<td>arduino</td>
+<td>pro</td>
+<td>Arduino Pro or Pro Mini (3.3V, 8 MHz) w/ ATmega168</td>
+<td>atmega168</td>
+<td>8000000L</td>
+</tr>
+<tr class="row-odd"><td>110</td>
+<td>arduino</td>
+<td>pro328</td>
+<td>Arduino Pro or Pro Mini (3.3V, 8 MHz) w/ ATmega328</td>
+<td>atmega328p</td>
+<td>8000000L</td>
+</tr>
+<tr class="row-even"><td>111</td>
+<td>arduino</td>
+<td>pro5v</td>
+<td>Arduino Pro or Pro Mini (5V, 16 MHz) w/ ATmega168</td>
+<td>atmega168</td>
+<td>16000000L</td>
+</tr>
+<tr class="row-odd"><td>112</td>
+<td>arduino</td>
+<td>pro5v328</td>
+<td>Arduino Pro or Pro Mini (5V, 16 MHz) w/ ATmega328</td>
+<td>atmega328p</td>
+<td>16000000L</td>
+</tr>
+<tr class="row-even"><td>113</td>
+<td>arduino</td>
+<td>uno</td>
+<td>Arduino Uno</td>
+<td>atmega328p</td>
+<td>16000000L</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+</div>
 
 
           </div>
@@ -924,6 +1555,25 @@
       </div>
       <div class="sphinxsidebar">
         <div class="sphinxsidebarwrapper">
+  <h3><a href="index.html">Table Of Contents</a></h3>
+  <ul>
+<li><a class="reference internal" href="#">Build tests</a><ul>
+<li><a class="reference internal" href="#results">Results</a><ul>
+<li><a class="reference internal" href="#arduino-version-0022">Arduino version 0022</a></li>
+<li><a class="reference internal" href="#arduino-version-0023">Arduino version 0023</a></li>
+<li><a class="reference internal" href="#arduino-version-1-0">Arduino version 1.0</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#board-configurations">Board configurations</a><ul>
+<li><a class="reference internal" href="#id1">Arduino version 0022</a></li>
+<li><a class="reference internal" href="#id2">Arduino version 0023</a></li>
+<li><a class="reference internal" href="#id3">Arduino version 1.0</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+
   <h4>Previous topic</h4>
   <p class="topless"><a href="hw.html"
                         title="previous chapter">Hardware</a></p>
@@ -964,7 +1614,7 @@
         <li class="right" >
           <a href="hw.html" title="Hardware"
              >previous</a> |</li>
-        <li><a href="index.html">softusbduino 1.0.0 documentation</a> &raquo;</li> 
+        <li><a href="index.html">softusbduino 1.1.0 documentation</a> &raquo;</li> 
       </ul>
     </div>
     <div class="footer">

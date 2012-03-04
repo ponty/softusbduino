@@ -8,7 +8,7 @@
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     
-    <title>Examples &mdash; softusbduino 1.0.0 documentation</title>
+    <title>Examples &mdash; softusbduino 1.1.0 documentation</title>
     
     <link rel="stylesheet" href="_static/default.css" type="text/css" />
     <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
@@ -16,7 +16,7 @@
     <script type="text/javascript">
       var DOCUMENTATION_OPTIONS = {
         URL_ROOT:    '',
-        VERSION:     '1.0.0',
+        VERSION:     '1.1.0',
         COLLAPSE_INDEX: false,
         FILE_SUFFIX: '.html',
         HAS_SOURCE:  true
@@ -25,8 +25,8 @@
     <script type="text/javascript" src="_static/jquery.js"></script>
     <script type="text/javascript" src="_static/underscore.js"></script>
     <script type="text/javascript" src="_static/doctools.js"></script>
-    <link rel="top" title="softusbduino 1.0.0 documentation" href="index.html" />
-    <link rel="next" title="Tests" href="check.html" />
+    <link rel="top" title="softusbduino 1.1.0 documentation" href="index.html" />
+    <link rel="next" title="1Wire examples" href="examples1wire.html" />
     <link rel="prev" title="Usage" href="usage.html" /> 
   </head>
   <body>
@@ -37,12 +37,12 @@
           <a href="genindex.html" title="General Index"
              accesskey="I">index</a></li>
         <li class="right" >
-          <a href="check.html" title="Tests"
+          <a href="examples1wire.html" title="1Wire examples"
              accesskey="N">next</a> |</li>
         <li class="right" >
           <a href="usage.html" title="Usage"
              accesskey="P">previous</a> |</li>
-        <li><a href="index.html">softusbduino 1.0.0 documentation</a> &raquo;</li> 
+        <li><a href="index.html">softusbduino 1.1.0 documentation</a> &raquo;</li> 
       </ul>
     </div>  
 
@@ -61,12 +61,14 @@
 
 <span class="nd">@entrypoint</span>
 <span class="k">def</span> <span class="nf">main</span><span class="p">():</span>
-    <span class="n">board</span> <span class="o">=</span> <span class="n">Arduino</span><span class="p">()</span>
-    <span class="k">print</span> <span class="n">board</span><span class="o">.</span><span class="n">defines</span><span class="o">.</span><span class="n">F_CPU</span>
+    <span class="n">mcu</span> <span class="o">=</span> <span class="n">Arduino</span><span class="p">()</span>
+    <span class="k">print</span> <span class="s">&#39;F_CPU=&#39;</span><span class="p">,</span> <span class="n">mcu</span><span class="o">.</span><span class="n">define</span><span class="p">(</span><span class="s">&#39;F_CPU&#39;</span><span class="p">)</span>
+    <span class="k">print</span> <span class="s">&#39;DDRC=&#39;</span><span class="p">,</span> <span class="n">mcu</span><span class="o">.</span><span class="n">register</span><span class="p">(</span><span class="s">&#39;DDRC&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">read_value</span><span class="p">()</span>
 </pre></div>
 </div>
 <div class="highlight-text"><div class="highlight"><pre>$ python -m softusbduino.examples.simple
-20000000
+F_CPU= 20000000
+DDRC= 0
 </pre></div>
 </div>
 </div>
@@ -83,14 +85,15 @@
     <span class="sd">&#39;&#39;&#39;</span>
 <span class="sd">    measuring analog input</span>
 <span class="sd">    &#39;&#39;&#39;</span>
-    <span class="n">board</span> <span class="o">=</span> <span class="n">Arduino</span><span class="p">(</span><span class="n">reset</span><span class="o">=</span><span class="n">reset</span><span class="p">)</span>
-
+    <span class="n">mcu</span> <span class="o">=</span> <span class="n">Arduino</span><span class="p">(</span><span class="n">reset</span><span class="o">=</span><span class="n">reset</span><span class="p">)</span>
+    <span class="n">pin</span> <span class="o">=</span> <span class="n">mcu</span><span class="o">.</span><span class="n">pin</span><span class="p">(</span><span class="n">pin_nr</span><span class="p">)</span>
+    
     <span class="n">x</span> <span class="o">=</span> <span class="p">[]</span>
     <span class="n">y</span> <span class="o">=</span> <span class="p">[]</span>
     <span class="n">start</span> <span class="o">=</span> <span class="n">time</span><span class="o">.</span><span class="n">time</span><span class="p">()</span>
     <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">n</span><span class="p">):</span>
         <span class="n">t</span> <span class="o">=</span> <span class="n">time</span><span class="o">.</span><span class="n">time</span><span class="p">()</span> <span class="o">-</span> <span class="n">start</span>
-        <span class="n">v</span> <span class="o">=</span> <span class="n">board</span><span class="o">.</span><span class="n">analogRead</span><span class="p">(</span><span class="n">pin_nr</span><span class="p">)</span>
+        <span class="n">v</span> <span class="o">=</span> <span class="n">pin</span><span class="o">.</span><span class="n">read_analog</span><span class="p">()</span>
         <span class="n">x</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">t</span><span class="p">)</span>
         <span class="n">y</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">v</span><span class="p">)</span>
     <span class="n">fig</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">()</span>
@@ -237,8 +240,8 @@ optional arguments:
   <p class="topless"><a href="usage.html"
                         title="previous chapter">Usage</a></p>
   <h4>Next topic</h4>
-  <p class="topless"><a href="check.html"
-                        title="next chapter">Tests</a></p>
+  <p class="topless"><a href="examples1wire.html"
+                        title="next chapter">1Wire examples</a></p>
   <h3>This Page</h3>
   <ul class="this-page-menu">
     <li><a href="_sources/examples.txt"
@@ -268,12 +271,12 @@ optional arguments:
           <a href="genindex.html" title="General Index"
              >index</a></li>
         <li class="right" >
-          <a href="check.html" title="Tests"
+          <a href="examples1wire.html" title="1Wire examples"
              >next</a> |</li>
         <li class="right" >
           <a href="usage.html" title="Usage"
              >previous</a> |</li>
-        <li><a href="index.html">softusbduino 1.0.0 documentation</a> &raquo;</li> 
+        <li><a href="index.html">softusbduino 1.1.0 documentation</a> &raquo;</li> 
       </ul>
     </div>
     <div class="footer">

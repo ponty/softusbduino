@@ -115,7 +115,7 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 <a name="l00067"></a>00067 <span class="preprocessor">#if USB_CFG_DESCR_PROPS_STRING_0 == 0</span>
 <a name="l00068"></a>00068 <span class="preprocessor"></span><span class="preprocessor">#undef USB_CFG_DESCR_PROPS_STRING_0</span>
 <a name="l00069"></a><a class="code" href="usbdrv_8c.html#a9c0556a4c6c5a1ab8f6598aee8e5bf6a">00069</a> <span class="preprocessor"></span><span class="preprocessor">#define USB_CFG_DESCR_PROPS_STRING_0    sizeof(usbDescriptorString0)</span>
-<a name="l00070"></a><a class="code" href="usbdrv_8h.html#ac16de84418d64a0e74a4e551fc9ac786">00070</a> <span class="preprocessor"></span><a class="code" href="SoftUsb_8cpp.html#af17f668395c2bba635e5737bcac88f4b">PROGMEM</a> <span class="keywordtype">char</span> <a class="code" href="usbdrv_8c.html#ac16de84418d64a0e74a4e551fc9ac786">usbDescriptorString0</a>[] = { <span class="comment">/* language descriptor */</span>
+<a name="l00070"></a><a class="code" href="usbdrv_8h.html#ac16de84418d64a0e74a4e551fc9ac786">00070</a> <span class="preprocessor"></span><a class="code" href="SoftUsb_8h.html#af17f668395c2bba635e5737bcac88f4b">PROGMEM</a> <span class="keywordtype">char</span> <a class="code" href="usbdrv_8c.html#ac16de84418d64a0e74a4e551fc9ac786">usbDescriptorString0</a>[] = { <span class="comment">/* language descriptor */</span>
 <a name="l00071"></a>00071     4,          <span class="comment">/* sizeof(usbDescriptorString0): length of descriptor in bytes */</span>
 <a name="l00072"></a>00072     3,          <span class="comment">/* descriptor type */</span>
 <a name="l00073"></a>00073     0x09, 0x04, <span class="comment">/* language index (0x0409 = US-English) */</span>
@@ -125,7 +125,7 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 <a name="l00077"></a>00077 <span class="preprocessor">#if USB_CFG_DESCR_PROPS_STRING_VENDOR == 0 &amp;&amp; USB_CFG_VENDOR_NAME_LEN</span>
 <a name="l00078"></a>00078 <span class="preprocessor"></span><span class="preprocessor">#undef USB_CFG_DESCR_PROPS_STRING_VENDOR</span>
 <a name="l00079"></a><a class="code" href="usbdrv_8c.html#a55edf2117128387162339d98ba2af0f4">00079</a> <span class="preprocessor"></span><span class="preprocessor">#define USB_CFG_DESCR_PROPS_STRING_VENDOR   sizeof(usbDescriptorStringVendor)</span>
-<a name="l00080"></a><a class="code" href="usbdrv_8h.html#a9974e0350b3ad7adafc3b1f0a47278ca">00080</a> <span class="preprocessor"></span><a class="code" href="SoftUsb_8cpp.html#af17f668395c2bba635e5737bcac88f4b">PROGMEM</a> <span class="keywordtype">int</span>  <a class="code" href="usbdrv_8c.html#a9974e0350b3ad7adafc3b1f0a47278ca">usbDescriptorStringVendor</a>[] = {
+<a name="l00080"></a><a class="code" href="usbdrv_8h.html#a9974e0350b3ad7adafc3b1f0a47278ca">00080</a> <span class="preprocessor"></span><a class="code" href="SoftUsb_8h.html#af17f668395c2bba635e5737bcac88f4b">PROGMEM</a> <span class="keywordtype">int</span>  <a class="code" href="usbdrv_8c.html#a9974e0350b3ad7adafc3b1f0a47278ca">usbDescriptorStringVendor</a>[] = {
 <a name="l00081"></a>00081     <a class="code" href="usbdrv_8h.html#ad94ebd3045d80d1e2ab32c22be4ff96e">USB_STRING_DESCRIPTOR_HEADER</a>(<a class="code" href="usbconfig_8h.html#a3085d820d9dc6e939737a3f1b9a457d7">USB_CFG_VENDOR_NAME_LEN</a>),
 <a name="l00082"></a>00082     <a class="code" href="usbconfig_8h.html#a25a2baf5c8feb0982a47050423add0ec">USB_CFG_VENDOR_NAME</a>
 <a name="l00083"></a>00083 };
@@ -134,7 +134,7 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 <a name="l00086"></a>00086 <span class="preprocessor">#if USB_CFG_DESCR_PROPS_STRING_PRODUCT == 0 &amp;&amp; USB_CFG_DEVICE_NAME_LEN</span>
 <a name="l00087"></a>00087 <span class="preprocessor"></span><span class="preprocessor">#undef USB_CFG_DESCR_PROPS_STRING_PRODUCT</span>
 <a name="l00088"></a><a class="code" href="usbdrv_8c.html#aa08084f9755a643e02d469b66b129ef6">00088</a> <span class="preprocessor"></span><span class="preprocessor">#define USB_CFG_DESCR_PROPS_STRING_PRODUCT   sizeof(usbDescriptorStringDevice)</span>
-<a name="l00089"></a><a class="code" href="usbdrv_8h.html#a030c4d21be999d0deafccc65499a44df">00089</a> <span class="preprocessor"></span><a class="code" href="SoftUsb_8cpp.html#af17f668395c2bba635e5737bcac88f4b">PROGMEM</a> <span class="keywordtype">int</span>  <a class="code" href="usbdrv_8c.html#a030c4d21be999d0deafccc65499a44df">usbDescriptorStringDevice</a>[] = {
+<a name="l00089"></a><a class="code" href="usbdrv_8h.html#a030c4d21be999d0deafccc65499a44df">00089</a> <span class="preprocessor"></span><a class="code" href="SoftUsb_8h.html#af17f668395c2bba635e5737bcac88f4b">PROGMEM</a> <span class="keywordtype">int</span>  <a class="code" href="usbdrv_8c.html#a030c4d21be999d0deafccc65499a44df">usbDescriptorStringDevice</a>[] = {
 <a name="l00090"></a>00090     <a class="code" href="usbdrv_8h.html#ad94ebd3045d80d1e2ab32c22be4ff96e">USB_STRING_DESCRIPTOR_HEADER</a>(<a class="code" href="usbconfig_8h.html#ae68f17e6baf13805abc56e74beadeb57">USB_CFG_DEVICE_NAME_LEN</a>),
 <a name="l00091"></a>00091     <a class="code" href="usbconfig_8h.html#a9b482a2b2740652ffe7dcb6695ca0c91">USB_CFG_DEVICE_NAME</a>
 <a name="l00092"></a>00092 };
@@ -143,7 +143,7 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 <a name="l00095"></a>00095 <span class="preprocessor">#if USB_CFG_DESCR_PROPS_STRING_SERIAL_NUMBER == 0 &amp;&amp; USB_CFG_SERIAL_NUMBER_LEN</span>
 <a name="l00096"></a>00096 <span class="preprocessor"></span><span class="preprocessor">#undef USB_CFG_DESCR_PROPS_STRING_SERIAL_NUMBER</span>
 <a name="l00097"></a>00097 <span class="preprocessor"></span><span class="preprocessor">#define USB_CFG_DESCR_PROPS_STRING_SERIAL_NUMBER    sizeof(usbDescriptorStringSerialNumber)</span>
-<a name="l00098"></a>00098 <span class="preprocessor"></span><a class="code" href="SoftUsb_8cpp.html#af17f668395c2bba635e5737bcac88f4b">PROGMEM</a> <span class="keywordtype">int</span> <a class="code" href="usbdrv_8h.html#a04e6662c39d818a0c4ae16db46276194">usbDescriptorStringSerialNumber</a>[] = {
+<a name="l00098"></a>00098 <span class="preprocessor"></span><a class="code" href="SoftUsb_8h.html#af17f668395c2bba635e5737bcac88f4b">PROGMEM</a> <span class="keywordtype">int</span> <a class="code" href="usbdrv_8h.html#a04e6662c39d818a0c4ae16db46276194">usbDescriptorStringSerialNumber</a>[] = {
 <a name="l00099"></a>00099     <a class="code" href="usbdrv_8h.html#ad94ebd3045d80d1e2ab32c22be4ff96e">USB_STRING_DESCRIPTOR_HEADER</a>(USB_CFG_SERIAL_NUMBER_LEN),
 <a name="l00100"></a>00100     USB_CFG_SERIAL_NUMBER
 <a name="l00101"></a>00101 };
@@ -156,7 +156,7 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 <a name="l00108"></a>00108 <span class="preprocessor">#if USB_CFG_DESCR_PROPS_DEVICE == 0</span>
 <a name="l00109"></a>00109 <span class="preprocessor"></span><span class="preprocessor">#undef USB_CFG_DESCR_PROPS_DEVICE</span>
 <a name="l00110"></a><a class="code" href="usbdrv_8c.html#aa916bf33f6f8f481a219d0a81b5b225e">00110</a> <span class="preprocessor"></span><span class="preprocessor">#define USB_CFG_DESCR_PROPS_DEVICE  sizeof(usbDescriptorDevice)</span>
-<a name="l00111"></a><a class="code" href="usbdrv_8h.html#a4832dd2433bcc12b444a31dc4a8bfc49">00111</a> <span class="preprocessor"></span><a class="code" href="SoftUsb_8cpp.html#af17f668395c2bba635e5737bcac88f4b">PROGMEM</a> <span class="keywordtype">char</span> <a class="code" href="usbdrv_8c.html#a4832dd2433bcc12b444a31dc4a8bfc49">usbDescriptorDevice</a>[] = {    <span class="comment">/* USB device descriptor */</span>
+<a name="l00111"></a><a class="code" href="usbdrv_8h.html#a4832dd2433bcc12b444a31dc4a8bfc49">00111</a> <span class="preprocessor"></span><a class="code" href="SoftUsb_8h.html#af17f668395c2bba635e5737bcac88f4b">PROGMEM</a> <span class="keywordtype">char</span> <a class="code" href="usbdrv_8c.html#a4832dd2433bcc12b444a31dc4a8bfc49">usbDescriptorDevice</a>[] = {    <span class="comment">/* USB device descriptor */</span>
 <a name="l00112"></a>00112     18,         <span class="comment">/* sizeof(usbDescriptorDevice): length of descriptor in bytes */</span>
 <a name="l00113"></a>00113     <a class="code" href="usbdrv_8h.html#a5b76593f7b6295a4a599aba4476ec258">USBDESCR_DEVICE</a>,        <span class="comment">/* descriptor type */</span>
 <a name="l00114"></a>00114     0x10, 0x01,             <span class="comment">/* USB version supported */</span>
@@ -187,7 +187,7 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 <a name="l00139"></a>00139 <span class="preprocessor">#if USB_CFG_DESCR_PROPS_CONFIGURATION == 0</span>
 <a name="l00140"></a>00140 <span class="preprocessor"></span><span class="preprocessor">#undef USB_CFG_DESCR_PROPS_CONFIGURATION</span>
 <a name="l00141"></a><a class="code" href="usbdrv_8c.html#a8aae9f682ca9f91faae0453e4351a50b">00141</a> <span class="preprocessor"></span><span class="preprocessor">#define USB_CFG_DESCR_PROPS_CONFIGURATION   sizeof(usbDescriptorConfiguration)</span>
-<a name="l00142"></a><a class="code" href="usbdrv_8h.html#a86288669b638000acf9548272f73e7f6">00142</a> <span class="preprocessor"></span><a class="code" href="SoftUsb_8cpp.html#af17f668395c2bba635e5737bcac88f4b">PROGMEM</a> <span class="keywordtype">char</span> <a class="code" href="usbdrv_8c.html#a86288669b638000acf9548272f73e7f6">usbDescriptorConfiguration</a>[] = {    <span class="comment">/* USB configuration descriptor */</span>
+<a name="l00142"></a><a class="code" href="usbdrv_8h.html#a86288669b638000acf9548272f73e7f6">00142</a> <span class="preprocessor"></span><a class="code" href="SoftUsb_8h.html#af17f668395c2bba635e5737bcac88f4b">PROGMEM</a> <span class="keywordtype">char</span> <a class="code" href="usbdrv_8c.html#a86288669b638000acf9548272f73e7f6">usbDescriptorConfiguration</a>[] = {    <span class="comment">/* USB configuration descriptor */</span>
 <a name="l00143"></a>00143     9,          <span class="comment">/* sizeof(usbDescriptorConfiguration): length of descriptor in bytes */</span>
 <a name="l00144"></a>00144     <a class="code" href="usbdrv_8h.html#a6ff1081ad7212a0c7009ef5b79f3669f">USBDESCR_CONFIG</a>,    <span class="comment">/* descriptor type */</span>
 <a name="l00145"></a>00145     18 + 7 * <a class="code" href="usbconfig_8h.html#afe176bba6f05a034a5eec11f7ed6302b">USB_CFG_HAVE_INTRIN_ENDPOINT</a> + 7 * <a class="code" href="usbconfig_8h.html#a973c0b60531876ba52c4447e0fd0a150">USB_CFG_HAVE_INTRIN_ENDPOINT3</a> +
@@ -687,7 +687,7 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 </iframe>
 </div>
 
-<hr class="footer"/><address class="footer"><small>Generated on Thu Feb 16 2012 17:16:53 for softusbduino by&#160;
+<hr class="footer"/><address class="footer"><small>Generated on Sun Mar 4 2012 21:24:35 for softusbduino by&#160;
 <a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.7.4 </small></address>
 </body>

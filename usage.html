@@ -8,7 +8,7 @@
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     
-    <title>Usage &mdash; softusbduino 1.0.0 documentation</title>
+    <title>Usage &mdash; softusbduino 1.1.0 documentation</title>
     
     <link rel="stylesheet" href="_static/default.css" type="text/css" />
     <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
@@ -16,7 +16,7 @@
     <script type="text/javascript">
       var DOCUMENTATION_OPTIONS = {
         URL_ROOT:    '',
-        VERSION:     '1.0.0',
+        VERSION:     '1.1.0',
         COLLAPSE_INDEX: false,
         FILE_SUFFIX: '.html',
         HAS_SOURCE:  true
@@ -25,7 +25,7 @@
     <script type="text/javascript" src="_static/jquery.js"></script>
     <script type="text/javascript" src="_static/underscore.js"></script>
     <script type="text/javascript" src="_static/doctools.js"></script>
-    <link rel="top" title="softusbduino 1.0.0 documentation" href="index.html" />
+    <link rel="top" title="softusbduino 1.1.0 documentation" href="index.html" />
     <link rel="next" title="Examples" href="examples.html" />
     <link rel="prev" title="About" href="readme.html" /> 
   </head>
@@ -42,7 +42,7 @@
         <li class="right" >
           <a href="readme.html" title="About"
              accesskey="P">previous</a> |</li>
-        <li><a href="index.html">softusbduino 1.0.0 documentation</a> &raquo;</li> 
+        <li><a href="index.html">softusbduino 1.1.0 documentation</a> &raquo;</li> 
       </ul>
     </div>  
 
@@ -55,150 +55,166 @@
 <h1>Usage<a class="headerlink" href="#usage" title="Permalink to this headline">¶</a></h1>
 <div class="highlight-pycon"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">softusbduino</span> <span class="kn">import</span> <span class="o">*</span>
 <span class="gp">&gt;&gt;&gt; </span>
-<span class="gp">&gt;&gt;&gt; </span><span class="c"># read defines</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">board</span> <span class="o">=</span> <span class="n">Arduino</span><span class="p">()</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">mcu</span> <span class="o">=</span> <span class="n">Arduino</span><span class="p">()</span>
 <span class="gp">&gt;&gt;&gt; </span>
 <span class="gp">&gt;&gt;&gt; </span><span class="c"># reset pin directions</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">board</span><span class="o">.</span><span class="n">reset</span><span class="p">()</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">mcu</span><span class="o">.</span><span class="n">reset</span><span class="p">()</span>
 <span class="gp">&gt;&gt;&gt; </span>
 <span class="gp">&gt;&gt;&gt; </span><span class="c"># constants in python library</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="k">print</span> <span class="s">&#39;0x</span><span class="si">%X</span><span class="s">&#39;</span> <span class="o">%</span> <span class="n">board</span><span class="o">.</span><span class="n">idVendor</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="k">print</span> <span class="s">&#39;0x</span><span class="si">%X</span><span class="s">&#39;</span> <span class="o">%</span> <span class="n">mcu</span><span class="o">.</span><span class="n">usb</span><span class="o">.</span><span class="n">id_vendor</span>
 <span class="go">0x16C0</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="k">print</span> <span class="s">&#39;0x</span><span class="si">%X</span><span class="s">&#39;</span> <span class="o">%</span> <span class="n">board</span><span class="o">.</span><span class="n">idProduct</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="k">print</span> <span class="s">&#39;0x</span><span class="si">%X</span><span class="s">&#39;</span> <span class="o">%</span> <span class="n">mcu</span><span class="o">.</span><span class="n">usb</span><span class="o">.</span><span class="n">id_product</span>
 <span class="go">0x5DF</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="k">print</span> <span class="n">board</span><span class="o">.</span><span class="n">bandgap_voltage</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="k">print</span> <span class="n">mcu</span><span class="o">.</span><span class="n">bandgap_voltage</span>
 <span class="go">1.1</span>
 <span class="gp">&gt;&gt;&gt; </span>
 <span class="gp">&gt;&gt;&gt; </span><span class="c"># constants in firmware</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="k">print</span> <span class="n">board</span><span class="o">.</span><span class="n">usbMinusPin</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="k">print</span> <span class="n">mcu</span><span class="o">.</span><span class="n">pins</span><span class="o">.</span><span class="n">usb_minus_pin</span>
 <span class="go">4</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="k">print</span> <span class="n">board</span><span class="o">.</span><span class="n">usbPlusPin</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="k">print</span> <span class="n">mcu</span><span class="o">.</span><span class="n">pins</span><span class="o">.</span><span class="n">usb_plus_pin</span>
 <span class="go">2</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="k">print</span> <span class="n">board</span><span class="o">.</span><span class="n">pinCount</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="k">print</span> <span class="n">mcu</span><span class="o">.</span><span class="n">pins</span><span class="o">.</span><span class="n">count</span>
 <span class="go">20</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="k">print</span> <span class="n">board</span><span class="o">.</span><span class="n">pinRange</span><span class="p">()</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="k">print</span> <span class="n">mcu</span><span class="o">.</span><span class="n">pins</span><span class="o">.</span><span class="n">count_digital</span>
+<span class="go">14</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="k">print</span> <span class="n">mcu</span><span class="o">.</span><span class="n">pins</span><span class="o">.</span><span class="n">count_analog</span>
+<span class="go">6</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="k">print</span> <span class="n">mcu</span><span class="o">.</span><span class="n">pins</span><span class="o">.</span><span class="n">range_all</span>
 <span class="go">[0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19]</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="k">print</span> <span class="n">board</span><span class="o">.</span><span class="n">pinRange</span><span class="p">(</span><span class="s">&#39;digital&#39;</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="k">print</span> <span class="n">mcu</span><span class="o">.</span><span class="n">pins</span><span class="o">.</span><span class="n">range_digital</span>
 <span class="go">[0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13]</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="k">print</span> <span class="n">board</span><span class="o">.</span><span class="n">pinRange</span><span class="p">(</span><span class="s">&#39;analog&#39;</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="k">print</span> <span class="n">mcu</span><span class="o">.</span><span class="n">pins</span><span class="o">.</span><span class="n">range_analog</span>
 <span class="go">[14, 15, 16, 17, 18, 19]</span>
 <span class="gp">&gt;&gt;&gt; </span>
 <span class="gp">&gt;&gt;&gt; </span><span class="c"># supply voltage</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="k">print</span> <span class="n">board</span><span class="o">.</span><span class="n">vcc</span>
-<span class="go">4.85517241379</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="k">print</span> <span class="n">board</span><span class="o">.</span><span class="n">u_vcc</span>
-<span class="go">4.85517241379+/-0.0418549346017</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="k">print</span> <span class="n">mcu</span><span class="o">.</span><span class="n">vcc</span><span class="o">.</span><span class="n">voltage</span>
+<span class="go">4.87619047619</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="k">print</span> <span class="n">mcu</span><span class="o">.</span><span class="n">vcc</span><span class="o">.</span><span class="n">u_voltage</span>
+<span class="go">4.87619047619+/-0.042218099361</span>
 <span class="gp">&gt;&gt;&gt; </span>
 <span class="gp">&gt;&gt;&gt; </span><span class="c"># pin</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="k">print</span> <span class="n">board</span><span class="o">.</span><span class="n">pin</span><span class="p">(</span><span class="mi">8</span><span class="p">)</span><span class="o">.</span><span class="n">nr</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="k">print</span> <span class="n">mcu</span><span class="o">.</span><span class="n">pin</span><span class="p">(</span><span class="mi">8</span><span class="p">)</span><span class="o">.</span><span class="n">nr</span>
 <span class="go">8</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="k">print</span> <span class="n">board</span><span class="o">.</span><span class="n">pin</span><span class="p">(</span><span class="s">&#39;D8&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">nr</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="k">print</span> <span class="n">mcu</span><span class="o">.</span><span class="n">pin</span><span class="p">(</span><span class="s">&#39;D8&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">nr</span>
 <span class="go">8</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="k">print</span> <span class="n">board</span><span class="o">.</span><span class="n">pin</span><span class="p">(</span><span class="s">&#39;A2&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">nr</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="k">print</span> <span class="n">mcu</span><span class="o">.</span><span class="n">pin</span><span class="p">(</span><span class="s">&#39;A2&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">nr</span>
 <span class="go">16</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="k">print</span> <span class="n">board</span><span class="o">.</span><span class="n">pin</span><span class="p">(</span><span class="s">&#39;D13&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">programming_function</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="k">print</span> <span class="n">mcu</span><span class="o">.</span><span class="n">pin</span><span class="p">(</span><span class="s">&#39;D13&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">programming_function</span>
 <span class="go">SCK</span>
 <span class="gp">&gt;&gt;&gt; </span>
 <span class="gp">&gt;&gt;&gt; </span><span class="c"># pin mode</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">board</span><span class="o">.</span><span class="n">pinMode</span><span class="p">(</span><span class="mi">8</span><span class="p">,</span> <span class="n">OUTPUT</span><span class="p">)</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="k">print</span> <span class="n">board</span><span class="o">.</span><span class="n">readPinMode</span><span class="p">(</span><span class="mi">8</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">mcu</span><span class="o">.</span><span class="n">pins</span><span class="o">.</span><span class="n">write_mode</span><span class="p">(</span><span class="mi">8</span><span class="p">,</span> <span class="n">OUTPUT</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="k">print</span> <span class="n">mcu</span><span class="o">.</span><span class="n">pins</span><span class="o">.</span><span class="n">read_mode</span><span class="p">(</span><span class="mi">8</span><span class="p">)</span>
 <span class="go">1</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="k">print</span> <span class="n">board</span><span class="o">.</span><span class="n">pin</span><span class="p">(</span><span class="s">&#39;D8&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">mode</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="k">print</span> <span class="n">mcu</span><span class="o">.</span><span class="n">pin</span><span class="p">(</span><span class="s">&#39;D8&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">read_mode</span><span class="p">()</span>
 <span class="go">1</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">board</span><span class="o">.</span><span class="n">pin</span><span class="p">(</span><span class="s">&#39;D8&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">mode</span> <span class="o">=</span> <span class="n">INPUT</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="k">print</span> <span class="n">board</span><span class="o">.</span><span class="n">readPinMode</span><span class="p">(</span><span class="mi">8</span><span class="p">)</span>
-<span class="go">0</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="k">print</span> <span class="n">board</span><span class="o">.</span><span class="n">pin</span><span class="p">(</span><span class="s">&#39;D8&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">mode</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="k">print</span> <span class="n">mcu</span><span class="o">.</span><span class="n">pin</span><span class="p">(</span><span class="s">&#39;D8&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">mode</span>
+<span class="go">1</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">mcu</span><span class="o">.</span><span class="n">pin</span><span class="p">(</span><span class="s">&#39;D8&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">mode</span> <span class="o">=</span> <span class="n">INPUT</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="k">print</span> <span class="n">mcu</span><span class="o">.</span><span class="n">pins</span><span class="o">.</span><span class="n">read_mode</span><span class="p">(</span><span class="mi">8</span><span class="p">)</span>
 <span class="go">0</span>
 <span class="gp">&gt;&gt;&gt; </span>
 <span class="gp">&gt;&gt;&gt; </span><span class="c"># analog read</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="k">print</span> <span class="n">board</span><span class="o">.</span><span class="n">pin</span><span class="p">(</span><span class="s">&#39;A2&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">analogRead</span><span class="p">()</span>
-<span class="go">26</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="k">print</span> <span class="n">board</span><span class="o">.</span><span class="n">pin</span><span class="p">(</span><span class="s">&#39;A2&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">an_in</span>
-<span class="go">0</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="k">print</span> <span class="n">board</span><span class="o">.</span><span class="n">pin</span><span class="p">(</span><span class="s">&#39;A2&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">u_an_in</span>
-<span class="go">0.0+/-2.0</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="k">print</span> <span class="n">mcu</span><span class="o">.</span><span class="n">pins</span><span class="o">.</span><span class="n">read_analog</span><span class="p">(</span><span class="mi">15</span><span class="p">)</span>
+<span class="go">306</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="k">print</span> <span class="n">mcu</span><span class="o">.</span><span class="n">pin</span><span class="p">(</span><span class="s">&#39;A2&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">read_analog</span><span class="p">()</span>
+<span class="go">343</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="k">print</span> <span class="n">mcu</span><span class="o">.</span><span class="n">pin</span><span class="p">(</span><span class="s">&#39;A2&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">analog</span>
+<span class="go">332</span>
 <span class="gp">&gt;&gt;&gt; </span>
 <span class="gp">&gt;&gt;&gt; </span><span class="c"># digital read</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="k">print</span> <span class="n">board</span><span class="o">.</span><span class="n">pin</span><span class="p">(</span><span class="s">&#39;D8&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">dig_in</span>
-<span class="go">0</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="k">print</span> <span class="n">mcu</span><span class="o">.</span><span class="n">pins</span><span class="o">.</span><span class="n">read_digital</span><span class="p">(</span><span class="mi">8</span><span class="p">)</span>
+<span class="go">1</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="k">print</span> <span class="n">mcu</span><span class="o">.</span><span class="n">pin</span><span class="p">(</span><span class="s">&#39;D8&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">read_digital</span><span class="p">()</span>
+<span class="go">1</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="k">print</span> <span class="n">mcu</span><span class="o">.</span><span class="n">pin</span><span class="p">(</span><span class="s">&#39;D8&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">digital</span>
+<span class="go">1</span>
 <span class="gp">&gt;&gt;&gt; </span>
 <span class="gp">&gt;&gt;&gt; </span><span class="c"># pullup</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">pinD8</span> <span class="o">=</span> <span class="n">board</span><span class="o">.</span><span class="n">pin</span><span class="p">(</span><span class="s">&#39;D8&#39;</span><span class="p">)</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">pinD8</span><span class="o">.</span><span class="n">pullup</span> <span class="o">=</span> <span class="bp">True</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="k">print</span> <span class="n">pinD8</span><span class="o">.</span><span class="n">pullup</span>
-<span class="go">True</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">mcu</span><span class="o">.</span><span class="n">pins</span><span class="o">.</span><span class="n">write_pullup</span><span class="p">(</span><span class="mi">8</span><span class="p">,</span> <span class="n">HIGH</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">mcu</span><span class="o">.</span><span class="n">pin</span><span class="p">(</span><span class="s">&#39;D8&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">write_pullup</span><span class="p">(</span><span class="n">HIGH</span><span class="p">)</span>
 <span class="gp">&gt;&gt;&gt; </span>
 <span class="gp">&gt;&gt;&gt; </span><span class="c"># digital write</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">board</span><span class="o">.</span><span class="n">pin</span><span class="p">(</span><span class="s">&#39;D8&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">dig_out</span> <span class="o">=</span> <span class="mi">1</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="k">print</span> <span class="n">board</span><span class="o">.</span><span class="n">pin</span><span class="p">(</span><span class="s">&#39;D8&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">dig_out</span>
-<span class="go">1</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">board</span><span class="o">.</span><span class="n">pin</span><span class="p">(</span><span class="s">&#39;D8&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">dig_out</span> <span class="o">=</span> <span class="mi">0</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="k">print</span> <span class="n">board</span><span class="o">.</span><span class="n">pin</span><span class="p">(</span><span class="s">&#39;D8&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">dig_out</span>
-<span class="go">0</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">mcu</span><span class="o">.</span><span class="n">pins</span><span class="o">.</span><span class="n">write_mode</span><span class="p">(</span><span class="mi">8</span><span class="p">,</span> <span class="n">OUTPUT</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">mcu</span><span class="o">.</span><span class="n">pins</span><span class="o">.</span><span class="n">write_digital</span><span class="p">(</span><span class="mi">8</span><span class="p">,</span> <span class="n">HIGH</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">mcu</span><span class="o">.</span><span class="n">pin</span><span class="p">(</span><span class="s">&#39;D8&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">write_digital</span><span class="p">(</span><span class="n">HIGH</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">mcu</span><span class="o">.</span><span class="n">pin</span><span class="p">(</span><span class="s">&#39;D8&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">digital</span> <span class="o">=</span> <span class="n">HIGH</span>
 <span class="gp">&gt;&gt;&gt; </span>
 <span class="gp">&gt;&gt;&gt; </span><span class="c"># PWM</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="k">print</span> <span class="n">board</span><span class="o">.</span><span class="n">pin</span><span class="p">(</span><span class="s">&#39;D9&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">pwm_available</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="k">print</span> <span class="n">mcu</span><span class="o">.</span><span class="n">pin</span><span class="p">(</span><span class="s">&#39;D9&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">pwm</span><span class="o">.</span><span class="n">available</span>
 <span class="go">True</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="k">print</span> <span class="n">board</span><span class="o">.</span><span class="n">pin</span><span class="p">(</span><span class="s">&#39;D9&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">timer_register_name</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="k">print</span> <span class="n">mcu</span><span class="o">.</span><span class="n">pin</span><span class="p">(</span><span class="s">&#39;D9&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">pwm</span><span class="o">.</span><span class="n">timer_register_name</span>
 <span class="go">TCCR1B</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="k">print</span> <span class="n">board</span><span class="o">.</span><span class="n">pin</span><span class="p">(</span><span class="s">&#39;D9&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">pwm_frequencies_available</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="k">print</span> <span class="n">mcu</span><span class="o">.</span><span class="n">pin</span><span class="p">(</span><span class="s">&#39;D9&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">pwm</span><span class="o">.</span><span class="n">frequencies_available</span>
 <span class="go">[39062.5, 4882.8125, 610.3515625, 152.587890625, 38.14697265625]</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="k">print</span> <span class="n">board</span><span class="o">.</span><span class="n">pin</span><span class="p">(</span><span class="s">&#39;D9&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">pwm_frequency</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="k">print</span> <span class="n">mcu</span><span class="o">.</span><span class="n">pin</span><span class="p">(</span><span class="s">&#39;D9&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">pwm</span><span class="o">.</span><span class="n">frequency</span>
 <span class="go">610.3515625</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="k">print</span> <span class="n">board</span><span class="o">.</span><span class="n">pin</span><span class="p">(</span><span class="s">&#39;D9&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">divisors_available</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="k">print</span> <span class="n">mcu</span><span class="o">.</span><span class="n">pin</span><span class="p">(</span><span class="s">&#39;D9&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">pwm</span><span class="o">.</span><span class="n">divisors_available</span>
 <span class="go">[1, 8, 64, 256, 1024]</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="k">print</span> <span class="n">board</span><span class="o">.</span><span class="n">pin</span><span class="p">(</span><span class="s">&#39;D9&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">divisor</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="k">print</span> <span class="n">mcu</span><span class="o">.</span><span class="n">pin</span><span class="p">(</span><span class="s">&#39;D9&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">pwm</span><span class="o">.</span><span class="n">divisor</span>
 <span class="go">64</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">board</span><span class="o">.</span><span class="n">pin</span><span class="p">(</span><span class="s">&#39;D9&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">divisor</span> <span class="o">=</span> <span class="mi">256</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="k">print</span> <span class="n">board</span><span class="o">.</span><span class="n">pin</span><span class="p">(</span><span class="s">&#39;D9&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">pwm_frequency</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">mcu</span><span class="o">.</span><span class="n">pin</span><span class="p">(</span><span class="s">&#39;D9&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">pwm</span><span class="o">.</span><span class="n">divisor</span> <span class="o">=</span> <span class="mi">256</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="k">print</span> <span class="n">mcu</span><span class="o">.</span><span class="n">pin</span><span class="p">(</span><span class="s">&#39;D9&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">pwm</span><span class="o">.</span><span class="n">frequency</span>
 <span class="go">152.587890625</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="k">print</span> <span class="n">board</span><span class="o">.</span><span class="n">pin</span><span class="p">(</span><span class="s">&#39;D9&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">divisor</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="k">print</span> <span class="n">mcu</span><span class="o">.</span><span class="n">pin</span><span class="p">(</span><span class="s">&#39;D9&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">pwm</span><span class="o">.</span><span class="n">divisor</span>
 <span class="go">256</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">board</span><span class="o">.</span><span class="n">pin</span><span class="p">(</span><span class="s">&#39;D9&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">pwm_frequency</span> <span class="o">=</span> <span class="mi">38</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="k">print</span> <span class="n">board</span><span class="o">.</span><span class="n">pin</span><span class="p">(</span><span class="s">&#39;D9&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">pwm_frequency</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">mcu</span><span class="o">.</span><span class="n">pin</span><span class="p">(</span><span class="s">&#39;D9&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">pwm</span><span class="o">.</span><span class="n">frequency</span> <span class="o">=</span> <span class="mi">38</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="k">print</span> <span class="n">mcu</span><span class="o">.</span><span class="n">pin</span><span class="p">(</span><span class="s">&#39;D9&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">pwm</span><span class="o">.</span><span class="n">frequency</span>
 <span class="go">38.1469726562</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="k">print</span> <span class="n">board</span><span class="o">.</span><span class="n">pin</span><span class="p">(</span><span class="s">&#39;D9&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">divisor</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="k">print</span> <span class="n">mcu</span><span class="o">.</span><span class="n">pin</span><span class="p">(</span><span class="s">&#39;D9&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">pwm</span><span class="o">.</span><span class="n">divisor</span>
 <span class="go">1024</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">board</span><span class="o">.</span><span class="n">pin</span><span class="p">(</span><span class="s">&#39;D9&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">pwm_out</span> <span class="o">=</span> <span class="mi">4</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">mcu</span><span class="o">.</span><span class="n">pins</span><span class="o">.</span><span class="n">pwm</span><span class="o">.</span><span class="n">write_value</span><span class="p">(</span><span class="mi">9</span><span class="p">,</span> <span class="mi">54</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">mcu</span><span class="o">.</span><span class="n">pin</span><span class="p">(</span><span class="s">&#39;D9&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">pwm</span><span class="o">.</span><span class="n">write_value</span><span class="p">(</span><span class="mi">44</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">mcu</span><span class="o">.</span><span class="n">pin</span><span class="p">(</span><span class="s">&#39;D9&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">pwm</span><span class="o">.</span><span class="n">value</span> <span class="o">=</span> <span class="mi">34</span>
 <span class="gp">&gt;&gt;&gt; </span>
 <span class="gp">&gt;&gt;&gt; </span><span class="c"># read defines</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="k">print</span> <span class="n">board</span><span class="o">.</span><span class="n">defines</span><span class="o">.</span><span class="n">MCU_DEFINED</span>
-<span class="go">__AVR_ATmega88__</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="k">print</span> <span class="n">board</span><span class="o">.</span><span class="n">defines</span><span class="o">.</span><span class="n">F_CPU</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="k">print</span> <span class="n">mcu</span><span class="o">.</span><span class="n">define</span><span class="p">(</span><span class="s">&#39;F_CPU&#39;</span><span class="p">)</span>
 <span class="go">20000000</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="k">print</span> <span class="n">board</span><span class="o">.</span><span class="n">defines</span><span class="o">.</span><span class="n">__DATE__</span>
-<span class="go">Feb 14 2012</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="k">print</span> <span class="n">board</span><span class="o">.</span><span class="n">defines</span><span class="o">.</span><span class="n">MOSI</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="k">print</span> <span class="n">mcu</span><span class="o">.</span><span class="n">defines</span><span class="o">.</span><span class="n">value</span><span class="p">(</span><span class="s">&#39;F_CPU&#39;</span><span class="p">)</span>
+<span class="go">20000000</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="k">print</span> <span class="n">mcu</span><span class="o">.</span><span class="n">defines</span><span class="o">.</span><span class="n">exists</span><span class="p">(</span><span class="s">&#39;F_CPU&#39;</span><span class="p">)</span>
+<span class="go">True</span>
+<span class="gp">&gt;&gt;&gt; </span>
+<span class="gp">&gt;&gt;&gt; </span><span class="k">print</span> <span class="n">mcu</span><span class="o">.</span><span class="n">define</span><span class="p">(</span><span class="s">&#39;MCU_DEFINED&#39;</span><span class="p">)</span>
+<span class="go">__AVR_ATmega88__</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="k">print</span> <span class="n">mcu</span><span class="o">.</span><span class="n">define</span><span class="p">(</span><span class="s">&#39;F_CPU&#39;</span><span class="p">)</span>
+<span class="go">20000000</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="k">print</span> <span class="n">mcu</span><span class="o">.</span><span class="n">define</span><span class="p">(</span><span class="s">&#39;__DATE__&#39;</span><span class="p">)</span>
+<span class="go">Mar  1 2012</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="k">print</span> <span class="n">mcu</span><span class="o">.</span><span class="n">define</span><span class="p">(</span><span class="s">&#39;MOSI&#39;</span><span class="p">)</span>
 <span class="go">11</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="k">print</span> <span class="n">board</span><span class="o">.</span><span class="n">defines</span><span class="o">.</span><span class="n">USB_CFG_DMINUS_BIT</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="k">print</span> <span class="n">mcu</span><span class="o">.</span><span class="n">define</span><span class="p">(</span><span class="s">&#39;USB_CFG_DMINUS_BIT&#39;</span><span class="p">)</span>
 <span class="go">4</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="k">print</span> <span class="n">board</span><span class="o">.</span><span class="n">defines</span><span class="o">.</span><span class="n">ARDUINO</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="k">print</span> <span class="n">mcu</span><span class="o">.</span><span class="n">define</span><span class="p">(</span><span class="s">&#39;ARDUINO&#39;</span><span class="p">)</span>
 <span class="go">22</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="k">print</span> <span class="n">board</span><span class="o">.</span><span class="n">defines</span><span class="o">.</span><span class="n">__AVR_LIBC_VERSION__</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="k">print</span> <span class="n">mcu</span><span class="o">.</span><span class="n">define</span><span class="p">(</span><span class="s">&#39;__AVR_LIBC_VERSION__&#39;</span><span class="p">)</span>
 <span class="go">10701</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="k">print</span> <span class="n">board</span><span class="o">.</span><span class="n">defines</span><span class="o">.</span><span class="n">A0</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="k">print</span> <span class="n">mcu</span><span class="o">.</span><span class="n">define</span><span class="p">(</span><span class="s">&#39;A0&#39;</span><span class="p">)</span>
 <span class="go">14</span>
 <span class="gp">&gt;&gt;&gt; </span>
 <span class="gp">&gt;&gt;&gt; </span><span class="c"># read/write register</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">board</span><span class="o">.</span><span class="n">registers</span><span class="o">.</span><span class="n">DDRB</span> <span class="o">=</span> <span class="mi">0</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="k">print</span> <span class="n">board</span><span class="o">.</span><span class="n">registers</span><span class="o">.</span><span class="n">DDRB</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">mcu</span><span class="o">.</span><span class="n">register</span><span class="p">(</span><span class="s">&#39;DDRB&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">value</span> <span class="o">=</span> <span class="mi">0</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="k">print</span> <span class="n">mcu</span><span class="o">.</span><span class="n">registers</span><span class="o">.</span><span class="n">read_value</span><span class="p">(</span><span class="s">&#39;DDRB&#39;</span><span class="p">)</span>
 <span class="go">0</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="k">print</span> <span class="n">board</span><span class="o">.</span><span class="n">pin</span><span class="p">(</span><span class="mi">8</span><span class="p">)</span><span class="o">.</span><span class="n">mode</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="k">print</span> <span class="n">mcu</span><span class="o">.</span><span class="n">register</span><span class="p">(</span><span class="s">&#39;DDRB&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">read_value</span><span class="p">()</span>
 <span class="go">0</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">board</span><span class="o">.</span><span class="n">registers</span><span class="o">.</span><span class="n">DDRB</span> <span class="o">=</span> <span class="mi">1</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="k">print</span> <span class="n">board</span><span class="o">.</span><span class="n">registers</span><span class="o">.</span><span class="n">DDRB</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="k">print</span> <span class="n">mcu</span><span class="o">.</span><span class="n">register</span><span class="p">(</span><span class="s">&#39;DDRB&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">value</span>
+<span class="go">0</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="k">print</span> <span class="n">mcu</span><span class="o">.</span><span class="n">pin</span><span class="p">(</span><span class="mi">8</span><span class="p">)</span><span class="o">.</span><span class="n">mode</span>
+<span class="go">0</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">mcu</span><span class="o">.</span><span class="n">register</span><span class="p">(</span><span class="s">&#39;DDRB&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">value</span> <span class="o">=</span> <span class="mi">1</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="k">print</span> <span class="n">mcu</span><span class="o">.</span><span class="n">register</span><span class="p">(</span><span class="s">&#39;DDRB&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">value</span>
 <span class="go">1</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="k">print</span> <span class="n">board</span><span class="o">.</span><span class="n">pin</span><span class="p">(</span><span class="mi">8</span><span class="p">)</span><span class="o">.</span><span class="n">mode</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="k">print</span> <span class="n">mcu</span><span class="o">.</span><span class="n">pin</span><span class="p">(</span><span class="mi">8</span><span class="p">)</span><span class="o">.</span><span class="n">mode</span>
 <span class="go">1</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">board</span><span class="o">.</span><span class="n">pin</span><span class="p">(</span><span class="mi">8</span><span class="p">)</span><span class="o">.</span><span class="n">mode</span> <span class="o">=</span> <span class="n">INPUT</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="k">print</span> <span class="n">board</span><span class="o">.</span><span class="n">registers</span><span class="o">.</span><span class="n">DDRB</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">mcu</span><span class="o">.</span><span class="n">pin</span><span class="p">(</span><span class="mi">8</span><span class="p">)</span><span class="o">.</span><span class="n">mode</span> <span class="o">=</span> <span class="n">INPUT</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="k">print</span> <span class="n">mcu</span><span class="o">.</span><span class="n">register</span><span class="p">(</span><span class="s">&#39;DDRB&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">value</span>
 <span class="go">0</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="k">print</span> <span class="n">board</span><span class="o">.</span><span class="n">pin</span><span class="p">(</span><span class="mi">8</span><span class="p">)</span><span class="o">.</span><span class="n">mode</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="k">print</span> <span class="n">mcu</span><span class="o">.</span><span class="n">pin</span><span class="p">(</span><span class="mi">8</span><span class="p">)</span><span class="o">.</span><span class="n">mode</span>
 <span class="go">0</span>
 <span class="gp">&gt;&gt;&gt; </span>
 <span class="gp">&gt;&gt;&gt; </span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">board</span><span class="o">.</span><span class="n">reset</span><span class="p">()</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">mcu</span><span class="o">.</span><span class="n">reset</span><span class="p">()</span>
 </pre></div>
 </div>
 <div class="section" id="code-generation">
@@ -274,7 +290,7 @@ Registers and MCU names are read from <a class="reference external" href="http:/
         <li class="right" >
           <a href="readme.html" title="About"
              >previous</a> |</li>
-        <li><a href="index.html">softusbduino 1.0.0 documentation</a> &raquo;</li> 
+        <li><a href="index.html">softusbduino 1.1.0 documentation</a> &raquo;</li> 
       </ul>
     </div>
     <div class="footer">

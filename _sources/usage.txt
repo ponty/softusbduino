@@ -5,100 +5,110 @@ Usage
     
     >>> from softusbduino import *
     >>>
-    >>> # read defines
-    >>> board = Arduino()
+    >>> mcu = Arduino()
     >>> 
     >>> # reset pin directions
-    >>> board.reset()
+    >>> mcu.reset()
     >>>
     >>> # constants in python library
-    >>> print '0x%X' % board.idVendor
-    >>> print '0x%X' % board.idProduct
-    >>> print board.bandgap_voltage
+    >>> print '0x%X' % mcu.usb.id_vendor
+    >>> print '0x%X' % mcu.usb.id_product
+    >>> print mcu.bandgap_voltage
     >>>
     >>> # constants in firmware
-    >>> print board.usbMinusPin
-    >>> print board.usbPlusPin
-    >>> print board.pinCount
-    >>> print board.pinRange()
-    >>> print board.pinRange('digital')
-    >>> print board.pinRange('analog')
+    >>> print mcu.pins.usb_minus_pin
+    >>> print mcu.pins.usb_plus_pin
+    >>> print mcu.pins.count
+    >>> print mcu.pins.count_digital
+    >>> print mcu.pins.count_analog
+    >>> print mcu.pins.range_all
+    >>> print mcu.pins.range_digital
+    >>> print mcu.pins.range_analog
     >>>
     >>> # supply voltage
-    >>> print board.vcc
-    >>> print board.u_vcc
+    >>> print mcu.vcc.voltage
+    >>> print mcu.vcc.u_voltage
     >>>
     >>> # pin
-    >>> print board.pin(8).nr
-    >>> print board.pin('D8').nr
-    >>> print board.pin('A2').nr
-    >>> print board.pin('D13').programming_function
+    >>> print mcu.pin(8).nr
+    >>> print mcu.pin('D8').nr
+    >>> print mcu.pin('A2').nr
+    >>> print mcu.pin('D13').programming_function
     >>>
     >>> # pin mode
-    >>> board.pinMode(8, OUTPUT)
-    >>> print board.readPinMode(8)
-    >>> print board.pin('D8').mode
-    >>> board.pin('D8').mode = INPUT
-    >>> print board.readPinMode(8)
-    >>> print board.pin('D8').mode
+    >>> mcu.pins.write_mode(8, OUTPUT)
+    >>> print mcu.pins.read_mode(8)
+    >>> print mcu.pin('D8').read_mode()
+    >>> print mcu.pin('D8').mode
+    >>> mcu.pin('D8').mode = INPUT
+    >>> print mcu.pins.read_mode(8)
     >>>
     >>> # analog read
-    >>> print board.pin('A2').analogRead()
-    >>> print board.pin('A2').an_in
-    >>> print board.pin('A2').u_an_in
+    >>> print mcu.pins.read_analog(15)
+    >>> print mcu.pin('A2').read_analog()
+    >>> print mcu.pin('A2').analog
     >>>
     >>> # digital read
-    >>> print board.pin('D8').dig_in
+    >>> print mcu.pins.read_digital(8)
+    >>> print mcu.pin('D8').read_digital()
+    >>> print mcu.pin('D8').digital
     >>>
     >>> # pullup
-    >>> pinD8 = board.pin('D8')
-    >>> pinD8.pullup = True
-    >>> print pinD8.pullup
+    >>> mcu.pins.write_pullup(8, HIGH)
+    >>> mcu.pin('D8').write_pullup(HIGH)
     >>>
     >>> # digital write
-    >>> board.pin('D8').dig_out = 1
-    >>> print board.pin('D8').dig_out
-    >>> board.pin('D8').dig_out = 0
-    >>> print board.pin('D8').dig_out
+    >>> mcu.pins.write_mode(8, OUTPUT)
+    >>> mcu.pins.write_digital(8, HIGH)
+    >>> mcu.pin('D8').write_digital(HIGH)
+    >>> mcu.pin('D8').digital = HIGH
     >>>
     >>> # PWM
-    >>> print board.pin('D9').pwm_available
-    >>> print board.pin('D9').timer_register_name
-    >>> print board.pin('D9').pwm_frequencies_available
-    >>> print board.pin('D9').pwm_frequency
-    >>> print board.pin('D9').divisors_available
-    >>> print board.pin('D9').divisor
-    >>> board.pin('D9').divisor = 256
-    >>> print board.pin('D9').pwm_frequency
-    >>> print board.pin('D9').divisor
-    >>> board.pin('D9').pwm_frequency = 38
-    >>> print board.pin('D9').pwm_frequency
-    >>> print board.pin('D9').divisor
-    >>> board.pin('D9').pwm_out = 4
+    >>> print mcu.pin('D9').pwm.available
+    >>> print mcu.pin('D9').pwm.timer_register_name
+    >>> print mcu.pin('D9').pwm.frequencies_available
+    >>> print mcu.pin('D9').pwm.frequency
+    >>> print mcu.pin('D9').pwm.divisors_available
+    >>> print mcu.pin('D9').pwm.divisor
+    >>> mcu.pin('D9').pwm.divisor = 256
+    >>> print mcu.pin('D9').pwm.frequency
+    >>> print mcu.pin('D9').pwm.divisor
+    >>> mcu.pin('D9').pwm.frequency = 38
+    >>> print mcu.pin('D9').pwm.frequency
+    >>> print mcu.pin('D9').pwm.divisor
+    >>> mcu.pins.pwm.write_value(9, 54)
+    >>> mcu.pin('D9').pwm.write_value(44)
+    >>> mcu.pin('D9').pwm.value = 34
     >>>
     >>> # read defines
-    >>> print board.defines.MCU_DEFINED
-    >>> print board.defines.F_CPU
-    >>> print board.defines.__DATE__
-    >>> print board.defines.MOSI
-    >>> print board.defines.USB_CFG_DMINUS_BIT
-    >>> print board.defines.ARDUINO
-    >>> print board.defines.__AVR_LIBC_VERSION__
-    >>> print board.defines.A0
+    >>> print mcu.define('F_CPU')
+    >>> print mcu.defines.value('F_CPU')
+    >>> print mcu.defines.exists('F_CPU')
+    >>>
+    >>> print mcu.define('MCU_DEFINED')
+    >>> print mcu.define('F_CPU')
+    >>> print mcu.define('__DATE__')
+    >>> print mcu.define('MOSI')
+    >>> print mcu.define('USB_CFG_DMINUS_BIT')
+    >>> print mcu.define('ARDUINO')
+    >>> print mcu.define('__AVR_LIBC_VERSION__')
+    >>> print mcu.define('A0')
     >>>
     >>> # read/write register	
-    >>> board.registers.DDRB = 0
-    >>> print board.registers.DDRB
-    >>> print board.pin(8).mode
-    >>> board.registers.DDRB = 1
-    >>> print board.registers.DDRB
-    >>> print board.pin(8).mode
-    >>> board.pin(8).mode = INPUT
-    >>> print board.registers.DDRB
-    >>> print board.pin(8).mode
+    >>> mcu.register('DDRB').value = 0
+    >>> print mcu.registers.read_value('DDRB')
+    >>> print mcu.register('DDRB').read_value()
+    >>> print mcu.register('DDRB').value
+    >>> print mcu.pin(8).mode
+    >>> mcu.register('DDRB').value = 1
+    >>> print mcu.register('DDRB').value
+    >>> print mcu.pin(8).mode
+    >>> mcu.pin(8).mode = INPUT
+    >>> print mcu.register('DDRB').value
+    >>> print mcu.pin(8).mode
     >>>
     >>>
-    >>> board.reset()
+    >>> mcu.reset()
 
 Code generation
 -----------------

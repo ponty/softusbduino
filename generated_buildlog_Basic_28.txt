@@ -1,0 +1,29 @@
+----------
+stdout
+----------
+scons: Reading SConscript files ...
+No Arduino version specified. Discovered version 0023 or below
+maximum size for hex file: 130048 bytes
+scons: done reading SConscript files.
+scons: Building targets ...
+scons: building associated VariantDir targets: build/local build
+fnProcessing(["build/Basic.cpp"], ["build/Basic.pde"])
+void setup();
+void loop();
+/tmp/pyavrutils_MK0sAx/Basic/Basic.pde Basic
+avr-g++ -o build/Basic.o -c -ffunction-sections -fdata-sections -fno-exceptions -Wall -funsigned-char -funsigned-bitfields -fpack-struct -fshort-enums -Os -mmcu=at90usb1287 -DARDUINO=23 -DF_CPU=16000000L -Ibuild/core -Ibuild/lib_00/SoftUsb build/Basic.cpp
+scons: building terminated because of errors.
+
+----------
+stderr
+----------
+In file included from build/Basic.pde:1:0:
+build/lib_00/SoftUsb/SoftUsb.h:105:32: warning: only initialized variables can be placed into program memory area
+In file included from build/Basic.pde:1:0:
+build/lib_00/SoftUsb/SoftUsb.h:114:38: warning: only initialized variables can be placed into program memory area
+In file included from build/Basic.pde:1:0:
+build/lib_00/SoftUsb/SoftUsb.h:123:35: warning: only initialized variables can be placed into program memory area
+In file included from build/lib_00/SoftUsb/SoftUsb.h:125:0,
+                 from build/Basic.pde:1:
+build/lib_00/SoftUsb/generated_intdefs.h:26:1: error: 'ONEWIRE_BUS_COUNT' was not declared in this scope
+scons: *** [build/Basic.o] Error 1

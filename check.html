@@ -8,7 +8,7 @@
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     
-    <title>Tests &mdash; softusbduino 1.0.0 documentation</title>
+    <title>Tests &mdash; softusbduino 1.1.0 documentation</title>
     
     <link rel="stylesheet" href="_static/default.css" type="text/css" />
     <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
@@ -16,7 +16,7 @@
     <script type="text/javascript">
       var DOCUMENTATION_OPTIONS = {
         URL_ROOT:    '',
-        VERSION:     '1.0.0',
+        VERSION:     '1.1.0',
         COLLAPSE_INDEX: false,
         FILE_SUFFIX: '.html',
         HAS_SOURCE:  true
@@ -25,9 +25,9 @@
     <script type="text/javascript" src="_static/jquery.js"></script>
     <script type="text/javascript" src="_static/underscore.js"></script>
     <script type="text/javascript" src="_static/doctools.js"></script>
-    <link rel="top" title="softusbduino 1.0.0 documentation" href="index.html" />
+    <link rel="top" title="softusbduino 1.1.0 documentation" href="index.html" />
     <link rel="next" title="Hardware" href="hw.html" />
-    <link rel="prev" title="Examples" href="examples.html" /> 
+    <link rel="prev" title="1Wire examples" href="examples1wire.html" /> 
   </head>
   <body>
     <div class="related">
@@ -40,9 +40,9 @@
           <a href="hw.html" title="Hardware"
              accesskey="N">next</a> |</li>
         <li class="right" >
-          <a href="examples.html" title="Examples"
+          <a href="examples1wire.html" title="1Wire examples"
              accesskey="P">previous</a> |</li>
-        <li><a href="index.html">softusbduino 1.0.0 documentation</a> &raquo;</li> 
+        <li><a href="index.html">softusbduino 1.1.0 documentation</a> &raquo;</li> 
       </ul>
     </div>  
 
@@ -55,58 +55,555 @@
 <h1>Tests<a class="headerlink" href="#tests" title="Permalink to this headline">¶</a></h1>
 <p>Test system versions:</p>
 <div class="highlight-text"><div class="highlight"><pre>$ python -m softusbduino.lsversion
-platform        Linux-3.0.0-12-generic-i686-athlon-with-LinuxMint-12-lisa
+platform        Linux-3.0.0-16-generic-i686-athlon-with-LinuxMint-12-lisa
 python          2.7.2+
 </pre></div>
 </div>
 <p>Performance test:</p>
-<div class="highlight-text"><div class="highlight"><pre>$ python -m softusbduino.examples.performance
+<div class="highlight-text"><div class="highlight"><pre>$ python -m softusbduino.check.performance
 performance test
 n= 100
 
-analogRead(0)                           3.98 ms per call,   251 call per second
-pinMode(8,0)                            3.82 ms per call,   262 call per second
-digitalRead(8)                          3.70 ms per call,   270 call per second
-digitalPinToBitMask(0)                  0.05 ms per call, 18292 call per second
-digitalPinToPort(0)                     0.12 ms per call,  8278 call per second
-portModeRegister(0)                     3.23 ms per call,   310 call per second
-defines.read_define(&quot;__TIME__&quot;)         0.09 ms per call, 10832 call per second
-defines.read_define(&quot;MCU_DEFINED&quot;)      0.12 ms per call,  8401 call per second
-readPinMode(0)                          3.83 ms per call,   261 call per second
-vcc                                    22.96 ms per call,    44 call per second
-pinCount                                0.60 ms per call,  1655 call per second
-usbMinusPin                             0.79 ms per call,  1272 call per second
-usbPlusPin                              0.76 ms per call,  1313 call per second
-firmware_test()                         0.06 ms per call, 16098 call per second
-defines.__TIME__                        0.06 ms per call, 15704 call per second
-pin(&quot;A0&quot;).an_in                         3.46 ms per call,   289 call per second
-reset()                               122.84 ms per call,     8 call per second
+pins.read_analog(0)                     3.57 ms per call,   280 call per second
+pins.write_mode(8,0)                    3.57 ms per call,   280 call per second
+pins.read_digital(8)                    3.26 ms per call,   307 call per second
+defines.value(&quot;__TIME__&quot;)               0.12 ms per call,  8306 call per second
+defines.exists(&quot;__TIME__&quot;)              0.07 ms per call, 15230 call per second
+defines.exists(&quot;xx&quot;)                    0.07 ms per call, 14428 call per second
+define(&quot;A0&quot;)                            0.07 ms per call, 14265 call per second
+registers.read_value(&quot;DDRB&quot;)            3.76 ms per call,   266 call per second
+registers.exists(&quot;DDRB&quot;)                0.07 ms per call, 13897 call per second
+registers.exists(&quot;xx&quot;)                  0.08 ms per call, 13050 call per second
+register(&quot;DDRB&quot;).value                  3.29 ms per call,   304 call per second
+register(&quot;DDRB&quot;).read_value()           3.40 ms per call,   294 call per second
+register(&quot;DDRB&quot;).exists                 0.07 ms per call, 14152 call per second
+register(&quot;xx&quot;).exists                   0.08 ms per call, 12739 call per second
+vcc.voltage                             0.43 ms per call,  2330 call per second
+vcc.read_voltage()                     21.31 ms per call,    47 call per second
+read_vcc()                             21.49 ms per call,    47 call per second
+pins.count                              0.16 ms per call,  6402 call per second
+pins.usb_minus_pin                      0.11 ms per call,  8928 call per second
+pins.usb_plus_pin                       0.15 ms per call,  6496 call per second
+firmware_test()                         0.08 ms per call, 12167 call per second
+pins.read_mode(0)                       3.52 ms per call,   284 call per second
+reset()                               121.72 ms per call,     8 call per second
 </pre></div>
 </div>
-<p>Dump registers and defines:</p>
-<div class="highlight-text"><div class="highlight"><pre>$ python -m softusbduino.examples.dump
+<p>Dump state:</p>
+<div class="highlight-text"><div class="highlight"><pre>$ python -m softusbduino.check.dump
 
-=========================
-attributes:
-=========================
+================================
+Arduino() attributes:
+================================
 Rout            =              15
 adc_accuracy    =               2
 analog_range    =       (0, 1023)
 bandgap_voltage =             1.1
-idProduct       =            1503
-idVendor        =            5824
-manufacturer    =        obdev.at
-pinCount        =              20
-productName     =       LEDCtlHID
-u_vcc           = 4.85517241379+/-0.0418549346017
-usbMinusPin     =               4
-usbPlusPin      =               2
-vcc             =   4.85517241379
+defines         = &lt;softusbduino.defines.Defines object at 0x874672c&gt;
+lowlevel_1wire  = &lt;softusbduino.onewire.LowLevel1Wire object at 0x874a8ec&gt;
+lowlevel_defines = &lt;softusbduino.defines.DefinesLowLevel object at 0x87466cc&gt;
+lowlevel_delaytest = &lt;softusbduino.delaytest.DelayTestLowLevel object at 0x874a96c&gt;
+lowlevel_pins   = &lt;softusbduino.pin.PinsLowLevel object at 0xb78193ec&gt;
+lowlevel_pwm    = &lt;softusbduino.pwmpin.PwmLowLevel object at 0x874a9cc&gt;
+lowlevel_registers = &lt;softusbduino.registers.RegistersLowLevel object at 0x874aa4c&gt;
+pins            = &lt;softusbduino.pin.Pins object at 0x8746bcc&gt;
+pwm             = &lt;softusbduino.pwmpin.Pwm object at 0x874aacc&gt;
+registers       = &lt;softusbduino.registers.Registers object at 0x874ab4c&gt;
+serializer      = &lt;softusbduino.ser.Serializer object at 0x874666c&gt;
+usb             = &lt;softusbduino.usbdevice.UsbDevice object at 0x86ed62c&gt;
+vcc             = &lt;softusbduino.vcc.Vcc object at 0x874ad0c&gt;
+
+================================
+Arduino().pins attributes:
+================================
+base            = &lt;softusbduino.pin.PinsLowLevel object at 0xb78193ec&gt;
+count           =              20
+count_analog    =               6
+count_digital   =              14
+defines         = &lt;softusbduino.defines.Defines object at 0x874672c&gt;
+mcu             = &lt;softusbduino.arduino.Arduino object at 0x868514c&gt;
+range_all       = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19]
+range_analog    = [14, 15, 16, 17, 18, 19]
+range_digital   = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13]
+usb_minus_pin   =               4
+usb_plus_pin    =               2
+
+================================
+Arduino().pin(nr) attributes:
+================================
+---------- nr=0 ---------------
+A0              =              14
+analog          =             342
+analog_obj      = &lt;softusbduino.pin.AnalogInputValue object at 0x87622cc&gt;
+base            = &lt;softusbduino.pin.Pins object at 0x8746bcc&gt;
+digital         =               1
+digital_in      =               1
+digital_out     =            None
+is_analog       =           False
+is_digital      =            True
+is_usb_minus    =           False
+is_usb_plus     =           False
+mcu             = &lt;softusbduino.arduino.Arduino object at 0x868514c&gt;
+mode            =               0
+name            =              D0
+nr              =               0
+nr_analog       =            None
+programming_function =            None
+pwm             = &lt;softusbduino.pwmpin.PwmPin object at 0x876240c&gt;
+---------- nr=1 ---------------
+A0              =              14
+analog          =             342
+analog_obj      = &lt;softusbduino.pin.AnalogInputValue object at 0x876248c&gt;
+base            = &lt;softusbduino.pin.Pins object at 0x8746bcc&gt;
+digital         =               0
+digital_in      =               0
+digital_out     =            None
+is_analog       =           False
+is_digital      =            True
+is_usb_minus    =           False
+is_usb_plus     =           False
+mcu             = &lt;softusbduino.arduino.Arduino object at 0x868514c&gt;
+mode            =               0
+name            =              D1
+nr              =               1
+nr_analog       =            None
+programming_function =            None
+pwm             = &lt;softusbduino.pwmpin.PwmPin object at 0x87624ec&gt;
+---------- nr=2 ---------------
+A0              =              14
+analog          =             347
+analog_obj      = &lt;softusbduino.pin.AnalogInputValue object at 0x876254c&gt;
+base            = &lt;softusbduino.pin.Pins object at 0x8746bcc&gt;
+digital         =               0
+digital_in      =               0
+digital_out     =            None
+is_analog       =           False
+is_digital      =            True
+is_usb_minus    =           False
+is_usb_plus     =            True
+mcu             = &lt;softusbduino.arduino.Arduino object at 0x868514c&gt;
+mode            =               0
+name            =              D2
+nr              =               2
+nr_analog       =            None
+programming_function =            None
+pwm             = &lt;softusbduino.pwmpin.PwmPin object at 0x876256c&gt;
+---------- nr=3 ---------------
+A0              =              14
+analog          =             368
+analog_obj      = &lt;softusbduino.pin.AnalogInputValue object at 0x87625ec&gt;
+base            = &lt;softusbduino.pin.Pins object at 0x8746bcc&gt;
+digital         =               1
+digital_in      =               1
+digital_out     =            None
+is_analog       =           False
+is_digital      =            True
+is_usb_minus    =           False
+is_usb_plus     =           False
+mcu             = &lt;softusbduino.arduino.Arduino object at 0x868514c&gt;
+mode            =               0
+name            =              D3
+nr              =               3
+nr_analog       =            None
+programming_function =            None
+pwm             = &lt;softusbduino.pwmpin.PwmPin object at 0x87625ec&gt;
+--- pwm ---
+available       =            True
+base            = &lt;softusbduino.pwmpin.Pwm object at 0x874aacc&gt;
+base_divisor    =             512
+divisor         =              64
+divisors_available = [1, 8, 32, 64, 128, 256, 1024]
+frequencies_available = [39062.5, 4882.8125, 1220.703125, 610.3515625, 305.17578125, 152.587890625, 38.14697265625]
+frequency       =     610.3515625
+pin             = &lt;softusbduino.pin.Pin object at 0x87621ec&gt;
+timer_mode      =               4
+timer_register_name =          TCCR2B
+---------- nr=4 ---------------
+A0              =              14
+analog          =             350
+analog_obj      = &lt;softusbduino.pin.AnalogInputValue object at 0x87626cc&gt;
+base            = &lt;softusbduino.pin.Pins object at 0x8746bcc&gt;
+digital         =               1
+digital_in      =               1
+digital_out     =            None
+is_analog       =           False
+is_digital      =            True
+is_usb_minus    =            True
+is_usb_plus     =           False
+mcu             = &lt;softusbduino.arduino.Arduino object at 0x868514c&gt;
+mode            =               0
+name            =              D4
+nr              =               4
+nr_analog       =            None
+programming_function =            None
+pwm             = &lt;softusbduino.pwmpin.PwmPin object at 0x87626ec&gt;
+---------- nr=5 ---------------
+A0              =              14
+analog          =             353
+analog_obj      = &lt;softusbduino.pin.AnalogInputValue object at 0x876276c&gt;
+base            = &lt;softusbduino.pin.Pins object at 0x8746bcc&gt;
+digital         =               0
+digital_in      =               0
+digital_out     =            None
+is_analog       =           False
+is_digital      =            True
+is_usb_minus    =           False
+is_usb_plus     =           False
+mcu             = &lt;softusbduino.arduino.Arduino object at 0x868514c&gt;
+mode            =               0
+name            =              D5
+nr              =               5
+nr_analog       =            None
+programming_function =            None
+pwm             = &lt;softusbduino.pwmpin.PwmPin object at 0x87627ac&gt;
+--- pwm ---
+available       =            True
+base            = &lt;softusbduino.pwmpin.Pwm object at 0x874aacc&gt;
+base_divisor    =             256
+divisor         =              64
+divisors_available = [1, 8, 64, 256, 1024]
+frequencies_available = [78125.0, 9765.625, 1220.703125, 305.17578125, 76.2939453125]
+frequency       =     1220.703125
+pin             = &lt;softusbduino.pin.Pin object at 0x87624cc&gt;
+timer_mode      =               3
+timer_register_name =          TCCR0B
+---------- nr=6 ---------------
+A0              =              14
+analog          =             368
+analog_obj      = &lt;softusbduino.pin.AnalogInputValue object at 0x874a2ec&gt;
+base            = &lt;softusbduino.pin.Pins object at 0x8746bcc&gt;
+digital         =               0
+digital_in      =               0
+digital_out     =            None
+is_analog       =           False
+is_digital      =            True
+is_usb_minus    =           False
+is_usb_plus     =           False
+mcu             = &lt;softusbduino.arduino.Arduino object at 0x868514c&gt;
+mode            =               0
+name            =              D6
+nr              =               6
+nr_analog       =            None
+programming_function =            None
+pwm             = &lt;softusbduino.pwmpin.PwmPin object at 0x87628ac&gt;
+--- pwm ---
+available       =            True
+base            = &lt;softusbduino.pwmpin.Pwm object at 0x874aacc&gt;
+base_divisor    =             256
+divisor         =              64
+divisors_available = [1, 8, 64, 256, 1024]
+frequencies_available = [78125.0, 9765.625, 1220.703125, 305.17578125, 76.2939453125]
+frequency       =     1220.703125
+pin             = &lt;softusbduino.pin.Pin object at 0x87626ac&gt;
+timer_mode      =               3
+timer_register_name =          TCCR0B
+---------- nr=7 ---------------
+A0              =              14
+analog          =             384
+analog_obj      = &lt;softusbduino.pin.AnalogInputValue object at 0x876290c&gt;
+base            = &lt;softusbduino.pin.Pins object at 0x8746bcc&gt;
+digital         =               0
+digital_in      =               0
+digital_out     =            None
+is_analog       =           False
+is_digital      =            True
+is_usb_minus    =           False
+is_usb_plus     =           False
+mcu             = &lt;softusbduino.arduino.Arduino object at 0x868514c&gt;
+mode            =               0
+name            =              D7
+nr              =               7
+nr_analog       =            None
+programming_function =            None
+pwm             = &lt;softusbduino.pwmpin.PwmPin object at 0x876296c&gt;
+---------- nr=8 ---------------
+A0              =              14
+analog          =             386
+analog_obj      = &lt;softusbduino.pin.AnalogInputValue object at 0x876272c&gt;
+base            = &lt;softusbduino.pin.Pins object at 0x8746bcc&gt;
+digital         =               1
+digital_in      =               1
+digital_out     =            None
+is_analog       =           False
+is_digital      =            True
+is_usb_minus    =           False
+is_usb_plus     =           False
+mcu             = &lt;softusbduino.arduino.Arduino object at 0x868514c&gt;
+mode            =               0
+name            =              D8
+nr              =               8
+nr_analog       =            None
+programming_function =            None
+pwm             = &lt;softusbduino.pwmpin.PwmPin object at 0x875de4c&gt;
+---------- nr=9 ---------------
+A0              =              14
+analog          =             373
+analog_obj      = &lt;softusbduino.pin.AnalogInputValue object at 0x875deac&gt;
+base            = &lt;softusbduino.pin.Pins object at 0x8746bcc&gt;
+digital         =               1
+digital_in      =               1
+digital_out     =            None
+is_analog       =           False
+is_digital      =            True
+is_usb_minus    =           False
+is_usb_plus     =           False
+mcu             = &lt;softusbduino.arduino.Arduino object at 0x868514c&gt;
+mode            =               0
+name            =              D9
+nr              =               9
+nr_analog       =            None
+programming_function =            None
+pwm             = &lt;softusbduino.pwmpin.PwmPin object at 0x875df0c&gt;
+--- pwm ---
+available       =            True
+base            = &lt;softusbduino.pwmpin.Pwm object at 0x874aacc&gt;
+base_divisor    =             512
+divisor         =              64
+divisors_available = [1, 8, 64, 256, 1024]
+frequencies_available = [39062.5, 4882.8125, 610.3515625, 152.587890625, 38.14697265625]
+frequency       =     610.3515625
+pin             = &lt;softusbduino.pin.Pin object at 0x875ddac&gt;
+timer_mode      =               3
+timer_register_name =          TCCR1B
+---------- nr=10 ---------------
+A0              =              14
+analog          =             349
+analog_obj      = &lt;softusbduino.pin.AnalogInputValue object at 0x875df8c&gt;
+base            = &lt;softusbduino.pin.Pins object at 0x8746bcc&gt;
+digital         =               0
+digital_in      =               0
+digital_out     =            None
+is_analog       =           False
+is_digital      =            True
+is_usb_minus    =           False
+is_usb_plus     =           False
+mcu             = &lt;softusbduino.arduino.Arduino object at 0x868514c&gt;
+mode            =               0
+name            =             D10
+nr              =              10
+nr_analog       =            None
+programming_function =              SS
+pwm             = &lt;softusbduino.pwmpin.PwmPin object at 0x875dfac&gt;
+--- pwm ---
+available       =            True
+base            = &lt;softusbduino.pwmpin.Pwm object at 0x874aacc&gt;
+base_divisor    =             512
+divisor         =              64
+divisors_available = [1, 8, 64, 256, 1024]
+frequencies_available = [39062.5, 4882.8125, 610.3515625, 152.587890625, 38.14697265625]
+frequency       =     610.3515625
+pin             = &lt;softusbduino.pin.Pin object at 0x876290c&gt;
+timer_mode      =               3
+timer_register_name =          TCCR1B
+---------- nr=11 ---------------
+A0              =              14
+analog          =             378
+analog_obj      = &lt;softusbduino.pin.AnalogInputValue object at 0x875dfec&gt;
+base            = &lt;softusbduino.pin.Pins object at 0x8746bcc&gt;
+digital         =               0
+digital_in      =               0
+digital_out     =            None
+is_analog       =           False
+is_digital      =            True
+is_usb_minus    =           False
+is_usb_plus     =           False
+mcu             = &lt;softusbduino.arduino.Arduino object at 0x868514c&gt;
+mode            =               0
+name            =             D11
+nr              =              11
+nr_analog       =            None
+programming_function =            MOSI
+pwm             = &lt;softusbduino.pwmpin.PwmPin object at 0x879756c&gt;
+--- pwm ---
+available       =            True
+base            = &lt;softusbduino.pwmpin.Pwm object at 0x874aacc&gt;
+base_divisor    =             512
+divisor         =              64
+divisors_available = [1, 8, 32, 64, 128, 256, 1024]
+frequencies_available = [39062.5, 4882.8125, 1220.703125, 610.3515625, 305.17578125, 152.587890625, 38.14697265625]
+frequency       =     610.3515625
+pin             = &lt;softusbduino.pin.Pin object at 0x875deac&gt;
+timer_mode      =               4
+timer_register_name =          TCCR2B
+---------- nr=12 ---------------
+A0              =              14
+analog          =             373
+analog_obj      = &lt;softusbduino.pin.AnalogInputValue object at 0x879764c&gt;
+base            = &lt;softusbduino.pin.Pins object at 0x8746bcc&gt;
+digital         =               0
+digital_in      =               0
+digital_out     =            None
+is_analog       =           False
+is_digital      =            True
+is_usb_minus    =           False
+is_usb_plus     =           False
+mcu             = &lt;softusbduino.arduino.Arduino object at 0x868514c&gt;
+mode            =               0
+name            =             D12
+nr              =              12
+nr_analog       =            None
+programming_function =            MISO
+pwm             = &lt;softusbduino.pwmpin.PwmPin object at 0x87975ec&gt;
+---------- nr=13 ---------------
+A0              =              14
+analog          =             351
+analog_obj      = &lt;softusbduino.pin.AnalogInputValue object at 0x879770c&gt;
+base            = &lt;softusbduino.pin.Pins object at 0x8746bcc&gt;
+digital         =               0
+digital_in      =               0
+digital_out     =            None
+is_analog       =           False
+is_digital      =            True
+is_usb_minus    =           False
+is_usb_plus     =           False
+mcu             = &lt;softusbduino.arduino.Arduino object at 0x868514c&gt;
+mode            =               0
+name            =             D13
+nr              =              13
+nr_analog       =            None
+programming_function =             SCK
+pwm             = &lt;softusbduino.pwmpin.PwmPin object at 0x879776c&gt;
+---------- nr=14 ---------------
+A0              =              14
+analog          =             383
+analog_obj      = &lt;softusbduino.pin.AnalogInputValue object at 0x87977cc&gt;
+base            = &lt;softusbduino.pin.Pins object at 0x8746bcc&gt;
+digital         =               0
+digital_in      =               0
+digital_out     =            None
+is_analog       =            True
+is_digital      =           False
+is_usb_minus    =           False
+is_usb_plus     =           False
+mcu             = &lt;softusbduino.arduino.Arduino object at 0x868514c&gt;
+mode            =               0
+name            =              A0
+nr              =              14
+nr_analog       =               0
+programming_function =            None
+pwm             = &lt;softusbduino.pwmpin.PwmPin object at 0x879782c&gt;
+---------- nr=15 ---------------
+A0              =              14
+analog          =             363
+analog_obj      = &lt;softusbduino.pin.AnalogInputValue object at 0x879788c&gt;
+base            = &lt;softusbduino.pin.Pins object at 0x8746bcc&gt;
+digital         =               0
+digital_in      =               0
+digital_out     =            None
+is_analog       =            True
+is_digital      =           False
+is_usb_minus    =           False
+is_usb_plus     =           False
+mcu             = &lt;softusbduino.arduino.Arduino object at 0x868514c&gt;
+mode            =               0
+name            =              A1
+nr              =              15
+nr_analog       =               1
+programming_function =            None
+pwm             = &lt;softusbduino.pwmpin.PwmPin object at 0x87978ac&gt;
+---------- nr=16 ---------------
+A0              =              14
+analog          =             350
+analog_obj      = &lt;softusbduino.pin.AnalogInputValue object at 0x879794c&gt;
+base            = &lt;softusbduino.pin.Pins object at 0x8746bcc&gt;
+digital         =               0
+digital_in      =               0
+digital_out     =            None
+is_analog       =            True
+is_digital      =           False
+is_usb_minus    =           False
+is_usb_plus     =           False
+mcu             = &lt;softusbduino.arduino.Arduino object at 0x868514c&gt;
+mode            =               0
+name            =              A2
+nr              =              16
+nr_analog       =               2
+programming_function =            None
+pwm             = &lt;softusbduino.pwmpin.PwmPin object at 0x87979ac&gt;
+---------- nr=17 ---------------
+A0              =              14
+analog          =             351
+analog_obj      = &lt;softusbduino.pin.AnalogInputValue object at 0x8797a0c&gt;
+base            = &lt;softusbduino.pin.Pins object at 0x8746bcc&gt;
+digital         =               0
+digital_in      =               0
+digital_out     =            None
+is_analog       =            True
+is_digital      =           False
+is_usb_minus    =           False
+is_usb_plus     =           False
+mcu             = &lt;softusbduino.arduino.Arduino object at 0x868514c&gt;
+mode            =               0
+name            =              A3
+nr              =              17
+nr_analog       =               3
+programming_function =            None
+pwm             = &lt;softusbduino.pwmpin.PwmPin object at 0x8797a2c&gt;
+---------- nr=18 ---------------
+A0              =              14
+analog          =             364
+analog_obj      = &lt;softusbduino.pin.AnalogInputValue object at 0x8797acc&gt;
+base            = &lt;softusbduino.pin.Pins object at 0x8746bcc&gt;
+digital         =               0
+digital_in      =               0
+digital_out     =            None
+is_analog       =            True
+is_digital      =           False
+is_usb_minus    =           False
+is_usb_plus     =           False
+mcu             = &lt;softusbduino.arduino.Arduino object at 0x868514c&gt;
+mode            =               0
+name            =              A4
+nr              =              18
+nr_analog       =               4
+programming_function =            None
+pwm             = &lt;softusbduino.pwmpin.PwmPin object at 0x8797b2c&gt;
+---------- nr=19 ---------------
+A0              =              14
+analog          =             341
+analog_obj      = &lt;softusbduino.pin.AnalogInputValue object at 0x8797b8c&gt;
+base            = &lt;softusbduino.pin.Pins object at 0x8746bcc&gt;
+digital         =               0
+digital_in      =               0
+digital_out     =            None
+is_analog       =            True
+is_digital      =           False
+is_usb_minus    =           False
+is_usb_plus     =           False
+mcu             = &lt;softusbduino.arduino.Arduino object at 0x868514c&gt;
+mode            =               0
+name            =              A5
+nr              =              19
+nr_analog       =               5
+programming_function =            None
+pwm             = &lt;softusbduino.pwmpin.PwmPin object at 0x8797bec&gt;
+
+================================
+Arduino().vcc attributes:
+================================
+_u_voltage      = 4.87619047619+/-0.042218099361
+base            = &lt;softusbduino.arduino.Arduino object at 0x868514c&gt;
+t               =   1330892696.64
+u_voltage       = 4.87619047619+/-0.042218099361
+voltage         =   4.87619047619
+
+================================
+Arduino().defines attributes:
+================================
+base            = &lt;softusbduino.defines.DefinesLowLevel object at 0x87466cc&gt;
+intdef_ids      = Bunch(A0=14, ARDUINO=9, E2END=2, E2PAGESIZE=5, FLASHEND=3, F_CPU=8, MISO=12, MOSI=11, ONEWIRE_BUS_COUNT=19, RAMEND=0, SCK=13, SOFTUSBDUINO_FIRMWARE_VERSION=18, SOFTUSBDUINO_VERSION=17, SPM_PAGESIZE=4, SS=10, USB_CFG_DMINUS_BIT=6, USB_CFG_DPLUS_BIT=7, XRAMEND=1, __AVR_LIBC_DATE_=15, __AVR_LIBC_VERSION__=16)
+special_defines = Bunch(MAGIC_NUMBER=42, MCU_DEFINED=26, USBDRV_VERSION=25, USB_CFG_IOPORT=34, __DATE__=23, __TIME__=22)
+
+================================
+Arduino().registers attributes:
+================================
+base            = &lt;softusbduino.registers.RegistersLowLevel object at 0x874aa4c&gt;
+register_id_map = Bunch(AC0CON=0, AC1CON=1, AC1ECON=2, AC2CON=3, AC2ECON=4, AC3CON=5, AC3ECON=6, ACA_AC0CTRL=7, ACA_AC0MUXCTRL=8, ACA_AC1CTRL=9, ACA_AC1MUXCTRL=10, ACA_CTRLA=11, ACA_CTRLB=12, ACA_STATUS=13, ACA_WINCTRL=14, ACB_AC0CTRL=15, ACB_AC0MUXCTRL=16, ACB_AC1CTRL=17, ACB_AC1MUXCTRL=18, ACB_CTRLA=19, ACB_CTRLB=20, ACB_STATUS=21, ACB_WINCTRL=22, ACSR=23, ACSRA=24, ACSRB=25, ADCA_CH0_CTRL=26, ADCA_CH0_INTCTRL=27, ADCA_CH0_INTFLAGS=28, ADCA_CH0_MUXCTRL=29, ADCA_CH1_CTRL=30, ADCA_CH1_INTCTRL=31, ADCA_CH1_INTFLAGS=32, ADCA_CH1_MUXCTRL=33, ADCA_CH2_CTRL=34, ADCA_CH2_INTCTRL=35, ADCA_CH2_INTFLAGS=36, ADCA_CH2_MUXCTRL=37, ADCA_CH3_CTRL=38, ADCA_CH3_INTCTRL=39, ADCA_CH3_INTFLAGS=40, ADCA_CH3_MUXCTRL=41, ADCA_CTRLA=42, ADCA_CTRLB=43, ADCA_EVCTRL=44, ADCA_INTFLAGS=45, ADCA_PRESCALER=46, ADCA_REFCTRL=47, ADCA_TEMP=48, ADCB_CH0_CTRL=49, ADCB_CH0_INTCTRL=50, ADCB_CH0_INTFLAGS=51, ADCB_CH0_MUXCTRL=52, ADCB_CH1_CTRL=53, ADCB_CH1_INTCTRL=54, ADCB_CH1_INTFLAGS=55, ADCB_CH1_MUXCTRL=56, ADCB_CH2_CTRL=57, ADCB_CH2_INTCTRL=58, ADCB_CH2_INTFLAGS=59, ADCB_CH2_MUXCTRL=60, ADCB_CH3_CTRL=61, ADCB_CH3_INTCTRL=62, ADCB_CH3_INTFLAGS=63, ADCB_CH3_MUXCTRL=64, ADCB_CTRLA=65, ADCB_CTRLB=66, ADCB_EVCTRL=67, ADCB_INTFLAGS=68, ADCB_PRESCALER=69, ADCB_REFCTRL=70, ADCB_TEMP=71, ADCH=72, ADCL=73, ADCRA=74, ADCRB=75, ADCRC=76, ADCRD=77, ADCRE=78, ADCSR=79, ADCSRA=80, ADCSRB=81, ADCSRC=82, ADCWH=83, ADCWL=84, ADIFR=85, ADIMR=86, ADMUX=87, ADRSLTH=88, ADRSLTHI=89, ADRSLTL=90, ADRSLTLO=91, ADSCSRA=92, ADSCSRB=93, AESACR=94, AESADDR=95, AESCR=96, AESDR=97, AES_CTRL=98, AES_INTCTRL=99, AES_KEY=100, AES_STATE=101, AES_STATUS=102, AGPDDR=103, AGPPIN=104, AGPPORT=105, AMISCR=106, AMP0CSR=107, AMP1CSR=108, AMP2CSR=109, AMUXCTL=110, ANT_DIV=111, ASSR=112, AVR_CONFIG=113, AWEXC_CTRL=114, AWEXC_DTBOTH=115, AWEXC_DTBOTHBUF=116, AWEXC_DTHS=117, AWEXC_DTHSBUF=118, AWEXC_DTLS=119, AWEXC_DTLSBUF=120, AWEXC_FDCTRL=121, AWEXC_FDEMASK=122, AWEXC_OUTOVEN=123, AWEXC_STATUS=124, AWEXE_CTRL=125, AWEXE_DTBOTH=126, AWEXE_DTBOTHBUF=127, AWEXE_DTHS=128, AWEXE_DTHSBUF=129, AWEXE_DTLS=130, AWEXE_DTLSBUF=131, AWEXE_FDCTRL=132, AWEXE_FDEMASK=133, AWEXE_OUTOVEN=134, AWEXE_STATUS=135, BATMON=136, BGCAL=137, BGCCR=138, BGCR=139, BGCRA=140, BGCRB=141, BGCRR=142, BGCSR=143, BGCSRA=144, BGLR=145, BGPDDR=146, BGPPIN=147, BGPPORT=148, BL_CONFIG=149, BODCR=150, BPCHCD=151, BPCOCD=152, BPCR=153, BPDHCD=154, BPDOCD=155, BPDUV=156, BPHCTR=157, BPIFR=158, BPIMSK=159, BPIR=160, BPOCD=161, BPOCTR=162, BPPLR=163, BPSCD=164, BPSCTR=165, BTCNT=166, BTCR=167, B_DET=168, CADAC0=169, CADAC1=170, CADAC2=171, CADAC3=172, CADCSRA=173, CADCSRB=174, CADCSRC=175, CADICH=176, CADICL=177, CADRC=178, CADRCC=179, CADRCLH=180, CADRCLL=181, CADRDC=182, CANBT1=183, CANBT2=184, CANBT3=185, CANCDMOB=186, CANEN1=187, CANEN2=188, CANGCON=189, CANGIE=190, CANGIT=191, CANGSTA=192, CANHPMOB=193, CANIDM1=194, CANIDM2=195, CANIDM3=196, CANIDM4=197, CANIDT1=198, CANIDT2=199, CANIDT3=200, CANIDT4=201, CANIE1=202, CANIE2=203, CANMSG=204, CANPAGE=205, CANREC=206, CANSIT1=207, CANSIT2=208, CANSTMH=209, CANSTML=210, CANSTMOB=211, CANTCON=212, CANTEC=213, CANTIMH=214, CANTIML=215, CANTTCH=216, CANTTCL=217, CBCR=218, CBPTR=219, CBTR1=220, CBTR2=221, CBTR3=222, CCA_THRES=223, CCFLG=224, CCISR=225, CCP=226, CCSR=227, CDIVCAN=228, CEFR=229, CGPDDR=230, CGPPIN=231, CGPPORT=232, CHGDCSR=233, CIDAH0=234, CIDAH1=235, CIER=236, CKSEL0=237, CKSEL1=238, CKSTA=239, CLKCSR=240, CLKMSR=241, CLKPR=242, CLKPSR=243, CLKSEL0=244, CLKSEL1=245, CLKSELR=246, CLKSTA=247, CLK_CNTR=248, CLK_CTRL=249, CLK_LOCK=250, CLK_PSCTRL=251, CLK_RTCCTRL=252, CLK_USBCTRL=253, CMCR=254, CMIMR=255, CMSR=256, COSDAC=257, COSDACH=258, COSDACL=259, CPU_CCP=260, CPU_EIND=261, CPU_RAMPD=262, CPU_RAMPX=263, CPU_RAMPY=264, CPU_RAMPZ=265, CPU_SPH=266, CPU_SPL=267, CPU_SREG=268, CRAFEN=269, CRC_CHECKSUM0=270, CRC_CHECKSUM1=271, CRC_CHECKSUM2=272, CRC_CHECKSUM3=273, CRC_CTRL=274, CRC_DATAIN=275, CRC_STATUS=276, CRXERR=277, CSMA_BE=278, CSMA_SEED_0=279, CSMA_SEED_1=280, CTARR=281, CTXERR=282, CURIRED=283, CURIRUN=284, CVER=285, DACA_CH0GAINCAL=286, DACA_CH0OFFSETCAL=287, DACA_CH1GAINCAL=288, DACA_CH1OFFSETCAL=289, DACA_CTRLA=290, DACA_CTRLB=291, DACA_CTRLC=292, DACA_EVCTRL=293, DACA_GAINCAL=294, DACA_OFFSETCAL=295, DACA_STATUS=296, DACA_TIMCTRL=297, DACB_CH0GAINCAL=298, DACB_CH0OFFSETCAL=299, DACB_CH1GAINCAL=300, DACB_CH1OFFSETCAL=301, DACB_CTRLA=302, DACB_CTRLB=303, DACB_CTRLC=304, DACB_EVCTRL=305, DACB_GAINCAL=306, DACB_OFFSETCAL=307, DACB_STATUS=308, DACB_TIMCTRL=309, DACCTRL=310, DACH=311, DACL=312, DACON=313, DACVALH=314, DACVALHI=315, DACVALL=316, DACVALLO=317, DCCR=318, DDRA=319, DDRB=320, DDRC=321, DDRD=322, DDRE=323, DDRF=324, DDRG=325, DDRH=326, DDRJ=327, DDRK=328, DDRL=329, DEEAR=330, DEEARL=331, DEECR=332, DEEDR=333, DFLLRC2M_CALA=334, DFLLRC2M_CALB=335, DFLLRC2M_COMP0=336, DFLLRC2M_COMP1=337, DFLLRC2M_COMP2=338, DFLLRC2M_CTRL=339, DFLLRC32M_CALA=340, DFLLRC32M_CALB=341, DFLLRC32M_COMP0=342, DFLLRC32M_COMP1=343, DFLLRC32M_COMP2=344, DFLLRC32M_CTRL=345, DIDR=346, DIDR0=347, DIDR1=348, DIDR2=349, DMA_CH0_ADDRCTRL=350, DMA_CH0_CTRLA=351, DMA_CH0_CTRLB=352, DMA_CH0_DESTADDR0=353, DMA_CH0_DESTADDR1=354, DMA_CH0_DESTADDR2=355, DMA_CH0_REPCNT=356, DMA_CH0_SRCADDR0=357, DMA_CH0_SRCADDR1=358, DMA_CH0_SRCADDR2=359, DMA_CH0_TRIGSRC=360, DMA_CH1_ADDRCTRL=361, DMA_CH1_CTRLA=362, DMA_CH1_CTRLB=363, DMA_CH1_DESTADDR0=364, DMA_CH1_DESTADDR1=365, DMA_CH1_DESTADDR2=366, DMA_CH1_REPCNT=367, DMA_CH1_SRCADDR0=368, DMA_CH1_SRCADDR1=369, DMA_CH1_SRCADDR2=370, DMA_CH1_TRIGSRC=371, DMA_CH2_ADDRCTRL=372, DMA_CH2_CTRLA=373, DMA_CH2_CTRLB=374, DMA_CH2_DESTADDR0=375, DMA_CH2_DESTADDR1=376, DMA_CH2_DESTADDR2=377, DMA_CH2_REPCNT=378, DMA_CH2_SRCADDR0=379, DMA_CH2_SRCADDR1=380, DMA_CH2_SRCADDR2=381, DMA_CH2_TRIGSRC=382, DMA_CH3_ADDRCTRL=383, DMA_CH3_CTRLA=384, DMA_CH3_CTRLB=385, DMA_CH3_DESTADDR0=386, DMA_CH3_DESTADDR1=387, DMA_CH3_DESTADDR2=388, DMA_CH3_REPCNT=389, DMA_CH3_SRCADDR0=390, DMA_CH3_SRCADDR1=391, DMA_CH3_SRCADDR2=392, DMA_CH3_TRIGSRC=393, DMA_CTRL=394, DMA_INTFLAGS=395, DMA_STATUS=396, DPDS0=397, DPDS1=398, DRTRAM0=399, DRTRAM1=400, DRTRAM2=401, DRTRAM3=402, DT1=403, DT1A=404, DT1B=405, DT4=406, DTPS1=407, DWDR=408, EBI_CS0_CTRLA=409, EBI_CS0_CTRLB=410, EBI_CS1_CTRLA=411, EBI_CS1_CTRLB=412, EBI_CS2_CTRLA=413, EBI_CS2_CTRLB=414, EBI_CS3_CTRLA=415, EBI_CS3_CTRLB=416, EBI_CTRL=417, EBI_SDRAMCTRLA=418, EBI_SDRAMCTRLB=419, EBI_SDRAMCTRLC=420, EEAR=421, EEARH=422, EEARL=423, EECR=424, EEDR=425, EICR=426, EICRA=427, EICRB=428, EIFR=429, EIMF=430, EIMSK=431, EIND=432, EIRR=433, EMCUCR=434, ETIFR=435, ETIMSK=436, EUCSRA=437, EUCSRB=438, EUCSRC=439, EUDR=440, EVSYS_CH0CTRL=441, EVSYS_CH0MUX=442, EVSYS_CH1CTRL=443, EVSYS_CH1MUX=444, EVSYS_CH2CTRL=445, EVSYS_CH2MUX=446, EVSYS_CH3CTRL=447, EVSYS_CH3MUX=448, EVSYS_CH4CTRL=449, EVSYS_CH4MUX=450, EVSYS_CH5CTRL=451, EVSYS_CH5MUX=452, EVSYS_CH6CTRL=453, EVSYS_CH6MUX=454, EVSYS_CH7CTRL=455, EVSYS_CH7MUX=456, EVSYS_DATA=457, EVSYS_STROBE=458, EXOCR1AH=459, EXOCR1AL=460, EXOCR1BH=461, EXOCR1BL=462, EXTCCR0=463, EXTCCR1A=464, EXTCCR1B=465, EXTCNT=466, EXTCNT1H=467, EXTCNT1L=468, EXTIFR=469, EXTIMSK=470, FCSR=471, FISCR=472, FISUA=473, FISUB=474, FISUC=475, FISUD=476, FOSCCAL=477, FPGAD=478, FPGAX=479, FPGAY=480, FPGAZ=481, FRCCAL=482, FTN_CTRL=483, GAINDAC=484, GICR=485, GIFR=486, GIMSK=487, GIPR=488, GPIO0=489, GPIO1=490, GPIO2=491, GPIO3=492, GPIO4=493, GPIO5=494, GPIO6=495, GPIO7=496, GPIO8=497, GPIO9=498, GPIOA=499, GPIOB=500, GPIOC=501, GPIOD=502, GPIOE=503, GPIOF=504, GPIOR0=505, GPIOR1=506, GPIOR2=507, GPIOR3=508, GPIOR4=509, GPIOR5=510, GPIOR6=511, GPIOR7=512, GPIOR8=513, GPIOR9=514, GPIORA=515, GPIORB=516, GPIORC=517, GPIORD=518, GPIORE=519, GPIORF=520, GPIO_GPIO0=521, GPIO_GPIO1=522, GPIO_GPIO2=523, GPIO_GPIO3=524, GPIO_GPIO4=525, GPIO_GPIO5=526, GPIO_GPIO6=527, GPIO_GPIO7=528, GPIO_GPIO8=529, GPIO_GPIO9=530, GPIO_GPIOA=531, GPIO_GPIOB=532, GPIO_GPIOC=533, GPIO_GPIOD=534, GPIO_GPIOE=535, GPIO_GPIOF=536, GPIO_GPIOR0=537, GPIO_GPIOR1=538, GPIO_GPIOR2=539, GPIO_GPIOR3=540, GPIO_GPIOR4=541, GPIO_GPIOR5=542, GPIO_GPIOR6=543, GPIO_GPIOR7=544, GPIO_GPIOR8=545, GPIO_GPIOR9=546, GPIO_GPIORA=547, GPIO_GPIORB=548, GPIO_GPIORC=549, GPIO_GPIORD=550, GPIO_GPIORE=551, GPIO_GPIORF=552, GTCCR=553, HIRESC_CTRLA=554, HIRESD_CTRLA=555, HIRESE_CTRLA=556, HIRESF_CTRLA=557, HSSPICFG=558, HSSPICNT=559, HSSPICR=560, HSSPIDMAB=561, HSSPIDMACS=562, HSSPIDMADH=563, HSSPIDMADL=564, HSSPIGTR=565, HSSPIIER=566, HSSPIIR=567, HSSPIRDR=568, HSSPISR=569, HSSPITDR=570, HSSPITOH=571, HSSPITOL=572, ICR=573, ICR0H=574, ICR0L=575, ICR1=576, ICR1H=577, ICR1L=578, ICR3H=579, ICR3L=580, ICR4H=581, ICR4L=582, ICR5H=583, ICR5L=584, IDXCTRL=585, IDXIFLG=586, IDXIMSK=587, IDXSTRB=588, IEEE_ADDR_0=589, IEEE_ADDR_1=590, IEEE_ADDR_2=591, IEEE_ADDR_3=592, IEEE_ADDR_4=593, IEEE_ADDR_5=594, IEEE_ADDR_6=595, IEEE_ADDR_7=596, IFR=597, INOCR1AH=598, INOCR1AL=599, INOCR1BH=600, INOCR1BL=601, INTCCR0=602, INTCCR1A=603, INTCCR1B=604, INTCNT=605, INTCNT1H=606, INTCNT1L=607, INTIFR=608, INTIMSK=609, IOF=610, IO_DATIN=611, IO_DATOUT=612, IO_ENAB=613, IPAH=614, IPAL=615, IPCR=616, IPDH=617, IPDL=618, IRCOM_CTRL=619, IRCOM_RXPLCTRL=620, IRCOM_TXPLCTRL=621, IRDAMOD=622, IRQ_MASK=623, IRQ_STATUS=624, KBER=625, KBFR=626, KBLSR=627, LCDCCR=628, LCDCRA=629, LCDCRB=630, LCDDR0=631, LCDDR00=632, LCDDR01=633, LCDDR02=634, LCDDR03=635, LCDDR04=636, LCDDR05=637, LCDDR06=638, LCDDR07=639, LCDDR08=640, LCDDR09=641, LCDDR1=642, LCDDR10=643, LCDDR11=644, LCDDR12=645, LCDDR13=646, LCDDR14=647, LCDDR15=648, LCDDR16=649, LCDDR17=650, LCDDR18=651, LCDDR19=652, LCDDR2=653, LCDDR3=654, LCDDR4=655, LCDDR5=656, LCDDR6=657, LCDDR7=658, LCDDR8=659, LCDDR9=660, LCDFRR=661, LEDCR=662, LFCALH=663, LFCALL=664, LFCDR=665, LFFR=666, LFHCR=667, LFIDCH=668, LFIDCL=669, LFIMR=670, LFRB=671, LFRCR=672, LFRR=673, LFSR0=674, LFSR1=675, LFSR2=676, LFSR3=677, LINBRRH=678, LINBRRL=679, LINBTR=680, LINCR=681, LINDAT=682, LINDLR=683, LINENIR=684, LINERR=685, LINIDR=686, LINSEL=687, LINSIR=688, LLCR=689, LLDRH=690, LLDRL=691, LOCKDET1=692, LOCKDET2=693, MAN_ID_0=694, MAN_ID_1=695, MCSR=696, MCUCR=697, MCUCS=698, MCUCSR=699, MCUR=700, MCUSR=701, MCU_ANAINIT=702, MCU_AWEXLOCK=703, MCU_DEVID0=704, MCU_DEVID1=705, MCU_DEVID2=706, MCU_EVSYSLOCK=707, MCU_JTAGUID=708, MCU_MCUCR=709, MCU_REVID=710, MODCR=711, MONDR=712, MSELR=713, MSMCR=714, MSPCR=715, MSPDR=716, MSPSR=717, MSVCAL=718, MUBRRH=719, MUBRRL=720, NEMCR=721, NVMCMD=722, NVMCSR=723, NVM_ADDR0=724, NVM_ADDR1=725, NVM_ADDR2=726, NVM_CMD=727, NVM_CTRLA=728, NVM_CTRLB=729, NVM_DATA0=730, NVM_DATA1=731, NVM_DATA2=732, NVM_INTCTRL=733, NVM_LOCKBITS=734, NVM_STATUS=735, OCDR=736, OCD_OCDR0=737, OCD_OCDR1=738, OCR0=739, OCR0A=740, OCR0AH=741, OCR0AL=742, OCR0B=743, OCR0BH=744, OCR0BL=745, OCR0RAH=746, OCR0RAL=747, OCR0RBH=748, OCR0RBL=749, OCR0SAH=750, OCR0SAL=751, OCR0SBH=752, OCR0SBL=753, OCR1A=754, OCR1AH=755, OCR1AL=756, OCR1B=757, OCR1BH=758, OCR1BL=759, OCR1C=760, OCR1CH=761, OCR1CL=762, OCR1D=763, OCR1H=764, OCR1L=765, OCR1RAH=766, OCR1RAL=767, OCR1RBH=768, OCR1RBL=769, OCR1SAH=770, OCR1SAL=771, OCR1SBH=772, OCR1SBL=773, OCR2=774, OCR2A=775, OCR2B=776, OCR2RAH=777, OCR2RAL=778, OCR2RBH=779, OCR2RBL=780, OCR2SAH=781, OCR2SAL=782, OCR2SBH=783, OCR2SBL=784, OCR3AH=785, OCR3AL=786, OCR3BH=787, OCR3BL=788, OCR3CH=789, OCR3CL=790, OCR4A=791, OCR4AH=792, OCR4AL=793, OCR4B=794, OCR4BH=795, OCR4BL=796, OCR4C=797, OCR4CH=798, OCR4CL=799, OCR4D=800, OCR5AH=801, OCR5AL=802, OCR5BH=803, OCR5BL=804, OCR5CH=805, OCR5CL=806, OCRA1H=807, OCRA1L=808, OCRB1H=809, OCRB1L=810, OSCCAL=811, OSC_CTRL=812, OSC_DFLLCTRL=813, OSC_PLLCTRL=814, OSC_RC32KCAL=815, OSC_STATUS=816, OSC_XOSCCTRL=817, OSC_XOSCFAIL=818, OSICSR=819, OTGCON=820, OTGIEN=821, OTGINT=822, OTGTCON=823, PACR=824, PAN_ID_0=825, PAN_ID_1=826, PART_NUM=827, PASDLY2=828, PBOV=829, PCICR=830, PCIFR=831, PCMSK=832, PCMSK0=833, PCMSK1=834, PCMSK2=835, PCMSK3=836, PCNF=837, PCNF0=838, PCNF1=839, PCNF2=840, PCNFE2=841, PCTL=842, PCTL0=843, PCTL1=844, PCTL2=845, PERIPHEN=846, PFRC0A=847, PFRC0B=848, PFRC1A=849, PFRC1B=850, PFRC2A=851, PFRC2B=852, PHY_CC_CCA=853, PHY_ED_LEVEL=854, PHY_RSSI=855, PHY_TX_PWR=856, PICR0H=857, PICR0L=858, PICR1H=859, PICR1L=860, PICR2H=861, PICR2L=862, PIFR=863, PIFR0=864, PIFR1=865, PIFR2=866, PIM=867, PIM0=868, PIM1=869, PIM2=870, PINA=871, PINB=872, PINC=873, PIND=874, PINE=875, PINF=876, PING=877, PINH=878, PINJ=879, PINK=880, PINL=881, PLLCR=882, PLLCSR=883, PLLFRQ=884, PLL_CF=885, PLL_DCU=886, PMIC0=887, PMIC1=888, PMIC2=889, PMIC_CTRL=890, PMIC_INTPRI=891, PMIC_STATUS=892, POC=893, POCR0RAH=894, POCR0RAL=895, POCR0SAH=896, POCR0SAL=897, POCR0SBH=898, POCR0SBL=899, POCR1RAH=900, POCR1RAL=901, POCR1SAH=902, POCR1SAL=903, POCR1SBH=904, POCR1SBL=905, POCR2RAH=906, POCR2RAL=907, POCR2SAH=908, POCR2SAL=909, POCR2SBH=910, POCR2SBL=911, POCR_RBH=912, POCR_RBL=913, POCRxRBH=914, POCRxRBL=915, POM2=916, PORTA=917, PORTA_DIR=918, PORTA_DIRCLR=919, PORTA_DIRSET=920, PORTA_DIRTGL=921, PORTA_IN=922, PORTA_INT0MASK=923, PORTA_INT1MASK=924, PORTA_INTCTRL=925, PORTA_INTFLAGS=926, PORTA_OUT=927, PORTA_OUTCLR=928, PORTA_OUTSET=929, PORTA_OUTTGL=930, PORTA_PIN0CTRL=931, PORTA_PIN1CTRL=932, PORTA_PIN2CTRL=933, PORTA_PIN3CTRL=934, PORTA_PIN4CTRL=935, PORTA_PIN5CTRL=936, PORTA_PIN6CTRL=937, PORTA_PIN7CTRL=938, PORTB=939, PORTB_DIR=940, PORTB_DIRCLR=941, PORTB_DIRSET=942, PORTB_DIRTGL=943, PORTB_IN=944, PORTB_INT0MASK=945, PORTB_INT1MASK=946, PORTB_INTCTRL=947, PORTB_INTFLAGS=948, PORTB_OUT=949, PORTB_OUTCLR=950, PORTB_OUTSET=951, PORTB_OUTTGL=952, PORTB_PIN0CTRL=953, PORTB_PIN1CTRL=954, PORTB_PIN2CTRL=955, PORTB_PIN3CTRL=956, PORTB_PIN4CTRL=957, PORTB_PIN5CTRL=958, PORTB_PIN6CTRL=959, PORTB_PIN7CTRL=960, PORTC=961, PORTCFG_CLKEVOUT=962, PORTCFG_MPCMASK=963, PORTCFG_VPCTRLA=964, PORTCFG_VPCTRLB=965, PORTCR=966, PORTC_DIR=967, PORTC_DIRCLR=968, PORTC_DIRSET=969, PORTC_DIRTGL=970, PORTC_IN=971, PORTC_INT0MASK=972, PORTC_INT1MASK=973, PORTC_INTCTRL=974, PORTC_INTFLAGS=975, PORTC_OUT=976, PORTC_OUTCLR=977, PORTC_OUTSET=978, PORTC_OUTTGL=979, PORTC_PIN0CTRL=980, PORTC_PIN1CTRL=981, PORTC_PIN2CTRL=982, PORTC_PIN3CTRL=983, PORTC_PIN4CTRL=984, PORTC_PIN5CTRL=985, PORTC_PIN6CTRL=986, PORTC_PIN7CTRL=987, PORTD=988, PORTD_DIR=989, PORTD_DIRCLR=990, PORTD_DIRSET=991, PORTD_DIRTGL=992, PORTD_IN=993, PORTD_INT0MASK=994, PORTD_INT1MASK=995, PORTD_INTCTRL=996, PORTD_INTFLAGS=997, PORTD_OUT=998, PORTD_OUTCLR=999, PORTD_OUTSET=1000, PORTD_OUTTGL=1001, PORTD_PIN0CTRL=1002, PORTD_PIN1CTRL=1003, PORTD_PIN2CTRL=1004, PORTD_PIN3CTRL=1005, PORTD_PIN4CTRL=1006, PORTD_PIN5CTRL=1007, PORTD_PIN6CTRL=1008, PORTD_PIN7CTRL=1009, PORTE=1010, PORTE_DIR=1011, PORTE_DIRCLR=1012, PORTE_DIRSET=1013, PORTE_DIRTGL=1014, PORTE_IN=1015, PORTE_INT0MASK=1016, PORTE_INT1MASK=1017, PORTE_INTCTRL=1018, PORTE_INTFLAGS=1019, PORTE_OUT=1020, PORTE_OUTCLR=1021, PORTE_OUTSET=1022, PORTE_OUTTGL=1023, PORTE_PIN0CTRL=1024, PORTE_PIN1CTRL=1025, PORTE_PIN2CTRL=1026, PORTE_PIN3CTRL=1027, PORTE_PIN4CTRL=1028, PORTE_PIN5CTRL=1029, PORTE_PIN6CTRL=1030, PORTE_PIN7CTRL=1031, PORTF=1032, PORTF_DIR=1033, PORTF_DIRCLR=1034, PORTF_DIRSET=1035, PORTF_DIRTGL=1036, PORTF_IN=1037, PORTF_INT0MASK=1038, PORTF_INT1MASK=1039, PORTF_INTCTRL=1040, PORTF_INTFLAGS=1041, PORTF_OUT=1042, PORTF_OUTCLR=1043, PORTF_OUTSET=1044, PORTF_OUTTGL=1045, PORTF_PIN0CTRL=1046, PORTF_PIN1CTRL=1047, PORTF_PIN2CTRL=1048, PORTF_PIN3CTRL=1049, PORTF_PIN4CTRL=1050, PORTF_PIN5CTRL=1051, PORTF_PIN6CTRL=1052, PORTF_PIN7CTRL=1053, PORTG=1054, PORTH=1055, PORTH_DIR=1056, PORTH_DIRCLR=1057, PORTH_DIRSET=1058, PORTH_DIRTGL=1059, PORTH_IN=1060, PORTH_INT0MASK=1061, PORTH_INT1MASK=1062, PORTH_INTCTRL=1063, PORTH_INTFLAGS=1064, PORTH_OUT=1065, PORTH_OUTCLR=1066, PORTH_OUTSET=1067, PORTH_OUTTGL=1068, PORTH_PIN0CTRL=1069, PORTH_PIN1CTRL=1070, PORTH_PIN2CTRL=1071, PORTH_PIN3CTRL=1072, PORTH_PIN4CTRL=1073, PORTH_PIN5CTRL=1074, PORTH_PIN6CTRL=1075, PORTH_PIN7CTRL=1076, PORTJ=1077, PORTJ_DIR=1078, PORTJ_DIRCLR=1079, PORTJ_DIRSET=1080, PORTJ_DIRTGL=1081, PORTJ_IN=1082, PORTJ_INT0MASK=1083, PORTJ_INT1MASK=1084, PORTJ_INTCTRL=1085, PORTJ_INTFLAGS=1086, PORTJ_OUT=1087, PORTJ_OUTCLR=1088, PORTJ_OUTSET=1089, PORTJ_OUTTGL=1090, PORTJ_PIN0CTRL=1091, PORTJ_PIN1CTRL=1092, PORTJ_PIN2CTRL=1093, PORTJ_PIN3CTRL=1094, PORTJ_PIN4CTRL=1095, PORTJ_PIN5CTRL=1096, PORTJ_PIN6CTRL=1097, PORTJ_PIN7CTRL=1098, PORTK=1099, PORTK_DIR=1100, PORTK_DIRCLR=1101, PORTK_DIRSET=1102, PORTK_DIRTGL=1103, PORTK_IN=1104, PORTK_INT0MASK=1105, PORTK_INT1MASK=1106, PORTK_INTCTRL=1107, PORTK_INTFLAGS=1108, PORTK_OUT=1109, PORTK_OUTCLR=1110, PORTK_OUTSET=1111, PORTK_OUTTGL=1112, PORTK_PIN0CTRL=1113, PORTK_PIN1CTRL=1114, PORTK_PIN2CTRL=1115, PORTK_PIN3CTRL=1116, PORTK_PIN4CTRL=1117, PORTK_PIN5CTRL=1118, PORTK_PIN6CTRL=1119, PORTK_PIN7CTRL=1120, PORTL=1121, PORTQ_DIR=1122, PORTQ_DIRCLR=1123, PORTQ_DIRSET=1124, PORTQ_DIRTGL=1125, PORTQ_IN=1126, PORTQ_INT0MASK=1127, PORTQ_INT1MASK=1128, PORTQ_INTCTRL=1129, PORTQ_INTFLAGS=1130, PORTQ_OUT=1131, PORTQ_OUTCLR=1132, PORTQ_OUTSET=1133, PORTQ_OUTTGL=1134, PORTQ_PIN0CTRL=1135, PORTQ_PIN1CTRL=1136, PORTQ_PIN2CTRL=1137, PORTQ_PIN3CTRL=1138, PORTQ_PIN4CTRL=1139, PORTQ_PIN5CTRL=1140, PORTQ_PIN6CTRL=1141, PORTQ_PIN7CTRL=1142, PORTR_DIR=1143, PORTR_DIRCLR=1144, PORTR_DIRSET=1145, PORTR_DIRTGL=1146, PORTR_IN=1147, PORTR_INT0MASK=1148, PORTR_INT1MASK=1149, PORTR_INTCTRL=1150, PORTR_INTFLAGS=1151, PORTR_OUT=1152, PORTR_OUTCLR=1153, PORTR_OUTSET=1154, PORTR_OUTTGL=1155, PORTR_PIN0CTRL=1156, PORTR_PIN1CTRL=1157, PORTR_PIN2CTRL=1158, PORTR_PIN3CTRL=1159, PORTR_PIN4CTRL=1160, PORTR_PIN5CTRL=1161, PORTR_PIN6CTRL=1162, PORTR_PIN7CTRL=1163, PRELD=1164, PRR=1165, PRR0=1166, PRR1=1167, PRR2=1168, PR_PRGEN=1169, PR_PRPA=1170, PR_PRPB=1171, PR_PRPC=1172, PR_PRPD=1173, PR_PRPE=1174, PR_PRPF=1175, PS2CON=1176, PSOC0=1177, PSOC1=1178, PSOC2=1179, PSYNC=1180, PUEA=1181, PUEB=1182, PUEC=1183, PWMCTL=1184, PWMMSK=1185, PWMPER=1186, PWMSFRQ=1187, PWR_ATTEN=1188, QTCSR=1189, RAMAR=1190, RAMDR=1191, RAMPD=1192, RAMPX=1193, RAMPY=1194, RAMPZ=1195, RCCTRL=1196, RDWDR=1197, REGCR=1198, RNGCR=1199, ROCR=1200, RSTFLR=1201, RST_CTRL=1202, RST_STATUS=1203, RTC32_CTRL=1204, RTC32_INTCTRL=1205, RTC32_INTFLAGS=1206, RTC32_SYNCCTRL=1207, RTC_CTRL=1208, RTC_INTCTRL=1209, RTC_INTFLAGS=1210, RTC_STATUS=1211, RTC_TEMP=1212, RXB=1213, RX_CTRL=1214, RX_SYN=1215, SCBTSRHH=1216, SCBTSRHL=1217, SCBTSRLH=1218, SCBTSRLL=1219, SCCNTHH=1220, SCCNTHL=1221, SCCNTLH=1222, SCCNTLL=1223, SCCON=1224, SCCR=1225, SCCR0=1226, SCCR1=1227, SCETUH=1228, SCETUL=1229, SCGTH=1230, SCGTL=1231, SCIBUF=1232, SCICLK=1233, SCICR=1234, SCIER=1235, SCIIR=1236, SCIO=1237, SCIRQM=1238, SCIRQS=1239, SCISR=1240, SCOCR1HH=1241, SCOCR1HL=1242, SCOCR1LH=1243, SCOCR1LL=1244, SCOCR2HH=1245, SCOCR2HL=1246, SCOCR2LH=1247, SCOCR2LL=1248, SCOCR3HH=1249, SCOCR3HL=1250, SCOCR3LH=1251, SCOCR3LL=1252, SCR=1253, SCSR=1254, SCSW=1255, SCTSRHH=1256, SCTSRHL=1257, SCTSRLH=1258, SCTSRLL=1259, SCWT0=1260, SCWT1=1261, SCWT2=1262, SCWT3=1263, SFD_VALUE=1264, SFIOR=1265, SFTCR=1266, SHORT_ADDR_0=1267, SHORT_ADDR_1=1268, SIMSK=1269, SINDACH=1270, SINDACL=1271, SLEEP_CTRL=1272, SMCR=1273, SMONCR=1274, SOSCCALA=1275, SOSCCALB=1276, SP=1277, SPCR=1278, SPCR0=1279, SPDR=1280, SPH=1281, SPIC_CTRL=1282, SPIC_DATA=1283, SPIC_INTCTRL=1284, SPIC_STATUS=1285, SPID_CTRL=1286, SPID_DATA=1287, SPID_INTCTRL=1288, SPID_STATUS=1289, SPIE_CTRL=1290, SPIE_DATA=1291, SPIE_INTCTRL=1292, SPIE_STATUS=1293, SPIF_CTRL=1294, SPIF_DATA=1295, SPIF_INTCTRL=1296, SPIF_STATUS=1297, SPL=1298, SPMCR=1299, SPMCSR=1300, SPSR=1301, SPSR0=1302, SPWMCTL=1303, SRCCAL=1304, SREG=1305, SSFR=1306, STAT=1307, SVCR=1308, T0CR=1309, T10IFR=1310, T1CR=1311, T2CORH=1312, T2CORL=1313, T2CRA=1314, T2CRB=1315, T2ICRH=1316, T2ICRL=1317, T2IFR=1318, T2IMR=1319, T2MDR=1320, T2MRA=1321, T2MRB=1322, T3CORAH=1323, T3CORAL=1324, T3CORBH=1325, T3CORBL=1326, T3CRA=1327, T3CRB=1328, T3ICRH=1329, T3ICRL=1330, T3IFR=1331, T3IMR=1332, T3MRA=1333, T3MRB=1334, TC1H=1335, TC4H=1336, TCC0_CTRLA=1337, TCC0_CTRLB=1338, TCC0_CTRLC=1339, TCC0_CTRLD=1340, TCC0_CTRLE=1341, TCC0_CTRLFCLR=1342, TCC0_CTRLFSET=1343, TCC0_CTRLGCLR=1344, TCC0_CTRLGSET=1345, TCC0_INTCTRLA=1346, TCC0_INTCTRLB=1347, TCC0_INTFLAGS=1348, TCC0_TEMP=1349, TCC1_CTRLA=1350, TCC1_CTRLB=1351, TCC1_CTRLC=1352, TCC1_CTRLD=1353, TCC1_CTRLE=1354, TCC1_CTRLFCLR=1355, TCC1_CTRLFSET=1356, TCC1_CTRLGCLR=1357, TCC1_CTRLGSET=1358, TCC1_INTCTRLA=1359, TCC1_INTCTRLB=1360, TCC1_INTFLAGS=1361, TCC1_TEMP=1362, TCCR0=1363, TCCR0A=1364, TCCR0B=1365, TCCR0C=1366, TCCR1=1367, TCCR1A=1368, TCCR1B=1369, TCCR1C=1370, TCCR1D=1371, TCCR1E=1372, TCCR2=1373, TCCR2A=1374, TCCR2B=1375, TCCR3A=1376, TCCR3B=1377, TCCR3C=1378, TCCR4A=1379, TCCR4B=1380, TCCR4C=1381, TCCR4D=1382, TCCR4E=1383, TCCR5A=1384, TCCR5B=1385, TCCR5C=1386, TCD0_CTRLA=1387, TCD0_CTRLB=1388, TCD0_CTRLC=1389, TCD0_CTRLD=1390, TCD0_CTRLE=1391, TCD0_CTRLFCLR=1392, TCD0_CTRLFSET=1393, TCD0_CTRLGCLR=1394, TCD0_CTRLGSET=1395, TCD0_INTCTRLA=1396, TCD0_INTCTRLB=1397, TCD0_INTFLAGS=1398, TCD0_TEMP=1399, TCD1_CTRLA=1400, TCD1_CTRLB=1401, TCD1_CTRLC=1402, TCD1_CTRLD=1403, TCD1_CTRLE=1404, TCD1_CTRLFCLR=1405, TCD1_CTRLFSET=1406, TCD1_CTRLGCLR=1407, TCD1_CTRLGSET=1408, TCD1_INTCTRLA=1409, TCD1_INTCTRLB=1410, TCD1_INTFLAGS=1411, TCD1_TEMP=1412, TCE0_CTRLA=1413, TCE0_CTRLB=1414, TCE0_CTRLC=1415, TCE0_CTRLD=1416, TCE0_CTRLE=1417, TCE0_CTRLFCLR=1418, TCE0_CTRLFSET=1419, TCE0_CTRLGCLR=1420, TCE0_CTRLGSET=1421, TCE0_INTCTRLA=1422, TCE0_INTCTRLB=1423, TCE0_INTFLAGS=1424, TCE0_TEMP=1425, TCE1_CTRLA=1426, TCE1_CTRLB=1427, TCE1_CTRLC=1428, TCE1_CTRLD=1429, TCE1_CTRLE=1430, TCE1_CTRLFCLR=1431, TCE1_CTRLFSET=1432, TCE1_CTRLGCLR=1433, TCE1_CTRLGSET=1434, TCE1_INTCTRLA=1435, TCE1_INTCTRLB=1436, TCE1_INTFLAGS=1437, TCE1_TEMP=1438, TCF0_CTRLA=1439, TCF0_CTRLB=1440, TCF0_CTRLC=1441, TCF0_CTRLD=1442, TCF0_CTRLE=1443, TCF0_CTRLFCLR=1444, TCF0_CTRLFSET=1445, TCF0_CTRLGCLR=1446, TCF0_CTRLGSET=1447, TCF0_INTCTRLA=1448, TCF0_INTCTRLB=1449, TCF0_INTFLAGS=1450, TCF0_TEMP=1451, TCF1_CTRLA=1452, TCF1_CTRLB=1453, TCF1_CTRLC=1454, TCF1_CTRLD=1455, TCF1_CTRLE=1456, TCF1_CTRLFCLR=1457, TCF1_CTRLFSET=1458, TCF1_CTRLGCLR=1459, TCF1_CTRLGSET=1460, TCF1_INTCTRLA=1461, TCF1_INTCTRLB=1462, TCF1_INTFLAGS=1463, TCF1_TEMP=1464, TCNT0=1465, TCNT0H=1466, TCNT0L=1467, TCNT1=1468, TCNT1H=1469, TCNT1L=1470, TCNT2=1471, TCNT3H=1472, TCNT3L=1473, TCNT4=1474, TCNT4H=1475, TCNT4L=1476, TCNT5H=1477, TCNT5L=1478, TIFR=1479, TIFR0=1480, TIFR1=1481, TIFR2=1482, TIFR3=1483, TIFR4=1484, TIFR5=1485, TIMSK=1486, TIMSK0=1487, TIMSK1=1488, TIMSK2=1489, TIMSK3=1490, TIMSK4=1491, TIMSK5=1492, TRXFBEND=1493, TRXFBST=1494, TRXPR=1495, TRX_CTRL_0=1496, TRX_CTRL_1=1497, TRX_CTRL_2=1498, TRX_STATE=1499, TRX_STATUS=1500, TSCR=1501, TST_CTRL_DIGI=1502, TST_RX_LENGTH=1503, TWAMR=1504, TWAR=1505, TWBCSR=1506, TWBR=1507, TWCR=1508, TWDR=1509, TWHSR=1510, TWIC_CTRL=1511, TWIC_MASTER_ADDR=1512, TWIC_MASTER_BAUD=1513, TWIC_MASTER_CTRLA=1514, TWIC_MASTER_CTRLB=1515, TWIC_MASTER_CTRLC=1516, TWIC_MASTER_DATA=1517, TWIC_MASTER_STATUS=1518, TWIC_SLAVE_ADDR=1519, TWIC_SLAVE_ADDRMASK=1520, TWIC_SLAVE_CTRLA=1521, TWIC_SLAVE_CTRLB=1522, TWIC_SLAVE_DATA=1523, TWIC_SLAVE_STATUS=1524, TWID_CTRL=1525, TWID_MASTER_ADDR=1526, TWID_MASTER_BAUD=1527, TWID_MASTER_CTRLA=1528, TWID_MASTER_CTRLB=1529, TWID_MASTER_CTRLC=1530, TWID_MASTER_DATA=1531, TWID_MASTER_STATUS=1532, TWID_SLAVE_ADDR=1533, TWID_SLAVE_ADDRMASK=1534, TWID_SLAVE_CTRLA=1535, TWID_SLAVE_CTRLB=1536, TWID_SLAVE_DATA=1537, TWID_SLAVE_STATUS=1538, TWIE_CTRL=1539, TWIE_MASTER_ADDR=1540, TWIE_MASTER_BAUD=1541, TWIE_MASTER_CTRLA=1542, TWIE_MASTER_CTRLB=1543, TWIE_MASTER_CTRLC=1544, TWIE_MASTER_DATA=1545, TWIE_MASTER_STATUS=1546, TWIE_SLAVE_ADDR=1547, TWIE_SLAVE_ADDRMASK=1548, TWIE_SLAVE_CTRLA=1549, TWIE_SLAVE_CTRLB=1550, TWIE_SLAVE_DATA=1551, TWIE_SLAVE_STATUS=1552, TWIF_CTRL=1553, TWIF_MASTER_ADDR=1554, TWIF_MASTER_BAUD=1555, TWIF_MASTER_CTRLA=1556, TWIF_MASTER_CTRLB=1557, TWIF_MASTER_CTRLC=1558, TWIF_MASTER_DATA=1559, TWIF_MASTER_STATUS=1560, TWIF_SLAVE_ADDR=1561, TWIF_SLAVE_ADDRMASK=1562, TWIF_SLAVE_CTRLA=1563, TWIF_SLAVE_CTRLB=1564, TWIF_SLAVE_DATA=1565, TWIF_SLAVE_STATUS=1566, TWIHSR=1567, TWSA=1568, TWSAM=1569, TWSCRA=1570, TWSCRB=1571, TWSD=1572, TWSR=1573, TWSSRA=1574, TXB=1575, TX_CNTL=1576, UBRR=1577, UBRR0=1578, UBRR0H=1579, UBRR0L=1580, UBRR1=1581, UBRR1H=1582, UBRR1L=1583, UBRR2H=1584, UBRR2L=1585, UBRR3H=1586, UBRR3L=1587, UBRRH=1588, UBRRHI=1589, UBRRL=1590, UBRRLO=1591, UCR=1592, UCRA=1593, UCRB=1594, UCSR0A=1595, UCSR0B=1596, UCSR0C=1597, UCSR1A=1598, UCSR1B=1599, UCSR1C=1600, UCSR1D=1601, UCSR2A=1602, UCSR2B=1603, UCSR2C=1604, UCSR3A=1605, UCSR3B=1606, UCSR3C=1607, UCSRA=1608, UCSRB=1609, UCSRC=1610, UDADDR=1611, UDCON=1612, UDFNUMH=1613, UDFNUML=1614, UDIEN=1615, UDINT=1616, UDMFN=1617, UDPADDH=1618, UDPADDL=1619, UDR=1620, UDR0=1621, UDR1=1622, UDR2=1623, UDR3=1624, UDTST=1625, UEBCHX=1626, UEBCLX=1627, UECFG0X=1628, UECFG1X=1629, UECONX=1630, UEDATX=1631, UEIENX=1632, UEINT=1633, UEINTX=1634, UENUM=1635, UERST=1636, UESTA0X=1637, UESTA1X=1638, UHADDR=1639, UHCON=1640, UHCR=1641, UHFLEN=1642, UHFNUMH=1643, UHFNUML=1644, UHIEN=1645, UHINT=1646, UHSR=1647, UHWCON=1648, UPBCHX=1649, UPBCLX=1650, UPBCXH=1651, UPBCXL=1652, UPCFG0X=1653, UPCFG1X=1654, UPCFG2X=1655, UPCONX=1656, UPCRX=1657, UPDATX=1658, UPERRX=1659, UPIENX=1660, UPINRQX=1661, UPINT=1662, UPINTX=1663, UPNUM=1664, UPOE=1665, UPRST=1666, UPSTAX=1667, USARTC0_BAUDCTRLA=1668, USARTC0_BAUDCTRLB=1669, USARTC0_CTRLA=1670, USARTC0_CTRLB=1671, USARTC0_CTRLC=1672, USARTC0_DATA=1673, USARTC0_STATUS=1674, USARTC1_BAUDCTRLA=1675, USARTC1_BAUDCTRLB=1676, USARTC1_CTRLA=1677, USARTC1_CTRLB=1678, USARTC1_CTRLC=1679, USARTC1_DATA=1680, USARTC1_STATUS=1681, USARTD0_BAUDCTRLA=1682, USARTD0_BAUDCTRLB=1683, USARTD0_CTRLA=1684, USARTD0_CTRLB=1685, USARTD0_CTRLC=1686, USARTD0_DATA=1687, USARTD0_STATUS=1688, USARTD1_BAUDCTRLA=1689, USARTD1_BAUDCTRLB=1690, USARTD1_CTRLA=1691, USARTD1_CTRLB=1692, USARTD1_CTRLC=1693, USARTD1_DATA=1694, USARTD1_STATUS=1695, USARTE0_BAUDCTRLA=1696, USARTE0_BAUDCTRLB=1697, USARTE0_CTRLA=1698, USARTE0_CTRLB=1699, USARTE0_CTRLC=1700, USARTE0_DATA=1701, USARTE0_STATUS=1702, USARTE1_BAUDCTRLA=1703, USARTE1_BAUDCTRLB=1704, USARTE1_CTRLA=1705, USARTE1_CTRLB=1706, USARTE1_CTRLC=1707, USARTE1_DATA=1708, USARTE1_STATUS=1709, USARTF0_BAUDCTRLA=1710, USARTF0_BAUDCTRLB=1711, USARTF0_CTRLA=1712, USARTF0_CTRLB=1713, USARTF0_CTRLC=1714, USARTF0_DATA=1715, USARTF0_STATUS=1716, USARTF1_BAUDCTRLA=1717, USARTF1_BAUDCTRLB=1718, USARTF1_CTRLA=1719, USARTF1_CTRLB=1720, USARTF1_CTRLC=1721, USARTF1_DATA=1722, USARTF1_STATUS=1723, USBCON=1724, USBCR=1725, USBCSEX=1726, USBDBCEX=1727, USBDMAB=1728, USBDMACS=1729, USBDMADH=1730, USBDMADL=1731, USBEI=1732, USBEIM=1733, USBENUM=1734, USBFA=1735, USBFCEX=1736, USBFNH=1737, USBFNL=1738, USBGS=1739, USBINT=1740, USBPI=1741, USBPIM=1742, USBRSTE=1743, USBSTA=1744, USB_ADDR=1745, USB_CAL0=1746, USB_CAL1=1747, USB_CTRLA=1748, USB_CTRLB=1749, USB_EP_TABLE_EP0IN_AUXDATAH=1750, USB_EP_TABLE_EP0IN_AUXDATAL=1751, USB_EP_TABLE_EP0IN_CNTH=1752, USB_EP_TABLE_EP0IN_CNTL=1753, USB_EP_TABLE_EP0IN_CTRL=1754, USB_EP_TABLE_EP0IN_DATAPTRH=1755, USB_EP_TABLE_EP0IN_DATAPTRL=1756, USB_EP_TABLE_EP0IN_STATUS=1757, USB_EP_TABLE_EP0OUT_AUXDATAH=1758, USB_EP_TABLE_EP0OUT_AUXDATAL=1759, USB_EP_TABLE_EP0OUT_CNTH=1760, USB_EP_TABLE_EP0OUT_CNTL=1761, USB_EP_TABLE_EP0OUT_CTRL=1762, USB_EP_TABLE_EP0OUT_DATAPTRH=1763, USB_EP_TABLE_EP0OUT_DATAPTRL=1764, USB_EP_TABLE_EP0OUT_STATUS=1765, USB_EP_TABLE_EP10IN_AUXDATAH=1766, USB_EP_TABLE_EP10IN_AUXDATAL=1767, USB_EP_TABLE_EP10IN_CNTH=1768, USB_EP_TABLE_EP10IN_CNTL=1769, USB_EP_TABLE_EP10IN_CTRL=1770, USB_EP_TABLE_EP10IN_DATAPTRH=1771, USB_EP_TABLE_EP10IN_DATAPTRL=1772, USB_EP_TABLE_EP10IN_STATUS=1773, USB_EP_TABLE_EP10OUT_AUXDATAH=1774, USB_EP_TABLE_EP10OUT_AUXDATAL=1775, USB_EP_TABLE_EP10OUT_CNTH=1776, USB_EP_TABLE_EP10OUT_CNTL=1777, USB_EP_TABLE_EP10OUT_CTRL=1778, USB_EP_TABLE_EP10OUT_DATAPTRH=1779, USB_EP_TABLE_EP10OUT_DATAPTRL=1780, USB_EP_TABLE_EP10OUT_STATUS=1781, USB_EP_TABLE_EP11IN_AUXDATAH=1782, USB_EP_TABLE_EP11IN_AUXDATAL=1783, USB_EP_TABLE_EP11IN_CNTH=1784, USB_EP_TABLE_EP11IN_CNTL=1785, USB_EP_TABLE_EP11IN_CTRL=1786, USB_EP_TABLE_EP11IN_DATAPTRH=1787, USB_EP_TABLE_EP11IN_DATAPTRL=1788, USB_EP_TABLE_EP11IN_STATUS=1789, USB_EP_TABLE_EP11OUT_AUXDATAH=1790, USB_EP_TABLE_EP11OUT_AUXDATAL=1791, USB_EP_TABLE_EP11OUT_CNTH=1792, USB_EP_TABLE_EP11OUT_CNTL=1793, USB_EP_TABLE_EP11OUT_CTRL=1794, USB_EP_TABLE_EP11OUT_DATAPTRH=1795, USB_EP_TABLE_EP11OUT_DATAPTRL=1796, USB_EP_TABLE_EP11OUT_STATUS=1797, USB_EP_TABLE_EP12IN_AUXDATAH=1798, USB_EP_TABLE_EP12IN_AUXDATAL=1799, USB_EP_TABLE_EP12IN_CNTH=1800, USB_EP_TABLE_EP12IN_CNTL=1801, USB_EP_TABLE_EP12IN_CTRL=1802, USB_EP_TABLE_EP12IN_DATAPTRH=1803, USB_EP_TABLE_EP12IN_DATAPTRL=1804, USB_EP_TABLE_EP12IN_STATUS=1805, USB_EP_TABLE_EP12OUT_AUXDATAH=1806, USB_EP_TABLE_EP12OUT_AUXDATAL=1807, USB_EP_TABLE_EP12OUT_CNTH=1808, USB_EP_TABLE_EP12OUT_CNTL=1809, USB_EP_TABLE_EP12OUT_CTRL=1810, USB_EP_TABLE_EP12OUT_DATAPTRH=1811, USB_EP_TABLE_EP12OUT_DATAPTRL=1812, USB_EP_TABLE_EP12OUT_STATUS=1813, USB_EP_TABLE_EP13IN_AUXDATAH=1814, USB_EP_TABLE_EP13IN_AUXDATAL=1815, USB_EP_TABLE_EP13IN_CNTH=1816, USB_EP_TABLE_EP13IN_CNTL=1817, USB_EP_TABLE_EP13IN_CTRL=1818, USB_EP_TABLE_EP13IN_DATAPTRH=1819, USB_EP_TABLE_EP13IN_DATAPTRL=1820, USB_EP_TABLE_EP13IN_STATUS=1821, USB_EP_TABLE_EP13OUT_AUXDATAH=1822, USB_EP_TABLE_EP13OUT_AUXDATAL=1823, USB_EP_TABLE_EP13OUT_CNTH=1824, USB_EP_TABLE_EP13OUT_CNTL=1825, USB_EP_TABLE_EP13OUT_CTRL=1826, USB_EP_TABLE_EP13OUT_DATAPTRH=1827, USB_EP_TABLE_EP13OUT_DATAPTRL=1828, USB_EP_TABLE_EP13OUT_STATUS=1829, USB_EP_TABLE_EP14IN_AUXDATAH=1830, USB_EP_TABLE_EP14IN_AUXDATAL=1831, USB_EP_TABLE_EP14IN_CNTH=1832, USB_EP_TABLE_EP14IN_CNTL=1833, USB_EP_TABLE_EP14IN_CTRL=1834, USB_EP_TABLE_EP14IN_DATAPTRH=1835, USB_EP_TABLE_EP14IN_DATAPTRL=1836, USB_EP_TABLE_EP14IN_STATUS=1837, USB_EP_TABLE_EP14OUT_AUXDATAH=1838, USB_EP_TABLE_EP14OUT_AUXDATAL=1839, USB_EP_TABLE_EP14OUT_CNTH=1840, USB_EP_TABLE_EP14OUT_CNTL=1841, USB_EP_TABLE_EP14OUT_CTRL=1842, USB_EP_TABLE_EP14OUT_DATAPTRH=1843, USB_EP_TABLE_EP14OUT_DATAPTRL=1844, USB_EP_TABLE_EP14OUT_STATUS=1845, USB_EP_TABLE_EP15IN_AUXDATAH=1846, USB_EP_TABLE_EP15IN_AUXDATAL=1847, USB_EP_TABLE_EP15IN_CNTH=1848, USB_EP_TABLE_EP15IN_CNTL=1849, USB_EP_TABLE_EP15IN_CTRL=1850, USB_EP_TABLE_EP15IN_DATAPTRH=1851, USB_EP_TABLE_EP15IN_DATAPTRL=1852, USB_EP_TABLE_EP15IN_STATUS=1853, USB_EP_TABLE_EP15OUT_AUXDATAH=1854, USB_EP_TABLE_EP15OUT_AUXDATAL=1855, USB_EP_TABLE_EP15OUT_CNTH=1856, USB_EP_TABLE_EP15OUT_CNTL=1857, USB_EP_TABLE_EP15OUT_CTRL=1858, USB_EP_TABLE_EP15OUT_DATAPTRH=1859, USB_EP_TABLE_EP15OUT_DATAPTRL=1860, USB_EP_TABLE_EP15OUT_STATUS=1861, USB_EP_TABLE_EP1IN_AUXDATAH=1862, USB_EP_TABLE_EP1IN_AUXDATAL=1863, USB_EP_TABLE_EP1IN_CNTH=1864, USB_EP_TABLE_EP1IN_CNTL=1865, USB_EP_TABLE_EP1IN_CTRL=1866, USB_EP_TABLE_EP1IN_DATAPTRH=1867, USB_EP_TABLE_EP1IN_DATAPTRL=1868, USB_EP_TABLE_EP1IN_STATUS=1869, USB_EP_TABLE_EP1OUT_AUXDATAH=1870, USB_EP_TABLE_EP1OUT_AUXDATAL=1871, USB_EP_TABLE_EP1OUT_CNTH=1872, USB_EP_TABLE_EP1OUT_CNTL=1873, USB_EP_TABLE_EP1OUT_CTRL=1874, USB_EP_TABLE_EP1OUT_DATAPTRH=1875, USB_EP_TABLE_EP1OUT_DATAPTRL=1876, USB_EP_TABLE_EP1OUT_STATUS=1877, USB_EP_TABLE_EP2IN_AUXDATAH=1878, USB_EP_TABLE_EP2IN_AUXDATAL=1879, USB_EP_TABLE_EP2IN_CNTH=1880, USB_EP_TABLE_EP2IN_CNTL=1881, USB_EP_TABLE_EP2IN_CTRL=1882, USB_EP_TABLE_EP2IN_DATAPTRH=1883, USB_EP_TABLE_EP2IN_DATAPTRL=1884, USB_EP_TABLE_EP2IN_STATUS=1885, USB_EP_TABLE_EP2OUT_AUXDATAH=1886, USB_EP_TABLE_EP2OUT_AUXDATAL=1887, USB_EP_TABLE_EP2OUT_CNTH=1888, USB_EP_TABLE_EP2OUT_CNTL=1889, USB_EP_TABLE_EP2OUT_CTRL=1890, USB_EP_TABLE_EP2OUT_DATAPTRH=1891, USB_EP_TABLE_EP2OUT_DATAPTRL=1892, USB_EP_TABLE_EP2OUT_STATUS=1893, USB_EP_TABLE_EP3IN_AUXDATAH=1894, USB_EP_TABLE_EP3IN_AUXDATAL=1895, USB_EP_TABLE_EP3IN_CNTH=1896, USB_EP_TABLE_EP3IN_CNTL=1897, USB_EP_TABLE_EP3IN_CTRL=1898, USB_EP_TABLE_EP3IN_DATAPTRH=1899, USB_EP_TABLE_EP3IN_DATAPTRL=1900, USB_EP_TABLE_EP3IN_STATUS=1901, USB_EP_TABLE_EP3OUT_AUXDATAH=1902, USB_EP_TABLE_EP3OUT_AUXDATAL=1903, USB_EP_TABLE_EP3OUT_CNTH=1904, USB_EP_TABLE_EP3OUT_CNTL=1905, USB_EP_TABLE_EP3OUT_CTRL=1906, USB_EP_TABLE_EP3OUT_DATAPTRH=1907, USB_EP_TABLE_EP3OUT_DATAPTRL=1908, USB_EP_TABLE_EP3OUT_STATUS=1909, USB_EP_TABLE_EP4IN_AUXDATAH=1910, USB_EP_TABLE_EP4IN_AUXDATAL=1911, USB_EP_TABLE_EP4IN_CNTH=1912, USB_EP_TABLE_EP4IN_CNTL=1913, USB_EP_TABLE_EP4IN_CTRL=1914, USB_EP_TABLE_EP4IN_DATAPTRH=1915, USB_EP_TABLE_EP4IN_DATAPTRL=1916, USB_EP_TABLE_EP4IN_STATUS=1917, USB_EP_TABLE_EP4OUT_AUXDATAH=1918, USB_EP_TABLE_EP4OUT_AUXDATAL=1919, USB_EP_TABLE_EP4OUT_CNTH=1920, USB_EP_TABLE_EP4OUT_CNTL=1921, USB_EP_TABLE_EP4OUT_CTRL=1922, USB_EP_TABLE_EP4OUT_DATAPTRH=1923, USB_EP_TABLE_EP4OUT_DATAPTRL=1924, USB_EP_TABLE_EP4OUT_STATUS=1925, USB_EP_TABLE_EP5IN_AUXDATAH=1926, USB_EP_TABLE_EP5IN_AUXDATAL=1927, USB_EP_TABLE_EP5IN_CNTH=1928, USB_EP_TABLE_EP5IN_CNTL=1929, USB_EP_TABLE_EP5IN_CTRL=1930, USB_EP_TABLE_EP5IN_DATAPTRH=1931, USB_EP_TABLE_EP5IN_DATAPTRL=1932, USB_EP_TABLE_EP5IN_STATUS=1933, USB_EP_TABLE_EP5OUT_AUXDATAH=1934, USB_EP_TABLE_EP5OUT_AUXDATAL=1935, USB_EP_TABLE_EP5OUT_CNTH=1936, USB_EP_TABLE_EP5OUT_CNTL=1937, USB_EP_TABLE_EP5OUT_CTRL=1938, USB_EP_TABLE_EP5OUT_DATAPTRH=1939, USB_EP_TABLE_EP5OUT_DATAPTRL=1940, USB_EP_TABLE_EP5OUT_STATUS=1941, USB_EP_TABLE_EP6IN_AUXDATAH=1942, USB_EP_TABLE_EP6IN_AUXDATAL=1943, USB_EP_TABLE_EP6IN_CNTH=1944, USB_EP_TABLE_EP6IN_CNTL=1945, USB_EP_TABLE_EP6IN_CTRL=1946, USB_EP_TABLE_EP6IN_DATAPTRH=1947, USB_EP_TABLE_EP6IN_DATAPTRL=1948, USB_EP_TABLE_EP6IN_STATUS=1949, USB_EP_TABLE_EP6OUT_AUXDATAH=1950, USB_EP_TABLE_EP6OUT_AUXDATAL=1951, USB_EP_TABLE_EP6OUT_CNTH=1952, USB_EP_TABLE_EP6OUT_CNTL=1953, USB_EP_TABLE_EP6OUT_CTRL=1954, USB_EP_TABLE_EP6OUT_DATAPTRH=1955, USB_EP_TABLE_EP6OUT_DATAPTRL=1956, USB_EP_TABLE_EP6OUT_STATUS=1957, USB_EP_TABLE_EP7IN_AUXDATAH=1958, USB_EP_TABLE_EP7IN_AUXDATAL=1959, USB_EP_TABLE_EP7IN_CNTH=1960, USB_EP_TABLE_EP7IN_CNTL=1961, USB_EP_TABLE_EP7IN_CTRL=1962, USB_EP_TABLE_EP7IN_DATAPTRH=1963, USB_EP_TABLE_EP7IN_DATAPTRL=1964, USB_EP_TABLE_EP7IN_STATUS=1965, USB_EP_TABLE_EP7OUT_AUXDATAH=1966, USB_EP_TABLE_EP7OUT_AUXDATAL=1967, USB_EP_TABLE_EP7OUT_CNTH=1968, USB_EP_TABLE_EP7OUT_CNTL=1969, USB_EP_TABLE_EP7OUT_CTRL=1970, USB_EP_TABLE_EP7OUT_DATAPTRH=1971, USB_EP_TABLE_EP7OUT_DATAPTRL=1972, USB_EP_TABLE_EP7OUT_STATUS=1973, USB_EP_TABLE_EP8IN_AUXDATAH=1974, USB_EP_TABLE_EP8IN_AUXDATAL=1975, USB_EP_TABLE_EP8IN_CNTH=1976, USB_EP_TABLE_EP8IN_CNTL=1977, USB_EP_TABLE_EP8IN_CTRL=1978, USB_EP_TABLE_EP8IN_DATAPTRH=1979, USB_EP_TABLE_EP8IN_DATAPTRL=1980, USB_EP_TABLE_EP8IN_STATUS=1981, USB_EP_TABLE_EP8OUT_AUXDATAH=1982, USB_EP_TABLE_EP8OUT_AUXDATAL=1983, USB_EP_TABLE_EP8OUT_CNTH=1984, USB_EP_TABLE_EP8OUT_CNTL=1985, USB_EP_TABLE_EP8OUT_CTRL=1986, USB_EP_TABLE_EP8OUT_DATAPTRH=1987, USB_EP_TABLE_EP8OUT_DATAPTRL=1988, USB_EP_TABLE_EP8OUT_STATUS=1989, USB_EP_TABLE_EP9IN_AUXDATAH=1990, USB_EP_TABLE_EP9IN_AUXDATAL=1991, USB_EP_TABLE_EP9IN_CNTH=1992, USB_EP_TABLE_EP9IN_CNTL=1993, USB_EP_TABLE_EP9IN_CTRL=1994, USB_EP_TABLE_EP9IN_DATAPTRH=1995, USB_EP_TABLE_EP9IN_DATAPTRL=1996, USB_EP_TABLE_EP9IN_STATUS=1997, USB_EP_TABLE_EP9OUT_AUXDATAH=1998, USB_EP_TABLE_EP9OUT_AUXDATAL=1999, USB_EP_TABLE_EP9OUT_CNTH=2000, USB_EP_TABLE_EP9OUT_CNTL=2001, USB_EP_TABLE_EP9OUT_CTRL=2002, USB_EP_TABLE_EP9OUT_DATAPTRH=2003, USB_EP_TABLE_EP9OUT_DATAPTRL=2004, USB_EP_TABLE_EP9OUT_STATUS=2005, USB_EP_TABLE_FRAMENUMH=2006, USB_EP_TABLE_FRAMENUML=2007, USB_FIFORP=2008, USB_FIFOWP=2009, USB_INTCTRLA=2010, USB_INTCTRLB=2011, USB_INTFLAGSACLR=2012, USB_INTFLAGSASET=2013, USB_INTFLAGSBCLR=2014, USB_INTFLAGSBSET=2015, USB_STATUS=2016, USIBR=2017, USICR=2018, USIDR=2019, USIPP=2020, USISR=2021, USPCR=2022, USPDR=2023, USPSR=2024, USR=2025, VADAC0=2026, VADAC1=2027, VADAC2=2028, VADAC3=2029, VADCH=2030, VADCL=2031, VADCSR=2032, VADICH=2033, VADICL=2034, VADMUX=2035, VBAT_BACKUP0=2036, VBAT_BACKUP1=2037, VBAT_CTRL=2038, VBAT_STATUS=2039, VCOTUNE=2040, VELACC1=2041, VELACC2=2042, VELACC3=2043, VELCVEL=2044, VELDEC1=2045, VELDEC2=2046, VELDEC3=2047, VELHI1=2048, VELHI2=2049, VELHI3=2050, VELIFLG=2051, VELIMSK=2052, VELLOW1=2053, VELLOW2=2054, VELLOW3=2055, VELSTB=2056, VELTVEL=2057, VELVGCTL=2058, VERSION_NUM=2059, VLMCSR=2060, VMCSR=2061, VPORT0_DIR=2062, VPORT0_IN=2063, VPORT0_INTFLAGS=2064, VPORT0_OUT=2065, VPORT1_DIR=2066, VPORT1_IN=2067, VPORT1_INTFLAGS=2068, VPORT1_OUT=2069, VPORT2_DIR=2070, VPORT2_IN=2071, VPORT2_INTFLAGS=2072, VPORT2_OUT=2073, VPORT3_DIR=2074, VPORT3_IN=2075, VPORT3_INTFLAGS=2076, VPORT3_OUT=2077, VREG_CTRL=2078, WDTCKD=2079, WDTCLR=2080, WDTCR=2081, WDTCSR=2082, WDT_CTRL=2083, WDT_STATUS=2084, WDT_WINCTRL=2085, WUTCSR=2086, XAH_CTRL_0=2087, XAH_CTRL_1=2088, XDIV=2089, XMCRA=2090, XMCRB=2091, XOSC_CTRL=2092)
 
 
-=========================
+================================
 defines:
-=========================
+================================
 A0                   =                 14
 ARDUINO              =                 22
 E2END                =                511
@@ -117,8 +614,10 @@ MAGIC_NUMBER         =                 42
 MCU_DEFINED          =   __AVR_ATmega88__
 MISO                 =                 12
 MOSI                 =                 11
+ONEWIRE_BUS_COUNT    =           67699460
 RAMEND               =               1279
 SCK                  =                 13
+SOFTUSBDUINO_FIRMWARE_VERSION =                  2
 SOFTUSBDUINO_VERSION =              10000
 SPM_PAGESIZE         =                 64
 SS                   =                 10
@@ -129,18 +628,18 @@ USB_CFG_IOPORT       =                  4
 XRAMEND              =               1279
 __AVR_LIBC_DATE_     =           20110216
 __AVR_LIBC_VERSION__ =              10701
-__DATE__             =        Feb 14 2012
-__TIME__             =           19:29:51
+__DATE__             =        Mar  1 2012
+__TIME__             =           16:39:54
 
-=========================
+================================
 registers:
-=========================
-ACSR                 = 0x30 @0x50
-ADCH                 = 0x00 @0x79
-ADCL                 = 0xE8 @0x78
+================================
+ACSR                 = 0x10 @0x50
+ADCH                 = 0x01 @0x79
+ADCL                 = 0x67 @0x78
 ADCSRA               = 0x97 @0x7A
 ADCSRB               = 0x00 @0x7B
-ADMUX                = 0x4E @0x7C
+ADMUX                = 0x45 @0x7C
 ASSR                 = 0x00 @0xB6
 CLKPR                = 0x00 @0x61
 DDRB                 = 0x00 @0x24
@@ -148,9 +647,9 @@ DDRC                 = 0x00 @0x27
 DDRD                 = 0x00 @0x2A
 DIDR0                = 0x00 @0x7E
 DIDR1                = 0x00 @0x7F
-EEAR                 = 0x00 @0x41
-EEARH                = 0x01 @0x42
-EEARL                = 0x00 @0x41
+EEAR                 = 0xFF @0x41
+EEARH                = 0x00 @0x42
+EEARL                = 0xFF @0x41
 EECR                 = 0x00 @0x3F
 EEDR                 = 0x00 @0x40
 EICRA                = 0x02 @0x69
@@ -160,17 +659,17 @@ GPIOR0               = 0x00 @0x3E
 GPIOR1               = 0x00 @0x4A
 GPIOR2               = 0x00 @0x4B
 GTCCR                = 0x00 @0x43
-ICR1                 = 0x18 @0x86
+ICR1                 = 0x00 @0x86
 ICR1H                = 0x00 @0x87
-ICR1L                = 0x18 @0x86
+ICR1L                = 0x00 @0x86
 MCUCR                = 0x00 @0x55
-MCUSR                = 0x01 @0x54
-MONDR                = 0x35 @0x51
+MCUSR                = 0x03 @0x54
+MONDR                = 0x21 @0x51
 OCR0A                = 0x00 @0x47
 OCR0B                = 0x00 @0x48
-OCR1A                = 0x0B @0x88
+OCR1A                = 0x00 @0x88
 OCR1AH               = 0x00 @0x89
-OCR1AL               = 0x0B @0x88
+OCR1AL               = 0x00 @0x88
 OCR1B                = 0x00 @0x8A
 OCR1BH               = 0x00 @0x8B
 OCR1BL               = 0x00 @0x8A
@@ -182,19 +681,19 @@ PCIFR                = 0x00 @0x3B
 PCMSK0               = 0x00 @0x6B
 PCMSK1               = 0x00 @0x6C
 PCMSK2               = 0x00 @0x6D
-PINB                 = 0x00 @0x23
+PINB                 = 0x03 @0x23
 PINC                 = 0x00 @0x26
-PIND                 = 0x18 @0x29
+PIND                 = 0x19 @0x29
 PORTB                = 0x00 @0x25
 PORTC                = 0x00 @0x28
 PORTD                = 0x00 @0x2B
 PRR                  = 0x00 @0x64
 SMCR                 = 0x00 @0x53
-SP                   = 0xED @0x5D
+SP                   = 0xE4 @0x5D
 SPCR                 = 0x00 @0x4C
-SPDR                 = 0x00 @0x4E
+SPDR                 = 0xB9 @0x4E
 SPH                  = 0x04 @0x5E
-SPL                  = 0xED @0x5D
+SPL                  = 0xE4 @0x5D
 SPMCSR               = 0x00 @0x57
 SPSR                 = 0x00 @0x4D
 SREG                 = 0x82 @0x5F
@@ -205,13 +704,13 @@ TCCR1B               = 0x03 @0x81
 TCCR1C               = 0x00 @0x82
 TCCR2A               = 0x01 @0xB0
 TCCR2B               = 0x04 @0xB1
-TCNT0                = 0x6F @0x46
-TCNT1                = 0x13 @0x84
+TCNT0                = 0x45 @0x46
+TCNT1                = 0xC1 @0x84
 TCNT1H               = 0x00 @0x85
-TCNT1L               = 0x86 @0x84
-TCNT2                = 0x59 @0xB2
+TCNT1L               = 0x29 @0x84
+TCNT2                = 0xD2 @0xB2
 TIFR0                = 0x07 @0x35
-TIFR1                = 0x27 @0x36
+TIFR1                = 0x07 @0x36
 TIFR2                = 0x07 @0x37
 TIMSK0               = 0x00 @0x6E
 TIMSK1               = 0x00 @0x6F
@@ -241,8 +740,8 @@ WDTCSR               = 0x0E @0x60
       <div class="sphinxsidebar">
         <div class="sphinxsidebarwrapper">
   <h4>Previous topic</h4>
-  <p class="topless"><a href="examples.html"
-                        title="previous chapter">Examples</a></p>
+  <p class="topless"><a href="examples1wire.html"
+                        title="previous chapter">1Wire examples</a></p>
   <h4>Next topic</h4>
   <p class="topless"><a href="hw.html"
                         title="next chapter">Hardware</a></p>
@@ -278,9 +777,9 @@ WDTCSR               = 0x0E @0x60
           <a href="hw.html" title="Hardware"
              >next</a> |</li>
         <li class="right" >
-          <a href="examples.html" title="Examples"
+          <a href="examples1wire.html" title="1Wire examples"
              >previous</a> |</li>
-        <li><a href="index.html">softusbduino 1.0.0 documentation</a> &raquo;</li> 
+        <li><a href="index.html">softusbduino 1.1.0 documentation</a> &raquo;</li> 
       </ul>
     </div>
     <div class="footer">

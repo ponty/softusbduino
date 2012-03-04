@@ -8,10 +8,10 @@ Test system versions:
 
 Performance test:
 
-.. program-output:: python -m softusbduino.examples.performance
+.. program-output:: python -m softusbduino.check.performance
 	:prompt:
 
-Dump registers and defines:
+Dump state:
 
-.. program-output:: python -m softusbduino.examples.dump
+.. program-output:: python -m softusbduino.check.dump
 	:prompt:
