@@ -1,8 +1,3 @@
-//#include <avr/io.h>
-//#include <avr/wdt.h>
-//#include <avr/interrupt.h>  /* for sei() */
-//#include <util/delay.h>     /* for _delay_ms() */
-//#include <avr/pgmspace.h>
 #include "usbdrv.h"
 #include "UsbMain.h"
 

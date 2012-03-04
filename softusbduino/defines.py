@@ -1,12 +1,35 @@
 from bunch import Bunch
 from const import INTDEFS_CSV, MAGIC_NUMBER
 from path import path
+from remember.memoize import memoize
 
 INTDEFS_CSV = path(INTDEFS_CSV)
 
+#class Define(object):    
+#    def __init__(self, base, name):
+#        self.base = base
+#        self.name = name
+#        
+#    @property
+#    def value(self):        
+#        return self.base.value(self.name)
+#
+#    @property
+#    def exists(self):
+#        return self.base.exists(self.name)
+        
+    
+
+
+class DefineError(Exception):
+    pass
+
+def _intdef_ids():
+    intdef_ids = Bunch([(x, i) for i, x in enumerate(INTDEFS_CSV.lines(retain=False)) if x.strip()])
+    return intdef_ids
 
 class Defines(object):    
-    intdef_ids = Bunch([(x, i) for i, x in enumerate(INTDEFS_CSV.lines(retain=False)) if x.strip()])
+    intdef_ids = _intdef_ids()
     
     special_defines = Bunch(
             __TIME__=22,
@@ -19,32 +42,68 @@ class Defines(object):
 
 
 
-    def __init__(self, board):
-        self.board = board
+    def __init__(self, base):
+        self.base = base
+    
+    def exists(self, name):
+        try:
+            self.value(name)
+            return True
+        except DefineError:
+            return False
         
-    def dump(self):
+    def as_dict(self):
         d = dict()
         for name in self.intdef_ids:
-            d[name] = self.__getattr__(name)
+            d[name] = self.value(name)
         for name in self.special_defines.keys():
-            d[name] = self.__getattr__(name)
+            d[name] = self.value(name)
         return d
     
-    def read_define(self, name):
+    @memoize()
+    def value(self, name):
         try:
-            reg_id = self.intdef_ids[name]
-            value = self.board.read_int_define(reg_id)
+            def_id = self.intdef_ids[name]
+            value = self.base.read_int_define(def_id)
         except KeyError:
             try:
-                reg_id = self.special_defines[name]
-                value = self.board.read_special_define(reg_id)
+                def_id = self.special_defines[name]
+                value = self.base.read_special_define(def_id)
             except KeyError:
-                return None
+                raise DefineError('define not found: %s' % name)
         return value
     
-    def __getattr__(self, name):
-        value = self.read_define(name)
-        if value is not None:
-            return value
-        else:
-            return object.__getattribute__(self, name)
+#    def __getattr__(self, name):
+#        value = self.read_define(name)
+#        if value is not None:
+#            return value
+#        else:
+#            return object.__getattribute__(self, name)
+
+class DefinesLowLevel(object):
+    def __init__(self, base):
+        self.base = base
+        
+    def read_int_define(self, def_id):
+        return self.base.usb_transfer(51, def_id)
+    
+    def read_special_define(self, def_id):
+        return self.base.usb_transfer(def_id)
+        
+class DefineMixin(object):    
+    
+    @property
+    @memoize()
+    def lowlevel_defines(self):
+        return DefinesLowLevel(self.serializer)
+
+    @property
+    @memoize()
+    def defines(self):
+        return Defines(self.lowlevel_defines)
+    
+    @memoize()
+    def define(self, name):
+        return self.defines.value(name)
+#        return Define(self.defines, name)
+

@@ -1,6 +1,7 @@
 from paver.easy import *
 from paver.setuputils import setup
 from setuptools import find_packages
+import os
 
 #logging.basicConfig(level=logging.DEBUG)
 
@@ -111,6 +112,7 @@ if ALL_TASKS_LOADED:
                                       ]
     
     options.paved.dist.manifest.include.remove('distribute_setup.py')
+    options.paved.dist.manifest.recursive_include.add('softusbduino *.csv')
 
     docroot = path(options.sphinx.docroot)
     root = path(__file__).parent.parent.abspath()
@@ -152,18 +154,30 @@ if ALL_TASKS_LOADED:
         path('docs/_build/html/doxy').makedirs()
         sh('doxygen doxy.ini')
 
-    @task
-    def build_test():
-        csv = docroot / 'generated_build_test.csv'
-        support.build2csv(examples, csv, 
-                          logdir=docroot / '_build' / 'html', 
-#                          extra_lib=root, 
-                          logger=info)
+    ARDUINO_VERSIONS=[
+                      '0022', 
+                      '0023', 
+                      '1.0',
+                      ]
     
     @task
+    def build_test():
+        for ver in ARDUINO_VERSIONS:
+            os.environ['ARDUINO_HOME'] = path('~/opt/arduino-{0}'.format(ver)).expanduser()
+            csv = docroot / 'generated_build_test_{0}.csv'.format(ver)
+            support.build2csv(
+                              examples, 
+                              csv, 
+                              logdir=docroot / '_build' / 'html', 
+                              logger=info, 
+                              )
+
+    @task
     def boards():
-        csv = docroot / 'generated_boards.csv'
-        support.boards2csv(csv, logger=info)
+        for ver in ARDUINO_VERSIONS:
+            support.set_arduino_path('~/opt/arduino-{0}'.format(ver))
+            csv = docroot / 'generated_boards_{0}.csv'.format(ver)
+            support.boards2csv(csv, logger=info)
     
     @task
     def codegen():

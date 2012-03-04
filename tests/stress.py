@@ -14,6 +14,6 @@ def dig_out():
     while 1:
         time.sleep(0.001)
         pin.dig_out = 0
-        pin2.an_in
+        pin2.analog_in().value
         pin.dig_out = 1
-        pin2.an_in
+        pin2.analog_in().value

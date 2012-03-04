@@ -29,6 +29,7 @@ Known problems:
 similar projects:
  - https://github.com/HashNuke/Python-Arduino-Prototyping-API
  - http://code.google.com/p/vusb-for-arduino/
+ - http://code.google.com/p/pyduino/
 
 Basic usage of prototyping
 ==============================
@@ -58,6 +59,7 @@ General
  * install Python_
  * install pip_
  * install arduino_
+ * install libusb_
  * install SoftUsb subdirectory as arduino library
      - Manual installation: http://arduino.cc/en/Guide/Environment#libraries
      - Automatic installation:  
@@ -72,7 +74,7 @@ Ubuntu
 ----------
 ::
 
-    sudo apt-get install arduino python-pip
+    sudo apt-get install arduino python-pip libusb-1.0-0
     sudo pip install confduino
     sudo pip install https://github.com/ponty/softusbduino/zipball/master
     sudo python -m confduino.libinstall https://github.com/ponty/softusbduino/zipball/master

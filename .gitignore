@@ -44,4 +44,4 @@ sloccount.sc
 *.vcd
 sgm7_hwconf.h
 *.bak
-generated_*
+#generated_*

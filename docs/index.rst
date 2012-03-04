@@ -12,6 +12,7 @@ Table of Contents
    readme
    usage
    examples
+   examples1wire
    check
    hw
    build

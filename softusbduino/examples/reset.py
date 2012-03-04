@@ -10,8 +10,8 @@ USBDEVFS_RESET = 21780
 
 def find():
     print("searching for device (%x:%x)" % (ID_VENDOR, ID_PRODUCT))
-    dev = usb.core.find(idVendor=ID_VENDOR,
-                        idProduct=ID_PRODUCT,
+    dev = usb.core.find(id_vendor=ID_VENDOR,
+                        id_product=ID_PRODUCT,
                         )
     if not dev:
         print("device not found")

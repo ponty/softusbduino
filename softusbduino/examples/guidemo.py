@@ -19,26 +19,26 @@ class Define(HasTraits):
 
 class PinWrapper(HasTraits):
     pin = Instance(Pin)
-    function=Any()
-    timer=Any()
+    function = Any()
+    timer = Any()
     def _pin_changed(self):
         self.name = self.pin.name
-        self.mode = ['INPUT', 'OUTPUT'][self.pin.mode]
-        self.digital_output = bool(self.pin.dig_out)
-        self.function=self.pin.programming_function
-        self.timer=self.pin.timer_register_name
+        self.mode = ['INPUT', 'OUTPUT'][self.pin.read_mode()]
+        self.digital_output = bool(self.pin.read_digital())
+        self.function = self.pin.programming_function
         
-        if self.pin.pwm_available:
-            ls = [int(x) for  x in self.pin.pwm_frequencies_available]
+        if self.pin.pwm.available:
+            ls = [int(x) for  x in self.pin.pwm.frequencies_available]
             self.add_trait('pwm_frequency', Enum(ls))
-            self.pwm_frequency = int(self.pin.pwm_frequency) 
+            self.pwm_frequency = int(self.pin.pwm.frequency) 
+            self.timer = self.pin.pwm.timer_register_name
         
     def _pwm_frequency_changed(self):
-        self.pin.pwm_frequency = self.pwm_frequency
+        self.pin.pwm.frequency = self.pwm_frequency
     
     pwm_output = Range(0, 255)
     def _pwm_output_changed(self):
-        self.pin.pwm_out = self.pwm_output
+        self.pin.pwm.write_value(self.pwm_output)
         
     pwm = Bool()
     def _pwm_changed(self):
@@ -50,19 +50,24 @@ class PinWrapper(HasTraits):
     name = Str()
     mode = Enum(['INPUT', 'OUTPUT'])
     def _mode_changed(self):
-        self.pin.mode = OUTPUT if (self.mode == 'OUTPUT') else INPUT
+        self.pin.write_mode(OUTPUT if (self.mode == 'OUTPUT') else INPUT)
     pullup = Bool()
     def _pullup_changed(self):
-        self.pin.pullup = self.pullup
+        self.pin.write_pullup(self.pullup)
     digital_input = Bool()
     digital_output = Bool()
     def _digital_output_changed(self):
-        self.pin.dig_out = self.digital_output
+        self.pin.write_digital(self.digital_output)
     analog_input = Any()
+    voltage = Any()
     
     def update(self):
-        self.analog_input = self.pin.an_in
-        self.digital_input = bool(self.pin.dig_in)
+        an = self.pin.read_analog_obj()
+        
+        self.analog_input = an.value
+        self.voltage = an.voltage
+        
+        self.digital_input = bool(self.pin.read_digital_in())
         
     traits_view = View(
             HGroup(
@@ -77,11 +82,15 @@ class PinWrapper(HasTraits):
                               ),
             HGroup(
                      Item('digital_input',
-                          defined_when='pin.digital',
+                          defined_when='pin.is_digital',
                           enabled_when='0',
                               ),
                      Item('analog_input',
-                          defined_when='pin.analog',
+                          defined_when='pin.is_analog',
+                          style='readonly',
+                              ),
+                     Item('voltage',
+                          defined_when='pin.is_analog',
                           style='readonly',
                               ),
                      Item('pullup',
@@ -123,18 +132,18 @@ class Handler (BackgroundHandler):
         self.info.object.update()
         
 class BoardWrapper(HasTraits):
-    board = Any
+    mcu = Any
     pins = List(PinWrapper)
     digital_pins = List(PinWrapper)
     analog_pins = List(PinWrapper)
-    def _board_changed(self):
-        s = [Define(name=k, value=v) for k, v in self.board.defines.dump().items()]
+    def _mcu_changed(self):
+        mcu = self.mcu
+        s = [Define(name=k, value=v) for k, v in self.mcu.defines.as_dict().items()]
         s.sort(key=lambda x:x.name)
         self.defines = s
-        
-        self.digital_pins = [PinWrapper(pin=x) for x in Pin.all_pins(self.board,'digital')]
-        self.analog_pins = [PinWrapper(pin=x) for x in Pin.all_pins(self.board,'analog')]
-        self.pins=self.digital_pins+self.analog_pins
+        self.digital_pins = [PinWrapper(pin=mcu.pin(x)) for x in mcu.pins.range_digital]
+        self.analog_pins = [PinWrapper(pin=mcu.pin(x)) for x in mcu.pins.range_analog]
+        self.pins = self.digital_pins + self.analog_pins
         
 #    x = Str()
     defines = List(Define)
@@ -204,13 +213,13 @@ def main(pin='', pullup=0):
     :param pin: examples: 'D0','A2'
     
     '''
-    board = Arduino(reset=False)
+    mcu = Arduino(reset=False)
     if pin:
-        pin = board.pin(pin)
+        pin = mcu.pin(pin)
         if pullup:
             pin.pullup = pullup
     
-    BoardWrapper(board=board).configure_traits()
+    BoardWrapper(mcu=mcu).configure_traits()
 
 
 

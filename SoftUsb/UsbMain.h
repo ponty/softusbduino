@@ -1,5 +1,7 @@
 #pragma once
 
+#include "usbdrv.h"
+
 //#ifdef __cplusplus
 //extern "C"
 //{

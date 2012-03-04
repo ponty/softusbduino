@@ -9,14 +9,15 @@ def main(n=40, pin_nr=13, reset=False):
     '''
     measuring analog input
     '''
-    board = Arduino(reset=reset)
-
+    mcu = Arduino(reset=reset)
+    pin = mcu.pin(pin_nr)
+    
     x = []
     y = []
     start = time.time()
     for i in range(n):
         t = time.time() - start
-        v = board.analogRead(pin_nr)
+        v = pin.read_analog()
         x.append(t)
         y.append(v)
     fig = plt.figure()

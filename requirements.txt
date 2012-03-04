@@ -6,3 +6,4 @@ bidict
 dicts
 entrypoint2
 path.py
+decorator

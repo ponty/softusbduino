@@ -2,23 +2,23 @@ from const import *
 from arduino import Arduino
 from delay import *
 
-board = Arduino()
-A0 = board.defines.A0
+mcu = Arduino()
+A0 = mcu.defines.value('A0')
 A1 = A0 + 1
 A2 = A0 + 2
 A3 = A0 + 3
 A4 = A0 + 4
 A5 = A0 + 5
 
-analogRead = board.analogRead
-analogWrite = board.analogWrite
-analogReference = board.analogReference
-digitalWrite = board.digitalWrite
-digitalRead = board.digitalRead
-pinMode= board.pinMode
-digitalPinToBitMask = board.digitalPinToBitMask
-digitalPinToPort= board.digitalPinToPort
-portModeRegister=board.portModeRegister
+analogRead = mcu.pins.read_analog
+analogWrite = mcu.pwm.write_value
+analogReference = mcu.lowlevel_pins.analogReference
+digitalWrite = mcu.pins.write_digital
+digitalRead = mcu.pins.read_digital
+pinMode= mcu.pins.write_mode
+digitalPinToBitMask = mcu.lowlevel_pins.digitalPinToBitMask
+digitalPinToPort= mcu.lowlevel_pins.digitalPinToPort
+portModeRegister=mcu.lowlevel_pins.portModeRegister
 
 class Sketch(object):
     def __init__(self, setup, loop):

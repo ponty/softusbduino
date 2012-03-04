@@ -1,6 +1,7 @@
-from nose.tools import eq_
+from nose.tools import eq_, ok_
 from softusbduino.arduino import Arduino
 from softusbduino.const import *
+from test_vcc import ok_vcc
 
 dev = None
 def setup():
@@ -16,51 +17,104 @@ def test_pin_nr():
     pin = dev.pin(8)
     
     eq_(pin.nr, 8)
-    eq_(pin.nrAnalog, None)
+    eq_(pin.nr_analog, None)
    
     pin = dev.pin(14)
     eq_(pin.nr, 14)
-    eq_(pin.nrAnalog, 0)
+    eq_(pin.nr_analog, 0)
     
-    pin = dev.pinAnalog(1)
+    pin = dev.pin('A1')
     eq_(pin.nr, 15)
-    eq_(pin.nrAnalog, 1)
+    eq_(pin.nr_analog, 1)
 
     pin = dev.pin('D9')
     eq_(pin.nr, 9)
-    eq_(pin.nrAnalog, None)
+    eq_(pin.nr_analog, None)
 
     pin = dev.pin('A2')
     eq_(pin.nr, 16)
-    eq_(pin.nrAnalog, 2)
+    eq_(pin.nr_analog, 2)
     
+def test_is():
+    eq_(dev.pin(8).is_digital, True)
+    eq_(dev.pin(8).is_analog, False)
+    eq_(dev.pin('A2').is_digital, False)
+    eq_(dev.pin('A2').is_analog, True)
+
+def test_name():
+    eq_(dev.pin(8).name, 'D8')
+    eq_(dev.pin('D8').name, 'D8')
+    eq_(dev.pin(15).name, 'A1')
+    eq_(dev.pin('A2').name, 'A2')
+
 def test_dig():
     pin = dev.pin(8)
-    pin.mode = OUTPUT
+    pin.reset()
     
-    pin.dig_out = 0
-    eq_(pin.dig_out, 0)
+    pin.write_mode(OUTPUT)
+    
+    pin.write_digital(1)
+    eq_(dev.pins.read_digital(8), 1)
+    eq_(pin.read_digital(), 1)
+    eq_(pin.digital, 1)
+    eq_(dev.pins.read_digital_out(8), 1)
+    eq_(pin.read_digital_out(), 1)
+    eq_(pin.digital_out, 1)
+    eq_(dev.pins.read_digital_in(8), None)
+    eq_(pin.read_digital_in(), None)
+    eq_(pin.digital_in, None)
+    
 
-    pin.dig_out = 1
-    eq_(pin.dig_out, 1)
+    pin.write_digital(0)
+    eq_(dev.pins.read_digital(8), 0)
+    eq_(pin.read_digital(), 0)
+    eq_(pin.digital, 0)
+    eq_(dev.pins.read_digital_out(8), 0)
+    eq_(pin.read_digital_out(), 0)
+    eq_(pin.digital_out, 0)
+    eq_(dev.pins.read_digital_in(8), None)
+    eq_(pin.read_digital_in(), None)
+    eq_(pin.digital_in, None)
 
-    pin.dig_out = 0
-    eq_(pin.dig_out, 0)
 
-def test_dig2():
-    pin = dev.pin(8)
-    pin.mode = INPUT
+    pin.write_mode(INPUT)
+    pin.write_pullup(True)
+    eq_(dev.pins.read_digital(8), 1)
+    eq_(pin.read_digital(), 1)
+    eq_(pin.digital, 1)
+    eq_(dev.pins.read_digital_out(8), None)
+    eq_(pin.read_digital_out(), None)
+    eq_(pin.digital_out, None)
+    eq_(dev.pins.read_digital_in(8), 1)
+    eq_(pin.read_digital_in(), 1)
+    eq_(pin.digital_in, 1)
 
-    pin.dig_out = 1
-    eq_(pin.dig_out, 1)
+    pin.digital_out =(1)
     eq_(pin.mode, OUTPUT)
-     
+
+def ok_an(x, value=None):     
+    print x 
+    ok_(x in range(1024)) 
+    if value is not None:
+        eq_(x, value)
+    
 def test_an():
     pin = dev.pin('A0')
     pin.mode = INPUT
-    print pin.an_in 
-    print pin.analogRead() 
+    ok_an(pin.read_analog()) 
+    ok_an(dev.pins.read_analog(14)) 
 
+    pin.write_pullup(True)
+    ok_an(dev.pins.read_analog(14), 1023) 
+    ok_an(pin.read_analog(), 1023) 
+    ok_an(pin.analog, 1023) 
+
+    ok_an(dev.pins.read_analog_obj(14).value, 1023) 
+    ok_an(pin.read_analog_obj().value, 1023) 
+    ok_an(pin.analog_obj.value, 1023) 
+    
+    ok_vcc(pin.analog_obj.voltage) 
+    
 #    pin = dev.pin('A0')
 #    pin.mode = OUTPUT
 #    eq_(pin.an_in, None)
@@ -70,68 +124,80 @@ def test_an():
 #    eq_(pin.an_in, None)
     
     
-def test_pwm_out():
-    pin = dev.pin('D9')
-    pin.mode = INPUT
-    pin.pwm_out = 11
-    eq_(pin.mode, OUTPUT)
-    pin.mode = INPUT
-    
-
-def test_pinMode2():
+def test_mode():
     pin = dev.pin(8)
 
-    dev.registers.DDRB = 0
-    eq_(dev.registers.DDRB, 0)
-    eq_(pin.mode, INPUT)
-    pin.mode = OUTPUT   
-    eq_(pin.mode, OUTPUT)
-    eq_(dev.registers.DDRB, 1)
+    dev.reset()
     
+    eq_(pin.mode, INPUT)
+    eq_(pin.read_mode(), INPUT)
+    eq_(dev.pins.read_mode(8), INPUT)
+    eq_(dev.registers.read_value('DDRB'), 0)
+    
+    pin.write_mode(OUTPUT)   
+    eq_(pin.mode, OUTPUT)
+    eq_(pin.read_mode(), OUTPUT)
+    eq_(dev.pins.read_mode(8), OUTPUT)
+    eq_(dev.registers.read_value('DDRB'), 1)
+    
+    dev.registers.write_value('DDRB', 0)
+    eq_(pin.mode, INPUT)
+
+    pin.mode = OUTPUT
+    eq_(pin.mode, OUTPUT)
+    
+    dev.pins.write_mode(8, INPUT)   
+    eq_(pin.mode, INPUT)
+       
+    pin.mode = OUTPUT
     dev.reset()
     eq_(pin.mode, INPUT)
     
-def test_pwm():
-    pin = dev.pin(8)
-    eq_(pin.pwm_available, False)
-    eq_(pin.pwm_frequency, None)
-    eq_(pin.timer_register_name, None)
-    
-    pin = dev.pin(9)
-    eq_(pin.pwm_available, True)
-    eq_(pin.timer_register_name, 'TCCR1B')
-
-    eq_(pin.divisors_available, [1, 8, 64, 256, 1024])
-    
-    dev.registers.TCCR1B = 3
-    eq_(dev.registers.TCCR1B, 3)
-    
-    print pin.divisor
-    eq_(int(pin.pwm_frequency), 610)
-    
-    pin.pwm_frequency = 38
-    eq_(int(pin.pwm_frequency), 38)
-    eq_(dev.registers.TCCR1B, 5)
-    
-#    pin.pwm_frequency = 4882
-    dev.registers.TCCR1B = 2
-    eq_(int(pin.pwm_frequency), 4882)
-    eq_(dev.registers.TCCR1B, 2)
-
-    dev.registers.TCCR1B = 3
-    eq_(dev.registers.TCCR1B, 3)
 
 
 def test_pullup():
     pin = dev.pin(8)
-    eq_(pin.pullup, False)
+#    eq_(pin.pullup, False)
     
-    pin.mode = OUTPUT
+    pin.write_mode(OUTPUT)
     eq_(pin.mode, OUTPUT)
-    eq_(pin.pullup, False)
-    pin.pullup = True
-    eq_(pin.pullup, True)
+#    eq_(pin.pullup, False)
+    pin.write_pullup(True)
+#    eq_(pin.pullup, True)
 
-    pin.mode = INPUT
+    pin.write_mode(INPUT)
     eq_(pin.mode, INPUT)
-    eq_(pin.pullup, True)
+#    eq_(pin.pullup, True)
+
+def test_memoize():
+    assert dev.pin(8) is dev.pin(8)
+    assert dev.pin(1) is dev.pin('D1')
+    assert dev.pin(14) is dev.pin('A0')
+    
+
+def test_usb_pin():
+    eq_(dev.pins.usb_minus_pin, 4)
+    eq_(dev.pins.usb_plus_pin, 2)
+    
+    eq_(dev.pin(0).is_usb_plus, False)
+    eq_(dev.pin(0).is_usb_minus, False)
+    
+
+    eq_(dev.pin(2).is_usb_plus, True)
+    eq_(dev.pin(2).is_usb_minus, False)
+
+    eq_(dev.pin(4).is_usb_plus, False)
+    eq_(dev.pin(4).is_usb_minus, True)
+
+
+def test_pin_range():
+    eq_(dev.pins.count, 20)
+    eq_(dev.pins.count_analog, 6)
+    eq_(dev.pins.count_digital, 14)
+
+    eq_(dev.pins.range_all, range(0, 20))
+    eq_(dev.pins.range_analog, range(14, 20))
+    eq_(dev.pins.range_digital, range(0, 14))
+    
+    
+

@@ -1,4 +1,7 @@
+from decorator import decorator
+from remember.memoize import memoize
 from softusbduino.const import ID_VENDOR, ID_PRODUCT
+import time
 import usb # 1.0 not 0.4
 
 
@@ -23,59 +26,67 @@ REQUEST_TYPE_SEND = usb.util.build_request_type(usb.util.CTRL_OUT,
 REQUEST_TYPE_RECEIVE = usb.util.build_request_type(usb.util.CTRL_IN,
                                                 usb.util.CTRL_TYPE_VENDOR,
                                                 usb.util.CTRL_RECIPIENT_DEVICE)
-#print 'REQUEST_TYPE_SEND',REQUEST_TYPE_SEND
-#print 'REQUEST_TYPE_RECEIVE',REQUEST_TYPE_RECEIVE
 
-#USBRQ_HID_GET_REPORT = 0x01
-#USBRQ_HID_SET_REPORT = 0x09
-#USB_HID_REPORT_TYPE_FEATURE = 0x03
-#CUSTOM_RQ_SET_STATUS = 1
-#CUSTOM_RQ_GET_STATUS = 2
-
-#IDVENDOR, IDPRODUCT = 0x16c0, 0x05df
 
 class ArduinoUsbDeviceError(Exception):
     pass
 
 
-class ArduinoUsbDevice(object):
+@decorator
+def reconnect_if_dropped(f, self, *args, **kw):
+    """
+    """
+    connect = False
+    retry = 3
+    while 1:
+        try:
+            if connect:
+                self.usb_connect()
+            return f(self, *args, **kw)
+        except usb.USBError or ArduinoUsbDeviceError:
+            if self.auto_reconnect:
+                if retry <= 0:
+                    raise
+                connect = True
+                retry -= 1
+                time.sleep(1)
+            else:
+                raise
+        
+class UsbDevice(object):
     """
     """
     
-    def __init__(self, idVendor=ID_VENDOR, idProduct=ID_PRODUCT):
+    def __init__(self, id_vendor=ID_VENDOR, id_product=ID_PRODUCT, auto_reconnect=True):
         """
         """
-        self.idVendor = idVendor
-        self.idProduct = idProduct
+        self.id_vendor = id_vendor
+        self.id_product = id_product
+        self.auto_reconnect = auto_reconnect
+        
+        self.connect()
 
-        self.device = usb.core.find(idVendor=self.idVendor,
-                                    idProduct=self.idProduct)
+    def connect(self):
+        self.device = usb.core.find(idVendor=self.id_vendor,
+                                    idProduct=self.id_product)
 
         if not self.device:
             raise ArduinoUsbDeviceError("Device not found")
-
-        self.firmware_test()
-        
-#    def write_bytes(self, data):
-#        """
-#        """
-#        x = data + [0, 0, 0, 0]
-#        self.device.ctrl_transfer(REQUEST_TYPE_SEND,
-#                                 CUSTOM_RQ_SET_STATUS, # bRequest
-#                                   x[0] + (x[1] << 8), # wValue
-#                                   x[2] + (x[3] << 8), # wIndex
-#                                 )
-#    @traced
-    def read_bytes(self, data):
+            
+    @reconnect_if_dropped
+    def usb_transfer_bytes(self, data):
         """
         """
-        x = data + [0, 0, 0, 0,0]
+        if not self.device:
+            self.connect()
+        x = data + [0, 0, 0, 0, 0]
         ls = self.device.ctrl_transfer(REQUEST_TYPE_RECEIVE,
                                  x[0], # bRequest
 #                                 CUSTOM_RQ_GET_STATUS, # bRequest
                                    x[1] + (x[2] << 8), # wValue
                                    x[3] + (x[4] << 8), # wIndex
                                    20,
+#                                   timeout=1000,
                                  )
         return list(ls)
     
@@ -84,6 +95,8 @@ class ArduinoUsbDevice(object):
     def productName(self):
         """
         """
+        if not self.device:
+            self.connect()
         return getStringDescriptor(self.device, self.device.iProduct)
 
     
@@ -91,9 +104,18 @@ class ArduinoUsbDevice(object):
     def manufacturer(self):
         """
         """
+        if not self.device:
+            self.connect()
         return getStringDescriptor(self.device, self.device.iManufacturer)
 
 
+class UsbMixin(object):    
+    
+    @property
+    @memoize()
+    def usb(self):
+        return UsbDevice()
+    
     
                                 
 
