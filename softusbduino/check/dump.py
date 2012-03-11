@@ -23,6 +23,12 @@ def usbdump():
 
     print
     print '================================'
+    print 'Arduino().usb attributes:'
+    print '================================'
+    dump(mcu.usb) 
+
+    print
+    print '================================'
     print 'Arduino().pins attributes:'
     print '================================'
     dump(mcu.pins) 

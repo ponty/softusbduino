@@ -1,18 +1,27 @@
 #!/usr/bin/env python
+from bunch import Bunch
 from entrypoint2 import entrypoint
 from softusbduino.const import ID_VENDOR, ID_PRODUCT
 import fcntl
 import logging
-import usb.core
+import usb
 logging.basicConfig(level=logging.DEBUG)
 
 USBDEVFS_RESET = 21780
 
 def find():
     print("searching for device (%x:%x)" % (ID_VENDOR, ID_PRODUCT))
-    dev = usb.core.find(id_vendor=ID_VENDOR,
-                        id_product=ID_PRODUCT,
-                        )
+#    dev = usb.core.find(id_vendor=ID_VENDOR,
+#                        id_product=ID_PRODUCT,
+#                        )
+    dev=None
+    for b in usb.busses():
+        for x in b.devices:
+            if x.idVendor == ID_VENDOR and x.idProduct == ID_PRODUCT:
+                dev = Bunch()
+                dev.bus=b.dirname
+                dev.address=x.devnum
+                break
     if not dev:
         print("device not found")
     return dev
