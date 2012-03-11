@@ -92,11 +92,11 @@ def test_dig():
     pin.digital_out =(1)
     eq_(pin.mode, OUTPUT)
 
-def ok_an(x, value=None):     
+def ok_an(x, pullup=False):     
     print x 
     ok_(x in range(1024)) 
-    if value is not None:
-        eq_(x, value)
+    if pullup:
+        ok_(x>1000)
     
 def test_an():
     pin = dev.pin('A0')
@@ -105,13 +105,13 @@ def test_an():
     ok_an(dev.pins.read_analog(14)) 
 
     pin.write_pullup(True)
-    ok_an(dev.pins.read_analog(14), 1023) 
-    ok_an(pin.read_analog(), 1023) 
-    ok_an(pin.analog, 1023) 
+    ok_an(dev.pins.read_analog(14), pullup=True) 
+    ok_an(pin.read_analog(), pullup=True) 
+    ok_an(pin.analog, pullup=True) 
 
-    ok_an(dev.pins.read_analog_obj(14).value, 1023) 
-    ok_an(pin.read_analog_obj().value, 1023) 
-    ok_an(pin.analog_obj.value, 1023) 
+    ok_an(dev.pins.read_analog_obj(14).value, pullup=True) 
+    ok_an(pin.read_analog_obj().value, pullup=True) 
+    ok_an(pin.analog_obj.value, pullup=True) 
     
     ok_vcc(pin.analog_obj.voltage) 
     
@@ -169,7 +169,7 @@ def test_pullup():
     eq_(pin.mode, INPUT)
 #    eq_(pin.pullup, True)
 
-def test_memoize():
+def test_memoized():
     assert dev.pin(8) is dev.pin(8)
     assert dev.pin(1) is dev.pin('D1')
     assert dev.pin(14) is dev.pin('A0')
