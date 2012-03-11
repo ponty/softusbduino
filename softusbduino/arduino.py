@@ -1,5 +1,5 @@
-from remember.memoize import memoize
-from softusbduino import version
+from memo import memoized
+import version
 from softusbduino.const import *
 from softusbduino.defines import DefineMixin
 from softusbduino.delaytest import DelayTestMixin

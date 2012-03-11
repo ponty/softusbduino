@@ -1,4 +1,4 @@
-from remember.memoize import memoize
+from memo import memoized
 
 def asc2str(ls):
     s = ''.join(chr(i) for i in ls)
@@ -75,7 +75,7 @@ class Serializer(object):
 class SerializerMixin(object):    
     
     @property
-    @memoize()
+    @memoized
     def serializer(self):
         return Serializer(self.usb)
     

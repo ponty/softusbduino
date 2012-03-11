@@ -3,7 +3,7 @@ from const import REGISTERS_CSV
 from path import path
 from softusbduino.const import REGISTER_CHECK, REGISTER_OK, REGISTER_MISSING, \
     REGISTER_READ, REGISTER_WRITE, REGISTER_ADDRESS
-from remember.memoize import memoize
+from memo import memoized
 
 REGISTERS_CSV = path(REGISTERS_CSV)
 
@@ -16,12 +16,12 @@ class Register(object):
         self.name = name
         
     @property
-    @memoize()
+    @memoized
     def address(self):        
         return self.base.address(self.name)
         
     @property
-    @memoize()
+    @memoized
     def exists(self):        
         return self.base.exists(self.name)
     
@@ -94,14 +94,14 @@ class RegistersLowLevel(object):
 class Registers(object):   
     
     @property    
-    @memoize()
+    @memoized
     def  register_id_map(self):
         return _register_id_map()
     
     def __init__(self, base):
         self.base = base
         
-    @memoize()
+    @memoized
     def exists(self, reg_name):
         reg_id = self._id(reg_name)
         if reg_id is None:
@@ -132,7 +132,7 @@ class Registers(object):
         reg_id = self._check_name(reg_name)
         self.base.write_value(reg_id, value)
     
-    @memoize()
+    @memoized
     def address(self, reg_name):
         reg_id = self._check_name(reg_name)
         return self.base.read_address(reg_id) 
@@ -147,17 +147,17 @@ class Registers(object):
 class RegisterMixin(object):    
     
     @property
-    @memoize()
+    @memoized
     def lowlevel_registers(self):
         return RegistersLowLevel(self.serializer)
     
     @property
-    @memoize()
+    @memoized
     def registers(self):
         return Registers(self.lowlevel_registers)
             
 
-    @memoize()
+    @memoized
     def register(self, name):
 #        if not self.register_id(name):
 #            # unknown

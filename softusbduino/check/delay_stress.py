@@ -41,7 +41,7 @@ def main(
             time.sleep(sleep_between_calls)
             assert mcu.usb_transfer(42) == 42
             
-        except (usb.USBError, ArduinoUsbDeviceError) as e:
+        except (usb.USBError, ArduinoUsbDeviceError) , e:
             print('USBError: %s reconnect_time: %s s' % (str(e), reconnect_time))
             
             # time for reconnect

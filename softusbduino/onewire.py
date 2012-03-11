@@ -1,4 +1,4 @@
-from remember.memoize import memoize
+from memo import memoized
 from softusbduino.const import *
 import logging
 import time
@@ -214,7 +214,7 @@ class Bus1Wire(object):
         
 class OneWireMixin(object):
     
-    @memoize()   
+    @memoized   
     def _bus1wire(self, pin):
         return Bus1Wire(self.lowlevel_1wire,pin=pin)
     
@@ -222,7 +222,7 @@ class OneWireMixin(object):
         return self._bus1wire(self.pin(pin_nr))
     
     @property    
-    @memoize()   
+    @memoized   
     def lowlevel_1wire(self):
         return LowLevel1Wire(self.serializer)
     

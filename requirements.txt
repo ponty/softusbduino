@@ -1,8 +1,6 @@
 uncertainties
-pyusb>0.99.0
-remember
+pyusb
 bunch
-bidict
 dicts
 entrypoint2
 path.py

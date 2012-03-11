@@ -1,7 +1,7 @@
 from bunch import Bunch
 from const import INTDEFS_CSV, MAGIC_NUMBER
 from path import path
-from remember.memoize import memoize
+from memo import memoized
 
 INTDEFS_CSV = path(INTDEFS_CSV)
 
@@ -60,7 +60,7 @@ class Defines(object):
             d[name] = self.value(name)
         return d
     
-    @memoize()
+    @memoized
     def value(self, name):
         try:
             def_id = self.intdef_ids[name]
@@ -93,16 +93,16 @@ class DefinesLowLevel(object):
 class DefineMixin(object):    
     
     @property
-    @memoize()
+    @memoized
     def lowlevel_defines(self):
         return DefinesLowLevel(self.serializer)
 
     @property
-    @memoize()
+    @memoized
     def defines(self):
         return Defines(self.lowlevel_defines)
     
-    @memoize()
+    @memoized
     def define(self, name):
         return self.defines.value(name)
 #        return Define(self.defines, name)

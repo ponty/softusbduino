@@ -1,4 +1,4 @@
-from remember.memoize import memoize
+from memo import memoized
 from softusbduino.const import *
 from softusbduino.pwmpin import PwmPinMixin
 from uncertainties import ufloat
@@ -232,7 +232,7 @@ class Pins(object):
 
     
     @property
-    @memoize()
+    @memoized
     def count(self):
         '''
         HACK!
@@ -246,12 +246,12 @@ class Pins(object):
         assert 0
     
     @property
-    @memoize()
+    @memoized
     def count_digital(self):
         return len(self.range_digital)
     
     @property
-    @memoize()
+    @memoized
     def count_analog(self):
         return len(self.range_analog)
     
@@ -275,14 +275,14 @@ class Pins(object):
                 self.write_digital(x, LOW)
                 
     @property
-    @memoize()
+    @memoized
     def usb_minus_pin(self): 
         bit = self.defines.value('USB_CFG_DMINUS_BIT')
         port = self.defines.value('USB_CFG_IOPORT')
         return self.find(port, bit)
     
     @property
-    @memoize()
+    @memoized
     def usb_plus_pin(self): 
         bit = self.defines.value('USB_CFG_DPLUS_BIT')
         port = self.defines.value('USB_CFG_IOPORT')
@@ -305,19 +305,19 @@ class PinsLowLevel(object):
     def write_mode(self, pin_nr, mode): 
         return self.base.usb_transfer(11, pin_nr, mode)
     
-    @memoize()   
+    @memoized   
     def digitalPinToBitMask(self, pin):
         return self.base.usb_transfer(29, pin)
     
-    @memoize()   
+    @memoized   
     def digitalPinToPort(self, pin):
         return self.base.usb_transfer(30, pin)
     
-    @memoize()   
+    @memoized   
     def digitalPinToTimer(self, pin):
         return self.base.usb_transfer(36, pin)
     
-    @memoize()   
+    @memoized   
     def analogInPinToBit(self, pin):
         return self.base.usb_transfer(37, pin)
 
@@ -336,16 +336,16 @@ class PinsLowLevel(object):
 class PinMixin(object):    
     
     @property
-    @memoize()
+    @memoized
     def lowlevel_pins(self):
         return PinsLowLevel(self.serializer)
 #    
     @property
-    @memoize()
+    @memoized
     def pins(self):
         return Pins(self.lowlevel_pins, self.defines, self)
             
-    @memoize()   
+    @memoized   
     def _pin(self, pin_nr):
         return Pin(self.pins, self, nr=pin_nr)
 

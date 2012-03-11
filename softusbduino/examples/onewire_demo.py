@@ -20,10 +20,7 @@ def main(
     start = time.time()
     while 1:
         x = d.scratchpad()
-        TEMPL = '{t}  T={x.celsius:>10} C , resolution={x.resolution} , connected={x.connected} data={x.data} '
-        print TEMPL.format(x=x,
-                           t=time.ctime(x.t),
-                           )        
+        print x.celsius, 'C', time.ctime(x.t), x.data
         time.sleep(0.1)
         if timeout > 0:
             if timeout < time.time() - start:

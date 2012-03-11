@@ -1,4 +1,4 @@
-from remember.memoize import memoize
+from memo import memoized
 
 class DelayTestLowLevel(object):
     def __init__(self, base):
@@ -13,7 +13,7 @@ class DelayTestLowLevel(object):
 class DelayTestMixin(object):    
     
     @property
-    @memoize()
+    @memoized
     def lowlevel_delaytest(self):
         return DelayTestLowLevel(self.serializer)
 

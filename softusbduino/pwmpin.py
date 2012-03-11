@@ -1,5 +1,4 @@
-from bidict import bidict
-from remember.memoize import memoize
+from memo import memoized
 from softusbduino.const import *
 import logging
 
@@ -13,15 +12,19 @@ base_divisor = {
                 10:512,
                 11:512,
                 }
-    
-_div1 = bidict({
+class BiDict():
+    def __init__(self,dic):
+        self.norm=dic
+        self.inv=dict([(v,k) for k,v in dic.items()])
+            
+_div1 = BiDict({
          1:1,
          2:8,
          3:64,
          4:256,
          5:1024,
          })
-_div2 = bidict({
+_div2 = BiDict({
          1:1,
          2:8,
          3:32,
@@ -47,7 +50,7 @@ timer_register = {
                 11:'TCCR2B',
                 }
    
-timer_mask = 0b111    
+timer_mask = 7 # 0b111    
 
 #TODO: pwm_mode  read/write
 #TODO: read mappings
@@ -124,7 +127,7 @@ class Pwm(object):
 
     def divisors_available(self, pin_nr):
         try:
-            return divisor_mapping[pin_nr].values()
+            return divisor_mapping[pin_nr].norm.values()
         except KeyError:
             return []
         
@@ -132,7 +135,7 @@ class Pwm(object):
         self._check(pin_nr)
         d = divisor_mapping[pin_nr]
         reg_name = self.timer_register_name(pin_nr)
-        return d[self.read_timer_mode(reg_name)]
+        return d.norm[self.read_timer_mode(reg_name)]
 
 
     def write_divisor(self, pin_nr, value):
@@ -185,19 +188,19 @@ class PwmLowLevel(object):
     
 class PwmPinMixin(object):    
     @property
-    @memoize()
+    @memoized
     def pwm(self):
         return PwmPin(self)
             
 
 class PwmMixin(object):    
     @property
-    @memoize()
+    @memoized
     def lowlevel_pwm(self):
         return PwmLowLevel(self.serializer)
 
     @property
-    @memoize()
+    @memoized
     def pwm(self):
         return Pwm(self, self.lowlevel_pwm)
             
