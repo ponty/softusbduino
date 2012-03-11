@@ -30,13 +30,16 @@ class Sketch(object):
         while 1:
             self.loop()
 
-def Serial_begin(x):
-    pass
-def Serial_print(x):
-    print x,
-def Serial_println(x):
-    print x
-    
+class CSerial(object):
+    def begin(self,x):
+        pass
+    def print_(self,x):
+        print x,
+    def println(self,x):
+        print x
+
+Serial=CSerial()
+
 def map(x, in_min, in_max, out_min, out_max):
     return (x - in_min) * (out_max - out_min) / (in_max - in_min) + out_min
     

@@ -26,7 +26,7 @@ outputValue = 0;        # value output to the PWM (analog out)
 
 def setup():
     # initialize serial communications at 9600 bps:
-    Serial_begin(9600); 
+    Serial.begin(9600); 
 
 
 def loop():
@@ -38,10 +38,10 @@ def loop():
     analogWrite(analogOutPin, outputValue);           
     
     # print the results to the serial monitor:
-    Serial_print("sensor = " );                       
-    Serial_print(sensorValue);      
-    Serial_print("\t output = ");      
-    Serial_println(outputValue);   
+    Serial.print_("sensor = " );                       
+    Serial.print_(sensorValue);      
+    Serial.print_("\t output = ");      
+    Serial.println(outputValue);   
     
     # wait 10 milliseconds before the next loop
     # for the analog-to-digital converter to settle
