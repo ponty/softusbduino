@@ -52,6 +52,10 @@
 #define TYPE_VOID   6
 #define TYPE_BYTE_ARRAY  7
 
+#ifndef ONEWIRE_BUS_COUNT
+#define ONEWIRE_BUS_COUNT  10
+#endif
+
 static uchar dataBuffer[BUFFER_SIZE]; /* buffer must stay valid when usbFunctionSetup returns */
 usbMsgLen_t return_string(const char* s)
 {
@@ -125,10 +129,6 @@ const prog_uint32_t intdef_list[] PROGMEM =
 #include "generated_intdefs.h"
 };
 #undef DEFINE
-
-#ifndef ONEWIRE_BUS_COUNT
-#define ONEWIRE_BUS_COUNT  10
-#endif
 
 void * operator new(size_t size)
 {
