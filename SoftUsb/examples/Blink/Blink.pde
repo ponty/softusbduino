@@ -1,3 +1,6 @@
+// include before SoftUsb!
+#include <OneWire.h>
+
 #include <SoftUsb.h>
 
 SoftUsb usb;

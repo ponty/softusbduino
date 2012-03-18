@@ -7,46 +7,16 @@ import time
 
 log = logging.getLogger(__name__)
 
-class RemoteVar(object):
-    pin = None
-    value = None
-    t = None
-    def __init__(self, pin):
-        self.pin = pin
-        self.read()
-
-    def read(self):
-        self.t = time.time()
-        self.value = self._read_value()
-        
-        
-   
-class AnalogIn(RemoteVar):
-    def _read_value(self):
-        return self.pin._analogRead()
-            
-    @property
-    def u_value(self):
-        return ufloat((self.value, self.pin.mcu.adc_accuracy))
-
-    @property
-    def voltage(self):
-        return self.u_voltage.nominal_value
-    
-    @property
-    def u_voltage(self):
-        return self.u_value / 1024.0 * self.pin.mcu.vcc.voltage
-
-class AnalogInputValue(RemoteVar):
+class AnalogInputValue(object):
     pin = None
     value = None
     t = None
     def __init__(self, mcu, pin_nr):
         self.pin_nr = pin_nr
-        self.mcu=mcu
+        self.mcu = mcu
         
         self.t = time.time()
-        self.value=mcu.pins.read_analog(pin_nr)
+        self.value = mcu.pins.read_analog(pin_nr)
             
     @property
     def u_value(self):
@@ -59,14 +29,8 @@ class AnalogInputValue(RemoteVar):
     @property
     def u_voltage(self):
         return self.u_value / 1024.0 * self.mcu.vcc.voltage
-    
-#class Digital(RemoteVar):
-#    def _read_value(self):
-#        return self.pin._digitalRead()
-
-#class PinMode(RemoteVar):
-#    def _read_value(self):
-#        return self.pin._readPinMode()
+    def __repr__(self):
+        return 'AnalogInputValue<value:%s voltage:%s>' % (self.value, self.voltage)
 
 def pin_nr_as_int(nr, A0):
     if isinstance(nr, basestring):
@@ -168,7 +132,7 @@ class Pin(PwmPinMixin):
         
         
 class Pins(object):    
-    def __init__(self, base, defines,mcu):
+    def __init__(self, base, defines, mcu):
         self.base = base
         self.defines = defines
         self.mcu = mcu
@@ -228,7 +192,7 @@ class Pins(object):
         return self.base.read_analog(pin_nr)
     
     def read_analog_obj(self, pin_nr):
-        return AnalogInputValue(self.mcu,pin_nr)
+        return AnalogInputValue(self.mcu, pin_nr)
 
     
     @property
