@@ -78,7 +78,7 @@ class PinWrapper(HasTraits):
             'mode',
                      Item('pwm',
                           visible_when='mode=="OUTPUT"',
-                          defined_when='pin.pwm_available',
+                          defined_when='pin.pwm.available',
                               ),
             HGroup(
                      Item('digital_input',
@@ -112,7 +112,7 @@ class PinWrapper(HasTraits):
                           style='custom',
                               ),
                   visible_when='mode=="OUTPUT" and pwm',
-                  defined_when='pin.pwm_available',
+                  defined_when='pin.pwm.available',
                   ),
                  Item('timer',
                       defined_when='timer',
