@@ -20,12 +20,15 @@ class Define(HasTraits):
 class PinWrapper(HasTraits):
     pin = Instance(Pin)
     function = Any()
+    usb = Any()
     timer = Any()
     def _pin_changed(self):
         self.name = self.pin.name
         self.mode = ['INPUT', 'OUTPUT'][self.pin.read_mode()]
         self.digital_output = bool(self.pin.read_digital())
         self.function = self.pin.programming_function
+        self.usb = ['','+','-'][self.pin.is_usb_plus+2*self.pin.is_usb_minus]
+        self.avr_pin = self.pin.avr_pin
         
         if self.pin.pwm.available:
             ls = [int(x) for  x in self.pin.pwm.frequencies_available]
@@ -75,6 +78,12 @@ class PinWrapper(HasTraits):
                           show_label=False,
                           style='readonly',
                               ),
+                     Item('avr_pin',
+                          show_label=False,
+                          style='readonly',
+                        format_func=lambda x:'(%s)'%(x),
+
+                              ),
             'mode',
                      Item('pwm',
                           visible_when='mode=="OUTPUT"',
@@ -120,6 +129,10 @@ class PinWrapper(HasTraits):
                           ),
                  Item('function',
                       defined_when='function',
+                      style='readonly',
+                          ),
+                 Item('usb',
+                      defined_when='usb',
                       style='readonly',
                           ),
             ),

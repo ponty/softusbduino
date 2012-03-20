@@ -57,6 +57,18 @@ class Pin(PwmPinMixin):
         return not self.is_digital
 
     @property
+    def avr_port(self): 
+        return self.base.avr_port(self.nr)
+                
+    @property
+    def avr_bit(self): 
+        return self.base.avr_bit(self.nr)
+
+    @property
+    def avr_pin(self): 
+        return self.base.avr_pin(self.nr)
+
+    @property
     def name(self):
         if self.is_digital:
             return 'D%s' % self.nr
@@ -226,6 +238,23 @@ class Pins(object):
                 if port == self.base.digitalPinToPort(x):
                     return x
                 
+    @memoized
+    def avr_port(self, pin_nr): 
+        x = self.base.digitalPinToPort(pin_nr)
+        return chr(ord('A') + x - 1)
+                
+    @memoized
+    def avr_bit(self, pin_nr): 
+        bitmask = self.base.digitalPinToBitMask(pin_nr)
+        i = 0
+        while bitmask != 1:
+            bitmask >>= 1
+            i += 1
+        return i
+    
+    def avr_pin(self, pin_nr): 
+        return 'P%s%s' % (self.avr_port(pin_nr), self.avr_bit(pin_nr))
+                
     def reset(self, pin_nr):
         self.write_mode(pin_nr, INPUT)
 
@@ -252,6 +281,21 @@ class Pins(object):
         port = self.defines.value('USB_CFG_IOPORT')
         return self.find(port, bit)
     
+    @property
+    @memoized
+    def usb_neighbours(self): 
+        ls = set([
+             self.usb_minus_pin + 1,
+             self.usb_minus_pin - 1,
+             self.usb_plus_pin + 1,
+             self.usb_plus_pin - 1,
+             ])
+        ls = filter(lambda x:x in self.range_all, ls)
+        return ls
+    
+    def ground_usb_neihbours(self):
+        for x in self.usb_neighbours:
+            self.write_digital_out(x, 0)
 
 class PinsLowLevel(object):
     def __init__(self, base):

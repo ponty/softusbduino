@@ -31,12 +31,17 @@ class Arduino(
     Rout = 15    
     analog_range = (0, 1023)
     bandgap_voltage = 1.1 # Volt
-    adc_accuracy = 2
+    adc_accuracy = 1
     
-    def __init__(self, reset=True, **kwargs):
+    def __init__(self, 
+                 reset=True,
+                 ground_usb_neihbours=True, 
+                 **kwargs):
         self.firmware_test()
         if reset:
             self.reset()
+        if ground_usb_neihbours:
+            self.ground_usb_neihbours()
       
     def firmware_test(self):
         assert self.define('MAGIC_NUMBER') == MAGIC_NUMBER
@@ -47,5 +52,7 @@ class Arduino(
     def reset(self):
         self.pins.reset_all()       
     
+    def ground_usb_neihbours(self):
+        self.pins.ground_usb_neihbours()       
     
 
