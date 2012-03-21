@@ -176,18 +176,18 @@ def test_memoized():
     
 
 def test_usb_pin():
-    eq_(dev.pins.usb_minus_pin, 4)
+    eq_(dev.pins.usb_minus_pin, 0)
     eq_(dev.pins.usb_plus_pin, 2)
     
-    eq_(dev.pin(0).is_usb_plus, False)
-    eq_(dev.pin(0).is_usb_minus, False)
+    eq_(dev.pin(5).is_usb_plus, False)
+    eq_(dev.pin(5).is_usb_minus, False)
     
 
     eq_(dev.pin(2).is_usb_plus, True)
     eq_(dev.pin(2).is_usb_minus, False)
 
-    eq_(dev.pin(4).is_usb_plus, False)
-    eq_(dev.pin(4).is_usb_minus, True)
+    eq_(dev.pin(0).is_usb_plus, False)
+    eq_(dev.pin(0).is_usb_minus, True)
 
 
 def test_pin_range():

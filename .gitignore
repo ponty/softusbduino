@@ -45,3 +45,4 @@ sloccount.sc
 sgm7_hwconf.h
 *.bak
 #generated_*
+generated_*.csv

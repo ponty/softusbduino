@@ -17,7 +17,7 @@ Features:
 	 - read or write all registers
 	 - call arduino functions
 	 - read many defines (example: F_CPU)
- - Python USB back-end: PyUSB_ 1.0 library
+ - Python USB back-end: PyUSB_ library (0.4 API)
  - Arduino USB back-end: V-USB_ library
   
 Known problems:
