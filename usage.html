@@ -8,7 +8,7 @@
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     
-    <title>Usage &mdash; softusbduino 1.1.0 documentation</title>
+    <title>Usage &mdash; softusbduino 1.1.1 documentation</title>
     
     <link rel="stylesheet" href="_static/default.css" type="text/css" />
     <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
@@ -16,7 +16,7 @@
     <script type="text/javascript">
       var DOCUMENTATION_OPTIONS = {
         URL_ROOT:    '',
-        VERSION:     '1.1.0',
+        VERSION:     '1.1.1',
         COLLAPSE_INDEX: false,
         FILE_SUFFIX: '.html',
         HAS_SOURCE:  true
@@ -25,7 +25,7 @@
     <script type="text/javascript" src="_static/jquery.js"></script>
     <script type="text/javascript" src="_static/underscore.js"></script>
     <script type="text/javascript" src="_static/doctools.js"></script>
-    <link rel="top" title="softusbduino 1.1.0 documentation" href="index.html" />
+    <link rel="top" title="softusbduino 1.1.1 documentation" href="index.html" />
     <link rel="next" title="Examples" href="examples.html" />
     <link rel="prev" title="About" href="readme.html" /> 
   </head>
@@ -42,7 +42,7 @@
         <li class="right" >
           <a href="readme.html" title="About"
              accesskey="P">previous</a> |</li>
-        <li><a href="index.html">softusbduino 1.1.0 documentation</a> &raquo;</li> 
+        <li><a href="index.html">softusbduino 1.1.1 documentation</a> &raquo;</li> 
       </ul>
     </div>  
 
@@ -70,7 +70,7 @@
 <span class="gp">&gt;&gt;&gt; </span>
 <span class="gp">&gt;&gt;&gt; </span><span class="c"># constants in firmware</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="k">print</span> <span class="n">mcu</span><span class="o">.</span><span class="n">pins</span><span class="o">.</span><span class="n">usb_minus_pin</span>
-<span class="go">4</span>
+<span class="go">0</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="k">print</span> <span class="n">mcu</span><span class="o">.</span><span class="n">pins</span><span class="o">.</span><span class="n">usb_plus_pin</span>
 <span class="go">2</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="k">print</span> <span class="n">mcu</span><span class="o">.</span><span class="n">pins</span><span class="o">.</span><span class="n">count</span>
@@ -88,9 +88,9 @@
 <span class="gp">&gt;&gt;&gt; </span>
 <span class="gp">&gt;&gt;&gt; </span><span class="c"># supply voltage</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="k">print</span> <span class="n">mcu</span><span class="o">.</span><span class="n">vcc</span><span class="o">.</span><span class="n">voltage</span>
-<span class="go">4.87619047619</span>
+<span class="go">4.89739130435</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="k">print</span> <span class="n">mcu</span><span class="o">.</span><span class="n">vcc</span><span class="o">.</span><span class="n">u_voltage</span>
-<span class="go">4.87619047619+/-0.042218099361</span>
+<span class="go">4.89739130435+/-0.0212930056711</span>
 <span class="gp">&gt;&gt;&gt; </span>
 <span class="gp">&gt;&gt;&gt; </span><span class="c"># pin</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="k">print</span> <span class="n">mcu</span><span class="o">.</span><span class="n">pin</span><span class="p">(</span><span class="mi">8</span><span class="p">)</span><span class="o">.</span><span class="n">nr</span>
@@ -116,11 +116,11 @@
 <span class="gp">&gt;&gt;&gt; </span>
 <span class="gp">&gt;&gt;&gt; </span><span class="c"># analog read</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="k">print</span> <span class="n">mcu</span><span class="o">.</span><span class="n">pins</span><span class="o">.</span><span class="n">read_analog</span><span class="p">(</span><span class="mi">15</span><span class="p">)</span>
-<span class="go">306</span>
+<span class="go">305</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="k">print</span> <span class="n">mcu</span><span class="o">.</span><span class="n">pin</span><span class="p">(</span><span class="s">&#39;A2&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">read_analog</span><span class="p">()</span>
-<span class="go">343</span>
+<span class="go">355</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="k">print</span> <span class="n">mcu</span><span class="o">.</span><span class="n">pin</span><span class="p">(</span><span class="s">&#39;A2&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">analog</span>
-<span class="go">332</span>
+<span class="go">428</span>
 <span class="gp">&gt;&gt;&gt; </span>
 <span class="gp">&gt;&gt;&gt; </span><span class="c"># digital read</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="k">print</span> <span class="n">mcu</span><span class="o">.</span><span class="n">pins</span><span class="o">.</span><span class="n">read_digital</span><span class="p">(</span><span class="mi">8</span><span class="p">)</span>
@@ -180,11 +180,11 @@
 <span class="gp">&gt;&gt;&gt; </span><span class="k">print</span> <span class="n">mcu</span><span class="o">.</span><span class="n">define</span><span class="p">(</span><span class="s">&#39;F_CPU&#39;</span><span class="p">)</span>
 <span class="go">20000000</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="k">print</span> <span class="n">mcu</span><span class="o">.</span><span class="n">define</span><span class="p">(</span><span class="s">&#39;__DATE__&#39;</span><span class="p">)</span>
-<span class="go">Mar  1 2012</span>
+<span class="go">Mar 19 2012</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="k">print</span> <span class="n">mcu</span><span class="o">.</span><span class="n">define</span><span class="p">(</span><span class="s">&#39;MOSI&#39;</span><span class="p">)</span>
 <span class="go">11</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="k">print</span> <span class="n">mcu</span><span class="o">.</span><span class="n">define</span><span class="p">(</span><span class="s">&#39;USB_CFG_DMINUS_BIT&#39;</span><span class="p">)</span>
-<span class="go">4</span>
+<span class="go">0</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="k">print</span> <span class="n">mcu</span><span class="o">.</span><span class="n">define</span><span class="p">(</span><span class="s">&#39;ARDUINO&#39;</span><span class="p">)</span>
 <span class="go">22</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="k">print</span> <span class="n">mcu</span><span class="o">.</span><span class="n">define</span><span class="p">(</span><span class="s">&#39;__AVR_LIBC_VERSION__&#39;</span><span class="p">)</span>
@@ -290,7 +290,7 @@ Registers and MCU names are read from <a class="reference external" href="http:/
         <li class="right" >
           <a href="readme.html" title="About"
              >previous</a> |</li>
-        <li><a href="index.html">softusbduino 1.1.0 documentation</a> &raquo;</li> 
+        <li><a href="index.html">softusbduino 1.1.1 documentation</a> &raquo;</li> 
       </ul>
     </div>
     <div class="footer">

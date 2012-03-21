@@ -10,7 +10,7 @@ scons: building associated VariantDir targets: build/local build
 fnProcessing(["build/OneWire.cpp"], ["build/OneWire.ino"])
 void setup();
 void loop();
-/tmp/pyavrutils_VCHHG_/OneWire/OneWire.ino OneWire
+/tmp/pyavrutils_0tBn0F/OneWire/OneWire.ino OneWire
 avr-g++ -o build/OneWire.o -c -ffunction-sections -fdata-sections -fno-exceptions -Wall -funsigned-char -funsigned-bitfields -fpack-struct -fshort-enums -Os -mmcu=atmega328p -DARDUINO=100 -DF_CPU=8000000L -Ibuild/core -I/home/titi/opt/arduino-1.0/hardware/arduino/variants/standard -Ibuild/lib_00/SoftUsb build/OneWire.cpp
 scons: building terminated because of errors.
 

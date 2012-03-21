@@ -10,7 +10,7 @@ scons: building associated VariantDir targets: build/local build
 fnProcessing(["build/OneWire.cpp"], ["build/OneWire.pde"])
 void setup();
 void loop();
-/tmp/pyavrutils_cKdpqV/OneWire/OneWire.pde OneWire
+/tmp/pyavrutils_LVGj4W/OneWire/OneWire.pde OneWire
 avr-g++ -o build/OneWire.o -c -ffunction-sections -fdata-sections -fno-exceptions -Wall -funsigned-char -funsigned-bitfields -fpack-struct -fshort-enums -Os -mmcu=atmega168 -DARDUINO=23 -DF_CPU=16000000L -Ibuild/core -Ibuild/lib_00/SoftUsb build/OneWire.cpp
 scons: building terminated because of errors.
 

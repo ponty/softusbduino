@@ -8,7 +8,7 @@
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     
-    <title>Examples &mdash; softusbduino 1.1.0 documentation</title>
+    <title>Examples &mdash; softusbduino 1.1.1 documentation</title>
     
     <link rel="stylesheet" href="_static/default.css" type="text/css" />
     <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
@@ -16,7 +16,7 @@
     <script type="text/javascript">
       var DOCUMENTATION_OPTIONS = {
         URL_ROOT:    '',
-        VERSION:     '1.1.0',
+        VERSION:     '1.1.1',
         COLLAPSE_INDEX: false,
         FILE_SUFFIX: '.html',
         HAS_SOURCE:  true
@@ -25,7 +25,7 @@
     <script type="text/javascript" src="_static/jquery.js"></script>
     <script type="text/javascript" src="_static/underscore.js"></script>
     <script type="text/javascript" src="_static/doctools.js"></script>
-    <link rel="top" title="softusbduino 1.1.0 documentation" href="index.html" />
+    <link rel="top" title="softusbduino 1.1.1 documentation" href="index.html" />
     <link rel="next" title="1Wire examples" href="examples1wire.html" />
     <link rel="prev" title="Usage" href="usage.html" /> 
   </head>
@@ -42,7 +42,7 @@
         <li class="right" >
           <a href="usage.html" title="Usage"
              accesskey="P">previous</a> |</li>
-        <li><a href="index.html">softusbduino 1.1.0 documentation</a> &raquo;</li> 
+        <li><a href="index.html">softusbduino 1.1.1 documentation</a> &raquo;</li> 
       </ul>
     </div>  
 
@@ -190,7 +190,7 @@ optional arguments:
 
 <span class="k">def</span> <span class="nf">setup</span><span class="p">():</span>
     <span class="c"># initialize serial communications at 9600 bps:</span>
-    <span class="n">Serial_begin</span><span class="p">(</span><span class="mi">9600</span><span class="p">);</span> 
+    <span class="n">Serial</span><span class="o">.</span><span class="n">begin</span><span class="p">(</span><span class="mi">9600</span><span class="p">);</span> 
 
 
 <span class="k">def</span> <span class="nf">loop</span><span class="p">():</span>
@@ -202,10 +202,10 @@ optional arguments:
     <span class="n">analogWrite</span><span class="p">(</span><span class="n">analogOutPin</span><span class="p">,</span> <span class="n">outputValue</span><span class="p">);</span>           
     
     <span class="c"># print the results to the serial monitor:</span>
-    <span class="n">Serial_print</span><span class="p">(</span><span class="s">&quot;sensor = &quot;</span> <span class="p">);</span>                       
-    <span class="n">Serial_print</span><span class="p">(</span><span class="n">sensorValue</span><span class="p">);</span>      
-    <span class="n">Serial_print</span><span class="p">(</span><span class="s">&quot;</span><span class="se">\t</span><span class="s"> output = &quot;</span><span class="p">);</span>      
-    <span class="n">Serial_println</span><span class="p">(</span><span class="n">outputValue</span><span class="p">);</span>   
+    <span class="n">Serial</span><span class="o">.</span><span class="n">print_</span><span class="p">(</span><span class="s">&quot;sensor = &quot;</span> <span class="p">);</span>                       
+    <span class="n">Serial</span><span class="o">.</span><span class="n">print_</span><span class="p">(</span><span class="n">sensorValue</span><span class="p">);</span>      
+    <span class="n">Serial</span><span class="o">.</span><span class="n">print_</span><span class="p">(</span><span class="s">&quot;</span><span class="se">\t</span><span class="s"> output = &quot;</span><span class="p">);</span>      
+    <span class="n">Serial</span><span class="o">.</span><span class="n">println</span><span class="p">(</span><span class="n">outputValue</span><span class="p">);</span>   
     
     <span class="c"># wait 10 milliseconds before the next loop</span>
     <span class="c"># for the analog-to-digital converter to settle</span>
@@ -276,7 +276,7 @@ optional arguments:
         <li class="right" >
           <a href="usage.html" title="Usage"
              >previous</a> |</li>
-        <li><a href="index.html">softusbduino 1.1.0 documentation</a> &raquo;</li> 
+        <li><a href="index.html">softusbduino 1.1.1 documentation</a> &raquo;</li> 
       </ul>
     </div>
     <div class="footer">

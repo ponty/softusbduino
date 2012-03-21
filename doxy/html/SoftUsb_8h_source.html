@@ -100,83 +100,83 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 <a name="l00052"></a><a class="code" href="SoftUsb_8h.html#a455edbbc0a157643b4d101447188e905">00052</a> <span class="preprocessor"></span><span class="preprocessor">#define TYPE_VOID   6</span>
 <a name="l00053"></a><a class="code" href="SoftUsb_8h.html#a7c59ae108af6a1a09ed5031cd95d1965">00053</a> <span class="preprocessor"></span><span class="preprocessor">#define TYPE_BYTE_ARRAY  7</span>
 <a name="l00054"></a>00054 <span class="preprocessor"></span>
-<a name="l00055"></a>00055 <span class="keyword">static</span> <a class="code" href="oddebug_8h.html#aa8ddf20cdd716b652e76e23e5e700893">uchar</a> dataBuffer[<a class="code" href="SoftUsb_8h.html#a6b20d41d6252e9871430c242cb1a56e7">BUFFER_SIZE</a>]; <span class="comment">/* buffer must stay valid when usbFunctionSetup returns */</span>
-<a name="l00056"></a><a class="code" href="SoftUsb_8h.html#a8e9651aeb2917610c4ec6a398928f9a4">00056</a> <a class="code" href="usbdrv_8h.html#a57df3bf9fc8ec8cd9b29ba8dfc361059">usbMsgLen_t</a> <a class="code" href="SoftUsb_8h.html#a8e9651aeb2917610c4ec6a398928f9a4">return_string</a>(<span class="keyword">const</span> <span class="keywordtype">char</span>* s)
-<a name="l00057"></a>00057 {
-<a name="l00058"></a>00058     dataBuffer[0] = <a class="code" href="SoftUsb_8h.html#a4e4e428e3a6a191834e3ff63bd301866">TYPE_STRING</a>;
-<a name="l00059"></a>00059     strcpy((<span class="keywordtype">char</span>*) &amp;dataBuffer[1], s);
-<a name="l00060"></a>00060     <span class="keywordflow">return</span> strlen((<span class="keywordtype">char</span>*) dataBuffer) + 1;
-<a name="l00061"></a>00061 }
-<a name="l00062"></a>00062 
-<a name="l00063"></a><a class="code" href="SoftUsb_8h.html#afcb4ed8b534e7b4849317228e841486d">00063</a> <a class="code" href="usbdrv_8h.html#a57df3bf9fc8ec8cd9b29ba8dfc361059">usbMsgLen_t</a> <a class="code" href="SoftUsb_8h.html#afcb4ed8b534e7b4849317228e841486d">return_byte_array</a>(<span class="keyword">const</span> byte* arr, int8_t size)
-<a name="l00064"></a>00064 {
-<a name="l00065"></a>00065     dataBuffer[0] = <a class="code" href="SoftUsb_8h.html#a7c59ae108af6a1a09ed5031cd95d1965">TYPE_BYTE_ARRAY</a>;
-<a name="l00066"></a>00066     <span class="keywordflow">for</span> (<span class="keywordtype">int</span> i = 0; i &lt; size; i++)
-<a name="l00067"></a>00067     {
-<a name="l00068"></a>00068         dataBuffer[i + 1] = arr[i];
-<a name="l00069"></a>00069     }
-<a name="l00070"></a>00070     <span class="keywordflow">return</span> size + 1;
-<a name="l00071"></a>00071 }
-<a name="l00072"></a>00072 
-<a name="l00073"></a><a class="code" href="SoftUsb_8h.html#ac6d243a67049ba66dc8e3a7dbd356726">00073</a> <a class="code" href="usbdrv_8h.html#a57df3bf9fc8ec8cd9b29ba8dfc361059">usbMsgLen_t</a> <a class="code" href="SoftUsb_8h.html#ac6d243a67049ba66dc8e3a7dbd356726">return_int8</a>(int8_t x)
-<a name="l00074"></a>00074 {
-<a name="l00075"></a>00075     dataBuffer[0] = <a class="code" href="SoftUsb_8h.html#ae53b61bb903fb8f22dba22efbfebf3bb">TYPE_INT8</a>;
-<a name="l00076"></a>00076     dataBuffer[1] = x;
-<a name="l00077"></a>00077     <span class="keywordflow">return</span> 2;
-<a name="l00078"></a>00078 }
-<a name="l00079"></a>00079 
-<a name="l00080"></a><a class="code" href="SoftUsb_8h.html#a4b943e143d1b79f8fb70203e4c6e3a53">00080</a> <a class="code" href="usbdrv_8h.html#a57df3bf9fc8ec8cd9b29ba8dfc361059">usbMsgLen_t</a> <a class="code" href="SoftUsb_8h.html#a4b943e143d1b79f8fb70203e4c6e3a53">return_bool</a>(int8_t x)
-<a name="l00081"></a>00081 {
-<a name="l00082"></a>00082     <span class="keywordflow">return</span> <a class="code" href="SoftUsb_8h.html#ac6d243a67049ba66dc8e3a7dbd356726">return_int8</a>(x);
-<a name="l00083"></a>00083 }
-<a name="l00084"></a>00084 
-<a name="l00085"></a><a class="code" href="SoftUsb_8h.html#a52a93e8dc943d35ad9ff076769a4f0cb">00085</a> <a class="code" href="usbdrv_8h.html#a57df3bf9fc8ec8cd9b29ba8dfc361059">usbMsgLen_t</a> <a class="code" href="SoftUsb_8h.html#a52a93e8dc943d35ad9ff076769a4f0cb">return_int16</a>(int16_t x)
-<a name="l00086"></a>00086 {
-<a name="l00087"></a>00087     dataBuffer[0] = <a class="code" href="SoftUsb_8h.html#ab96199e4ff3d91cfd5548f586289768b">TYPE_INT16</a>;
-<a name="l00088"></a>00088     dataBuffer[1] = x &gt;&gt; (0 * 8);
-<a name="l00089"></a>00089     dataBuffer[2] = x &gt;&gt; (1 * 8);
-<a name="l00090"></a>00090     <span class="keywordflow">return</span> 3;
-<a name="l00091"></a>00091 }
-<a name="l00092"></a>00092 
-<a name="l00093"></a><a class="code" href="SoftUsb_8h.html#a79f8d30fd8091f07d4d945c5a32d8c1c">00093</a> <a class="code" href="usbdrv_8h.html#a57df3bf9fc8ec8cd9b29ba8dfc361059">usbMsgLen_t</a> <a class="code" href="SoftUsb_8h.html#a79f8d30fd8091f07d4d945c5a32d8c1c">return_int32</a>(int32_t x)
-<a name="l00094"></a>00094 {
-<a name="l00095"></a>00095     dataBuffer[0] = <a class="code" href="SoftUsb_8h.html#a21bfbe94870886690e66445192431c6e">TYPE_INT32</a>;
-<a name="l00096"></a>00096     dataBuffer[1] = x &gt;&gt; (0 * 8);
-<a name="l00097"></a>00097     dataBuffer[2] = x &gt;&gt; (1 * 8);
-<a name="l00098"></a>00098     dataBuffer[3] = x &gt;&gt; (2 * 8);
-<a name="l00099"></a>00099     dataBuffer[4] = x &gt;&gt; (3 * 8);
-<a name="l00100"></a>00100     <span class="keywordflow">return</span> 5;
-<a name="l00101"></a>00101 }
-<a name="l00102"></a>00102 
-<a name="l00103"></a>00103 <span class="preprocessor">#define DEFINE(x) (prog_uint16_t)(&amp;x),</span>
-<a name="l00104"></a>00104 <span class="preprocessor"></span><span class="preprocessor">#define MISSING(x)</span>
-<a name="l00105"></a><a class="code" href="SoftUsb_8h.html#af17f668395c2bba635e5737bcac88f4b">00105</a> <span class="preprocessor"></span><span class="keyword">const</span> prog_uint16_t reg_list[] <a class="code" href="SoftUsb_8h.html#af17f668395c2bba635e5737bcac88f4b">PROGMEM</a> =
-<a name="l00106"></a>00106 {
-<a name="l00107"></a>00107 <span class="preprocessor">#include &quot;<a class="code" href="generated__registers_8h.html">generated_registers.h</a>&quot;</span>
-<a name="l00108"></a>00108 };
-<a name="l00109"></a>00109 <span class="preprocessor">#undef MISSING</span>
-<a name="l00110"></a>00110 <span class="preprocessor"></span><span class="preprocessor">#undef DEFINE</span>
-<a name="l00111"></a>00111 <span class="preprocessor"></span>
-<a name="l00112"></a>00112 <span class="preprocessor">#define DEFINE(x) __COUNTER__,</span>
-<a name="l00113"></a><a class="code" href="SoftUsb_8h.html#aeba1fa0bbbc718291790d84046581744">00113</a> <span class="preprocessor"></span><span class="preprocessor">#define MISSING(x)    (0*__COUNTER__)+</span>
-<a name="l00114"></a>00114 <span class="preprocessor"></span><span class="keyword">const</span> prog_uint16_t reg_index_list[] <a class="code" href="SoftUsb_8h.html#af17f668395c2bba635e5737bcac88f4b">PROGMEM</a> =
-<a name="l00115"></a>00115 {
-<a name="l00116"></a>00116 <span class="preprocessor">#include &quot;<a class="code" href="generated__registers_8h.html">generated_registers.h</a>&quot;</span>
-<a name="l00117"></a>00117     0
-<a name="l00118"></a>00118 };
-<a name="l00119"></a>00119 <span class="preprocessor">#undef MISSING</span>
-<a name="l00120"></a>00120 <span class="preprocessor"></span><span class="preprocessor">#undef DEFINE</span>
-<a name="l00121"></a>00121 <span class="preprocessor"></span>
-<a name="l00122"></a><a class="code" href="SoftUsb_8h.html#a267e5723ab2786178d0baa2a55270b9b">00122</a> <span class="preprocessor">#define DEFINE(x)    x,</span>
-<a name="l00123"></a>00123 <span class="preprocessor"></span><span class="keyword">const</span> prog_uint32_t intdef_list[] <a class="code" href="SoftUsb_8h.html#af17f668395c2bba635e5737bcac88f4b">PROGMEM</a> =
-<a name="l00124"></a>00124 {
-<a name="l00125"></a>00125 <span class="preprocessor">#include &quot;<a class="code" href="generated__intdefs_8h.html">generated_intdefs.h</a>&quot;</span>
-<a name="l00126"></a>00126 };
-<a name="l00127"></a>00127 <span class="preprocessor">#undef DEFINE</span>
-<a name="l00128"></a>00128 <span class="preprocessor"></span>
-<a name="l00129"></a>00129 <span class="preprocessor">#ifndef ONEWIRE_BUS_COUNT</span>
-<a name="l00130"></a>00130 <span class="preprocessor"></span><span class="preprocessor">#define ONEWIRE_BUS_COUNT  10</span>
-<a name="l00131"></a>00131 <span class="preprocessor"></span><span class="preprocessor">#endif</span>
+<a name="l00055"></a>00055 <span class="preprocessor">#ifndef ONEWIRE_BUS_COUNT</span>
+<a name="l00056"></a><a class="code" href="SoftUsb_8h.html#ac2f7a6c49c1b7db70c6f889f15072385">00056</a> <span class="preprocessor"></span><span class="preprocessor">#define ONEWIRE_BUS_COUNT  10</span>
+<a name="l00057"></a>00057 <span class="preprocessor"></span><span class="preprocessor">#endif</span>
+<a name="l00058"></a>00058 <span class="preprocessor"></span>
+<a name="l00059"></a>00059 <span class="keyword">static</span> <a class="code" href="oddebug_8h.html#aa8ddf20cdd716b652e76e23e5e700893">uchar</a> dataBuffer[<a class="code" href="SoftUsb_8h.html#a6b20d41d6252e9871430c242cb1a56e7">BUFFER_SIZE</a>]; <span class="comment">/* buffer must stay valid when usbFunctionSetup returns */</span>
+<a name="l00060"></a><a class="code" href="SoftUsb_8h.html#a8e9651aeb2917610c4ec6a398928f9a4">00060</a> <a class="code" href="usbdrv_8h.html#a57df3bf9fc8ec8cd9b29ba8dfc361059">usbMsgLen_t</a> <a class="code" href="SoftUsb_8h.html#a8e9651aeb2917610c4ec6a398928f9a4">return_string</a>(<span class="keyword">const</span> <span class="keywordtype">char</span>* s)
+<a name="l00061"></a>00061 {
+<a name="l00062"></a>00062     dataBuffer[0] = <a class="code" href="SoftUsb_8h.html#a4e4e428e3a6a191834e3ff63bd301866">TYPE_STRING</a>;
+<a name="l00063"></a>00063     strcpy((<span class="keywordtype">char</span>*) &amp;dataBuffer[1], s);
+<a name="l00064"></a>00064     <span class="keywordflow">return</span> strlen((<span class="keywordtype">char</span>*) dataBuffer) + 1;
+<a name="l00065"></a>00065 }
+<a name="l00066"></a>00066 
+<a name="l00067"></a><a class="code" href="SoftUsb_8h.html#afcb4ed8b534e7b4849317228e841486d">00067</a> <a class="code" href="usbdrv_8h.html#a57df3bf9fc8ec8cd9b29ba8dfc361059">usbMsgLen_t</a> <a class="code" href="SoftUsb_8h.html#afcb4ed8b534e7b4849317228e841486d">return_byte_array</a>(<span class="keyword">const</span> byte* arr, int8_t size)
+<a name="l00068"></a>00068 {
+<a name="l00069"></a>00069     dataBuffer[0] = <a class="code" href="SoftUsb_8h.html#a7c59ae108af6a1a09ed5031cd95d1965">TYPE_BYTE_ARRAY</a>;
+<a name="l00070"></a>00070     <span class="keywordflow">for</span> (<span class="keywordtype">int</span> i = 0; i &lt; size; i++)
+<a name="l00071"></a>00071     {
+<a name="l00072"></a>00072         dataBuffer[i + 1] = arr[i];
+<a name="l00073"></a>00073     }
+<a name="l00074"></a>00074     <span class="keywordflow">return</span> size + 1;
+<a name="l00075"></a>00075 }
+<a name="l00076"></a>00076 
+<a name="l00077"></a><a class="code" href="SoftUsb_8h.html#ac6d243a67049ba66dc8e3a7dbd356726">00077</a> <a class="code" href="usbdrv_8h.html#a57df3bf9fc8ec8cd9b29ba8dfc361059">usbMsgLen_t</a> <a class="code" href="SoftUsb_8h.html#ac6d243a67049ba66dc8e3a7dbd356726">return_int8</a>(int8_t x)
+<a name="l00078"></a>00078 {
+<a name="l00079"></a>00079     dataBuffer[0] = <a class="code" href="SoftUsb_8h.html#ae53b61bb903fb8f22dba22efbfebf3bb">TYPE_INT8</a>;
+<a name="l00080"></a>00080     dataBuffer[1] = x;
+<a name="l00081"></a>00081     <span class="keywordflow">return</span> 2;
+<a name="l00082"></a>00082 }
+<a name="l00083"></a>00083 
+<a name="l00084"></a><a class="code" href="SoftUsb_8h.html#a4b943e143d1b79f8fb70203e4c6e3a53">00084</a> <a class="code" href="usbdrv_8h.html#a57df3bf9fc8ec8cd9b29ba8dfc361059">usbMsgLen_t</a> <a class="code" href="SoftUsb_8h.html#a4b943e143d1b79f8fb70203e4c6e3a53">return_bool</a>(int8_t x)
+<a name="l00085"></a>00085 {
+<a name="l00086"></a>00086     <span class="keywordflow">return</span> <a class="code" href="SoftUsb_8h.html#ac6d243a67049ba66dc8e3a7dbd356726">return_int8</a>(x);
+<a name="l00087"></a>00087 }
+<a name="l00088"></a>00088 
+<a name="l00089"></a><a class="code" href="SoftUsb_8h.html#a52a93e8dc943d35ad9ff076769a4f0cb">00089</a> <a class="code" href="usbdrv_8h.html#a57df3bf9fc8ec8cd9b29ba8dfc361059">usbMsgLen_t</a> <a class="code" href="SoftUsb_8h.html#a52a93e8dc943d35ad9ff076769a4f0cb">return_int16</a>(int16_t x)
+<a name="l00090"></a>00090 {
+<a name="l00091"></a>00091     dataBuffer[0] = <a class="code" href="SoftUsb_8h.html#ab96199e4ff3d91cfd5548f586289768b">TYPE_INT16</a>;
+<a name="l00092"></a>00092     dataBuffer[1] = x &gt;&gt; (0 * 8);
+<a name="l00093"></a>00093     dataBuffer[2] = x &gt;&gt; (1 * 8);
+<a name="l00094"></a>00094     <span class="keywordflow">return</span> 3;
+<a name="l00095"></a>00095 }
+<a name="l00096"></a>00096 
+<a name="l00097"></a><a class="code" href="SoftUsb_8h.html#a79f8d30fd8091f07d4d945c5a32d8c1c">00097</a> <a class="code" href="usbdrv_8h.html#a57df3bf9fc8ec8cd9b29ba8dfc361059">usbMsgLen_t</a> <a class="code" href="SoftUsb_8h.html#a79f8d30fd8091f07d4d945c5a32d8c1c">return_int32</a>(int32_t x)
+<a name="l00098"></a>00098 {
+<a name="l00099"></a>00099     dataBuffer[0] = <a class="code" href="SoftUsb_8h.html#a21bfbe94870886690e66445192431c6e">TYPE_INT32</a>;
+<a name="l00100"></a>00100     dataBuffer[1] = x &gt;&gt; (0 * 8);
+<a name="l00101"></a>00101     dataBuffer[2] = x &gt;&gt; (1 * 8);
+<a name="l00102"></a>00102     dataBuffer[3] = x &gt;&gt; (2 * 8);
+<a name="l00103"></a>00103     dataBuffer[4] = x &gt;&gt; (3 * 8);
+<a name="l00104"></a>00104     <span class="keywordflow">return</span> 5;
+<a name="l00105"></a>00105 }
+<a name="l00106"></a>00106 
+<a name="l00107"></a>00107 <span class="preprocessor">#define DEFINE(x) (prog_uint16_t)(&amp;x),</span>
+<a name="l00108"></a>00108 <span class="preprocessor"></span><span class="preprocessor">#define MISSING(x)</span>
+<a name="l00109"></a><a class="code" href="SoftUsb_8h.html#af17f668395c2bba635e5737bcac88f4b">00109</a> <span class="preprocessor"></span><span class="keyword">const</span> prog_uint16_t reg_list[] <a class="code" href="SoftUsb_8h.html#af17f668395c2bba635e5737bcac88f4b">PROGMEM</a> =
+<a name="l00110"></a>00110 {
+<a name="l00111"></a>00111 <span class="preprocessor">#include &quot;<a class="code" href="generated__registers_8h.html">generated_registers.h</a>&quot;</span>
+<a name="l00112"></a>00112 };
+<a name="l00113"></a>00113 <span class="preprocessor">#undef MISSING</span>
+<a name="l00114"></a>00114 <span class="preprocessor"></span><span class="preprocessor">#undef DEFINE</span>
+<a name="l00115"></a>00115 <span class="preprocessor"></span>
+<a name="l00116"></a>00116 <span class="preprocessor">#define DEFINE(x) __COUNTER__,</span>
+<a name="l00117"></a><a class="code" href="SoftUsb_8h.html#aeba1fa0bbbc718291790d84046581744">00117</a> <span class="preprocessor"></span><span class="preprocessor">#define MISSING(x)    (0*__COUNTER__)+</span>
+<a name="l00118"></a>00118 <span class="preprocessor"></span><span class="keyword">const</span> prog_uint16_t reg_index_list[] <a class="code" href="SoftUsb_8h.html#af17f668395c2bba635e5737bcac88f4b">PROGMEM</a> =
+<a name="l00119"></a>00119 {
+<a name="l00120"></a>00120 <span class="preprocessor">#include &quot;<a class="code" href="generated__registers_8h.html">generated_registers.h</a>&quot;</span>
+<a name="l00121"></a>00121     0
+<a name="l00122"></a>00122 };
+<a name="l00123"></a>00123 <span class="preprocessor">#undef MISSING</span>
+<a name="l00124"></a>00124 <span class="preprocessor"></span><span class="preprocessor">#undef DEFINE</span>
+<a name="l00125"></a>00125 <span class="preprocessor"></span>
+<a name="l00126"></a><a class="code" href="SoftUsb_8h.html#a267e5723ab2786178d0baa2a55270b9b">00126</a> <span class="preprocessor">#define DEFINE(x)    x,</span>
+<a name="l00127"></a>00127 <span class="preprocessor"></span><span class="keyword">const</span> prog_uint32_t intdef_list[] <a class="code" href="SoftUsb_8h.html#af17f668395c2bba635e5737bcac88f4b">PROGMEM</a> =
+<a name="l00128"></a>00128 {
+<a name="l00129"></a>00129 <span class="preprocessor">#include &quot;<a class="code" href="generated__intdefs_8h.html">generated_intdefs.h</a>&quot;</span>
+<a name="l00130"></a>00130 };
+<a name="l00131"></a>00131 <span class="preprocessor">#undef DEFINE</span>
 <a name="l00132"></a>00132 <span class="preprocessor"></span>
 <a name="l00133"></a><a class="code" href="SoftUsb_8h.html#a205ed048fdf5259c2e8e0cb60ee8f719">00133</a> <span class="keywordtype">void</span> * <a class="code" href="SoftUsb_8h.html#a205ed048fdf5259c2e8e0cb60ee8f719">operator new</a>(<span class="keywordtype">size_t</span> size)
 <a name="l00134"></a>00134 {
@@ -189,7 +189,7 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 <a name="l00141"></a>00141 }
 <a name="l00142"></a>00142 
 <a name="l00143"></a>00143 <span class="preprocessor">#ifdef OneWire_h</span>
-<a name="l00144"></a>00144 <span class="preprocessor"></span>OneWire* one_wire_bus_list[ONEWIRE_BUS_COUNT]=
+<a name="l00144"></a>00144 <span class="preprocessor"></span>OneWire* one_wire_bus_list[<a class="code" href="SoftUsb_8h.html#ac2f7a6c49c1b7db70c6f889f15072385">ONEWIRE_BUS_COUNT</a>]=
 <a name="l00145"></a>00145 {   NULL};
 <a name="l00146"></a>00146 uint8_t one_wire_address[8];
 <a name="l00147"></a>00147 <span class="preprocessor">#endif</span>
@@ -576,7 +576,7 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 </iframe>
 </div>
 
-<hr class="footer"/><address class="footer"><small>Generated on Sun Mar 4 2012 21:24:35 for softusbduino by&#160;
+<hr class="footer"/><address class="footer"><small>Generated on Wed Mar 21 2012 20:13:54 for softusbduino by&#160;
 <a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.7.4 </small></address>
 </body>

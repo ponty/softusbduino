@@ -10,20 +10,68 @@ scons: building associated VariantDir targets: build/local build
 fnProcessing(["build/Basic.cpp"], ["build/Basic.ino"])
 void setup();
 void loop();
-/tmp/pyavrutils_ZtPm6G/Basic/Basic.ino Basic
+/tmp/pyavrutils_HAvfmg/Basic/Basic.ino Basic
 avr-g++ -o build/Basic.o -c -ffunction-sections -fdata-sections -fno-exceptions -Wall -funsigned-char -funsigned-bitfields -fpack-struct -fshort-enums -Os -mmcu=atmega1280 -DARDUINO=100 -DF_CPU=16000000L -Ibuild/core -I/home/titi/opt/arduino-1.0/hardware/arduino/variants/standard -Ibuild/lib_00/SoftUsb build/Basic.cpp
-scons: building terminated because of errors.
+avr-g++ -o build/core/CDC.o -c -ffunction-sections -fdata-sections -fno-exceptions -Wall -funsigned-char -funsigned-bitfields -fpack-struct -fshort-enums -Os -mmcu=atmega1280 -DARDUINO=100 -DF_CPU=16000000L -Ibuild/core -I/home/titi/opt/arduino-1.0/hardware/arduino/variants/standard -Ibuild/lib_00/SoftUsb build/core/CDC.cpp
+avr-g++ -o build/core/HID.o -c -ffunction-sections -fdata-sections -fno-exceptions -Wall -funsigned-char -funsigned-bitfields -fpack-struct -fshort-enums -Os -mmcu=atmega1280 -DARDUINO=100 -DF_CPU=16000000L -Ibuild/core -I/home/titi/opt/arduino-1.0/hardware/arduino/variants/standard -Ibuild/lib_00/SoftUsb build/core/HID.cpp
+avr-g++ -o build/core/HardwareSerial.o -c -ffunction-sections -fdata-sections -fno-exceptions -Wall -funsigned-char -funsigned-bitfields -fpack-struct -fshort-enums -Os -mmcu=atmega1280 -DARDUINO=100 -DF_CPU=16000000L -Ibuild/core -I/home/titi/opt/arduino-1.0/hardware/arduino/variants/standard -Ibuild/lib_00/SoftUsb build/core/HardwareSerial.cpp
+avr-g++ -o build/core/IPAddress.o -c -ffunction-sections -fdata-sections -fno-exceptions -Wall -funsigned-char -funsigned-bitfields -fpack-struct -fshort-enums -Os -mmcu=atmega1280 -DARDUINO=100 -DF_CPU=16000000L -Ibuild/core -I/home/titi/opt/arduino-1.0/hardware/arduino/variants/standard -Ibuild/lib_00/SoftUsb build/core/IPAddress.cpp
+avr-g++ -o build/core/Print.o -c -ffunction-sections -fdata-sections -fno-exceptions -Wall -funsigned-char -funsigned-bitfields -fpack-struct -fshort-enums -Os -mmcu=atmega1280 -DARDUINO=100 -DF_CPU=16000000L -Ibuild/core -I/home/titi/opt/arduino-1.0/hardware/arduino/variants/standard -Ibuild/lib_00/SoftUsb build/core/Print.cpp
+avr-g++ -o build/core/Stream.o -c -ffunction-sections -fdata-sections -fno-exceptions -Wall -funsigned-char -funsigned-bitfields -fpack-struct -fshort-enums -Os -mmcu=atmega1280 -DARDUINO=100 -DF_CPU=16000000L -Ibuild/core -I/home/titi/opt/arduino-1.0/hardware/arduino/variants/standard -Ibuild/lib_00/SoftUsb build/core/Stream.cpp
+avr-g++ -o build/core/Tone.o -c -ffunction-sections -fdata-sections -fno-exceptions -Wall -funsigned-char -funsigned-bitfields -fpack-struct -fshort-enums -Os -mmcu=atmega1280 -DARDUINO=100 -DF_CPU=16000000L -Ibuild/core -I/home/titi/opt/arduino-1.0/hardware/arduino/variants/standard -Ibuild/lib_00/SoftUsb build/core/Tone.cpp
+avr-g++ -o build/core/USBCore.o -c -ffunction-sections -fdata-sections -fno-exceptions -Wall -funsigned-char -funsigned-bitfields -fpack-struct -fshort-enums -Os -mmcu=atmega1280 -DARDUINO=100 -DF_CPU=16000000L -Ibuild/core -I/home/titi/opt/arduino-1.0/hardware/arduino/variants/standard -Ibuild/lib_00/SoftUsb build/core/USBCore.cpp
+avr-gcc -o build/core/WInterrupts.o -c -ffunction-sections -fdata-sections -fno-exceptions -Wall -funsigned-char -funsigned-bitfields -fpack-struct -fshort-enums -Os -mmcu=atmega1280 -std=gnu99 -ffunction-sections -fdata-sections -fno-exceptions -Wall -funsigned-char -funsigned-bitfields -fpack-struct -fshort-enums -Os -mmcu=atmega1280 -DARDUINO=100 -DF_CPU=16000000L -Ibuild/core -I/home/titi/opt/arduino-1.0/hardware/arduino/variants/standard -Ibuild/lib_00/SoftUsb build/core/WInterrupts.c
+avr-g++ -o build/core/WMath.o -c -ffunction-sections -fdata-sections -fno-exceptions -Wall -funsigned-char -funsigned-bitfields -fpack-struct -fshort-enums -Os -mmcu=atmega1280 -DARDUINO=100 -DF_CPU=16000000L -Ibuild/core -I/home/titi/opt/arduino-1.0/hardware/arduino/variants/standard -Ibuild/lib_00/SoftUsb build/core/WMath.cpp
+avr-g++ -o build/core/WString.o -c -ffunction-sections -fdata-sections -fno-exceptions -Wall -funsigned-char -funsigned-bitfields -fpack-struct -fshort-enums -Os -mmcu=atmega1280 -DARDUINO=100 -DF_CPU=16000000L -Ibuild/core -I/home/titi/opt/arduino-1.0/hardware/arduino/variants/standard -Ibuild/lib_00/SoftUsb build/core/WString.cpp
+avr-g++ -o build/core/new.o -c -ffunction-sections -fdata-sections -fno-exceptions -Wall -funsigned-char -funsigned-bitfields -fpack-struct -fshort-enums -Os -mmcu=atmega1280 -DARDUINO=100 -DF_CPU=16000000L -Ibuild/core -I/home/titi/opt/arduino-1.0/hardware/arduino/variants/standard -Ibuild/lib_00/SoftUsb build/core/new.cpp
+avr-gcc -o build/core/wiring.o -c -ffunction-sections -fdata-sections -fno-exceptions -Wall -funsigned-char -funsigned-bitfields -fpack-struct -fshort-enums -Os -mmcu=atmega1280 -std=gnu99 -ffunction-sections -fdata-sections -fno-exceptions -Wall -funsigned-char -funsigned-bitfields -fpack-struct -fshort-enums -Os -mmcu=atmega1280 -DARDUINO=100 -DF_CPU=16000000L -Ibuild/core -I/home/titi/opt/arduino-1.0/hardware/arduino/variants/standard -Ibuild/lib_00/SoftUsb build/core/wiring.c
+avr-gcc -o build/core/wiring_analog.o -c -ffunction-sections -fdata-sections -fno-exceptions -Wall -funsigned-char -funsigned-bitfields -fpack-struct -fshort-enums -Os -mmcu=atmega1280 -std=gnu99 -ffunction-sections -fdata-sections -fno-exceptions -Wall -funsigned-char -funsigned-bitfields -fpack-struct -fshort-enums -Os -mmcu=atmega1280 -DARDUINO=100 -DF_CPU=16000000L -Ibuild/core -I/home/titi/opt/arduino-1.0/hardware/arduino/variants/standard -Ibuild/lib_00/SoftUsb build/core/wiring_analog.c
+avr-gcc -o build/core/wiring_digital.o -c -ffunction-sections -fdata-sections -fno-exceptions -Wall -funsigned-char -funsigned-bitfields -fpack-struct -fshort-enums -Os -mmcu=atmega1280 -std=gnu99 -ffunction-sections -fdata-sections -fno-exceptions -Wall -funsigned-char -funsigned-bitfields -fpack-struct -fshort-enums -Os -mmcu=atmega1280 -DARDUINO=100 -DF_CPU=16000000L -Ibuild/core -I/home/titi/opt/arduino-1.0/hardware/arduino/variants/standard -Ibuild/lib_00/SoftUsb build/core/wiring_digital.c
+avr-gcc -o build/core/wiring_pulse.o -c -ffunction-sections -fdata-sections -fno-exceptions -Wall -funsigned-char -funsigned-bitfields -fpack-struct -fshort-enums -Os -mmcu=atmega1280 -std=gnu99 -ffunction-sections -fdata-sections -fno-exceptions -Wall -funsigned-char -funsigned-bitfields -fpack-struct -fshort-enums -Os -mmcu=atmega1280 -DARDUINO=100 -DF_CPU=16000000L -Ibuild/core -I/home/titi/opt/arduino-1.0/hardware/arduino/variants/standard -Ibuild/lib_00/SoftUsb build/core/wiring_pulse.c
+avr-gcc -o build/core/wiring_shift.o -c -ffunction-sections -fdata-sections -fno-exceptions -Wall -funsigned-char -funsigned-bitfields -fpack-struct -fshort-enums -Os -mmcu=atmega1280 -std=gnu99 -ffunction-sections -fdata-sections -fno-exceptions -Wall -funsigned-char -funsigned-bitfields -fpack-struct -fshort-enums -Os -mmcu=atmega1280 -DARDUINO=100 -DF_CPU=16000000L -Ibuild/core -I/home/titi/opt/arduino-1.0/hardware/arduino/variants/standard -Ibuild/lib_00/SoftUsb build/core/wiring_shift.c
+fnCompressCore(["build/core.a"], ["build/core/WInterrupts.o", "build/core/wiring_digital.o", "build/core/wiring_shift.o", "build/core/wiring_pulse.o", "build/core/wiring_analog.o", "build/core/wiring.o", "build/core/WString.o", "build/core/CDC.o", "build/core/HID.o", "build/core/USBCore.o", "build/core/Stream.o", "build/core/WMath.o", "build/core/HardwareSerial.o", "build/core/Tone.o", "build/core/Print.o", "build/core/IPAddress.o", "build/core/new.o"])
+avr-ar rcs build/core.a build/core/WInterrupts.o
+avr-ar rcs build/core.a build/core/wiring_digital.o
+avr-ar rcs build/core.a build/core/wiring_shift.o
+avr-ar rcs build/core.a build/core/wiring_pulse.o
+avr-ar rcs build/core.a build/core/wiring_analog.o
+avr-ar rcs build/core.a build/core/wiring.o
+avr-ar rcs build/core.a build/core/WString.o
+avr-ar rcs build/core.a build/core/CDC.o
+avr-ar rcs build/core.a build/core/HID.o
+avr-ar rcs build/core.a build/core/USBCore.o
+avr-ar rcs build/core.a build/core/Stream.o
+avr-ar rcs build/core.a build/core/WMath.o
+avr-ar rcs build/core.a build/core/HardwareSerial.o
+avr-ar rcs build/core.a build/core/Tone.o
+avr-ar rcs build/core.a build/core/Print.o
+avr-ar rcs build/core.a build/core/IPAddress.o
+avr-ar rcs build/core.a build/core/new.o
+avr-g++ -o build/lib_00/SoftUsb/UsbMain.o -c -ffunction-sections -fdata-sections -fno-exceptions -Wall -funsigned-char -funsigned-bitfields -fpack-struct -fshort-enums -Os -mmcu=atmega1280 -DARDUINO=100 -DF_CPU=16000000L -Ibuild/core -I/home/titi/opt/arduino-1.0/hardware/arduino/variants/standard -Ibuild/lib_00/SoftUsb build/lib_00/SoftUsb/UsbMain.cpp
+avr-gcc -o build/lib_00/SoftUsb/oddebug.o -c -ffunction-sections -fdata-sections -fno-exceptions -Wall -funsigned-char -funsigned-bitfields -fpack-struct -fshort-enums -Os -mmcu=atmega1280 -std=gnu99 -ffunction-sections -fdata-sections -fno-exceptions -Wall -funsigned-char -funsigned-bitfields -fpack-struct -fshort-enums -Os -mmcu=atmega1280 -DARDUINO=100 -DF_CPU=16000000L -Ibuild/core -I/home/titi/opt/arduino-1.0/hardware/arduino/variants/standard -Ibuild/lib_00/SoftUsb build/lib_00/SoftUsb/oddebug.c
+avr-gcc -o build/lib_00/SoftUsb/usbdrv.o -c -ffunction-sections -fdata-sections -fno-exceptions -Wall -funsigned-char -funsigned-bitfields -fpack-struct -fshort-enums -Os -mmcu=atmega1280 -std=gnu99 -ffunction-sections -fdata-sections -fno-exceptions -Wall -funsigned-char -funsigned-bitfields -fpack-struct -fshort-enums -Os -mmcu=atmega1280 -DARDUINO=100 -DF_CPU=16000000L -Ibuild/core -I/home/titi/opt/arduino-1.0/hardware/arduino/variants/standard -Ibuild/lib_00/SoftUsb build/lib_00/SoftUsb/usbdrv.c
+avr-gcc -assembler-with-cpp -mmcu=atmega1280 -DARDUINO=100 -DF_CPU=16000000L -Ibuild/core -I/home/titi/opt/arduino-1.0/hardware/arduino/variants/standard -Ibuild/lib_00/SoftUsb -c -o build/lib_00/SoftUsb/usbdrvasm.o build/lib_00/SoftUsb/usbdrvasm.S
+avr-gcc -mmcu=atmega1280 -Os -Wl,--gc-sections -o Basic.elf build/Basic.o build/lib_00/SoftUsb/oddebug.o build/lib_00/SoftUsb/usbdrv.o build/lib_00/SoftUsb/UsbMain.o build/lib_00/SoftUsb/usbdrvasm.o build/core.a -lm
+avr-objcopy -O ihex -R .eeprom Basic.elf Basic.hex
+avr-size --target=ihex Basic.hex
+   text	   data	    bss	    dec	    hex	filename
+      0	   5292	      0	   5292	   14ac	Basic.hex
+scons: done building targets.
 
 ----------
 stderr
 ----------
 In file included from build/Basic.ino:1:0:
-build/lib_00/SoftUsb/SoftUsb.h:105:32: warning: only initialized variables can be placed into program memory area
+build/lib_00/SoftUsb/SoftUsb.h:109:32: warning: only initialized variables can be placed into program memory area
 In file included from build/Basic.ino:1:0:
-build/lib_00/SoftUsb/SoftUsb.h:114:38: warning: only initialized variables can be placed into program memory area
+build/lib_00/SoftUsb/SoftUsb.h:118:38: warning: only initialized variables can be placed into program memory area
 In file included from build/Basic.ino:1:0:
-build/lib_00/SoftUsb/SoftUsb.h:123:35: warning: only initialized variables can be placed into program memory area
-In file included from build/lib_00/SoftUsb/SoftUsb.h:125:0,
-                 from build/Basic.ino:1:
-build/lib_00/SoftUsb/generated_intdefs.h:26:1: error: 'ONEWIRE_BUS_COUNT' was not declared in this scope
-scons: *** [build/Basic.o] Error 1
+build/lib_00/SoftUsb/SoftUsb.h:127:35: warning: only initialized variables can be placed into program memory area
+In file included from build/core/IPAddress.cpp:3:0:
+build/core/IPAddress.h: In member function 'IPAddress::operator uint32_t()':
+build/core/IPAddress.h:51:55: warning: dereferencing type-punned pointer will break strict-aliasing rules
+build/core/IPAddress.h: In member function 'bool IPAddress::operator==(const IPAddress&)':
+build/core/IPAddress.h:52:75: warning: dereferencing type-punned pointer will break strict-aliasing rules
+build/core/IPAddress.h:52:108: warning: dereferencing type-punned pointer will break strict-aliasing rules
+build/core/Tone.cpp:93:45: warning: only initialized variables can be placed into program memory area
+build/lib_00/SoftUsb/UsbMain.cpp:9:39: warning: only initialized variables can be placed into program memory area
