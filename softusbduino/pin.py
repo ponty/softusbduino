@@ -33,12 +33,15 @@ class AnalogInputValue(object):
         return 'AnalogInputValue<value:%s voltage:%s>' % (self.value, self.voltage)
 
 def pin_nr_as_int(nr, A0):
-    if isinstance(nr, basestring):
-        if nr[0] == 'D':
-            nr = int(nr[1:])
-        elif nr[0] == 'A':
-            nr = int(nr[1:]) + A0
-    nr = int(nr)
+    try:
+        if isinstance(nr, basestring):
+            if nr[0] == 'D':
+                nr = int(nr[1:])
+            elif nr[0] == 'A':
+                nr = int(nr[1:]) + A0
+        nr = int(nr)
+    except IndexError:
+        raise ValueError('invalid pin id:%r'%nr)
     return nr
 
 class Pin(PwmPinMixin):
