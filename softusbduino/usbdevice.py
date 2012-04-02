@@ -66,7 +66,7 @@ class UsbDevice(object):
         for b in usb.busses():
             for x in b.devices:
                 if x.idVendor == self.id_vendor and x.idProduct == self.id_product:
-                    log.debug("found device  bus:%s dev:%s" % (b.dirname, x.devnum))
+                    log.debug("found device  bus:%s dev:%s" % (b.dirname, '?'))
                     return x
 
     def connect(self):
