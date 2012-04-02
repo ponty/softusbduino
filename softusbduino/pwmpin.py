@@ -1,3 +1,4 @@
+from __future__ import division
 from memo import memoized
 from softusbduino.const import *
 import logging

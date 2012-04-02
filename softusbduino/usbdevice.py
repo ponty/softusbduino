@@ -136,7 +136,7 @@ class UsbDevice(object):
                                    value=x[1] + (x[2] << 8),
                                    index=x[3] + (x[4] << 8),
                                    buffer=20,
-                                   timeout=5000,
+                                   timeout=1000,
                                  )
         
 #        ls = self.device.ctrl_transfer(REQUEST_TYPE_RECEIVE,
