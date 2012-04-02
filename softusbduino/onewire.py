@@ -5,6 +5,9 @@ import time
 
 log = logging.getLogger(__name__)
 
+class OneWireError(Exception):
+    pass
+
 def crc8(ls):
     crc = 0
     for x in ls:
@@ -212,14 +215,33 @@ class Bus1Wire(object):
         self.base.select(self.index);
         time.sleep(0.1)
         
-class OneWireMixin(object):
+class OneWire(object):    
+    def __init__(self, base, defines, mcu):
+        self.base = base
+        self.defines = defines
+        self.mcu = mcu
+
+    @property
+    def available(self):
+        return bool(self.defines.value('HAS_ONE_WIRE'))
     
     @memoized   
-    def _bus1wire(self, pin):
-        return Bus1Wire(self.lowlevel_1wire,pin=pin)
+    def _bus(self, pin):
+        return Bus1Wire(self.base, pin=pin)
     
-    def bus1wire(self, pin_nr):
-        return self._bus1wire(self.pin(pin_nr))
+    def bus(self, pin_nr):
+        if not self.available:
+            raise OneWireError('OneWire library is not available in firmware')
+        return self._bus(self.mcu.pin(pin_nr))
+    
+        
+class OneWireMixin(object):
+    
+    @property
+    @memoized
+    def onewire(self):
+        return OneWire(self.lowlevel_1wire, self.defines, self)
+    
     
     @property    
     @memoized   

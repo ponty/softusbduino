@@ -18,6 +18,12 @@
 #include "SoftUsb.h"
 #include "generated_mcu.h"
 
+#ifdef OneWire_h
+#define HAS_ONE_WIRE  1
+#else
+#define HAS_ONE_WIRE  0
+#endif
+
 #define MAGIC_NUMBER  42
 
 #define _STR(s) #s
@@ -139,6 +145,7 @@ void operator delete(void * ptr)
 {
 	free(ptr);
 }
+
 
 #ifdef OneWire_h
 OneWire* one_wire_bus_list[ONEWIRE_BUS_COUNT]=
