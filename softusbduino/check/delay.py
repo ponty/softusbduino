@@ -26,13 +26,13 @@ def check_delay(
                                  func,
                                  interrupts=interrupts)
                 time.sleep(sleep_between_calls)
-                assert mcu.usb_transfer_bytes(42) == 42
+                mcu.firmware_test()
         except (usb.USBError, ArduinoUsbDeviceError) , e:
             log.debug('USBError: %s reconnect_time: %s s' % (str(e), reconnect_time))
             # time for reconnect
             time.sleep(reconnect_time)
             
-            mcu.connect()
+            mcu.usb.connect()
             
             # min reached
             if wait <= 0.000002:
