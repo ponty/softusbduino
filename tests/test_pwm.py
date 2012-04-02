@@ -1,6 +1,7 @@
 from nose.tools import eq_
 from softusbduino.arduino import Arduino
 from softusbduino.const import *
+from config import F_CPU
 
 dev = None
 def setup():
@@ -38,48 +39,54 @@ def test_pwm():
     eq_(pwm.divisors_available(9), [1, 8, 64, 256, 1024])
     eq_(pin9.pwm.divisors_available, [1, 8, 64, 256, 1024])
     
-    eq_(pwm.frequencies_available(9), [39062.5, 4882.8125, 610.3515625, 152.587890625, 38.14697265625])
-    eq_(pin9.pwm.frequencies_available, [39062.5, 4882.8125, 610.3515625, 152.587890625, 38.14697265625])
+    frequencies=[F_CPU/2**9, 
+                 F_CPU/2**12, 
+                 F_CPU/2**15, 
+                 F_CPU/2**17, 
+                 F_CPU/2**19, 
+                 ]
+    eq_(pwm.frequencies_available(9), frequencies)
+    eq_(pin9.pwm.frequencies_available, frequencies)
 
     TCCR1B.value = 3
     eq_(TCCR1B.value, 3)
     
-    eq_(pwm.read_divisor(9), 64)
-    eq_(pin9.pwm.read_divisor(), 64)
-    eq_(pin9.pwm.divisor, 64)
-    eq_(int(pwm.read_frequency(9)), 610)
-    eq_(int(pin9.pwm.read_frequency()), 610)
-    eq_(int(pin9.pwm.frequency), 610)
+    eq_(pwm.read_divisor(9), 2**6)
+    eq_(pin9.pwm.read_divisor(), 2**6)
+    eq_(pin9.pwm.divisor, 2**6)
+    eq_(pwm.read_frequency(9), F_CPU/2**15)
+    eq_(pin9.pwm.read_frequency(), F_CPU/2**15)
+    eq_(pin9.pwm.frequency, F_CPU/2**15)
     
-    pwm.write_frequency(9, 38)
-    eq_(int(pwm.read_frequency(9)), 38)
+    pwm.write_frequency(9, int(F_CPU/2**19))
+    eq_(pwm.read_frequency(9), F_CPU/2**19)
     eq_(TCCR1B.value, 5)
     
     TCCR1B.value = 2
-    eq_(pwm.read_divisor(9), 8)
-    eq_(pin9.pwm.read_divisor(), 8)
-    eq_(pin9.pwm.divisor, 8)
-    eq_(int(pwm.read_frequency(9)), 4882)
-    eq_(int(pin9.pwm.read_frequency()), 4882)
-    eq_(int(pin9.pwm.frequency), 4882)
+    eq_(pwm.read_divisor(9), 2**3)
+    eq_(pin9.pwm.read_divisor(), 2**3)
+    eq_(pin9.pwm.divisor, 2**3)
+    eq_(pwm.read_frequency(9), F_CPU/2**12)
+    eq_(pin9.pwm.read_frequency(), F_CPU/2**12)
+    eq_(pin9.pwm.frequency, F_CPU/2**12)
     eq_(TCCR1B.value, 2)
 
-    pin9.pwm.divisor = 1024
-    eq_(pwm.read_divisor(9), 1024)
-    eq_(pin9.pwm.read_divisor(), 1024)
-    eq_(pin9.pwm.divisor, 1024)
-    eq_(int(pwm.read_frequency(9)), 38)
-    eq_(int(pin9.pwm.read_frequency()), 38)
-    eq_(int(pin9.pwm.frequency), 38)
+    pin9.pwm.divisor = 2**10
+    eq_(pwm.read_divisor(9), 2**10)
+    eq_(pin9.pwm.read_divisor(), 2**10)
+    eq_(pin9.pwm.divisor, 2**10)
+    eq_(pwm.read_frequency(9), F_CPU/2**19)
+    eq_(pin9.pwm.read_frequency(), F_CPU/2**19)
+    eq_(pin9.pwm.frequency, F_CPU/2**19)
     eq_(TCCR1B.value, 5)
 
     
-    pin9.pwm.write_frequency(39062)
-    eq_(int(pwm.read_frequency(9)), 39062)
+    pin9.pwm.write_frequency(F_CPU/2**9)
+    eq_(pwm.read_frequency(9), F_CPU/2**9)
     eq_(TCCR1B.value, 1)
 
-    pin9.pwm.frequency = 152
-    eq_(int(pwm.read_frequency(9)), 152)
+    pin9.pwm.frequency = F_CPU/2**17
+    eq_(pwm.read_frequency(9), F_CPU/2**17)
     eq_(TCCR1B.value, 4)
 
     TCCR1B.value = 3

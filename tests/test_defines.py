@@ -1,6 +1,7 @@
 from nose.tools import eq_, ok_
 from softusbduino.arduino import Arduino
 from softusbduino.defines import DefineError
+from config import F_CPU
 from util import exc_
 
 dev = None
@@ -38,7 +39,7 @@ def test_defines():
     eq_(dev.define('A0'), 14)
     eq_(dev.define('ARDUINO'), 22)
     eq_(dev.define('MAGIC_NUMBER'), 42)
-    eq_(dev.define('F_CPU'), 20000000)
+    eq_(dev.define('F_CPU'), F_CPU)
     
     eq_(dev.defines.as_dict()['A0'], 14)
 
