@@ -4,7 +4,7 @@ import sys
 
 
 def read_project_version(package):
-    py = os.path.join(package , '__init__.py')
+    py = os.path.join(package , 'version.py')
     __version__ = None
     for line in open(py).read().splitlines():
         if '__version__' in line:
