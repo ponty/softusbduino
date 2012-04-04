@@ -74,12 +74,12 @@ Ubuntu
 ----------
 ::
 
-    sudo apt-get install arduino python-pip libusb-1.0-0
+    sudo apt-get install arduino python-pip libusb-1.0-0 python-usb
     sudo pip install confduino
     sudo pip install https://github.com/ponty/softusbduino/zipball/master
     sudo python -m confduino.libinstall https://github.com/ponty/softusbduino/zipball/master
     # optional for examples
-    sudo pip install matplotlib traits traitsui
+    sudo apt-get install python-matplotlib python-traitsui python-traits
 
 Upload firmware
 ----------------
@@ -87,6 +87,21 @@ Upload firmware
   1. start Arduino
   2. open examples > SoftUsb > Simple
   3. upload to board 
+
+Set permission (Linux)
+-----------------------
+
+The permission should be changed::
+
+    $sudo nano /etc/udev/rules.d/60-objdev.rules
+
+add this line::
+    
+    ATTRS{idVendor}=="16c0", GROUP="users", MODE="0666"
+
+update rules::
+    
+    $sudo udevadm trigger
 
 
 .. _arduino: http://arduino.cc/
