@@ -3,7 +3,7 @@ Tests
 
 Test system versions:
 
-.. program-output:: python -m softusbduino.lsversion
+.. program-output:: python -m softusbduino.check.version
 	:prompt:
 
 Performance test:
