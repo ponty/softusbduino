@@ -1,5 +1,4 @@
 from memo import memoized
-import version
 from softusbduino.const import *
 from softusbduino.defines import DefineMixin
 from softusbduino.delaytest import DelayTestMixin
@@ -10,7 +9,9 @@ from softusbduino.registers import RegisterMixin
 from softusbduino.ser import SerializerMixin
 from softusbduino.usbdevice import UsbDevice, UsbMixin
 from softusbduino.vcc import VccMixin
+from softusbduino.wd import WatchdogMixin
 import logging
+import version
 
 log = logging.getLogger(__name__)
 
@@ -27,6 +28,7 @@ class Arduino(
               DelayTestMixin,
               PinMixin,
               PwmMixin,
+              WatchdogMixin,
               ):
     Rout = 15    
     analog_range = (0, 1023)

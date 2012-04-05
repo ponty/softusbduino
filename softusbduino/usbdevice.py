@@ -27,23 +27,26 @@ def reconnect_if_dropped(f, self, *args, **kw):
     """
     connect = False
     retry = 3
+    wait=2
     while 1:
         try:
-            if connect:
-                log.debug("reconnect  retries: %s" % (retry))
-                self.connect()
+#            if connect:
+#                log.debug("reconnect  retries: %s" % (retry))
+#                self.connect()
             return f(self, *args, **kw)
         except (usb.USBError , ArduinoUsbDeviceError), e:
             log.debug("USBError: %s" % (e))
             self.disconnect()
-            if self.auto_reconnect:
-                if retry <= 0:
-                    raise
-                connect = True
-                retry -= 1
-                time.sleep(1)
-            else:
-                raise
+            raise ArduinoUsbDeviceError(str(e))
+            
+#            if self.auto_reconnect:
+#                if retry <= 0:
+#                    raise
+#                connect = True
+#                retry -= 1
+#                time.sleep(wait)
+#            else:
+#                raise
         
 class UsbDevice(object):
     """
@@ -66,7 +69,8 @@ class UsbDevice(object):
         for b in usb.busses():
             for x in b.devices:
                 if x.idVendor == self.id_vendor and x.idProduct == self.id_product:
-                    log.debug("found device  bus:%s dev:%s" % (b.dirname, '?'))
+                    # all info is empty with PyUSB 1.x (bug?)
+                    log.debug("found device  bus:%s dev:%s" % (b.dirname, x.filename))
                     return x
 
     def connect(self):
@@ -167,7 +171,7 @@ class UsbDevice(object):
             self.connect()
         return self.getStringDescriptor(self.device.iManufacturer)
 
-
+        
 class UsbMixin(object):    
     
     @property
