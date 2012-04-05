@@ -80,7 +80,8 @@ Ubuntu
     sudo python -m confduino.libinstall https://github.com/ponty/softusbduino/zipball/master
     # optional for examples
     sudo apt-get install python-matplotlib python-traitsui python-traits
-
+    sudo pip install http://github.com/petervizi/python-eeml/zipball/master
+	
 Upload firmware
 ----------------
 
