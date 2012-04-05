@@ -299,6 +299,17 @@ class Pins(object):
     def ground_usb_neihbours(self):
         for x in self.usb_neighbours:
             self.write_digital_out(x, 0)
+    
+    def pin_nr_as_int(self, pin):
+        return pin_nr_as_int(pin, self.defines.value('A0'))  
+          
+    def ground_unused(self, used_pins=[]):
+        minus = self.usb_minus_pin
+        plus = self.usb_plus_pin
+        used_pins=[minus, plus]+map(self.pin_nr_as_int, used_pins)
+        for x in self.range_all:
+            if x not in used_pins:
+                self.write_digital_out(x, 0)
 
 class PinsLowLevel(object):
     def __init__(self, base):
