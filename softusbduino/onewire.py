@@ -156,7 +156,7 @@ class Device1Wire(object):
             
         valid = data[8] == crc8(data[:8])
         if not valid:
-            return
+            raise OneWireError('invalid crc')
             
         cfg = (data[4] & 0x60);
         self._resolution = resolution_configs[cfg]

@@ -20,7 +20,7 @@ def find():
             if x.idVendor == ID_VENDOR and x.idProduct == ID_PRODUCT:
                 dev = Bunch()
                 dev.bus=b.dirname
-                dev.address=x.devnum
+                dev.address=x.filename
                 break
     if not dev:
         print("device not found")
@@ -37,11 +37,12 @@ def usbfs_filename(dev):
 def reset1(dev):
     fname=usbfs_filename(dev)
     print("Resetting USB device %s" % fname)
-    with open(fname, 'w') as fd:
-        rc = fcntl.ioctl (fd, USBDEVFS_RESET, 0)
-        if (rc < 0):
-            print("Error in ioctl")
-    print("OK")
+    fd= open(fname, 'w')
+    rc = fcntl.ioctl (fd, USBDEVFS_RESET, 0)
+    if (rc < 0):
+        print("Error in ioctl")
+    else:
+        print("OK")
     
 def reset2(dev):
     dev.reset() # not working
