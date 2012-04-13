@@ -136,9 +136,9 @@ class UsbDevice(object):
         x = data + [0, 0, 0, 0, 0]
         ls = self.device_handle.controlMsg(
                                    requestType=REQUEST_TYPE_RECEIVE,
-                                   request=x[0], # bRequest
-                                   value=x[1] + (x[2] << 8),
-                                   index=x[3] + (x[4] << 8),
+                                   request=int(x[0]), # bRequest
+                                   value=int(x[1]) + (int(x[2]) << 8),
+                                   index=int(x[3]) + (int(x[4]) << 8),
                                    buffer=20,
                                    timeout=1000,
                                  )

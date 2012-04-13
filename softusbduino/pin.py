@@ -138,6 +138,10 @@ class Pin(PwmPinMixin):
         return self.base.read_analog_obj(self.nr)
     analog_obj = property(read_analog_obj)
         
+    def read_analog_voltage(self):
+        return self.base.read_analog_voltage(self.nr)
+    analog_voltage = property(read_analog_voltage)
+        
     def read_mode(self):
         return self.base.read_mode(self.nr)
         
@@ -208,6 +212,9 @@ class Pins(object):
     
     def read_analog_obj(self, pin_nr):
         return AnalogInputValue(self.mcu, pin_nr)
+    
+    def read_analog_voltage(self, pin_nr):
+        return AnalogInputValue(self.mcu, pin_nr).voltage
 
     
     @property
@@ -293,6 +300,8 @@ class Pins(object):
              self.usb_plus_pin + 1,
              self.usb_plus_pin - 1,
              ])
+        ls = filter(lambda x:x != self.usb_minus_pin, ls)
+        ls = filter(lambda x:x != self.usb_plus_pin, ls)
         ls = filter(lambda x:x in self.range_all, ls)
         return ls
     
