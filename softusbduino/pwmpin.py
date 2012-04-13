@@ -14,10 +14,10 @@ base_divisor = {
                 11:512,
                 }
 class BiDict():
-    def __init__(self,dic):
-        self.norm=dic
-        self.inv=dict([(v,k) for k,v in dic.items()])
-            
+    def __init__(self, dic):
+        self.norm = dic
+        self.inv = dict([(v, k) for k, v in dic.items()])
+
 _div1 = BiDict({
          1:1,
          2:8,
@@ -42,15 +42,36 @@ divisor_mapping = {
                 10:_div1,
                 11:_div2,
                 }
-timer_register = {
-                3:'TCCR2B',
-                5:'TCCR0B',
-                6:'TCCR0B',
-                9:'TCCR1B',
-                10:'TCCR1B',
-                11:'TCCR2B',
-                }
-   
+#timer_register = {
+#                3:'TCCR2B',
+#                5:'TCCR0B',
+#                6:'TCCR0B',
+#                9:'TCCR1B',
+#                10:'TCCR1B',
+#                11:'TCCR2',
+#                }
+
+TIMERS = [ 'NOT_ON_TIMER',
+        'TCCR0B',
+        'TCCR0B',
+        'TCCR1B',
+        'TCCR1B',
+        'TCCR2',
+        'TCCR2B',
+        'TCCR2B',
+        # TODO:
+#        'TIMER3A',
+#        'TIMER3B',
+#        'TIMER3C',
+#        'TIMER4A',
+#        'TIMER4B',
+#        'TIMER4C',
+#        'TIMER5A',
+#        'TIMER5B',
+#        'TIMER5C',
+        ]
+
+
 timer_mask = 7 # 0b111    
 
 #TODO: pwm_mode  read/write
@@ -60,25 +81,25 @@ class PwmPin(object):
     def __init__(self, pin):
         self.pin = pin
         self.base = pin.mcu.pwm
-        
+
     @property
     def available(self):
         return self.base.available(self.pin.nr)
-    
+
     def write_value(self, value):
         return self.base.write_value(self.pin.nr, value)
 
     @property
     def divisors_available(self):
         return self.base.divisors_available(self.pin.nr)
-        
+
     def read_divisor(self):
         return self.base.read_divisor(self.pin.nr)
 
     def write_divisor(self, value):
         return self.base.write_divisor(self.pin.nr, value)
     divisor = property(read_divisor, write_divisor)
-    
+
     @property
     def timer_register_name(self):
         return self.base.timer_register_name(self.pin.nr)
@@ -92,11 +113,11 @@ class PwmPin(object):
     @property
     def base_divisor(self):
         return self.base.base_divisor(self.pin.nr)
-        
+
     @property
     def frequencies_available(self):
         return self.base.frequencies_available(self.pin.nr)
-    
+
     def read_frequency(self):
         return self.base.read_frequency(self.pin.nr)
     def write_frequency(self, f):
@@ -113,14 +134,16 @@ class Pwm(object):
         self.mcu = mcu
         self.registers = mcu.registers
         self.F_CPU = mcu.define('F_CPU')
-        
+
     def available(self, pin_nr):
-        return pin_nr in divisor_mapping
-    
+        timer_id = self._timer_id(pin_nr)
+        return timer_id > 0 and timer_id < len(TIMERS)
+#        return pin_nr in timer_register
+
     def _check(self, pin_nr):
         if not self.available(pin_nr):
             raise PwmError('pwm not available for pin: %s' % pin_nr)
-    
+
     def write_value(self, pin_nr, value):
         self._check(pin_nr)
         self.mcu.pins.write_mode(pin_nr, OUTPUT)
@@ -131,7 +154,7 @@ class Pwm(object):
             return divisor_mapping[pin_nr].norm.values()
         except KeyError:
             return []
-        
+
     def read_divisor(self, pin_nr):
         self._check(pin_nr)
         d = divisor_mapping[pin_nr]
@@ -144,14 +167,18 @@ class Pwm(object):
         d = divisor_mapping[pin_nr]
         reg_name = self.timer_register_name(pin_nr)
         self.write_timer_mode(reg_name, d.inv[value])
-    
+
+    def _timer_id(self, pin_nr):
+        return self.mcu.lowlevel_pins.digitalPinToTimer(pin_nr)
+
     def timer_register_name(self, pin_nr):
         self._check(pin_nr)
-        return timer_register[pin_nr]
+        return TIMERS[self._timer_id(pin_nr)]
+#        return timer_register[pin_nr]
 
     def read_timer_mode(self, reg_name):
         return self.registers.read_value(reg_name) & timer_mask
-    
+
     def write_timer_mode(self, reg_name, value):
         assert value <= 7
         old = self.registers.read_value(reg_name) & ~timer_mask
@@ -160,13 +187,13 @@ class Pwm(object):
     def base_divisor(self, pin_nr):
         self._check(pin_nr)
         return base_divisor[pin_nr]
-        
+
     def calculate_frequency(self, pin_nr, divisor):
         return 1.0 * self.F_CPU / self.base_divisor(pin_nr) / divisor
 
     def frequencies_available(self, pin_nr):
         return [self.calculate_frequency(pin_nr, x) for x in self.divisors_available(pin_nr)]
-    
+
     def read_frequency(self, pin_nr):
         self._check(pin_nr)
         return self.calculate_frequency(pin_nr, self.read_divisor(pin_nr));
@@ -186,15 +213,15 @@ class PwmLowLevel(object):
         self.base = base
     def write_pwm(self, pin_nr, value):
         self.base.usb_transfer(12, pin_nr, value)
-    
-class PwmPinMixin(object):    
+
+class PwmPinMixin(object):
     @property
     @memoized
     def pwm(self):
         return PwmPin(self)
-            
 
-class PwmMixin(object):    
+
+class PwmMixin(object):
     @property
     @memoized
     def lowlevel_pwm(self):
@@ -204,5 +231,5 @@ class PwmMixin(object):
     @memoized
     def pwm(self):
         return Pwm(self, self.lowlevel_pwm)
-            
-        
+
+
