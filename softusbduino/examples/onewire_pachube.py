@@ -12,6 +12,7 @@ def main(
         key,
          pin='D8',
          sleep=5,
+         sleep_after_error=60,
          timeout=0,
          ):
     print 'pin:', pin
@@ -25,6 +26,7 @@ def main(
 
     def init():
         mcu = Arduino()
+        mcu.watchdog.start(8)
         mcu.pins.ground_unused([pin])
         bus = mcu.onewire.bus(pin)
         devs = bus.search()
@@ -33,7 +35,6 @@ def main(
         print 'address_valid=', d.address_valid
         print 'chip=', d.chip
         print 'resolution=', d.resolution, 'bit'
-        mcu.watchdog.start(8)
         return mcu, d
 
     mcu, d = init()
@@ -46,17 +47,23 @@ def main(
         pa.update([
                    eeml.Data(stream, x.celsius, unit=Celsius()),
                    ])
-        pa.put()
+        try:
+            pa.put()
+        except Exception, e:
+            print e
 
+    restart = True
     while 1:
         try:
+            if restart:
+                mcu, d = init()
+                restart = False
             measure()
         except ArduinoUsbDeviceError, e:
             print e
             errors += 1
-            time.sleep(10)
-            mcu, d = init()
-            measure()
+            restart = 1
+            time.sleep(sleep_after_error)
 
         time.sleep(sleep)
         if timeout > 0:
