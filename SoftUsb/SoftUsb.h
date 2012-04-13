@@ -110,6 +110,8 @@ usbMsgLen_t return_int32(int32_t x)
 	return 5;
 }
 
+bool g_wdt_auto_reset = true;
+
 #define DEFINE(x) (prog_uint16_t)(&x),
 #define MISSING(x)
 const prog_uint16_t reg_list[] PROGMEM =
@@ -179,8 +181,22 @@ void delay_test(params_t* p)
 		interrupts();
 }
 
+void usbReconnect()
+{
+	usbDeviceDisconnect();
+	uchar i;
+	i = 0;
+	while (--i)
+	{ /* fake USB disconnect for > 250 ms */
+		_delay_ms(1);
+	}
+	usbDeviceConnect();
+}
+
 usbMsgLen_t SoftUsb_UsbFunctionSetup(uchar data[8])
 {
+	wdt_reset();
+
 	usbRequest_t *rq = (usbRequest_t*) ((void *) data);
 	byte cmd = rq->bRequest;
 
@@ -387,6 +403,26 @@ usbMsgLen_t SoftUsb_UsbFunctionSetup(uchar data[8])
 			break;
 
 #endif
+		case 80:
+			slow_params = params;
+			run_slow = true;
+			break;
+
+		case 81:
+			wdt_reset();
+			break;
+
+		case 82:
+			wdt_enable( params.bytes[0] );
+			break;
+
+		case 83:
+			wdt_disable();
+			break;
+
+		case 84:
+			g_wdt_auto_reset = params.bytes[0];
+			break;
 
 		case 200:
 		{
@@ -437,7 +473,15 @@ public:
 		TIMSK &= !(1 << TOIE0);
 #endif
 
+
 		cli();
+
+//		  wdt_reset();
+//		  WDTCSR = _BV(WDIF) | _BV(WDIE) | _BV(WDCE) | _BV(WDE) | WDTO_1S;
+		  /* The tricky part is that the next line *must* have both,
+		   * WDCE and WDE cleared. */
+//		  WDTCSR = _BV(WDIF) | _BV(WDIE) | WDTO_1S;
+//		  MCUSR = 0;
 
 		wdt_enable( WDTO_1S);
 		/* Even if you don't use the watchdog, turn it off here. On newer devices,
@@ -449,15 +493,11 @@ public:
 		 */
 		usbInit();
 
-		usbDeviceDisconnect();
-		uchar i;
-		i = 0;
-		while (--i)
-		{ /* fake USB disconnect for > 250 ms */
-			_delay_ms(1);
-		}
-		usbDeviceConnect();
+		usbReconnect();
 
+//		WDTCSR &= ~(1<<WDIE);
+//		WDTCSR &= ~(1<<WDE);
+//		wdt_disable();
 		sei();
 	}
 
@@ -467,7 +507,10 @@ public:
 	 */
 	void refresh()
 	{
-		wdt_reset();
+		if (g_wdt_auto_reset)
+			wdt_reset();
+//		WDTCSR &= ~(1<<WDIE);
+//		WDTCSR &= ~(1<<WDE);
 
 		if (run_slow)
 		{
@@ -509,6 +552,12 @@ public:
 						one_wire_bus_list[slow_params.bytes[0]]->read());
 				break;
 #endif
+			case 80:
+				cli();
+				usbReconnect();
+				sei();
+				break;
+
 			case 211:
 				delay_test(&slow_params);
 				break;
@@ -519,3 +568,9 @@ public:
 	}
 };
 
+//ISR(WDT_vect)
+//{
+//	cli();
+//	usbReconnect();
+//	sei();
+//};
