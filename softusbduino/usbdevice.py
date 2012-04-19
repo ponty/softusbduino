@@ -1,6 +1,7 @@
 from decorator import decorator
 from memo import memoized
 from softusbduino.const import ID_VENDOR, ID_PRODUCT
+import fcntl
 import logging
 import time
 import usb
@@ -27,7 +28,7 @@ def reconnect_if_dropped(f, self, *args, **kw):
     """
     connect = False
     retry = 3
-    wait=2
+    wait = 2
     while 1:
         try:
 #            if connect:
@@ -38,7 +39,7 @@ def reconnect_if_dropped(f, self, *args, **kw):
             log.debug("USBError: %s" % (e))
             self.disconnect()
             raise ArduinoUsbDeviceError(str(e))
-            
+
 #            if self.auto_reconnect:
 #                if retry <= 0:
 #                    raise
@@ -47,35 +48,35 @@ def reconnect_if_dropped(f, self, *args, **kw):
 #                time.sleep(wait)
 #            else:
 #                raise
-        
+
 class UsbDevice(object):
     """
     """
-    
+
     def __init__(self, id_vendor=ID_VENDOR, id_product=ID_PRODUCT, auto_reconnect=True):
         """
         """
         self.id_vendor = id_vendor
         self.id_product = id_product
         self.auto_reconnect = auto_reconnect
-        
+
         self.connect()
-        
+
     device = None
     device_handle = None
-    
+
     def search(self):
         log.debug("searching for device %x:%x" % (self.id_vendor, self.id_product))
         for b in usb.busses():
-            for x in b.devices:
-                if x.idVendor == self.id_vendor and x.idProduct == self.id_product:
+            for d in b.devices:
+                if d.idVendor == self.id_vendor and d.idProduct == self.id_product:
                     # all info is empty with PyUSB 1.x (bug?)
-                    log.debug("found device  bus:%s dev:%s" % (b.dirname, x.filename))
-                    return x
+                    log.debug("found device  bus:%s dev:%s" % (b.dirname, d.filename))
+                    return b, d
 
     def connect(self):
         log.debug("connect")
-        self.device = self.search()
+        self.bus, self.device = self.search()
         if self.device:
             self.device_handle = self.device.open()
 #        for b in usb.busses():
@@ -84,14 +85,14 @@ class UsbDevice(object):
 #                    self.device = x
 #                    self.device_handle = self.device.open()
 #                    break
-                
-            
+
+
 #        self.device = usb.core.find(idVendor=self.id_vendor,
 #                                    idProduct=self.id_product)
 
         if not self.device:
             raise ArduinoUsbDeviceError("Device not found")
-            
+
     def disconnect(self):
         log.debug("disconnect")
         if self.device_handle:
@@ -100,11 +101,14 @@ class UsbDevice(object):
         if self.device:
             del self.device
             self.device = None
+        if self.bus:
+            del self.bus
+            self.bus = None
 
     def getStringDescriptor(self, index):
         """
         """
-    
+
     #    response = device.ctrl_transfer(
     #                                    bmRequestType=usb.util.ENDPOINT_IN,
     #                                    bRequest=usb.legacy.REQ_GET_DESCRIPTOR,
@@ -112,7 +116,7 @@ class UsbDevice(object):
     #                                    wIndex=0, # language id
     #                                    data_or_wLength=255
     #                                    ) # length
-        
+
         response = self.device_handle.controlMsg(
                                         requestType=ENDPOINT_IN,
                                         request=REQ_GET_DESCRIPTOR,
@@ -121,9 +125,9 @@ class UsbDevice(object):
                                         buffer=255
     #                                   timeout=1000,
                                      )
-    
+
         # TODO: Refer to 'libusb_get_string_descriptor_ascii' for error handling
-        
+
         return str(''.join(map(chr, response[2:])))
         #.decode('utf-16')
 
@@ -142,7 +146,7 @@ class UsbDevice(object):
                                    buffer=20,
                                    timeout=1000,
                                  )
-        
+
 #        ls = self.device.ctrl_transfer(REQUEST_TYPE_RECEIVE,
 #                                 x[0], # bRequest
 ##                                 CUSTOM_RQ_GET_STATUS, # bRequest
@@ -152,8 +156,7 @@ class UsbDevice(object):
 ##                                   timeout=1000,
 #                                 )
         return list(ls)
-    
-        
+
     @property
     def productName(self):
         """
@@ -162,23 +165,56 @@ class UsbDevice(object):
             self.connect()
         return self.getStringDescriptor(self.device.iProduct)
 
-    
     @property
     def manufacturer(self):
-        """
-        """
         if not self.device:
             self.connect()
         return self.getStringDescriptor(self.device.iManufacturer)
 
-        
-class UsbMixin(object):    
-    
+    def reset(self):
+        self.reset_libusb()
+
+    def reset_libusb(self):
+        if not self.device:
+            self.connect()
+        self.device_handle.reset()
+        self.disconnect()
+
+    def reset_usbfs(self):
+        'only as root'
+        if not self.device:
+            self.connect()
+
+        def usbstr(i):
+            s = str(i)
+            s = '000'[0:3 - len(s)] + s
+            return s
+
+        def usbfs_filename(root):
+            address = self.device.filename
+            bus = self.bus.dirname
+            return '/%s/bus/usb/%s/%s' % (root, usbstr(bus), usbstr(address))
+
+        USBDEVFS_RESET = 21780
+        try:
+            fd = open(usbfs_filename('dev'), 'w')
+        except IOError:
+            fd = open(usbfs_filename('proc'), 'w')
+
+        rc = fcntl.ioctl(fd, USBDEVFS_RESET, 0)
+        if (rc < 0):
+            log.debug("Error in ioctl rc=" % rc)
+
+        self.disconnect()
+
+
+class UsbMixin(object):
+
     @property
     @memoized
     def usb(self):
         return UsbDevice()
-    
-    
-                                
+
+
+
 

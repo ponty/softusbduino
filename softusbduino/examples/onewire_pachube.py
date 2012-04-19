@@ -48,14 +48,14 @@ def main(
     errors = 0
 
     def measure():
-       print '----  measure -----'
-       for stream, address in streams.items():
+        print '----  measure -----'
+        for stream, address in streams.items():
             d = alldevs.get(address, None)
             if d:
                 x = d.scratchpad()
-                print x.celsius, 'C',stream,address, time.ctime(x.t), x.data, 'errors:', errors
+                print x.celsius, 'C', stream, address, time.ctime(x.t), x.data, 'errors:', errors
                 pa.update([
-                           eeml.Data(stream, x.celsius, unit=Celsius()),
+                           eeml.Data(stream, round(x.celsius, 1), unit=Celsius()),
                            ])
                 try:
                     pa.put()
@@ -73,6 +73,7 @@ def main(
             print e
             errors += 1
             restart = 1
+            Arduino().reset()
             time.sleep(sleep_after_error)
 
         time.sleep(sleep)
