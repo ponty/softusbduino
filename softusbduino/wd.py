@@ -70,6 +70,7 @@ class Watchdog(object):
         return self.mcu.register('WDTCSR')
 
     def start(self, sec):
+        'atmega8: max 2 sec'
         self.base.enable(self.values[sec])
         self.base.write_auto_reset(False)
 

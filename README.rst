@@ -19,9 +19,12 @@ Features:
 	 - read many defines (example: F_CPU)
  - Python USB back-end: PyUSB_ library (0.4 API)
  - Arduino USB back-end: V-USB_ library
-  
+ - It would be possible to create libraries 
+   for other programming languages (Java, C, ..)
+   using the same firmware.
+     
 Known problems:
- - tested only on Linux + arduino 0022 + ATmega88 board
+ - tested only on Linux + arduino 0022 + ATmega88,8 boards
  - pull-up read is not implemented
  - PWM read is not implemented
  - PWM config is hardcoded
