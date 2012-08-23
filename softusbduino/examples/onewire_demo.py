@@ -9,6 +9,7 @@ def main(
          timeout=10,
          ):
     mcu = Arduino()
+#    mcu.watchdog.start(8)
     bus = mcu.onewire.bus(pin)
     print '--> search'
     devs = bus.search()

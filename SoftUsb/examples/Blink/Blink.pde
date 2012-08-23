@@ -1,5 +1,5 @@
 // include before SoftUsb!
-#include <OneWire.h>
+//#include <OneWire.h>
 
 #include <SoftUsb.h>
 

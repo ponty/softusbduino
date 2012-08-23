@@ -13,12 +13,13 @@ TYPE_VOID = 6
 TYPE_BYTE_ARRAY = 7
 
 def int16_p(x):
-    return [x & 0xFF, x >> 8]      
+    x = int(x)
+    return [x & 0xFF, x >> 8]
 
 class Serializer(object):
     def __init__(self, base):
-        self.base=base
-        
+        self.base = base
+
     def get_params(self, cmd, param1=None, param2=None, param3=None, param4=None, word=None):
         if word is not None:
             assert param3 is None
@@ -44,15 +45,15 @@ class Serializer(object):
         ls = self.base.usb_transfer_bytes(params)
         if not len(ls):
             return None
-        
+
         def read_int(int_size):
             f = 0
             for i in range(int_size):
                 try:
                     f += ls[i] << (i * 8)
                 except:
-                    print 'data',ls
-                    raise 
+                    print 'data', ls
+                    raise
             return f
 #        assert int_size == len(ls), 'expected size=%s data=%s' % (int_size, ls)
 
@@ -72,10 +73,10 @@ class Serializer(object):
             assert 0, 'invalid type specifier received:%s' % typ
         return x
 
-class SerializerMixin(object):    
-    
+class SerializerMixin(object):
+
     @property
     @memoized
     def serializer(self):
         return Serializer(self.usb)
-    
+

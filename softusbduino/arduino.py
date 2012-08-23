@@ -1,5 +1,6 @@
 from memo import memoized
 from softusbduino.const import *
+from softusbduino.counter import CounterMixin
 from softusbduino.defines import DefineMixin
 from softusbduino.delaytest import DelayTestMixin
 from softusbduino.onewire import OneWireMixin
@@ -29,21 +30,28 @@ class Arduino(
               PinMixin,
               PwmMixin,
               WatchdogMixin,
+              CounterMixin,
               ):
-    Rout = 15    
+    Rout = 23    
     analog_range = (0, 1023)
     bandgap_voltage = 1.1 # Volt
     adc_accuracy = 1
     
     def __init__(self, 
-                 reset=True,
+#                 reset=True,
                  ground_usb_neihbours=True, 
+#                 vcc=None,
+                 Rout=None,
                  **kwargs):
-        self.firmware_test()
-        if reset:
-            self.reset()
-        if ground_usb_neihbours:
-            self.ground_usb_neihbours()
+#        self.firmware_test()
+#        if reset:
+#            self.reset()
+#        if ground_usb_neihbours:
+#            self.ground_usb_neihbours()
+#        if vcc:
+#            self.vcc.voltage=vcc
+        if Rout:
+            self.Rout=Rout
       
     def firmware_test(self):
         assert self.define('MAGIC_NUMBER') == MAGIC_NUMBER

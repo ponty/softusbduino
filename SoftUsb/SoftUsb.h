@@ -148,7 +148,6 @@ void operator delete(void * ptr)
 	free(ptr);
 }
 
-
 #ifdef OneWire_h
 OneWire* one_wire_bus_list[ONEWIRE_BUS_COUNT]=
 {	NULL};
@@ -191,6 +190,67 @@ void usbReconnect()
 		_delay_ms(1);
 	}
 	usbDeviceConnect();
+}
+
+//******************************************************************
+//  Timer2 Interrupt Service is invoked by hardware Timer2 every 1ms = 1000 Hz
+//  16Mhz / 128 / 125 = 1000 Hz
+//  here the gatetime generation for freq. measurement takes place:
+//volatile unsigned char f_ready;
+//volatile unsigned char f_mlt;
+volatile uint16_t f_tics;
+volatile uint16_t f_period;
+volatile bool f_first;
+volatile bool f_ready;
+
+//volatile unsigned int f_comp;
+//unsigned long f_freq;
+
+volatile uint16_t f_counter_overflows;
+
+ISR(TIMER2_COMPA_vect)
+{
+	// multiple 2ms = gate time = 100 ms
+
+	if (f_first)
+	{
+		TCNT1 = 0; // Counter1 = 0
+		if (TIFR1 & (1<<TOV1))
+		{ // if Timer/Counter 1 overflow flag
+			TIFR1 |=(1<<TOV1); // clear Timer/Counter 1 overflow flag
+		}
+		f_first=false;
+	}
+	else
+	{
+		if (f_tics >= f_period) // end of gate time, measurement ready
+
+		{
+			// GateCalibration Value, set to zero error with reference frequency counter
+			//  delayMicroseconds(FreqCounter::f_comp); // 0.01=1/ 0.1=12 / 1=120 sec
+			//delayMicroseconds(f_comp);
+			TCCR1B = TCCR1B & ~7; // Gate Off  / Counter T1 stopped
+			TIMSK2 &= ~(1<<OCIE2A); // disable Timer2 Interrupt
+			//TIMSK0 |=(1<<TOIE0); // enable Timer0 again // millis and delay
+			//f_ready=1; // set global flag for end count period
+
+			// calculate now frequeny value
+			//f_freq=0x10000 * f_mlt; // mult #overflows by 65636
+			//f_freq += TCNT1; // add counter1 value
+			//f_mlt=0;
+			USB_INTR_ENABLE |= _BV( USB_INTR_ENABLE_BIT );
+			f_ready=true;
+		}
+		else
+		{
+			f_tics++; // count number of interrupt events
+			if (TIFR1 & (1<<TOV1))
+			{ // if Timer/Counter 1 overflow flag
+				f_counter_overflows++;//f_mlt++; // count number of Counter1 overflows
+				TIFR1 |=(1<<TOV1); // clear Timer/Counter 1 overflow flag
+			}
+		}
+	}
 }
 
 usbMsgLen_t SoftUsb_UsbFunctionSetup(uchar data[8])
@@ -413,7 +473,7 @@ usbMsgLen_t SoftUsb_UsbFunctionSetup(uchar data[8])
 			break;
 
 		case 82:
-			wdt_enable( params.bytes[0] );
+			wdt_enable(params.bytes[0]);
 			break;
 
 		case 83:
@@ -422,6 +482,31 @@ usbMsgLen_t SoftUsb_UsbFunctionSetup(uchar data[8])
 
 		case 84:
 			g_wdt_auto_reset = params.bytes[0];
+			break;
+
+		case 90:
+			f_tics = 0;
+			f_period = 0;
+			f_counter_overflows = 0;
+			f_first = true;
+			f_ready = false;
+			break;
+
+		case 91:
+			f_period = params.word1;
+			break;
+
+		case 92:
+			return return_int16(f_tics);
+			break;
+
+		case 93:
+			return return_int16(f_counter_overflows);
+			break;
+
+		case 94:
+			slow_params = params;
+			run_slow = true;
 			break;
 
 		case 200:
@@ -467,21 +552,17 @@ public:
 		// disable timer 0 overflow interrupt (used for millis)
 
 		// TODO: make this portable
+		// disable Timer0
+		// millis() and delay()
 #if defined( TIMSK0 )
 		TIMSK0 &= !(1 << TOIE0);
 #elif defined( TIMSK )
 		TIMSK &= !(1 << TOIE0);
 #endif
 
-
 		cli();
 
-//		  wdt_reset();
-//		  WDTCSR = _BV(WDIF) | _BV(WDIE) | _BV(WDCE) | _BV(WDE) | WDTO_1S;
-		  /* The tricky part is that the next line *must* have both,
-		   * WDCE and WDE cleared. */
-//		  WDTCSR = _BV(WDIF) | _BV(WDIE) | WDTO_1S;
-//		  MCUSR = 0;
+		//		  wdt_reset();
 
 		wdt_enable( WDTO_1S);
 		/* Even if you don't use the watchdog, turn it off here. On newer devices,
@@ -495,9 +576,7 @@ public:
 
 		usbReconnect();
 
-//		WDTCSR &= ~(1<<WDIE);
-//		WDTCSR &= ~(1<<WDE);
-//		wdt_disable();
+		//		wdt_disable();
 		sei();
 	}
 
@@ -509,11 +588,11 @@ public:
 	{
 		if (g_wdt_auto_reset)
 			wdt_reset();
-//		WDTCSR &= ~(1<<WDIE);
-//		WDTCSR &= ~(1<<WDE);
 
 		if (run_slow)
 		{
+			wdt_reset();
+
 			run_slow = false;
 
 			usbPoll();
@@ -558,19 +637,26 @@ public:
 				sei();
 				break;
 
+			case 94:
+				USB_INTR_ENABLE &= ~_BV(USB_INTR_ENABLE_BIT);
+				_delay_ms(1);
+				//				while (--i)
+				//				{ /* 250 ms */
+				//					_delay_ms(1);
+				//				}
+				TIMSK2 |= (1 << OCIE2A); // enable Timer2 Interrupt
+				while (!f_ready)
+					;
+				break;
+
 			case 211:
 				delay_test(&slow_params);
 				break;
 			}
+			wdt_reset();
 		}
 
 		usbPoll();
 	}
 };
 
-//ISR(WDT_vect)
-//{
-//	cli();
-//	usbReconnect();
-//	sei();
-//};

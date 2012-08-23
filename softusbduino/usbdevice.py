@@ -76,7 +76,10 @@ class UsbDevice(object):
 
     def connect(self):
         log.debug("connect")
-        self.bus, self.device = self.search()
+        ls = self.search()
+        if not ls:
+            raise ArduinoUsbDeviceError("Device (%x:%x) not found" % (self.id_vendor, self.id_product))
+        self.bus, self.device = ls
         if self.device:
             self.device_handle = self.device.open()
 #        for b in usb.busses():
@@ -90,8 +93,6 @@ class UsbDevice(object):
 #        self.device = usb.core.find(idVendor=self.id_vendor,
 #                                    idProduct=self.id_product)
 
-        if not self.device:
-            raise ArduinoUsbDeviceError("Device not found")
 
     def disconnect(self):
         log.debug("disconnect")
@@ -131,7 +132,7 @@ class UsbDevice(object):
         return str(''.join(map(chr, response[2:])))
         #.decode('utf-16')
 
-    @reconnect_if_dropped
+    #@reconnect_if_dropped
     def usb_transfer_bytes(self, data):
         """
         """

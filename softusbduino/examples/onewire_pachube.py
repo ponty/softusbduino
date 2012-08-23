@@ -3,6 +3,19 @@ from softusbduino.arduino import Arduino
 from softusbduino.usbdevice import ArduinoUsbDeviceError
 import eeml
 import time
+import logging
+
+log = logging.getLogger(__name__)
+
+
+def fsleep(s, mcu):
+    log.debug('sleep %s sec' % s)
+    if mcu:
+        mcu.watchdog.reset()
+    for x in range(int(s)):
+        time.sleep(1)
+        if mcu:
+            mcu.watchdog.reset()
 
 
 def main(
@@ -11,72 +24,79 @@ def main(
         streams={},
          pins=[],
          sleep=5,
-         sleep_after_error=60,
+         sleep_after_error=300,
          timeout=0,
          ):
-    print '----  config -----'
-    print 'pins:', pins
-    print 'sleep:', sleep
-    print 'timeout:', timeout
-    print 'pachube:'
-    print '  feed:', feed
-    print '  streams:', streams
-    print '  key:', key
+    Arduino().usb.reset()
+    log.debug('----  config -----')
+    log.debug('pins:%s', pins)
+    log.debug('sleep:%s', sleep)
+    log.debug('timeout:%s', timeout)
+    log.debug('pachube:')
+    log.debug('  feed:%s', feed)
+    log.debug('  streams:%s', streams)
+    log.debug('  key:%s', key)
     pa = eeml.Pachube(feed, key)
 
     def init():
-        print '----  init -----'
+        log.debug('----  init -----')
         mcu = Arduino()
-#        mcu.watchdog.start(8)
+        mcu.watchdog.start(2)
 #        mcu.pins.ground_unused([pin])
         alldevs = dict()
         for p in pins:
-            print 'searching on pin:', p
+            log.debug('searching on pin:%s', p)
             bus = mcu.onewire.bus(p)
             devs = bus.search()
             for d in devs:
-                print 'device found:'
-                print '  address=', d.address_str
-                print '  address_valid=', d.address_valid
-                print '  chip=', d.chip
-                print '  resolution=', d.resolution, 'bit'
+                log.debug('device found:')
+                log.debug('  address=%s', d.address_str)
+                log.debug('  address_valid=%s', d.address_valid)
+                log.debug('  chip%s', d.chip)
+                log.debug('  resolution=%s bit', d.resolution)
                 alldevs[d.address_str] = d
-        return alldevs
+        return mcu, alldevs
 
-    alldevs = init()
+    mcu, alldevs = init()
     start = time.time()
-    errors = 0
+    errors = [0,0]
 
     def measure():
-        print '----  measure -----'
+        log.debug('----  measure -----')
         for stream, address in streams.items():
             d = alldevs.get(address, None)
             if d:
                 x = d.scratchpad()
-                print x.celsius, 'C', stream, address, time.ctime(x.t), x.data, 'errors:', errors
+                log.debug('%s C %s %s %s errors:%s' % (x.celsius, stream, address, x.data, errors))
                 pa.update([
                            eeml.Data(stream, round(x.celsius, 1), unit=Celsius()),
                            ])
-                try:
-                    pa.put()
-                except Exception, e:
-                    print e
+        log.debug('put')
+        try:
+            pa.put()
+        except Exception, e:
+            log.debug(e)
+            errors[1] += 1
+            raise ArduinoUsbDeviceError(str(e))
 
     restart = False
     while 1:
         try:
             if restart:
-                alldevs = init()
+                log.debug('restart')
+                mcu, alldevs = init()
                 restart = False
             measure()
-        except ArduinoUsbDeviceError, e:
-            print e
-            errors += 1
+            fsleep(sleep, mcu=mcu)
+        except Exception, e:
+            log.debug(e)
+            errors[0] += 1
             restart = 1
-            Arduino().reset()
-            time.sleep(sleep_after_error)
+#            fsleep(sleep_after_error)
+#            log.debug('usb reset')
+#            Arduino().usb.reset()
+            fsleep(sleep_after_error, mcu=None)
 
-        time.sleep(sleep)
         if timeout > 0:
             if timeout < time.time() - start:
                 break
