@@ -72,6 +72,11 @@ class Scratchpad(object):
     data = None
     t = None
 
+    # TODO:
+    # 85 Celsius is often an error for DS18B20
+    # http://mango.serotoninsoftware.com/forum/posts/list/247.page
+    ignore85C = True
+
     def __init__(self, device):
         self.device = device
         self.read()
@@ -87,6 +92,8 @@ class Scratchpad(object):
             return
         raw = (data[1] << 8) | data[0]
         celsius = raw / 16.0
+        if self.ignore85C and celsius == 85:
+            return None
         return celsius
 
     @property
