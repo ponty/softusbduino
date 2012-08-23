@@ -3,10 +3,9 @@ from softusbduino.arduino import Arduino
 
 
 @entrypoint
-def main():
+def main(backend='libusb'):
     mcu = Arduino()
-    print 'reset'
-
-    #mcu.usb.reset()
-    mcu.usb.reset_libusb()
+    print 'reset using backend:' + backend
+    mcu.usb.reset(backend=backend)
+    #mcu.usb.reset_libusb()
     #mcu.usb.reset_usbfs()

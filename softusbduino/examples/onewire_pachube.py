@@ -67,7 +67,7 @@ def main(
                 log.debug('device found:')
                 log.debug('  address=%s', d.address_str)
                 log.debug('  address_valid=%s', d.address_valid)
-                log.debug('  chip%s', d.chip)
+                log.debug('  chip=%s', d.chip)
                 log.debug('  resolution=%s bit', d.resolution)
                 alldevs[d.address_str] = d
          except OneWireError, e:

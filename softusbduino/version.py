@@ -1,6 +1,6 @@
-__version__ = '1.1.2'
+__version__ = '1.1.3'
 
-SOFTUSBDUINO_FIRMWARE_VERSION = 3
+SOFTUSBDUINO_FIRMWARE_VERSION = 4
 
 def SOFTUSBDUINO_VERSION():
     v = __version__

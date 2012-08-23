@@ -172,8 +172,13 @@ class UsbDevice(object):
             self.connect()
         return self.getStringDescriptor(self.device.iManufacturer)
 
-    def reset(self):
-        self.reset_libusb()
+    def reset(self, backend='libusb'):
+        if backend == 'libusb':
+            self.reset_libusb()
+        elif backend == 'usbfs':
+            self.reset_usbfs()
+        else:
+            raise ValueError('Unknown backend: %s' % backend)
 
     def reset_libusb(self):
         if not self.device:
