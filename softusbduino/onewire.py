@@ -209,6 +209,10 @@ class Bus1Wire(object):
             if a in [x.address for x in ls]:
                 break
 
+            # skip 00:00:00:00:00:00:00:00
+            if sum(a) == 0:
+                break
+
             ls.append(Device1Wire(self, a))
         return ls
 
