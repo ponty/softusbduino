@@ -6,12 +6,12 @@ LOW = false
 HIGH = true
 OUTPUT = HIGH
 INPUT = LOW
-#EXTERNAL=0
+# EXTERNAL=0
 DEFAULT = 1
 INTERNAL = 3
 
-#INPUT = Symbol('INPUT', __name__)
-#OUTPUT = Symbol('OUTPUT', __name__)
+# INPUT = Symbol('INPUT', __name__)
+# OUTPUT = Symbol('OUTPUT', __name__)
 
 REGISTER_CHECK = 1
 REGISTER_READ = 2

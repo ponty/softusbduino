@@ -17,16 +17,16 @@ class BackgroundHandler (Handler):
     # Is the thread still alive?
     alive = Bool(True)
 
-    def init (self, info):
+    def init(self, info):
         self.info = info
         Thread(target=self._update).start()
 
-    def closed (self, info, is_ok):
+    def closed(self, info, is_ok):
         self.running = False
         while self.alive:
             time.sleep(.05)
 
-    def _update (self):
+    def _update(self):
         try:
             while self.running:
                 self.loop()
@@ -35,7 +35,6 @@ class BackgroundHandler (Handler):
             traceback.print_exc()
 
         self.alive = False
-    
+
     def loop(self):
         ''
-

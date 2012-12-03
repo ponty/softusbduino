@@ -15,39 +15,35 @@ analogWrite = mcu.pwm.write_value
 analogReference = mcu.lowlevel_pins.analogReference
 digitalWrite = mcu.pins.write_digital
 digitalRead = mcu.pins.read_digital
-pinMode= mcu.pins.write_mode
+pinMode = mcu.pins.write_mode
 digitalPinToBitMask = mcu.lowlevel_pins.digitalPinToBitMask
-digitalPinToPort= mcu.lowlevel_pins.digitalPinToPort
-portModeRegister=mcu.lowlevel_pins.portModeRegister
+digitalPinToPort = mcu.lowlevel_pins.digitalPinToPort
+portModeRegister = mcu.lowlevel_pins.portModeRegister
+
 
 class Sketch(object):
     def __init__(self, setup, loop):
         self.setup = setup
         self.loop = loop
-        
+
     def run(self):
         self.setup()
         while 1:
             self.loop()
 
+
 class CSerial(object):
-    def begin(self,x):
+    def begin(self, x):
         pass
-    def print_(self,x):
+
+    def print_(self, x):
         print x,
-    def println(self,x):
+
+    def println(self, x):
         print x
 
-Serial=CSerial()
+Serial = CSerial()
+
 
 def map(x, in_min, in_max, out_min, out_max):
     return (x - in_min) * (out_max - out_min) / (in_max - in_min) + out_min
-    
-
-
-
-
-
-
-
-

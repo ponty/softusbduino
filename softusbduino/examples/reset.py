@@ -7,5 +7,5 @@ def main(backend='libusb'):
     mcu = Arduino()
     print 'reset using backend:' + backend
     mcu.usb.reset(backend=backend)
-    #mcu.usb.reset_libusb()
-    #mcu.usb.reset_usbfs()
+    # mcu.usb.reset_libusb()
+    # mcu.usb.reset_usbfs()

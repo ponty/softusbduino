@@ -5,9 +5,9 @@ import time
 
 @entrypoint
 def main(
-         pin='D8',
-         timeout=10,
-         ):
+    pin='D8',
+    timeout=10,
+):
     mcu = Arduino()
 #    mcu.watchdog.start(8)
     bus = mcu.onewire.bus(pin)
@@ -25,7 +25,7 @@ def main(
     while 1:
         for d in devs:
             x = d.scratchpad()
-            print x.celsius, 'C', '[%s]'%d.address_str, time.ctime(x.t), x.data
+            print x.celsius, 'C', '[%s]' % d.address_str, time.ctime(x.t), x.data
             time.sleep(0.1)
             if timeout > 0:
                 if timeout < time.time() - start:

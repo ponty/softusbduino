@@ -3,13 +3,14 @@ from sim.const import OUTPUT
 from sim.arduino import Arduino
 import time
 
+
 @entrypoint
 def dig_out():
     dev = Arduino()
     dev.reset()
     pin = dev.pin(8)
     pin.mode = OUTPUT
-    
+
     pin2 = dev.pin('A0')
     while 1:
         time.sleep(0.001)

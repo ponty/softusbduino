@@ -16,31 +16,33 @@ import version
 
 log = logging.getLogger(__name__)
 
+
 class ArduinoUsbError(Exception):
     pass
 
+
 class Arduino(
-              UsbMixin, 
-              SerializerMixin,
-              RegisterMixin, 
-              OneWireMixin, 
-              VccMixin, 
-              DefineMixin,
-              DelayTestMixin,
-              PinMixin,
-              PwmMixin,
-              WatchdogMixin,
-              CounterMixin,
-              ):
-    Rout = 23    
+    UsbMixin,
+    SerializerMixin,
+    RegisterMixin,
+    OneWireMixin,
+    VccMixin,
+    DefineMixin,
+    DelayTestMixin,
+    PinMixin,
+    PwmMixin,
+    WatchdogMixin,
+    CounterMixin,
+):
+    Rout = 23
     analog_range = (0, 1023)
-    bandgap_voltage = 1.1 # Volt
+    bandgap_voltage = 1.1  # Volt
     adc_accuracy = 1
-    
-    def __init__(self, 
-#                 reset=True,
-                 ground_usb_neihbours=True, 
-#                 vcc=None,
+
+    def __init__(self,
+                 #                 reset=True,
+                 ground_usb_neihbours=True,
+                 #                 vcc=None,
                  Rout=None,
                  **kwargs):
 #        self.firmware_test()
@@ -51,18 +53,16 @@ class Arduino(
 #        if vcc:
 #            self.vcc.voltage=vcc
         if Rout:
-            self.Rout=Rout
-      
+            self.Rout = Rout
+
     def firmware_test(self):
         assert self.define('MAGIC_NUMBER') == MAGIC_NUMBER
-    
+
     def version_test(self):
         assert self.defines.SOFTUSBDUINO_FIRMWARE_VERSION == version.SOFTUSBDUINO_FIRMWARE_VERSION
 
     def reset(self):
-        self.pins.reset_all()       
-    
-    def ground_usb_neihbours(self):
-        self.pins.ground_usb_neihbours()       
-    
+        self.pins.reset_all()
 
+    def ground_usb_neihbours(self):
+        self.pins.ground_usb_neihbours()

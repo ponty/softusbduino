@@ -7,36 +7,37 @@ from memo import memoized
 
 REGISTERS_CSV = path(REGISTERS_CSV)
 
-#def int16_p(x):
-#    return [x & 0xFF, x >> 8]      
+# def int16_p(x):
+#    return [x & 0xFF, x >> 8]
 
-class Register(object):    
+
+class Register(object):
     def __init__(self, base, name):
         self.base = base
         self.name = name
-        
+
     @property
     @memoized
-    def address(self):        
+    def address(self):
         return self.base.address(self.name)
-        
+
     @property
     @memoized
-    def exists(self):        
+    def exists(self):
         return self.base.exists(self.name)
-    
+
     def read_value(self):
         return self.base.read_value(self.name)
-        
+
     def write_value(self, value):
         return self.base.write_value(self.name, value)
     value = property(read_value, write_value)
-    
-#class Registers(object):    
+
+# class Registers(object):
 #    def __init__(self, mcu):
 #        self.__dict__['mcu'] = mcu
 ##        self.mcu = mcu
-#        
+#
 #    def reg_id(self, reg_name):
 #        mcu = object.__getattribute__(self, 'mcu')
 #        reg_id = mcu.register_ids[reg_name]
@@ -52,7 +53,7 @@ class Register(object):
 #            else:
 #                value = None
 #        return d
-#        
+#
 #    def __getattr__(self, name):
 #        try:
 #            reg_id = self.reg_id(name)
@@ -67,6 +68,7 @@ class Register(object):
 #        else:
 #            self.__dict__[name] = value
 
+
 class RegisterError(Exception):
     pass
 
@@ -78,35 +80,36 @@ def _register_id_map():
 class RegistersLowLevel(object):
     def __init__(self, base):
         self.base = base
-        
+
     def read_value(self, reg_id):
         return self.base.usb_transfer(50, REGISTER_READ, word=reg_id)
-    
+
     def write_value(self, reg_id, value):
         self.base.usb_transfer(50, REGISTER_WRITE, value, word=reg_id)
-    
+
     def read_address(self, reg_id):
-        return self.base.usb_transfer(50, REGISTER_ADDRESS, word=reg_id) 
+        return self.base.usb_transfer(50, REGISTER_ADDRESS, word=reg_id)
 
     def read_exists(self, reg_id):
         return self.base.usb_transfer(50, REGISTER_CHECK, word=reg_id)
 
-class Registers(object):   
-    
-    @property    
+
+class Registers(object):
+
+    @property
     @memoized
     def  register_id_map(self):
         return _register_id_map()
-    
+
     def __init__(self, base):
         self.base = base
-        
+
     @memoized
     def exists(self, reg_name):
         reg_id = self._id(reg_name)
         if reg_id is None:
             return False
-        
+
         x = self.base.read_exists(reg_id)
 
         if x == REGISTER_OK:
@@ -114,28 +117,28 @@ class Registers(object):
         if x == REGISTER_MISSING:
             return False
         raise RegisterError('invalid code: %s' % x)
-    
+
     def _id(self, reg_name):
-        reg_id = self.register_id_map.get(reg_name,None)
+        reg_id = self.register_id_map.get(reg_name, None)
         return reg_id
-    
+
     def _check_name(self, reg_name):
         if not self.exists(reg_name):
             raise RegisterError('missing register: %s' % reg_name)
         return self._id(reg_name)
-        
+
     def read_value(self, reg_name):
         reg_id = self._check_name(reg_name)
         return self.base.read_value(reg_id)
-    
+
     def write_value(self, reg_name, value):
         reg_id = self._check_name(reg_name)
         self.base.write_value(reg_id, value)
-    
+
     @memoized
     def address(self, reg_name):
         reg_id = self._check_name(reg_name)
-        return self.base.read_address(reg_id) 
+        return self.base.read_address(reg_id)
 
     def as_dict(self):
         d = dict()
@@ -144,18 +147,18 @@ class Registers(object):
                 d[name] = self.read_value(name)
         return d
 
-class RegisterMixin(object):    
-    
+
+class RegisterMixin(object):
+
     @property
     @memoized
     def lowlevel_registers(self):
         return RegistersLowLevel(self.serializer)
-    
+
     @property
     @memoized
     def registers(self):
         return Registers(self.lowlevel_registers)
-            
 
     @memoized
     def register(self, name):
@@ -168,4 +171,3 @@ class RegisterMixin(object):
 #            raise RegisterError('missing register: %s' % (name,))
 #            return None
         return Register(self.registers, name)
-    

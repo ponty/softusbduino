@@ -6,43 +6,45 @@ import logging
 log = logging.getLogger(__name__)
 
 base_divisor = {
-                3:512,
-                5:256,
-                6:256,
-                9:512,
-                10:512,
-                11:512,
-                }
+    3: 512,
+    5: 256,
+    6: 256,
+    9: 512,
+    10: 512,
+    11: 512,
+}
+
+
 class BiDict():
     def __init__(self, dic):
         self.norm = dic
         self.inv = dict([(v, k) for k, v in dic.items()])
 
 _div1 = BiDict({
-         1:1,
-         2:8,
-         3:64,
-         4:256,
-         5:1024,
-         })
+               1: 1,
+               2: 8,
+               3: 64,
+               4: 256,
+               5: 1024,
+               })
 _div2 = BiDict({
-         1:1,
-         2:8,
-         3:32,
-         4:64,
-         5:128,
-         6:256,
-         7:1024,
-         })
+               1: 1,
+               2: 8,
+               3: 32,
+               4: 64,
+               5: 128,
+               6: 256,
+               7: 1024,
+               })
 divisor_mapping = {
-                3:_div2,
-                5:_div1,
-                6:_div1,
-                9:_div1,
-                10:_div1,
-                11:_div2,
-                }
-#timer_register = {
+    3: _div2,
+    5: _div1,
+    6: _div1,
+    9: _div1,
+    10: _div1,
+    11: _div2,
+}
+# timer_register = {
 #                3:'TCCR2B',
 #                5:'TCCR0B',
 #                6:'TCCR0B',
@@ -51,31 +53,32 @@ divisor_mapping = {
 #                11:'TCCR2',
 #                }
 
-TIMERS = [ 'NOT_ON_TIMER',
-        'TCCR0B',
-        'TCCR0B',
-        'TCCR1B',
-        'TCCR1B',
-        'TCCR2',
-        'TCCR2B',
-        'TCCR2B',
-        # TODO:
-#        'TIMER3A',
-#        'TIMER3B',
-#        'TIMER3C',
-#        'TIMER4A',
-#        'TIMER4B',
-#        'TIMER4C',
-#        'TIMER5A',
-#        'TIMER5B',
-#        'TIMER5C',
-        ]
+TIMERS = ['NOT_ON_TIMER',
+          'TCCR0B',
+          'TCCR0B',
+          'TCCR1B',
+          'TCCR1B',
+          'TCCR2',
+          'TCCR2B',
+          'TCCR2B',
+          # TODO:
+          #        'TIMER3A',
+          #        'TIMER3B',
+          #        'TIMER3C',
+          #        'TIMER4A',
+          #        'TIMER4B',
+          #        'TIMER4C',
+          #        'TIMER5A',
+          #        'TIMER5B',
+          #        'TIMER5C',
+          ]
 
 
-timer_mask = 7 # 0b111    
+timer_mask = 7  # 0b111
 
-#TODO: pwm_mode  read/write
-#TODO: read mappings
+# TODO: pwm_mode  read/write
+# TODO: read mappings
+
 
 class PwmPin(object):
     def __init__(self, pin):
@@ -106,6 +109,7 @@ class PwmPin(object):
 
     def read_timer_mode(self):
         return self.base.read_timer_mode(self.timer_register_name)
+
     def write_timer_mode(self):
         return self.base.write_timer_mode(self.timer_register_name)
     timer_mode = property(read_timer_mode, write_timer_mode)
@@ -120,6 +124,7 @@ class PwmPin(object):
 
     def read_frequency(self):
         return self.base.read_frequency(self.pin.nr)
+
     def write_frequency(self, f):
         return self.base.write_frequency(self.pin.nr, f)
     frequency = property(read_frequency, write_frequency)
@@ -127,6 +132,7 @@ class PwmPin(object):
 
 class PwmError(Exception):
     pass
+
 
 class Pwm(object):
     def __init__(self, mcu, base):
@@ -160,7 +166,6 @@ class Pwm(object):
         d = divisor_mapping[pin_nr]
         reg_name = self.timer_register_name(pin_nr)
         return d.norm[self.read_timer_mode(reg_name)]
-
 
     def write_divisor(self, pin_nr, value):
         self._check(pin_nr)
@@ -196,7 +201,7 @@ class Pwm(object):
 
     def read_frequency(self, pin_nr):
         self._check(pin_nr)
-        return self.calculate_frequency(pin_nr, self.read_divisor(pin_nr));
+        return self.calculate_frequency(pin_nr, self.read_divisor(pin_nr))
 
     def write_frequency(self, pin_nr, value):
         self._check(pin_nr)
@@ -208,11 +213,14 @@ class Pwm(object):
                 self.write_timer_mode(reg_name, d.inv[x])
                 return
 
+
 class PwmLowLevel(object):
     def __init__(self, base):
         self.base = base
+
     def write_pwm(self, pin_nr, value):
         self.base.usb_transfer(12, pin_nr, value)
+
 
 class PwmPinMixin(object):
     @property
@@ -231,5 +239,3 @@ class PwmMixin(object):
     @memoized
     def pwm(self):
         return Pwm(self, self.lowlevel_pwm)
-
-

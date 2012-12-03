@@ -1,5 +1,6 @@
 from memo import memoized
 
+
 def asc2str(ls):
     s = ''.join(chr(i) for i in ls)
     return s
@@ -12,9 +13,11 @@ TYPE_FLOAT = 5
 TYPE_VOID = 6
 TYPE_BYTE_ARRAY = 7
 
+
 def int16_p(x):
     x = int(x)
     return [x & 0xFF, x >> 8]
+
 
 class Serializer(object):
     def __init__(self, base):
@@ -55,7 +58,7 @@ class Serializer(object):
                     print 'data', ls
                     raise
             return f
-#        assert int_size == len(ls), 'expected size=%s data=%s' % (int_size, ls)
+# assert int_size == len(ls), 'expected size=%s data=%s' % (int_size, ls)
 
         typ = ls[0]
         ls = ls[1:]
@@ -73,10 +76,10 @@ class Serializer(object):
             assert 0, 'invalid type specifier received:%s' % typ
         return x
 
+
 class SerializerMixin(object):
 
     @property
     @memoized
     def serializer(self):
         return Serializer(self.usb)
-

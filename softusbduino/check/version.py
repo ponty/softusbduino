@@ -32,9 +32,3 @@ def list_versions():
     print 'python:', platform.python_version()
     print 'pyusb:', pyusb
     print 'softusbduino:', __version__
-
-
-
-
-
-

@@ -19,6 +19,7 @@ WDTO_8S = 9
 WDIE = 6
 WDE = 3
 
+
 class WatchdogError(Exception):
     pass
 
@@ -42,19 +43,20 @@ class LowLevelWatchdog(object):
     def write_auto_reset(self, value):
         return self.base.usb_transfer(84, value)
 
+
 class Watchdog(object):
     values = {
-                0.015: WDTO_15MS,
-                0.030: WDTO_30MS,
-                0.060: WDTO_60MS,
-                0.120: WDTO_120MS,
-                0.250: WDTO_250MS,
-                0.500: WDTO_500MS,
-                1: WDTO_1S,
-                2: WDTO_2S,
-                4: WDTO_4S,
-                8: WDTO_8S,
-                }
+        0.015: WDTO_15MS,
+        0.030: WDTO_30MS,
+        0.060: WDTO_60MS,
+        0.120: WDTO_120MS,
+        0.250: WDTO_250MS,
+        0.500: WDTO_500MS,
+        1: WDTO_1S,
+        2: WDTO_2S,
+        4: WDTO_4S,
+        8: WDTO_8S,
+    }
 
     def __init__(self, base, defines, mcu):
         self.base = base
@@ -94,6 +96,7 @@ class Watchdog(object):
 #    def write_auto_reset(self, value):
 #        self.base.write_auto_reset(value)
 
+
 class WatchdogMixin(object):
 
     @property
@@ -101,12 +104,7 @@ class WatchdogMixin(object):
     def watchdog(self):
         return Watchdog(self.lowlevel_watchdog, self.defines, self)
 
-
     @property
     @memoized
     def lowlevel_watchdog(self):
         return LowLevelWatchdog(self.serializer)
-
-
-
-

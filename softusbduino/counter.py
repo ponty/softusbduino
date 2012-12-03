@@ -39,7 +39,7 @@ CS21 = 1
 CS22 = 2
 WGM20 = 0
 WGM21 = 1
-#WGM22=3
+# WGM22=3
 OCIE2A = 1
 PSRASY = 1
 
@@ -71,13 +71,11 @@ class Counter(object):
 #        TCNT2 = self.mcu.register('TCNT2')
         TCNT2 = self.mcu.register('TCNT2')
 
-        #TIMSK0.value &= ~(1 << TOIE0)       # disable Timer0  #disable  millis and delay
-        #time.sleep(1)      # wait if any ints are pending
-
+        # TIMSK0.value &= ~(1 << TOIE0)       # disable Timer0  #disable  millis and delay
+        # time.sleep(1)      # wait if any ints are pending
 
 #        if (f_comp == 0):
 #             f_comp = 1  # 0 is not allowed in del us
-
         # hardware counter setup ( refer atmega168.pdf chapter 16-bit counter1)
         TCCR1A.value = 0                  # reset timer/counter1 control register A
         TCCR1B.value = 0                     # reset timer/counter1 control register A
@@ -88,7 +86,7 @@ class Counter(object):
 
         self.base.reset_variables()
         period = int(F_CPU / prescaler / divider * gate_time)
-        print 'period',period
+        print 'period', period
         self.base.write_period(period)
 
         # set timer/counter1 hardware as counter , counts events on pin T1 ( arduino pin 5)
@@ -108,10 +106,10 @@ class Counter(object):
         TCCR2B.value |= (1 << CS22)
 #        prescaler = 128
 
-        #set timer2 to CTC Mode with OCR2A is top counter value
+        # set timer2 to CTC Mode with OCR2A is top counter value
         TCCR2A.value &= ~(1 << WGM20)
         TCCR2A.value |= (1 << WGM21)
-        #TCCR2A &= ~(1 << WGM22) #???
+        # TCCR2A &= ~(1 << WGM22) #???
         OCR2A.value = 124                # CTC divider by 125
 #        divider=125
 
@@ -122,9 +120,11 @@ class Counter(object):
 #        TCNT1.value = 0                    # Counter1 = 0
 
                                     # External clock source on T1 pin. Clock on rising edge.
-#        TCCR1B.value |= (1 << CS12) | (0 << CS11) | (1 << CS10)        #   start counting now     
-#        TCCR1B.value |= (0 << CS12) | (0 << CS11) | (1 << CS10)        #   start counting now     
-        TCCR1B.value |= (1 << CS12) | (1 << CS11) | (1 << CS10)        #   start counting now     
+#        TCCR1B.value |= (1 << CS12) | (0 << CS11) | (1 << CS10)        #   start counting now
+# TCCR1B.value |= (0 << CS12) | (0 << CS11) | (1 << CS10)        #   start
+# counting now
+        TCCR1B.value |= (1 << CS12) | (
+            1 << CS11) | (1 << CS10)  # start counting now
 #        time.sleep(2)
 #        TIMSK2.value |= (1 << OCIE2A)       # enable Timer2 Interrupt
         self.base.start_interrupt()
@@ -136,18 +136,20 @@ class Counter(object):
         print 'TCNT1', TCNT1L.value + (TCNT1H.value << 8),
         print 'TCNT1H', TCNT1H.value,
         print 'TCNT1L', TCNT1L.value
-        n = TCNT1L.value + (TCNT1H.value << 8) + (self.base.read_counter_overflows() << 16)
+        n = TCNT1L.value + (TCNT1H.value << 8) + (
+            self.base.read_counter_overflows() << 16)
         print 'n', n,
         t = 1 / F_CPU * prescaler * period * divider
         print 't', t,
         f = n / t
         print 'f', f
-        
-        xx=t*20000000/256/256
-        xx2=256*(xx-int(xx))
+
+        xx = t * 20000000 / 256 / 256
+        xx2 = 256 * (xx - int(xx))
 #        print 'xx',int(xx),int(xx2)
         return f
-    
+
+
 class CounterMixin(object):
 
     @property
@@ -159,7 +161,3 @@ class CounterMixin(object):
     @memoized
     def lowlevel_counter(self):
         return LowLevelCounter(self.serializer)
-
-
-
-

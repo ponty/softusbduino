@@ -5,8 +5,8 @@ import time
 
 @entrypoint
 def main(
-         t=0.1,
-         ):
+    t=0.1,
+):
     mcu = Arduino()
     while 1:
         for x in mcu.pins.range_analog:

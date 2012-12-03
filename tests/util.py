@@ -13,8 +13,8 @@ def exc_(excClass, callableObj, *args, **kwargs):
     except excClass:
         return
     else:
-        if hasattr(excClass, '__name__'): 
+        if hasattr(excClass, '__name__'):
             excName = excClass.__name__
-        else: 
+        else:
             excName = str(excClass)
         raise Exception("%s not raised" % excName)
