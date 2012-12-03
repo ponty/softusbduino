@@ -52,6 +52,9 @@ def main(
     log.debug('  key:%s', key)
     pa = eeml.Pachube(feed, key)
 
+    streams_inv = dict([(v,k) for (k,v) in streams.items()])
+    log.debug('  streams_inv:%s', streams_inv)
+
     def init():
         log.debug('----  init -----')
 #        if watchdog:
@@ -69,6 +72,7 @@ def main(
                 log.debug('  address_valid=%s', d.address_valid)
                 log.debug('  chip=%s', d.chip)
                 log.debug('  resolution=%s bit', d.resolution)
+                log.debug('  stream=%s', streams_inv.get(d.address_str,'???'))
                 alldevs[d.address_str] = d
          except OneWireError, e:
            log.debug('OneWireError',e)
@@ -101,15 +105,16 @@ def main(
               try:
                 x = d.scratchpad()
                 log.debug('%s C %s %s %s errors:%s' % (x.celsius, stream, address, x.data, errors))
-                pa.update([
+                if x.celsius is not None:
+                    pa.update([
                            eeml.Data(stream, round(x.celsius, 2), unit=Celsius()),
                            ])
               except OneWireError, e:
                 log.debug(e)
                 print stream, e
-                pa.update([
-                           eeml.Data(stream, None, unit=Celsius()),
-                           ])
+#                pa.update([
+#                           eeml.Data(stream, None, unit=Celsius()),
+#                           ])
         def put():
             log.debug('put')
             try:
