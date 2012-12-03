@@ -91,6 +91,8 @@ class Scratchpad(object):
         if not data:
             return
         raw = (data[1] << 8) | data[0]
+        if raw & (1 << 15):  # for negative values
+            raw = raw - (1 << 16)
         celsius = raw / 16.0
         if self.ignore85C and celsius == 85:
             return None
