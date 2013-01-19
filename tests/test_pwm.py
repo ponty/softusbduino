@@ -1,8 +1,8 @@
 from nose.tools import eq_
 from softusbduino.arduino import Arduino
 from softusbduino.const import *
-from config import F_CPU
-
+from config import config
+F_CPU = config.F_CPU
 dev = None
 
 
@@ -98,6 +98,7 @@ def test_pwm():
 def test_value():
     pwm = dev.pwm
     pin9 = dev.pin(9)
+    pin9.mode = OUTPUT
 
     pwm.write_value(9, 55)
     pin9.pwm.write_value(45)

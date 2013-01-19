@@ -1,18 +1,11 @@
-from bunch import Bunch
-from config import F_CPU
 from nose.tools import eq_, ok_
 from softusbduino.arduino import Arduino
 from softusbduino.defines import DefineError
 from util import exc_
+from config import config
 
 dev = None
 
-config=Bunch(
-        A0=14,
-        ARDUINO=22,
-        MAGIC_NUMBER=42,
-        F_CPU=F_CPU,
-        )
 
 def setup():
     global dev

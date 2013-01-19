@@ -1,3 +1,9 @@
+from bunch import Bunch
 
-#F_CPU = 12000000.0
-F_CPU = 20000000.0
+
+config = Bunch(
+    A0=14,
+    ARDUINO=103,
+    MAGIC_NUMBER=42,
+    F_CPU=20000000.0,
+)

@@ -76,7 +76,7 @@ def test_dig():
 
     pin.write_mode(INPUT)
     pin.write_mode(OUTPUT)
-    eq_(dev.pins.read_digital_out(8), 1)
+#    eq_(dev.pins.read_digital_out(8), 1)
 
     pin.write_digital_out(0)
 #    eq_(dev.pins.read_digital(8), 0)
@@ -113,7 +113,7 @@ def ok_an(x, pullup=False):
     print x
     ok_(x in range(1024))
     if pullup:
-        # TODO: why can the analog value with pullup be so low? 
+        # TODO: why can the analog value with pullup be so low?
         ok_(x > 900)
 
 
@@ -132,7 +132,7 @@ def test_an():
 #    ok_an(dev.pins.read_analog_obj(14).value, pullup=True)
     ok_an(AnalogIn(pin).read().value, pullup=True)
 #    ok_an(pin.analog_obj.value, pullup=True)
-    
+
 #    ok_vcc(pin.analog_obj.voltage)
 
 #    pin = dev.pin('A0')
@@ -224,4 +224,3 @@ def test_pin_range():
     dev.pin('A5')
     exc_(ValueError, lambda: dev.pin('A6'))
     exc_(ValueError, lambda: dev.pin('D14'))
-    

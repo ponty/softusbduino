@@ -1,6 +1,6 @@
 from entrypoint2 import entrypoint
-from sim.const import OUTPUT
-from sim.arduino import Arduino
+from softusbduino.arduino import Arduino
+from softusbduino.const import OUTPUT
 import time
 
 
