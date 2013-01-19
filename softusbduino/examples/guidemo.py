@@ -1,8 +1,9 @@
+from back import BackgroundHandler
 from entrypoint2 import entrypoint
+from measurement import AnalogIn
+from softusbduino.arduino import Arduino
 from softusbduino.const import OUTPUT, INPUT
 from softusbduino.pin import Pin
-from softusbduino.arduino import Arduino
-from back import BackgroundHandler
 from traits.has_traits import HasTraits
 from traits.trait_types import Str, Any, List, Instance, Enum, Bool, Range, Int
 from traitsui.editors.list_editor import ListEditor
@@ -24,11 +25,14 @@ class PinWrapper(HasTraits):
     function = Any()
     usb = Any()
     timer = Any()
+    initmode = False
 
     def _pin_changed(self):
+        self.initmode = True
         self.name = self.pin.name
         self.mode = ['INPUT', 'OUTPUT'][self.pin.read_mode()]
-        self.digital_output = bool(self.pin.read_digital())
+        if self.mode == 'OUTPUT':
+            self.digital_output = bool(self.pin.read_digital_out())
         self.function = self.pin.programming_function
         self.usb = ['', '+', '-'][self.pin.is_usb_plus + 2 *
                                   self.pin.is_usb_minus]
@@ -39,6 +43,7 @@ class PinWrapper(HasTraits):
             self.add_trait('pwm_frequency', Enum(ls))
             self.pwm_frequency = int(self.pin.pwm.frequency)
             self.timer = self.pin.pwm.timer_register_name
+        self.initmode = False
 
     def _pwm_frequency_changed(self):
         self.pin.pwm.frequency = self.pwm_frequency
@@ -60,7 +65,8 @@ class PinWrapper(HasTraits):
     mode = Enum(['INPUT', 'OUTPUT'])
 
     def _mode_changed(self):
-        self.pin.write_mode(OUTPUT if (self.mode == 'OUTPUT') else INPUT)
+        if not self.initmode:
+            self.pin.write_mode(OUTPUT if (self.mode == 'OUTPUT') else INPUT)
     pullup = Bool()
 
     def _pullup_changed(self):
@@ -69,17 +75,19 @@ class PinWrapper(HasTraits):
     digital_output = Bool()
 
     def _digital_output_changed(self):
-        self.pin.write_digital(self.digital_output)
+        if not self.initmode:
+            self.pin.write_digital_out(self.digital_output)
     analog_input = Any()
     voltage = Any()
 
     def update(self):
-        an = self.pin.read_analog_obj()
+        if self.mode == 'INPUT':
+            an = AnalogIn(self.pin).read()
 
-        self.analog_input = an.value
-        self.voltage = an.voltage
+            self.analog_input = an.value
+            self.voltage = an.voltage
 
-        self.digital_input = bool(self.pin.read_digital_in())
+            self.digital_input = bool(self.pin.read_digital_in())
 
     traits_view = View(
         HGroup(
@@ -193,48 +201,48 @@ class BoardWrapper(HasTraits):
                  #                      width=400,
                  #                      height=600,
                  ),
-             Item(name='analog_pins',
-                  editor=ListEditor(
-                                    style='custom',
-                                    ),
-                        style='readonly',
-                      show_label=False,
+            Item(name='analog_pins',
+                      editor=ListEditor(
+                 style='custom',
+                 ),
+                 style='readonly',
+                 show_label=False,
 #                      width=400,
 #                      height=600,
-                  ),
+                 ),
 #             ),
 #                   ),
-             Group(
-             Item(name='update_interval',
-                  editor=RangeEditor(
-                      mode='slider',
-                      low=1,
-                      high=1000,
-                      ),
-                  style='custom',
-                      ),
-                   label='settings',
-                   ),
-             Item('defines',
-                  show_label=False,
-                  editor=TableEditor(
-                                   auto_size=False,
-                                   editable=False,
-                                   configurable=False,
-                                   ),
+            Group(
+                Item(name='update_interval',
+                     editor=RangeEditor(
+                     mode='slider',
+                     low=1,
+                     high=1000,
+                     ),
+                     style='custom',
+                     ),
+                label='settings',
+            ),
+            Item('defines',
+                 show_label=False,
+                 editor=TableEditor(
+                 auto_size=False,
+                 editable=False,
+                 configurable=False,
+                 ),
                  style='readonly',
-                                           )
-                             ),
+                 )
+        ),
 
-                buttons=['Undo', 'Revert', 'OK', 'Cancel'],
-                kind='live',
-                resizable=True,
-                handler=Handler(),
-                     )
+        buttons=['Undo', 'Revert', 'OK', 'Cancel'],
+        kind='live',
+        resizable=True,
+        handler=Handler(),
+    )
 
 
 @entrypoint
-def main(pin='', pullup=0):
+def main(pin=''):
     '''
 
 
@@ -244,7 +252,5 @@ def main(pin='', pullup=0):
     mcu = Arduino(reset=False)
     if pin:
         pin = mcu.pin(pin)
-        if pullup:
-            pin.pullup = pullup
 
     BoardWrapper(mcu=mcu).configure_traits()

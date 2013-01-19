@@ -2,6 +2,7 @@ from threading import Thread
 from traits.api import HasTraits, Str, Range, Bool, Float, Int, Instance, Any
 from traitsui.handler import Handler
 from traitsui.ui_info import UIInfo
+import os
 import time
 import traceback
 
@@ -33,7 +34,7 @@ class BackgroundHandler (Handler):
                 time.sleep(0.1)
         except Exception:
             traceback.print_exc()
-
+            os._exit(1)
         self.alive = False
 
     def loop(self):

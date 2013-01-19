@@ -1,51 +1,56 @@
+from decotrace import traced
 from memo import memoized
 from softusbduino.const import *
 from softusbduino.pwmpin import PwmPinMixin
-from uncertainties import ufloat
 import logging
-import time
 
 log = logging.getLogger(__name__)
 
 
-class AnalogInputValue(object):
-    pin = None
-    value = None
-    t = None
+# class AnalogInputValue(object):
+#    pin = None
+#    value = None
+#    t = None
+# 
+#    def __init__(self, mcu, pin_nr):
+#        self.pin_nr = pin_nr
+#        self.mcu = mcu
+# 
+#        self.t = time.time()
+#        self.value = mcu.pins.read_analog(pin_nr)
+# 
+#    @property
+#    def u_value(self):
+#        return ufloat((self.value, self.mcu.adc_accuracy))
+# 
+#    @property
+#    def voltage(self):
+#        return self.u_voltage.nominal_value
+# 
+#    @property
+#    def u_voltage(self):
+#        return self.u_value / 1023.0 * self.mcu.vcc.voltage
+# 
+#    def __repr__(self):
+# return 'AnalogInputValue<value:%s voltage:%s>' % (self.value,
+# self.voltage)
 
-    def __init__(self, mcu, pin_nr):
-        self.pin_nr = pin_nr
-        self.mcu = mcu
 
-        self.t = time.time()
-        self.value = mcu.pins.read_analog(pin_nr)
-
-    @property
-    def u_value(self):
-        return ufloat((self.value, self.mcu.adc_accuracy))
-
-    @property
-    def voltage(self):
-        return self.u_voltage.nominal_value
-
-    @property
-    def u_voltage(self):
-        return self.u_value / 1024.0 * self.mcu.vcc.voltage
-
-    def __repr__(self):
-        return 'AnalogInputValue<value:%s voltage:%s>' % (self.value, self.voltage)
-
-
-def pin_nr_as_int(nr, A0):
+def name2int(pin_name, A0):
     try:
-        if isinstance(nr, basestring):
-            if nr[0] == 'D':
-                nr = int(nr[1:])
-            elif nr[0] == 'A':
-                nr = int(nr[1:]) + A0
-        nr = int(nr)
+        if isinstance(pin_name, basestring):
+            if pin_name[0] == 'D':
+                nr = int(pin_name[1:])
+                if nr >= A0:
+                    raise ValueError('invalid pin id:%r' % pin_name)
+            elif pin_name[0] == 'A':
+                nr = int(pin_name[1:]) + A0
+            else:
+                nr = int(pin_name)
+        else:
+            nr = int(pin_name)
     except IndexError:
-        raise ValueError('invalid pin id:%r' % nr)
+        raise ValueError('invalid pin id:%r' % pin_name)
     return nr
 
 
@@ -54,7 +59,9 @@ class Pin(PwmPinMixin):
         self.base = base
         self.mcu = mcu
         self.A0 = mcu.define('A0')
-        self.nr = pin_nr_as_int(nr, self.A0)
+        self.nr = name2int(nr, self.A0)
+        if self.nr not in self.base.range_all:
+          raise ValueError('pin %s (Nr:%s) not in range %s' % (nr, self.nr, self.base.range_all))
 
     @property
     def is_digital(self):
@@ -114,13 +121,11 @@ class Pin(PwmPinMixin):
     def write_pullup(self, value):
         return self.base.write_pullup(self.nr, value)
 
-    # faster
-    def read_digital(self):
-        return self.base.read_digital(self.nr)
+    def read_digital_fast(self):
+        return self.base.read_digital_fast(self.nr)
 
-    def write_digital(self, value):
-        return self.base.write_digital(self.nr, value)
-    digital = property(read_digital, write_digital)
+    def write_digital_fast(self, value):
+        return self.base.write_digital_fast(self.nr, value)
 
     # slower
     def read_digital_in(self):
@@ -132,19 +137,19 @@ class Pin(PwmPinMixin):
 
     def write_digital_out(self, value):
         return self.base.write_digital_out(self.nr, value)
-    digital_out = property(read_digital_out, write_digital_out)
+#    digital_out = property(read_digital_out, write_digital_out)
 
     def read_analog(self):
         return self.base.read_analog(self.nr)
     analog = property(read_analog)
 
-    def read_analog_obj(self):
-        return self.base.read_analog_obj(self.nr)
-    analog_obj = property(read_analog_obj)
-
-    def read_analog_voltage(self):
-        return self.base.read_analog_voltage(self.nr)
-    analog_voltage = property(read_analog_voltage)
+#    def read_analog_obj(self):
+#        return self.base.read_analog_obj(self.nr)
+#    analog_obj = property(read_analog_obj)
+# 
+#    def read_analog_voltage(self):
+#        return self.base.read_analog_voltage(self.nr)
+#    analog_voltage = property(read_analog_voltage)
 
     def read_mode(self):
         return self.base.read_mode(self.nr)
@@ -173,9 +178,8 @@ class Pins(object):
         return range(self.defines.value('A0'), self.count)
 
     def write_pullup(self, pin_nr, value):
-        value = bool(value)
-        if self.read_mode(pin_nr) == INPUT:
-            self.base.write_digital(pin_nr, value)
+        assert self.read_mode(pin_nr) == INPUT
+        self.base.write_digital(pin_nr, bool(value))
 
     def read_mode(self, pin_nr):
         bitmask = self.base.digitalPinToBitMask(pin_nr)
@@ -193,32 +197,33 @@ class Pins(object):
             x = OUTPUT
         self.base.write_mode(pin_nr, x)
 
-    def read_digital(self, pin_nr):
+    def read_digital_fast(self, pin_nr):
         return self.base.read_digital(pin_nr)
 
-    def write_digital(self, pin_nr, x):
+    def write_digital_fast(self, pin_nr, x):
         self.base.write_digital(pin_nr, x)
 
     def read_digital_out(self, pin_nr):
-        if self.read_mode(pin_nr) == OUTPUT:
-            return self.base.read_digital(pin_nr)
+        assert self.read_mode(pin_nr) == OUTPUT
+        return self.base.read_digital(pin_nr)
 
     def write_digital_out(self, pin_nr, x):
-        self.base.write_mode(pin_nr, OUTPUT)
+        assert self.read_mode(pin_nr) == OUTPUT
         self.base.write_digital(pin_nr, x)
 
     def read_digital_in(self, pin_nr):
-        if self.read_mode(pin_nr) == INPUT:
-            return self.base.read_digital(pin_nr)
+        assert self.read_mode(pin_nr) == INPUT
+        return self.base.read_digital(pin_nr)
 
     def read_analog(self, pin_nr):
+        assert self.read_mode(pin_nr) == INPUT
         return self.base.read_analog(pin_nr)
 
-    def read_analog_obj(self, pin_nr):
-        return AnalogInputValue(self.mcu, pin_nr)
-
-    def read_analog_voltage(self, pin_nr):
-        return AnalogInputValue(self.mcu, pin_nr).voltage
+#    def read_analog_obj(self, pin_nr):
+#        return AnalogInputValue(self.mcu, pin_nr)
+# 
+#    def read_analog_voltage(self, pin_nr):
+#        return AnalogInputValue(self.mcu, pin_nr).voltage
 
     @property
     @memoized
@@ -270,15 +275,14 @@ class Pins(object):
 
     def reset(self, pin_nr):
         self.write_mode(pin_nr, INPUT)
+        self.write_pullup(pin_nr, LOW)
 
     def reset_all(self):
         minus = self.usb_minus_pin
         plus = self.usb_plus_pin
         for x in self.range_all:
             if x != minus and x != plus:
-                self.write_mode(x, INPUT)
-                # turn off pullup
-                self.write_digital(x, LOW)
+                self.reset(x)
 
     @property
     @memoized
@@ -312,13 +316,13 @@ class Pins(object):
         for x in self.usb_neighbours:
             self.write_digital_out(x, 0)
 
-    def pin_nr_as_int(self, pin):
-        return pin_nr_as_int(pin, self.defines.value('A0'))
+    def name2int(self, pin):
+        return name2int(pin, self.defines.value('A0'))
 
     def ground_unused(self, used_pins=[]):
         minus = self.usb_minus_pin
         plus = self.usb_plus_pin
-        used_pins = [minus, plus] + map(self.pin_nr_as_int, used_pins)
+        used_pins = [minus, plus] + map(self.name2int, used_pins)
         for x in self.range_all:
             if x not in used_pins:
                 self.write_digital_out(x, 0)
@@ -375,7 +379,7 @@ class PinMixin(object):
     @memoized
     def lowlevel_pins(self):
         return PinsLowLevel(self.serializer)
-#
+# 
 
     @property
     @memoized
@@ -386,5 +390,5 @@ class PinMixin(object):
     def _pin(self, pin_nr):
         return Pin(self.pins, self, nr=pin_nr)
 
-    def pin(self, pin_nr):
-        return self._pin(pin_nr_as_int(pin_nr, self.define('A0')))
+    def pin(self, pin_name):
+        return self._pin(name2int(pin_name, self.define('A0')))

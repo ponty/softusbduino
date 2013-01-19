@@ -64,6 +64,6 @@ class VccMixin(object):
         result = ADCL.value | (ADCH.value << 8)
         error = self.adc_accuracy
         u_result = ufloat((result, error))
-        result = (self.bandgap_voltage * 1024L) / u_result
+        result = (self.bandgap_voltage * 1023L) / u_result
 
         return result

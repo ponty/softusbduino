@@ -3,7 +3,6 @@ from memo import memoized
 from softusbduino.const import ID_VENDOR, ID_PRODUCT
 import fcntl
 import logging
-import time
 import usb
 
 log = logging.getLogger(__name__)
@@ -131,8 +130,8 @@ class UsbDevice(object):
 
         # TODO: Refer to 'libusb_get_string_descriptor_ascii' for error
         # handling
-
-        return str(''.join(map(chr, response[2:])))
+        return bytearray(response[2:]).decode("utf-16")
+        # return str(''.join(map(chr, response[2:])))
         #.decode('utf-16')
 
     #@reconnect_if_dropped
