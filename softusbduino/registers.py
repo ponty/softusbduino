@@ -124,7 +124,7 @@ class Registers(object):
 
     def _check_name(self, reg_name):
         if not self.exists(reg_name):
-            raise RegisterError('missing register: %s' % reg_name)
+            raise RegisterError('missing register: %s' % str(reg_name))
         return self._id(reg_name)
 
     def read_value(self, reg_name):
