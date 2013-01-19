@@ -2,6 +2,7 @@ from __future__ import division
 from decotrace import traced
 import time
 
+
 def median(ls):
     '''
     median filter
@@ -18,15 +19,17 @@ def average(ls):
         return
     return sum(ls) / len(ls)
 
+
 def averaged_median(ls, median_window=3):
     if not len(ls):
         return
     if len(ls) <= median_window:
         return median(ls)
     ls2 = []
-    for i in range(len(ls) - median_window+1):
+    for i in range(len(ls) - median_window + 1):
         ls2 += [median(ls[i:i + median_window])]
     return average(ls2)
+
 
 def read_analog_list(pin, count, delay=0.001):
     ls = []

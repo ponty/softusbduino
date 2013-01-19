@@ -152,7 +152,7 @@ class Pwm(object):
 
     def write_value(self, pin_nr, value):
         self._check(pin_nr)
-        assert self.mcu.pins.read_mode(pin_nr)== OUTPUT
+        assert self.mcu.pins.read_mode(pin_nr) == OUTPUT
         self.base.write_pwm(pin_nr, value)
 
     def divisors_available(self, pin_nr):

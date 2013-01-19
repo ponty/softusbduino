@@ -11,26 +11,26 @@ log = logging.getLogger(__name__)
 #    pin = None
 #    value = None
 #    t = None
-# 
+#
 #    def __init__(self, mcu, pin_nr):
 #        self.pin_nr = pin_nr
 #        self.mcu = mcu
-# 
+#
 #        self.t = time.time()
 #        self.value = mcu.pins.read_analog(pin_nr)
-# 
+#
 #    @property
 #    def u_value(self):
 #        return ufloat((self.value, self.mcu.adc_accuracy))
-# 
+#
 #    @property
 #    def voltage(self):
 #        return self.u_voltage.nominal_value
-# 
+#
 #    @property
 #    def u_voltage(self):
 #        return self.u_value / 1023.0 * self.mcu.vcc.voltage
-# 
+#
 #    def __repr__(self):
 # return 'AnalogInputValue<value:%s voltage:%s>' % (self.value,
 # self.voltage)
@@ -61,7 +61,8 @@ class Pin(PwmPinMixin):
         self.A0 = mcu.define('A0')
         self.nr = name2int(nr, self.A0)
         if self.nr not in self.base.range_all:
-          raise ValueError('pin %s (Nr:%s) not in range %s' % (nr, self.nr, self.base.range_all))
+            raise ValueError('pin %s (Nr:%s) not in range %s' %
+                             (nr, self.nr, self.base.range_all))
 
     @property
     def is_digital(self):
@@ -146,7 +147,7 @@ class Pin(PwmPinMixin):
 #    def read_analog_obj(self):
 #        return self.base.read_analog_obj(self.nr)
 #    analog_obj = property(read_analog_obj)
-# 
+#
 #    def read_analog_voltage(self):
 #        return self.base.read_analog_voltage(self.nr)
 #    analog_voltage = property(read_analog_voltage)
@@ -221,7 +222,7 @@ class Pins(object):
 
 #    def read_analog_obj(self, pin_nr):
 #        return AnalogInputValue(self.mcu, pin_nr)
-# 
+#
 #    def read_analog_voltage(self, pin_nr):
 #        return AnalogInputValue(self.mcu, pin_nr).voltage
 
@@ -379,7 +380,7 @@ class PinMixin(object):
     @memoized
     def lowlevel_pins(self):
         return PinsLowLevel(self.serializer)
-# 
+#
 
     @property
     @memoized
