@@ -23,15 +23,20 @@ class Serializer(object):
     def __init__(self, base):
         self.base = base
 
-    def get_params(self, cmd, param1=None, param2=None, param3=None, param4=None, word=None):
-        if word is not None:
+    def get_params(self, cmd, param1=None, param2=None, param3=None, param4=None, word1=None, word2=None):
+        if word1 is not None:
             assert param3 is None
             assert param4 is None
-            param3, param4 = int16_p(word)
-            if param1 is None:
-                param1 = 0
-            if param2 is None:
-                param2 = 0
+            param3, param4 = int16_p(word1)
+            if word2 is not None:
+                assert param1 is None
+                assert param2 is None
+                param1, param2 = int16_p(word2)
+            else:
+                if param1 is None:
+                    param1 = 0
+                if param2 is None:
+                    param2 = 0
         params = [cmd]
         if param1 is not None:
             params += [param1]

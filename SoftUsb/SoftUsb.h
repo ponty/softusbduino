@@ -45,6 +45,8 @@
 #define REGISTER_READ 2
 #define REGISTER_WRITE 3
 #define REGISTER_ADDRESS 4
+#define REGISTER_SIZE 5
+
 #define REGISTER_MISSING 111
 #define REGISTER_OK 222
 
@@ -126,10 +128,21 @@ const prog_uint16_t reg_list[] PROGMEM =
 const prog_uint16_t reg_index_list[] PROGMEM =
 {
 #include "generated_registers.h"
-	0
+    0
 };
 #undef MISSING
 #undef DEFINE
+
+#define DEFINE(x)    sizeof(x),
+#define MISSING(x)
+const prog_uint16_t sizeof_list[] PROGMEM =
+{
+#include "generated_registers.h"
+};
+#undef MISSING
+#undef DEFINE
+
+const int REG_COUNT = sizeof(sizeof_list);
 
 #define DEFINE(x)    x,
 const prog_uint32_t intdef_list[] PROGMEM =
@@ -137,6 +150,7 @@ const prog_uint32_t intdef_list[] PROGMEM =
 #include "generated_intdefs.h"
 };
 #undef DEFINE
+
 
 void * operator new(size_t size)
 {
@@ -161,7 +175,8 @@ typedef struct params
 {
 	byte cmd;
 	uchar bytes[4];
-	word word1;
+    word word1;
+    word word2;
 } params_t;
 
 params_t slow_params;
@@ -266,7 +281,8 @@ usbMsgLen_t SoftUsb_UsbFunctionSetup(uchar data[8])
 	params.bytes[1] = rq->wValue.bytes[1];
 	params.bytes[2] = rq->wIndex.bytes[0];
 	params.bytes[3] = rq->wIndex.bytes[1];
-	params.word1 = rq->wIndex.word; // same as (params.bytes[2];params.bytes[3])
+    params.word1 = rq->wIndex.word; // same as (params.bytes[2];params.bytes[3])
+    params.word2 = rq->wValue.word; // same as (params.bytes[0];params.bytes[1])
 
 	if ((rq->bmRequestType & USBRQ_TYPE_MASK) == USBRQ_TYPE_VENDOR)
 	{
@@ -348,51 +364,6 @@ usbMsgLen_t SoftUsb_UsbFunctionSetup(uchar data[8])
 			return return_int8(MAGIC_NUMBER);
 			break;
 
-		case 50:
-		{
-			word w = 0;
-			for (unsigned int i = 0; i < sizeof(reg_index_list); i++)
-			{
-				word index = pgm_read_word(&reg_index_list[i]);
-				if (index == params.word1)
-				{
-					w = pgm_read_word(&reg_list[i]);
-					break;
-				}
-				if (index > params.word1)
-					break;
-			}
-			if (w == 0)
-			{
-				// register not found
-				switch (params.bytes[0])
-				{
-				case REGISTER_CHECK:
-					return return_int8(REGISTER_MISSING);
-					break;
-				default:
-					return 0;
-				}
-			}
-
-			volatile byte* preg = (volatile byte*) w;
-			switch (params.bytes[0])
-			{
-			case REGISTER_WRITE:
-				*preg = params.bytes[1];
-				break;
-			case REGISTER_READ:
-				return return_int8(*preg);
-				break;
-			case REGISTER_CHECK:
-				return return_int8(REGISTER_OK);
-				break;
-			case REGISTER_ADDRESS:
-				return return_int16((int16_t) preg);
-				break;
-			}
-		}
-			break;
 
 		case 51:
 		{
@@ -508,6 +479,81 @@ usbMsgLen_t SoftUsb_UsbFunctionSetup(uchar data[8])
 			slow_params = params;
 			run_slow = true;
 			break;
+
+        case 101:
+        case 102:
+        case 103:
+        case 104:
+        case 105:
+        {
+            word regaddr = 0;
+            byte regsize = 0;
+            word regindex = params.word1;
+            word regvalue = params.word2;
+            byte regcmd = cmd-100;
+            for (unsigned int i = 0; i < REG_COUNT; i++)
+            {
+                word index = pgm_read_word(&reg_index_list[i]);
+                if (index == regindex)
+                {
+                    regaddr = pgm_read_word(&reg_list[i]);
+                    regsize = pgm_read_byte(&sizeof_list[i]);
+                    break;
+                }
+                if (index > regindex)
+                    break;
+            }
+            if (regaddr == 0)
+            {
+                // register not found
+                switch (regcmd)
+                {
+                case REGISTER_CHECK:
+                    return return_int8(REGISTER_MISSING);
+                    break;
+                default:
+                    return 0;
+                }
+            }
+
+            volatile byte* preg8 = (volatile byte*) regaddr;
+            volatile word* preg16 = (volatile word*) regaddr;
+            switch (regcmd)
+            {
+            case REGISTER_WRITE:
+                switch (regsize)
+                {
+                case 1:
+                    *preg8 = (byte)regvalue;
+                    break;
+                case 2:
+                    *preg16 = regvalue;
+                    break;
+                }
+                break;
+            case REGISTER_READ:
+                switch (regsize)
+                {
+                case 1:
+                    return return_int8(*preg8);
+                    break;
+                case 2:
+                    return return_int16(*preg16);
+                    break;
+                }
+                break;
+            case REGISTER_CHECK:
+                return return_int8(REGISTER_OK);
+                break;
+            case REGISTER_ADDRESS:
+                return return_int16(regaddr);
+                break;
+            case REGISTER_SIZE:
+                return return_int8(regsize);
+                break;
+            }
+        }
+            break;
 
 		case 200:
 		{

@@ -67,3 +67,27 @@ def test_register():
     exc_(RegisterError, DDRX.read_value)
     exc_(RegisterError, DDRX.write_value, 0)
     exc_(RegisterError, lambda: DDRX.address)
+
+
+def test_16bit():
+    ICR1 = dev.register('ICR1')
+
+    ICR1.value = 55
+    eq_(ICR1.value, 55)
+
+    ICR1.value = 555
+    eq_(ICR1.value, 555)
+
+    ICR1.value = 5555
+    eq_(ICR1.value, 5555)
+
+    ICR1.value = 55555
+    eq_(ICR1.value, 55555)
+
+
+def test_size():
+    ICR1 = dev.register('ICR1')
+    DDRB = dev.register('DDRB')
+
+    eq_(ICR1.size, 2)
+    eq_(DDRB.size, 1)

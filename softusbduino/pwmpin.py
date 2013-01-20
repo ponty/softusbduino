@@ -53,26 +53,45 @@ divisor_mapping = {
 #                11:'TCCR2',
 #                }
 
-TIMERS = ['NOT_ON_TIMER',
-          'TCCR0B',
-          'TCCR0B',
-          'TCCR1B',
-          'TCCR1B',
-          'TCCR2',
-          'TCCR2B',
-          'TCCR2B',
-          # TODO:
-          #        'TIMER3A',
-          #        'TIMER3B',
-          #        'TIMER3C',
-          #        'TIMER4A',
-          #        'TIMER4B',
-          #        'TIMER4C',
-          #        'TIMER5A',
-          #        'TIMER5B',
-          #        'TIMER5C',
-          ]
+# TIMERS = ['NOT_ON_TIMER',
+#          'TCCR0B',
+#          'TCCR0B',
+#          'TCCR1B',
+#          'TCCR1B',
+#          'TCCR2',
+#          'TCCR2B',
+#          'TCCR2B',
+#          # TODO:
+#          #        'TIMER3A',
+#          #        'TIMER3B',
+#          #        'TIMER3C',
+#          #        'TIMER4A',
+#          #        'TIMER4B',
+#          #        'TIMER4C',
+#          #        'TIMER5A',
+#          #        'TIMER5B',
+#          #        'TIMER5C',
+#          ]
 
+TIMERS_A = ['NOT_ON_TIMER',
+            'TCCR0A',
+            'TCCR0A',
+            'TCCR1A',
+            'TCCR1A',
+            None,  # TODO: atmega8
+            'TCCR2A',
+            'TCCR2A',
+            ]
+
+TIMERS_B = ['NOT_ON_TIMER',
+            'TCCR0B',
+            'TCCR0B',
+            'TCCR1B',
+            'TCCR1B',
+            'TCCR2',
+            'TCCR2B',
+            'TCCR2B',
+            ]
 
 timer_mask = 7  # 0b111
 
@@ -107,11 +126,19 @@ class PwmPin(object):
     def timer_register_name(self):
         return self.base.timer_register_name(self.pin.nr)
 
+    @property
+    def timer_register_name_a(self):
+        return self.base.timer_register_name(self.pin.nr, variant='A')
+
+    @property
+    def timer_register_name_b(self):
+        return self.base.timer_register_name(self.pin.nr, variant='B')
+
     def read_timer_mode(self):
-        return self.base.read_timer_mode(self.timer_register_name)
+        return self.base.read_timer_mode(self.timer_register_name_b)
 
     def write_timer_mode(self):
-        return self.base.write_timer_mode(self.timer_register_name)
+        return self.base.write_timer_mode(self.timer_register_name_b)
     timer_mode = property(read_timer_mode, write_timer_mode)
 
     @property
@@ -129,6 +156,13 @@ class PwmPin(object):
         return self.base.write_frequency(self.pin.nr, f)
     frequency = property(read_frequency, write_frequency)
 
+    def read_wgm(self):
+        return self.base.read_wgm(self.pin.nr)
+    wgm = property(read_wgm, None)
+
+    def set_high_freq(self, divisor):
+        return self.base.set_high_freq(self.pin.nr, divisor)
+
 
 class PwmError(Exception):
     pass
@@ -143,7 +177,7 @@ class Pwm(object):
 
     def available(self, pin_nr):
         timer_id = self._timer_id(pin_nr)
-        return timer_id > 0 and timer_id < len(TIMERS)
+        return timer_id > 0 and timer_id < len(TIMERS_B)
 #        return pin_nr in timer_register
 
     def _check(self, pin_nr):
@@ -173,13 +207,19 @@ class Pwm(object):
         reg_name = self.timer_register_name(pin_nr)
         self.write_timer_mode(reg_name, d.inv[value])
 
+#    def write_wgm(self, pin_nr, value):
+#        ''' Waveform generation mode'''
+#        self._check(pin_nr)
+#        reg_name = self.timer_register_name(pin_nr)
+#        self.write_timer_mode(reg_name, d.inv[value])
+
     def _timer_id(self, pin_nr):
         return self.mcu.lowlevel_pins.digitalPinToTimer(pin_nr)
 
-    def timer_register_name(self, pin_nr):
+    def timer_register_name(self, pin_nr, variant='B'):
         self._check(pin_nr)
-        return TIMERS[self._timer_id(pin_nr)]
-#        return timer_register[pin_nr]
+        i = self._timer_id(pin_nr)
+        return dict(A=TIMERS_A, B=TIMERS_B)[variant][i]
 
     def read_timer_mode(self, reg_name):
         return self.registers.read_value(reg_name) & timer_mask
@@ -201,7 +241,12 @@ class Pwm(object):
 
     def read_frequency(self, pin_nr):
         self._check(pin_nr)
-        return self.calculate_frequency(pin_nr, self.read_divisor(pin_nr))
+        wgm = self.read_wgm(pin_nr)
+        if wgm == 14:
+            # high freq mode
+            return self.F_CPU / self.registers.read_value('ICR1')
+        else:
+            return self.calculate_frequency(pin_nr, self.read_divisor(pin_nr))
 
     def write_frequency(self, pin_nr, value):
         self._check(pin_nr)
@@ -212,6 +257,44 @@ class Pwm(object):
                 reg_name = self.timer_register_name(pin_nr)
                 self.write_timer_mode(reg_name, d.inv[x])
                 return
+
+    def read_wgm(self, pin_nr):
+        self._check(pin_nr)
+        rega = self.timer_register_name(pin_nr, variant='A')
+        regb = self.timer_register_name(pin_nr)
+        if regb == 'TCCR1B':
+            maskb = 0b00011000
+        else:
+            maskb = 0b00001000
+        maska = 0b00000011
+        a = self.registers.read_value(rega) & maska
+        b = self.registers.read_value(regb) & maskb
+        return a + (b >> 1)
+
+    def _check_high_freq(self, pin_nr):
+        if pin_nr not in [9, 10]:
+            raise PwmError('high freq pwm not available for pin: %s' % pin_nr)
+
+    def set_high_freq(self, pin_nr, divisor):
+        'F_CPU/divisor'
+        d = divisor
+        self._check_high_freq(pin_nr)
+        assert d >= 2
+
+        self.write_divisor(pin_nr, 1)
+        self.write_value(pin_nr, 128)
+        self.registers.write_value('TCNT1', 0)
+        self.registers.write_value('ICR1', d)
+        self.registers.write_value('OCR1A', (d / 2))
+        self.registers.write_value('OCR1B', (d / 2))
+
+        TCCR1A = self.registers.read_value('TCCR1A')
+#        TCCR1B = self.registers.read_value('TCCR1B')
+        TCCR1A = 0b00000010 + (0b11110000 & TCCR1A)
+
+        TCCR1B = 0b00011001
+        self.registers.write_value('TCCR1A', TCCR1A)
+        self.registers.write_value('TCCR1B', TCCR1B)
 
 
 class PwmLowLevel(object):

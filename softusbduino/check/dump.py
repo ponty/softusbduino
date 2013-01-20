@@ -79,4 +79,4 @@ def usbdump():
     print '================================'
     # , key=lambda x:mcu.registers.address(x[0]) # sort by address
     for k, v in SortedDict(mcu.registers.as_dict()).items():
-        print '%-20s = 0x%02X @0x%2X' % (k, v, mcu.registers.address(k))
+        print '%-20s = 0x%02X @0x%2X (%s)' % (k, v, mcu.registers.address(k), mcu.registers.size(k))

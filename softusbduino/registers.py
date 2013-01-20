@@ -1,9 +1,9 @@
 from bunch import Bunch
-from const import REGISTERS_CSV
+from const import REGISTERS_CSV, REGISTER_SIZE
+from memo import memoized
 from path import path
 from softusbduino.const import REGISTER_CHECK, REGISTER_OK, REGISTER_MISSING, \
     REGISTER_READ, REGISTER_WRITE, REGISTER_ADDRESS
-from memo import memoized
 
 REGISTERS_CSV = path(REGISTERS_CSV)
 
@@ -32,6 +32,11 @@ class Register(object):
     def write_value(self, value):
         return self.base.write_value(self.name, value)
     value = property(read_value, write_value)
+
+    @property
+    @memoized
+    def size(self):
+        return self.base.size(self.name)
 
 # class Registers(object):
 #    def __init__(self, mcu):
@@ -82,16 +87,19 @@ class RegistersLowLevel(object):
         self.base = base
 
     def read_value(self, reg_id):
-        return self.base.usb_transfer(50, REGISTER_READ, word=reg_id)
+        return self.base.usb_transfer(102, word1=reg_id)
 
     def write_value(self, reg_id, value):
-        self.base.usb_transfer(50, REGISTER_WRITE, value, word=reg_id)
+        self.base.usb_transfer(103, word1=reg_id, word2=value)
 
     def read_address(self, reg_id):
-        return self.base.usb_transfer(50, REGISTER_ADDRESS, word=reg_id)
+        return self.base.usb_transfer(104, word1=reg_id)
 
     def read_exists(self, reg_id):
-        return self.base.usb_transfer(50, REGISTER_CHECK, word=reg_id)
+        return self.base.usb_transfer(101, word1=reg_id)
+
+    def read_size(self, reg_id):
+        return self.base.usb_transfer(105, word1=reg_id)
 
 
 class Registers(object):
@@ -117,6 +125,11 @@ class Registers(object):
         if x == REGISTER_MISSING:
             return False
         raise RegisterError('invalid code: %s' % x)
+
+    @memoized
+    def size(self, reg_name):
+        reg_id = self._check_name(reg_name)
+        return self.base.read_size(reg_id)
 
     def _id(self, reg_name):
         reg_id = self.register_id_map.get(reg_name, None)

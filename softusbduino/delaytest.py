@@ -6,10 +6,10 @@ class DelayTestLowLevel(object):
         self.base = base
 
     def delay_in_usbFunctionSetup(self, wait, interrupts, milli):
-        return self.base.usb_transfer(210, interrupts, milli, word=wait)
+        return self.base.usb_transfer(210, interrupts, milli, word1=wait)
 
     def delay_in_usbPoll(self, wait, interrupts, milli):
-        return self.base.usb_transfer(211, interrupts, milli, word=wait)
+        return self.base.usb_transfer(211, interrupts, milli, word1=wait)
 
 
 class DelayTestMixin(object):
