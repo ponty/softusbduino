@@ -11,7 +11,7 @@ def main(
     timeout=2,
     sleep=1,
 ):
-    mcu = Arduino(auto_reconnect=False)
+    mcu = Arduino()
     mcu.watchdog.start(timeout)
     time.sleep(sleep)
     mcu.watchdog.stop()

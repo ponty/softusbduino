@@ -16,7 +16,7 @@ def main(
     sleep_between_calls=0.1,
     wait=0.001,
 ):
-    mcu = Arduino(auto_reconnect=False)
+    mcu = Arduino()
 
 # TEMPL = 'count={count:>5} fail={fail:>5} wait={wait:>5} ms in {func}
 # int={interrupts} sleep={sleep_between_calls} s'

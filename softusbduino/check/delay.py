@@ -70,7 +70,7 @@ def print_delay(count, **kw):
 @entrypoint
 def main(
 ):
-    mcu = Arduino(auto_reconnect=False)
+    mcu = Arduino()
 
     kw = dict(
         mcu=mcu,
