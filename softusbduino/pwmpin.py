@@ -1,4 +1,5 @@
 from __future__ import division
+from decotrace import traced
 from memo import memoized
 from softusbduino.const import *
 import logging
@@ -160,8 +161,11 @@ class PwmPin(object):
         return self.base.read_wgm(self.pin.nr)
     wgm = property(read_wgm, None)
 
-    def set_high_freq(self, divisor):
-        return self.base.set_high_freq(self.pin.nr, divisor)
+    def set_high_freq_around_pwm(self, top, fill):
+        return self.base.set_high_freq_around_pwm(self.pin.nr, top, fill)
+
+    def set_high_freq_around(self, freq):
+        return self.base.set_high_freq_around(self.pin.nr, freq)
 
 
 class PwmError(Exception):
@@ -275,18 +279,18 @@ class Pwm(object):
         if pin_nr not in [9, 10]:
             raise PwmError('high freq pwm not available for pin: %s' % pin_nr)
 
-    def set_high_freq(self, pin_nr, divisor):
+    def set_high_freq_around_pwm(self, pin_nr, top, fill):
         'F_CPU/divisor'
-        d = divisor
+        d = top
         self._check_high_freq(pin_nr)
         assert d >= 2
 
         self.write_divisor(pin_nr, 1)
         self.write_value(pin_nr, 128)
-        self.registers.write_value('TCNT1', 0)
-        self.registers.write_value('ICR1', d)
-        self.registers.write_value('OCR1A', (d / 2))
-        self.registers.write_value('OCR1B', (d / 2))
+#        self.registers.write_value('TCNT1', 0)
+#        self.registers.write_value('ICR1', d)
+#        self.registers.write_value('OCR1A', fill)
+#        self.registers.write_value('OCR1B', fill)
 
         TCCR1A = self.registers.read_value('TCCR1A')
 #        TCCR1B = self.registers.read_value('TCCR1B')
@@ -295,6 +299,16 @@ class Pwm(object):
         TCCR1B = 0b00011001
         self.registers.write_value('TCCR1A', TCCR1A)
         self.registers.write_value('TCCR1B', TCCR1B)
+
+        self.registers.write_value('TCNT1', 0)
+        self.registers.write_value('ICR1', d)
+        self.registers.write_value('OCR1A', fill)
+        self.registers.write_value('OCR1B', fill)
+
+    def set_high_freq_around(self, pin_nr, freq):
+        top = int(self.F_CPU / freq + 0.5)
+        assert 1 < top < (1 << 16)
+        self.set_high_freq_around_pwm(pin_nr, top, int(top / 2))
 
 
 class PwmLowLevel(object):
