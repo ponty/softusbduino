@@ -25,7 +25,7 @@ def main(n=100):
     print
     measure(mcu, n, 'pins.read_analog(0)')
     measure(mcu, n, 'pins.write_mode(8,0)')
-    measure(mcu, n, 'pins.read_digital(8)')
+    measure(mcu, n, 'pins.read_digital_in(8)')
 #    measure(mcu,n, 'digitalPinToBitMask(0)')
 #    measure(mcu,n, 'digitalPinToPort(0)')
 #    measure(mcu,n, 'portModeRegister(0)')

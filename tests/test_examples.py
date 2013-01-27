@@ -1,3 +1,4 @@
+from softusbduino.check import performance
 from softusbduino.check.dump import usbdump
 from softusbduino.examples import simple
 
@@ -5,3 +6,7 @@ from softusbduino.examples import simple
 def test_usbdump():
     usbdump()
     simple.main()
+
+
+def test_perf():
+    performance.main()
