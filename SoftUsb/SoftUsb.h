@@ -15,158 +15,15 @@
 # include "pins_arduino.h"
 #endif
 
-#include "SoftUsb.h"
+#include "SoftUsb_global.h"
 #include "generated_mcu.h"
+#include "SoftUsb_onewire.h"
+#include "SoftUsb_return.h"
+#include "SoftUsb_const.h"
+#include "SoftUsb_timer.h"
 
-#ifdef OneWire_h
-#define HAS_ONE_WIRE  1
-#else
-#define HAS_ONE_WIRE  0
-#endif
-
-#define MAGIC_NUMBER  42
-
-#define _STR(s) #s
-#define STR(s) _STR(s)
-
-#define PA 1
-#define PB 2
-#define PC 3
-#define PD 4
-#define PE 5
-#define PF 6
-#define PG 7
-#define PH 8
-#define PJ 10
-#define PK 11
-#define PL 12
-
-#define REGISTER_CHECK 1
-#define REGISTER_READ 2
-#define REGISTER_WRITE 3
-#define REGISTER_ADDRESS 4
-#define REGISTER_SIZE 5
-
-#define REGISTER_MISSING 111
-#define REGISTER_OK 222
-
-#define BUFFER_SIZE  20
-
-#define TYPE_INT8   1
-#define TYPE_INT16  2
-#define TYPE_INT32  3
-#define TYPE_STRING 4
-#define TYPE_FLOAT  5
-#define TYPE_VOID   6
-#define TYPE_BYTE_ARRAY  7
-
-#ifndef ONEWIRE_BUS_COUNT
-#define ONEWIRE_BUS_COUNT  10
-#endif
-
-static uchar dataBuffer[BUFFER_SIZE]; /* buffer must stay valid when usbFunctionSetup returns */
-usbMsgLen_t return_string(const char* s)
-{
-	dataBuffer[0] = TYPE_STRING;
-	strcpy((char*) &dataBuffer[1], s);
-	return strlen((char*) dataBuffer) + 1;
-}
-
-usbMsgLen_t return_byte_array(const byte* arr, int8_t size)
-{
-	dataBuffer[0] = TYPE_BYTE_ARRAY;
-	for (int i = 0; i < size; i++)
-	{
-		dataBuffer[i + 1] = arr[i];
-	}
-	return size + 1;
-}
-
-usbMsgLen_t return_int8(int8_t x)
-{
-	dataBuffer[0] = TYPE_INT8;
-	dataBuffer[1] = x;
-	return 2;
-}
-
-usbMsgLen_t return_bool(int8_t x)
-{
-	return return_int8(x);
-}
-
-usbMsgLen_t return_int16(int16_t x)
-{
-	dataBuffer[0] = TYPE_INT16;
-	dataBuffer[1] = x >> (0 * 8);
-	dataBuffer[2] = x >> (1 * 8);
-	return 3;
-}
-
-usbMsgLen_t return_int32(int32_t x)
-{
-	dataBuffer[0] = TYPE_INT32;
-	dataBuffer[1] = x >> (0 * 8);
-	dataBuffer[2] = x >> (1 * 8);
-	dataBuffer[3] = x >> (2 * 8);
-	dataBuffer[4] = x >> (3 * 8);
-	return 5;
-}
 
 bool g_wdt_auto_reset = true;
-
-#define DEFINE(x) (prog_uint16_t)(&x),
-#define MISSING(x)
-const prog_uint16_t reg_list[] PROGMEM =
-{
-#include "generated_registers.h"
-};
-#undef MISSING
-#undef DEFINE
-
-#define DEFINE(x) __COUNTER__,
-#define MISSING(x)    (0*__COUNTER__)+
-const prog_uint16_t reg_index_list[] PROGMEM =
-{
-#include "generated_registers.h"
-    0
-};
-#undef MISSING
-#undef DEFINE
-
-#define DEFINE(x)    sizeof(x),
-#define MISSING(x)
-const prog_uint16_t sizeof_list[] PROGMEM =
-{
-#include "generated_registers.h"
-};
-#undef MISSING
-#undef DEFINE
-
-const int REG_COUNT = sizeof(sizeof_list);
-
-#define DEFINE(x)    x,
-const prog_uint32_t intdef_list[] PROGMEM =
-{
-#include "generated_intdefs.h"
-};
-#undef DEFINE
-
-
-void * operator new(size_t size)
-{
-	return malloc(size);
-}
-
-void operator delete(void * ptr)
-{
-	free(ptr);
-}
-
-#ifdef OneWire_h
-OneWire* one_wire_bus_list[ONEWIRE_BUS_COUNT]=
-{	NULL};
-uint8_t one_wire_address[8];
-#endif
 
 bool run_slow = false;
 int slow_return;
@@ -207,66 +64,6 @@ void usbReconnect()
 	usbDeviceConnect();
 }
 
-//******************************************************************
-//  Timer2 Interrupt Service is invoked by hardware Timer2 every 1ms = 1000 Hz
-//  16Mhz / 128 / 125 = 1000 Hz
-//  here the gatetime generation for freq. measurement takes place:
-//volatile unsigned char f_ready;
-//volatile unsigned char f_mlt;
-volatile uint16_t f_tics;
-volatile uint16_t f_period;
-volatile bool f_first;
-volatile bool f_ready;
-
-//volatile unsigned int f_comp;
-//unsigned long f_freq;
-
-volatile uint16_t f_counter_overflows;
-
-ISR(TIMER2_COMPA_vect)
-{
-	// multiple 2ms = gate time = 100 ms
-
-	if (f_first)
-	{
-		TCNT1 = 0; // Counter1 = 0
-		if (TIFR1 & (1<<TOV1))
-		{ // if Timer/Counter 1 overflow flag
-			TIFR1 |=(1<<TOV1); // clear Timer/Counter 1 overflow flag
-		}
-		f_first=false;
-	}
-	else
-	{
-		if (f_tics >= f_period) // end of gate time, measurement ready
-
-		{
-			// GateCalibration Value, set to zero error with reference frequency counter
-			//  delayMicroseconds(FreqCounter::f_comp); // 0.01=1/ 0.1=12 / 1=120 sec
-			//delayMicroseconds(f_comp);
-			TCCR1B = TCCR1B & ~7; // Gate Off  / Counter T1 stopped
-			TIMSK2 &= ~(1<<OCIE2A); // disable Timer2 Interrupt
-			//TIMSK0 |=(1<<TOIE0); // enable Timer0 again // millis and delay
-			//f_ready=1; // set global flag for end count period
-
-			// calculate now frequeny value
-			//f_freq=0x10000 * f_mlt; // mult #overflows by 65636
-			//f_freq += TCNT1; // add counter1 value
-			//f_mlt=0;
-			USB_INTR_ENABLE |= _BV( USB_INTR_ENABLE_BIT );
-			f_ready=true;
-		}
-		else
-		{
-			f_tics++; // count number of interrupt events
-			if (TIFR1 & (1<<TOV1))
-			{ // if Timer/Counter 1 overflow flag
-				f_counter_overflows++;//f_mlt++; // count number of Counter1 overflows
-				TIFR1 |=(1<<TOV1); // clear Timer/Counter 1 overflow flag
-			}
-		}
-	}
-}
 
 usbMsgLen_t SoftUsb_UsbFunctionSetup(uchar data[8])
 {
@@ -643,7 +440,7 @@ public:
 
 			usbPoll();
 
-			uchar i = 10;
+			uchar i = 10; // ms
 			while (--i)
 			{
 				_delay_ms(1);
