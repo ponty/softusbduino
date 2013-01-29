@@ -1,12 +1,18 @@
-from softusbduino.check import performance
-from softusbduino.check.dump import usbdump
+from softusbduino.check import performance, delay, dump
 from softusbduino.examples import simple
 
 
 def test_usbdump():
-    usbdump()
+    dump.usbdump()
+
+
+def test_simple():
     simple.main()
 
 
 def test_perf():
     performance.main()
+
+
+def test_delay():
+    delay.main()
