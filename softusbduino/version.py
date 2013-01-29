@@ -1,4 +1,4 @@
-__version__ = '1.1.4'
+__version__ = '1.1.5'
 
 SOFTUSBDUINO_FIRMWARE_VERSION = 5
 
