@@ -1,6 +1,6 @@
 from back import BackgroundHandler
 from entrypoint2 import entrypoint
-from measurement import AnalogIn
+from softusbduino.measurement import AnalogIn
 from softusbduino.arduino import Arduino
 from softusbduino.const import OUTPUT, INPUT
 from softusbduino.pin import Pin
