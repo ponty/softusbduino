@@ -1,3 +1,4 @@
+from __future__ import division
 from entrypoint2 import entrypoint
 from softusbduino.arduino import Arduino
 from softusbduino.usbdevice import ArduinoUsbDeviceError
@@ -12,33 +13,33 @@ log = logging
 def main(
     reconnect_time=5,
     func='usbPoll',
-    interrupts=0,
-    sleep_between_calls=0.1,
-    wait=0.001,
+    disable_interrupts=0,
+    sleep_between_calls=0,
+    delay=0.001,
 ):
     mcu = Arduino()
+    mcu.reset()
 
-# TEMPL = 'count={count:>5} fail={fail:>5} wait={wait:>5} ms in {func}
-# int={interrupts} sleep={sleep_between_calls} s'
     count = 0
     fail = 0
-    skip = int(2 / sleep_between_calls + 0.5)
+    t1 = time.time()
     while 1:
         count += 1
+        t2 = time.time()
+        if (t2 - t1) > 2:
+            t1 = t2
+            print dict(
+                delay=delay,
+                func=func,
+                disable_interrupts=disable_interrupts,
+                sleep_between_calls=sleep_between_calls,
+                count=count,
+                fail=fail,
+            )
         try:
-            if count % skip == 0:
-                print dict(
-                    wait=1000 * wait,
-                    func=func,
-                    interrupts=interrupts,
-                    sleep_between_calls=sleep_between_calls,
-                    count=count,
-                    fail=fail,
-                )
-
-            mcu.delay_test(wait,
+            mcu.delay_test(delay,
                            func,
-                           interrupts=interrupts)
+                           disable_interrupts=disable_interrupts)
             time.sleep(sleep_between_calls)
             mcu.firmware_test()
 
@@ -49,5 +50,5 @@ def main(
             # time for reconnect
             time.sleep(reconnect_time)
 
-            mcu.connect()
+#            mcu.connect()
             fail += 1

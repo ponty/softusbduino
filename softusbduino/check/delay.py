@@ -31,12 +31,12 @@ def check_delay(
 ):
     def test_range(step):
         log.debug('step= %d us' % (step))
-        wait = None
+        delay = None
         try:
             for i in range(2, 11):
-                wait = i * step
-                log.debug('testing %d us' % (wait))
-                mcu.delay_test(wait / 1e6,
+                delay = i * step
+                log.debug('testing %d us' % (delay))
+                mcu.delay_test(delay / 1e6,
                                func,
                                disable_interrupts=disable_interrupts,
                                loop=loop,
@@ -52,10 +52,10 @@ def check_delay(
             mcu.usb.connect()
 
             # min reached
-            if wait <= 2e-6:
+            if delay <= 2e-6:
                 raise
 
-            return wait - step
+            return delay - step
 
     step = 1 * 1000
     max_good = test_range(step)
@@ -133,6 +133,7 @@ def print_delay(count, **kw):
 @entrypoint
 def main():
     mcu = Arduino()
+    mcu.reset()
 
     kw = dict(
         mcu=mcu,
