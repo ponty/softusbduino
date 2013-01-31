@@ -23,6 +23,7 @@ def main(n=100):
     print 'performance test'
     print 'n=', n
     print
+    measure(mcu, n, 'model')
     measure(mcu, n, 'pins.read_analog(0)')
     measure(mcu, n, 'pins.write_mode(8,0)')
     measure(mcu, n, 'pins.read_digital_in(8)')

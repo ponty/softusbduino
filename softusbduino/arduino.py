@@ -66,3 +66,8 @@ class Arduino(
 
     def ground_usb_neihbours(self):
         self.pins.ground_usb_neihbours()
+
+    @property
+    @memoized
+    def model(self):
+        return self.define('MCU_DEFINED').strip('_').split('_')[-1]

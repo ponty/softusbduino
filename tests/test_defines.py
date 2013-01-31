@@ -43,9 +43,14 @@ def test_defines():
     eq_(dev.define('ARDUINO'), config.ARDUINO)
     eq_(dev.define('MAGIC_NUMBER'), config.MAGIC_NUMBER)
     eq_(dev.define('F_CPU'), config.F_CPU)
-    ok_('ATmega' in dev.define('MCU_DEFINED'))
+    #ok_('ATmega' in dev.define('MCU_DEFINED'))
+    eq_(dev.define('MCU_DEFINED'), config.MCU_DEFINED)
 
     eq_(dev.defines.as_dict()['A0'], config.A0)
 
     for x in dev.defines.as_dict():
         assert x.strip(), 'empty define:-->%s<--' % x
+
+
+def test_model():
+    eq_(dev.model, config.model)
