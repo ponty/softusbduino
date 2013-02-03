@@ -374,7 +374,8 @@ public:
 
         //		  wdt_reset();
 
-        wdt_enable (WDTO_1S);
+        //wdt_enable (WDTO_1S);
+        wdt_disable();
         /* Even if you don't use the watchdog, turn it off here. On newer devices,
          * the status of the watchdog (on/off, period) is PRESERVED OVER RESET!
          */
