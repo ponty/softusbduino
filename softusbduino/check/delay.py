@@ -147,6 +147,14 @@ def main():
     def run(**kw):
         print_delay(**kw)
 
+    kw['disable_interrupts'] = False
+
+    kw['func'] = 'usbFunctionSetup'
+    run(**kw)
+
+    kw['func'] = 'usbPoll'
+    run(**kw)
+
     kw['disable_interrupts'] = True
 
     kw['func'] = 'usbFunctionSetup'
@@ -155,10 +163,3 @@ def main():
     kw['func'] = 'usbPoll'
     run(**kw)
 
-    kw['disable_interrupts'] = False
-
-    kw['func'] = 'usbFunctionSetup'
-    run(**kw)
-
-    kw['func'] = 'usbPoll'
-    run(**kw)

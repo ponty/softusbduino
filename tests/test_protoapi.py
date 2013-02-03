@@ -2,7 +2,6 @@ from nose.tools import eq_
 from softusbduino.arduino import Arduino, OUTPUT, INPUT
 from softusbduino.protoapi import *
 from test_pin import ok_an
-from util import exc_
 
 dev = None
 

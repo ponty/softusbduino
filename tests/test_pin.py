@@ -3,8 +3,9 @@ from nose.tools import eq_, ok_
 from softusbduino.arduino import Arduino
 from softusbduino.const import *
 from test_vcc import ok_vcc
-import time
 from util import exc_
+import time
+from config import config
 
 dev = None
 
@@ -197,8 +198,8 @@ def test_memoized():
 
 
 def test_usb_pin():
-    p = 7
-    m = 2
+    p = config.pin_usb_plus
+    m = config.pin_usb_minus
     eq_(dev.pins.usb_minus_pin, p)
     eq_(dev.pins.usb_plus_pin, m)
 
@@ -224,3 +225,4 @@ def test_pin_range():
     dev.pin('A5')
     exc_(ValueError, lambda: dev.pin('A6'))
     exc_(ValueError, lambda: dev.pin('D14'))
+

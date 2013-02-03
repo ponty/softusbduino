@@ -8,4 +8,7 @@ config = Bunch(
     F_CPU=20000000.0,
     MCU_DEFINED='__AVR_ATmega88__',
     model='ATmega88',
+    pin_usb_plus=     7,
+    pin_usb_minus=     2,
+
 )

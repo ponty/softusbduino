@@ -13,6 +13,6 @@ def test_simple():
 def test_perf():
     performance.main()
 
-
-def test_delay():
-    delay.main()
+# very slow
+#def test_delay():
+#    delay.main()
