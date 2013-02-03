@@ -9,12 +9,12 @@ dev = None
 def setup():
     global dev
     dev = Arduino()
-    dev.reset()
+    dev.pins.reset_all()
 
 
 def teardown():
     global dev
-    dev.reset()
+    dev.pins.reset_all()
 
 # def test_pwm_out():
 #    pin = dev.pin('D9')
@@ -48,6 +48,7 @@ def test_pwm():
                    F_CPU / 2 ** 17,
                    F_CPU / 2 ** 19,
                    ]
+    frequencies.sort()
     eq_(pwm.frequencies_available(9), frequencies)
     eq_(pin9.pwm.frequencies_available, frequencies)
 

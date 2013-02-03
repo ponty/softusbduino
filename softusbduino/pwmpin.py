@@ -1,7 +1,6 @@
 from __future__ import division
-from decotrace import traced
 from memo import memoized
-from softusbduino.const import *
+from softusbduino.const import OUTPUT
 import logging
 
 log = logging.getLogger(__name__)
@@ -241,7 +240,9 @@ class Pwm(object):
         return 1.0 * self.F_CPU / self.base_divisor(pin_nr) / divisor
 
     def frequencies_available(self, pin_nr):
-        return [self.calculate_frequency(pin_nr, x) for x in self.divisors_available(pin_nr)]
+        ls=[self.calculate_frequency(pin_nr, x) for x in self.divisors_available(pin_nr)]
+        ls.sort()
+        return ls
 
     def read_frequency(self, pin_nr):
         self._check(pin_nr)
