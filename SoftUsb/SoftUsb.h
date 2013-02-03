@@ -38,7 +38,6 @@ params_t slow_params;
 
 #include "SoftUsb_test.h"
 
-
 void usbReconnect()
 {
     usbDeviceDisconnect();
@@ -238,28 +237,11 @@ usbMsgLen_t SoftUsb_UsbFunctionSetup(uchar data[8])
             break;
 
         case 90:
-            f_tics = 0;
-            f_period = 0;
-            f_counter_overflows = 0;
-            f_first = true;
-            f_ready = false;
-            break;
-
-        case 91:
-            f_period = params.word1;
-            break;
-
-        case 92:
-            return return_int16(f_tics);
-            break;
-
-        case 93:
-            return return_int16(f_counter_overflows);
-            break;
-
-        case 94:
             slow_params = params;
             run_slow = true;
+            break;
+        case 91:
+            return return_int32(g_count);
             break;
 
         case 101:
@@ -465,16 +447,21 @@ public:
                 sei();
                 break;
 
-            case 94:
-                USB_INTR_ENABLE &= ~_BV(USB_INTR_ENABLE_BIT);
-                _delay_ms(1);
-                //				while (--i)
-                //				{ /* 250 ms */
-                //					_delay_ms(1);
-                //				}
-                TIMSK2 |= (1 << OCIE2A); // enable Timer2 Interrupt
-                while (!f_ready)
-                    ;
+            case 90:
+            {
+                bool b_usb_disconnect = slow_params.bytes[0];
+                if (b_usb_disconnect)
+                    usbDeviceDisconnect();
+//                USB_INTR_ENABLE &= ~_BV(USB_INTR_ENABLE_BIT);
+
+                gate_length =slow_params.word1;
+                startTCCR2B=slow_params.bytes[1];
+                g_count = FreqCount.read1();
+
+//                USB_INTR_ENABLE |= _BV(USB_INTR_ENABLE_BIT);
+                if (b_usb_disconnect)
+                    usbDeviceConnect();
+            }
                 break;
 
             case 211:
