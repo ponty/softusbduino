@@ -51,17 +51,14 @@ class VccMixin(object):
         '''
         Vcc with uncertainty
         '''
-        ADCSRA = self.register('ADCSRA')
-        ADMUX = self.register('ADMUX')
-        ADCL = self.register('ADCL')
-        ADCH = self.register('ADCH')
+        reg=self.registers.proxy
 
-        ADMUX.value = 0x4E  # 0b01001110
+        reg.ADMUX = 0x4E  # 0b01001110
         time.sleep(0.002)  # Wait for Vref to settle
-        ADCSRA.value |= 0x40  # 0b01000000
-        while ADCSRA.value & 0x40:
+        reg.ADCSRA |= 0x40  # 0b01000000
+        while reg.ADCSRA & 0x40:
             time.sleep(0.001)
-        result = ADCL.value | (ADCH.value << 8)
+        result = reg.ADCL | (reg.ADCH << 8)
         error = self.adc_accuracy
         u_result = ufloat((result, error))
         result = (self.bandgap_voltage * 1023L) / u_result

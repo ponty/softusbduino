@@ -42,6 +42,7 @@ def main(n=100):
     measure(mcu, n, 'registers.read_value("DDRB")')
     measure(mcu, n, 'registers.exists("DDRB")')
     measure(mcu, n, 'registers.exists("xx")')
+    measure(mcu, n, 'registers.proxy.DDRB')
     measure(mcu, n, 'register("DDRB").value')
     measure(mcu, n, 'register("DDRB").read_value()')
     measure(mcu, n, 'register("DDRB").exists')

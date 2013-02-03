@@ -51,6 +51,7 @@ class Counter(object):
         self.mcu = mcu
 
     def start(self, gate_time):
+        reg=self.registers.proxy
         F_CPU = self.mcu.define('F_CPU')
         TCCR1A = self.mcu.register('TCCR1A')
         TCCR1B = self.mcu.register('TCCR1B')

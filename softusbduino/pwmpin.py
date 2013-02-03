@@ -292,18 +292,14 @@ class Pwm(object):
 #        self.registers.write_value('OCR1A', fill)
 #        self.registers.write_value('OCR1B', fill)
 
-        TCCR1A = self.registers.read_value('TCCR1A')
-#        TCCR1B = self.registers.read_value('TCCR1B')
-        TCCR1A = 0b00000010 + (0b11110000 & TCCR1A)
+        reg=self.registers.proxy
+        reg.TCCR1A= 0b00000010 + (0b11110000 & reg.TCCR1A)
+        reg.TCCR1B= 0b00011001
 
-        TCCR1B = 0b00011001
-        self.registers.write_value('TCCR1A', TCCR1A)
-        self.registers.write_value('TCCR1B', TCCR1B)
-
-        self.registers.write_value('TCNT1', 0)
-        self.registers.write_value('ICR1', d)
-        self.registers.write_value('OCR1A', fill)
-        self.registers.write_value('OCR1B', fill)
+        reg.TCNT1= 0
+        reg.ICR1= d
+        reg.OCR1A= fill
+        reg.OCR1B= fill
 
     def set_high_freq_around(self, pin_nr, freq):
         top = int(self.F_CPU / freq + 0.5)

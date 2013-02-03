@@ -91,3 +91,19 @@ def test_size():
 
     eq_(ICR1.size, 2)
     eq_(DDRB.size, 1)
+
+def test_register_proxy():
+
+    DDRB = dev.register('DDRB')
+    eq_(DDRB.read_value(), 0)
+    eq_(dev.registers.proxy.DDRB, 0)
+
+    DDRB.write_value(5)
+    eq_(DDRB.read_value(), 5)
+    eq_(dev.registers.proxy.DDRB, 5)
+
+    DDRB.value += 1
+    eq_(DDRB.value, 6)
+    eq_(dev.registers.proxy.DDRB, 6)
+    
+    DDRB.value = 0

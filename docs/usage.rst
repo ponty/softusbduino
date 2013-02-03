@@ -86,6 +86,7 @@ Usage
     >>> print mcu.defines.exists('F_CPU')
     >>>
     >>> print mcu.define('MCU_DEFINED')
+    >>> print mcu.model
     >>> print mcu.define('F_CPU')
     >>> print mcu.define('__DATE__')
     >>> print mcu.define('MOSI')
@@ -97,6 +98,7 @@ Usage
     >>> # read/write register	
     >>> mcu.register('DDRB').value = 0
     >>> print mcu.registers.read_value('DDRB')
+    >>> print mcu.registers.proxy.DDRB
     >>> print mcu.register('DDRB').read_value()
     >>> print mcu.register('DDRB').value
     >>> print mcu.pin(8).mode

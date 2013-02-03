@@ -38,40 +38,6 @@ class Register(object):
     def size(self):
         return self.base.size(self.name)
 
-# class Registers(object):
-#    def __init__(self, mcu):
-#        self.__dict__['mcu'] = mcu
-##        self.mcu = mcu
-#
-#    def reg_id(self, reg_name):
-#        mcu = object.__getattribute__(self, 'mcu')
-#        reg_id = mcu.register_ids[reg_name]
-#        return reg_id
-#
-#    def dump(self):
-#        d = Bunch()
-#        for name, reg_id in self.mcu.register_ids.items():
-#            if self.mcu.register_check(name):
-#                value = self.mcu.register_read(name)
-#                address = self.mcu.register_address(name)
-#                d[name] = (address, value)
-#            else:
-#                value = None
-#        return d
-#
-#    def __getattr__(self, name):
-#        try:
-#            reg_id = self.reg_id(name)
-#            if reg_id is not None:
-#                return self.mcu.register_read(name)
-#        except KeyError:
-#            return object.__getattribute__(self, name)
-#    def __setattr__(self, name, value):
-#        reg_id = self.reg_id(name)
-#        if reg_id is not None:
-#            return self.mcu.write_register_value(name, value)
-#        else:
-#            self.__dict__[name] = value
 
 
 class RegisterError(Exception):
@@ -101,16 +67,61 @@ class RegistersLowLevel(object):
     def read_size(self, reg_id):
         return self.base.usb_transfer(105, word1=reg_id)
 
+class RegistersProxy(object):
+    def __init__(self, base):
+        self.base = base
+#    def __init__(self, mcu):
+#        self.__dict__['mcu'] = mcu
+#        self.mcu = mcu
+
+#    def reg_id(self, reg_name):
+#        mcu = object.__getattribute__(self, 'mcu')
+#        reg_id = mcu.register_ids[reg_name]
+#        return reg_id
+
+#    def dump(self):
+#        d = Bunch()
+#        for name, reg_id in self.mcu.register_ids.items():
+#            if self.mcu.register_check(name):
+#                value = self.mcu.register_read(name)
+#                address = self.mcu.register_address(name)
+#                d[name] = (address, value)
+#            else:
+#                value = None
+#        return d
+
+    def __getattr__(self, name):
+        if name=='base':
+            return object.__getattribute__(self, name)
+        
+        if self.base.exists(name):
+            return self.base.read_value(name)
+        else:
+            return object.__getattribute__(self, name)
+        
+    def __setattr__(self, name, value):
+        if name=='base':
+            self.__dict__[name] = value
+
+        if self.base.exists(name):
+            return self.base.write_value(name, value)
+        else:
+            self.__dict__[name] = value
 
 class Registers(object):
+    def __init__(self, base):
+        self.base = base
+        
+    @property
+    @memoized
+    def proxy(self):
+        return RegistersProxy(self)
 
     @property
     @memoized
     def  register_id_map(self):
         return _register_id_map()
 
-    def __init__(self, base):
-        self.base = base
 
     @memoized
     def exists(self, reg_name):
