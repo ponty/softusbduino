@@ -5,7 +5,7 @@ from softusbduino.arduino import Arduino
 @entrypoint
 def main():
     mcu = Arduino()
-    p=mcu.pin(9)
+    p = mcu.pin(9)
     print p.read_mode()
     p.write_mode(1)
     print p.read_mode()

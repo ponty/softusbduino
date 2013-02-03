@@ -240,7 +240,8 @@ class Pwm(object):
         return 1.0 * self.F_CPU / self.base_divisor(pin_nr) / divisor
 
     def frequencies_available(self, pin_nr):
-        ls=[self.calculate_frequency(pin_nr, x) for x in self.divisors_available(pin_nr)]
+        ls = [self.calculate_frequency(
+            pin_nr, x) for x in self.divisors_available(pin_nr)]
         ls.sort()
         return ls
 
@@ -293,14 +294,14 @@ class Pwm(object):
 #        self.registers.write_value('OCR1A', fill)
 #        self.registers.write_value('OCR1B', fill)
 
-        reg=self.registers.proxy
-        reg.TCCR1A= 0b00000010 + (0b11110000 & reg.TCCR1A)
-        reg.TCCR1B= 0b00011001
+        reg = self.registers.proxy
+        reg.TCCR1A = 0b00000010 + (0b11110000 & reg.TCCR1A)
+        reg.TCCR1B = 0b00011001
 
-        reg.TCNT1= 0
-        reg.ICR1= d
-        reg.OCR1A= fill
-        reg.OCR1B= fill
+        reg.TCNT1 = 0
+        reg.ICR1 = d
+        reg.OCR1A = fill
+        reg.OCR1B = fill
 
     def set_high_freq_around(self, pin_nr, freq):
         top = int(self.F_CPU / freq + 0.5)

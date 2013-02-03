@@ -162,4 +162,3 @@ def main():
 
     kw['func'] = 'usbPoll'
     run(**kw)
-

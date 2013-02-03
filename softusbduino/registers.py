@@ -39,7 +39,6 @@ class Register(object):
         return self.base.size(self.name)
 
 
-
 class RegisterError(Exception):
     pass
 
@@ -67,6 +66,7 @@ class RegistersLowLevel(object):
     def read_size(self, reg_id):
         return self.base.usb_transfer(105, word1=reg_id)
 
+
 class RegistersProxy(object):
     def __init__(self, base):
         self.base = base
@@ -91,16 +91,16 @@ class RegistersProxy(object):
 #        return d
 
     def __getattr__(self, name):
-        if name=='base':
+        if name == 'base':
             return object.__getattribute__(self, name)
-        
+
         if self.base.exists(name):
             return self.base.read_value(name)
         else:
             return object.__getattribute__(self, name)
-        
+
     def __setattr__(self, name, value):
-        if name=='base':
+        if name == 'base':
             self.__dict__[name] = value
 
         if self.base.exists(name):
@@ -108,10 +108,11 @@ class RegistersProxy(object):
         else:
             self.__dict__[name] = value
 
+
 class Registers(object):
     def __init__(self, base):
         self.base = base
-        
+
     @property
     @memoized
     def proxy(self):
@@ -121,7 +122,6 @@ class Registers(object):
     @memoized
     def  register_id_map(self):
         return _register_id_map()
-
 
     @memoized
     def exists(self, reg_name):

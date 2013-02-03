@@ -51,7 +51,7 @@ class VccMixin(object):
         '''
         Vcc with uncertainty
         '''
-        reg=self.registers.proxy
+        reg = self.registers.proxy
 
         reg.ADMUX = 0x4E  # 0b01001110
         time.sleep(0.002)  # Wait for Vref to settle

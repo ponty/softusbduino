@@ -66,12 +66,12 @@ class Arduino(
         '''hard reset with watchdog
         slow
         '''
-        t=self.watchdog.values[0]
+        t = self.watchdog.values[0]
         self.watchdog.start(t)
         self.usb.disconnect()
-        time.sleep(t+1)
+        time.sleep(t + 1)
         self.usb.connect()
-        
+
     def ground_usb_neihbours(self):
         self.pins.ground_usb_neihbours()
 

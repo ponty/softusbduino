@@ -225,4 +225,3 @@ def test_pin_range():
     dev.pin('A5')
     exc_(ValueError, lambda: dev.pin('A6'))
     exc_(ValueError, lambda: dev.pin('D14'))
-

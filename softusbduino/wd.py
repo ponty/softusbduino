@@ -6,16 +6,16 @@ import time
 
 log = logging.getLogger(__name__)
 
-#WDTO_15MS = 0
-#WDTO_30MS = 1
-#WDTO_60MS = 2
-#WDTO_120MS = 3
-#WDTO_250MS = 4
-#WDTO_500MS = 5
-#WDTO_1S = 6
-#WDTO_2S = 7
-#WDTO_4S = 8
-#WDTO_8S = 9
+# WDTO_15MS = 0
+# WDTO_30MS = 1
+# WDTO_60MS = 2
+# WDTO_120MS = 3
+# WDTO_250MS = 4
+# WDTO_500MS = 5
+# WDTO_1S = 6
+# WDTO_2S = 7
+# WDTO_4S = 8
+# WDTO_8S = 9
 
 WDIE = 6
 WDE = 3
@@ -74,7 +74,7 @@ class Watchdog(object):
 
     def start(self, sec):
         'atmega8: max 2 sec'
-        i=self.values.index(sec)
+        i = self.values.index(sec)
         self.base.enable(i)
         self.base.write_auto_reset(False)
 

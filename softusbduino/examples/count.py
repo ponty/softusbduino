@@ -3,7 +3,6 @@ from softusbduino.arduino import Arduino
 from softusbduino.const import OUTPUT
 
 
-
 @entrypoint
 def main():
     mcu = Arduino()
@@ -11,4 +10,3 @@ def main():
     p.write_mode(OUTPUT)
     p.pwm.write_value(128)
     print mcu.counter.run(1)
-
