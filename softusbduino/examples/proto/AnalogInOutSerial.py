@@ -18,7 +18,7 @@ from softusbduino.protoapi import *
 
 # These constants won't change.  They're used to give names
 # to the pins used:
-analogInPin = A0
+analogInPin = 0
 # Analog input pin that the potentiometer is attached to
 analogOutPin = 9
 # Analog output pin that the LED is attached to
