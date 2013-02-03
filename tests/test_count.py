@@ -6,7 +6,7 @@ from uncertainties import nominal_value, std_dev
 
 def test_counter():
     mcu = Arduino()
-    mcu.reset()
+    mcu.pins.reset_all()
     p = mcu.pin(5)
     p.write_mode(OUTPUT)
     p.pwm.write_value(128)
