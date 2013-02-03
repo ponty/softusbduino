@@ -15,5 +15,5 @@ def teardown():
 
 
 def test():
-    dev.delay_test(0.0001, 'usbPoll', interrupts=False)
-    dev.delay_test(0.0001, 'usbFunctionSetup', interrupts=False)
+    dev.delay_test(0.0001, 'usbPoll', disable_interrupts=False)
+    dev.delay_test(0.0001, 'usbFunctionSetup', disable_interrupts=False)
