@@ -13,12 +13,12 @@ dev = None
 def setup():
     global dev
     dev = Arduino()
-    dev.pins.reset_all()
+    dev.pins.reset()
 
 
 def teardown():
     global dev
-    dev.pins.reset_all()
+    dev.pins.reset()
 
 
 def test_pin_nr():
@@ -148,7 +148,7 @@ def test_an():
 def test_mode():
     pin = dev.pin(8)
 
-    dev.reset()
+    dev.pins.reset()
 
     eq_(pin.mode, INPUT)
     eq_(pin.read_mode(), INPUT)
@@ -171,7 +171,7 @@ def test_mode():
     eq_(pin.mode, INPUT)
 
     pin.mode = OUTPUT
-    dev.reset()
+    dev.pins.reset()
     eq_(pin.mode, INPUT)
 
 

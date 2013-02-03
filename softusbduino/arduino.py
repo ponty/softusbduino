@@ -12,6 +12,7 @@ from softusbduino.usbdevice import UsbDevice, UsbMixin
 from softusbduino.vcc import VccMixin
 from softusbduino.wd import WatchdogMixin
 import logging
+import time
 import version
 
 log = logging.getLogger(__name__)
@@ -61,9 +62,16 @@ class Arduino(
     def version_test(self):
         assert self.defines.SOFTUSBDUINO_FIRMWARE_VERSION == version.SOFTUSBDUINO_FIRMWARE_VERSION
 
-    def reset(self):
-        self.pins.reset_all()
-
+    def hardreset(self):
+        '''hard reset with watchdog
+        slow
+        '''
+        t=self.watchdog.values[0]
+        self.watchdog.start(t)
+        self.usb.disconnect()
+        time.sleep(t+1)
+        self.usb.connect()
+        
     def ground_usb_neihbours(self):
         self.pins.ground_usb_neihbours()
 

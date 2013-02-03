@@ -1,3 +1,4 @@
+from collections import OrderedDict
 from memo import memoized
 from softusbduino.const import *
 import logging
@@ -5,16 +6,16 @@ import time
 
 log = logging.getLogger(__name__)
 
-WDTO_15MS = 0
-WDTO_30MS = 1
-WDTO_60MS = 2
-WDTO_120MS = 3
-WDTO_250MS = 4
-WDTO_500MS = 5
-WDTO_1S = 6
-WDTO_2S = 7
-WDTO_4S = 8
-WDTO_8S = 9
+#WDTO_15MS = 0
+#WDTO_30MS = 1
+#WDTO_60MS = 2
+#WDTO_120MS = 3
+#WDTO_250MS = 4
+#WDTO_500MS = 5
+#WDTO_1S = 6
+#WDTO_2S = 7
+#WDTO_4S = 8
+#WDTO_8S = 9
 
 WDIE = 6
 WDE = 3
@@ -45,18 +46,18 @@ class LowLevelWatchdog(object):
 
 
 class Watchdog(object):
-    values = {
-        0.015: WDTO_15MS,
-        0.030: WDTO_30MS,
-        0.060: WDTO_60MS,
-        0.120: WDTO_120MS,
-        0.250: WDTO_250MS,
-        0.500: WDTO_500MS,
-        1: WDTO_1S,
-        2: WDTO_2S,
-        4: WDTO_4S,
-        8: WDTO_8S,
-    }
+    values = [
+        0.015,
+        0.030,
+        0.060,
+        0.120,
+        0.250,
+        0.500,
+        1,
+        2,
+        4,
+        8,
+    ]
 
     def __init__(self, base, defines, mcu):
         self.base = base
@@ -73,7 +74,8 @@ class Watchdog(object):
 
     def start(self, sec):
         'atmega8: max 2 sec'
-        self.base.enable(self.values[sec])
+        i=self.values.index(sec)
+        self.base.enable(i)
         self.base.write_auto_reset(False)
 
     def stop(self):

@@ -273,11 +273,14 @@ class Pins(object):
     def avr_pin(self, pin_nr):
         return 'P%s%s' % (self.avr_port(pin_nr), self.avr_bit(pin_nr))
 
-    def reset(self, pin_nr):
-        self.write_mode(pin_nr, INPUT)
-        self.write_pullup(pin_nr, LOW)
+    def reset(self, pin_nr=None):
+        if pin_nr is None:
+            self.reset_all_pins()
+        else:
+            self.write_mode(pin_nr, INPUT)
+            self.write_pullup(pin_nr, LOW)
 
-    def reset_all(self):
+    def reset_all_pins(self):
         minus = self.usb_minus_pin
         plus = self.usb_plus_pin
         for x in self.range_all:

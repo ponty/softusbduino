@@ -60,4 +60,4 @@ def main(n=100):
 #    measure(mcu,n, 'pin("A0").analog_in().value')
 
     measure(mcu, n, 'pins.read_mode(0)')
-    measure(mcu, n, 'reset()')
+    measure(mcu, n, 'pins.reset()')

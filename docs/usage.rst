@@ -8,7 +8,7 @@ Usage
     >>> mcu = Arduino()
     >>> 
     >>> # reset pin directions
-    >>> mcu.reset()
+    >>> mcu.pins.reset()
     >>>
     >>> # constants in python library
     >>> print '0x%X' % mcu.usb.id_vendor
@@ -110,7 +110,7 @@ Usage
     >>> print mcu.pin(8).mode
     >>>
     >>>
-    >>> mcu.reset()
+    >>> mcu.pins.reset()
 
 Code generation
 -----------------

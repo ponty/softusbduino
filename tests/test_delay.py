@@ -6,12 +6,12 @@ dev = None
 def setup():
     global dev
     dev = Arduino()
-    dev.pins.reset_all()
+    dev.pins.reset()
 
 
 def teardown():
     global dev
-    dev.reset()
+    dev.hardreset()
 
 
 def test():

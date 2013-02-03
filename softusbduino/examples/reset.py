@@ -3,9 +3,11 @@ from softusbduino.arduino import Arduino
 
 
 @entrypoint
-def main(backend='libusb'):
+def main():
     mcu = Arduino()
-    print 'reset using backend:' + backend
-    mcu.usb.reset(backend=backend)
-    # mcu.usb.reset_libusb()
-    # mcu.usb.reset_usbfs()
+    p=mcu.pin(9)
+    print p.read_mode()
+    p.write_mode(1)
+    print p.read_mode()
+    mcu.reset()
+    print p.read_mode()
