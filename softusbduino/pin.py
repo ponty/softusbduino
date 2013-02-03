@@ -1,6 +1,5 @@
-from decotrace import traced
 from memo import memoized
-from softusbduino.const import *
+from softusbduino.const import INPUT, OUTPUT, LOW
 from softusbduino.pwmpin import PwmPinMixin
 import logging
 

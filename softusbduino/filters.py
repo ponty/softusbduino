@@ -1,6 +1,4 @@
 from __future__ import division
-from decotrace import traced
-import time
 
 
 def median(ls):
