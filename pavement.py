@@ -13,7 +13,6 @@ from paved.util import *
 from paved.docs import *
 from paved.pycheck import *
 from paved.pkg import *
-from sphinxcontrib import paverutils
 from pyavrutils import support
 
 # get info from setup.py
@@ -27,10 +26,10 @@ options(
         docroot='docs',
         builddir="_build",
     ),
-    pdf=Bunch(
-        builddir='_build',
-        builder='latex',
-    ),
+#    pdf=Bunch(
+#        builddir='_build',
+#        builder='latex',
+#    ),
 )
 
 
@@ -93,23 +92,8 @@ def alltest():
 
 
 @task
-@needs('sphinxcontrib.paverutils.html')
-def html():
-    pass
-
-
-@task
-@needs('sphinxcontrib.paverutils.pdf')
-def pdf():
-    fpdf = list(path('docs/_build/latex').walkfiles('*.pdf'))[0]
-    d = path('docs/_build/html')
-    d.makedirs()
-    fpdf.copy(d)
-
-
-@task
 def doxy():
-    path('docs/_build/html/doxy').makedirs()
+    path('docs/_build/html/doxy').makedirs_p()
     sh('doxygen doxy.ini')
 
 ARDUINO_VERSIONS = [
@@ -147,14 +131,16 @@ def codegen():
 
 
 @task
-def tox():
-    '''Run tox.'''
-    sh('tox')
-
-
-@task
 @needs('manifest', 'setuptools.command.sdist')
 def sdist():
     """Overrides sdist to make sure that our MANIFEST.in is generated.
+    """
+    pass
+
+
+@task
+@needs('codegen')
+def build():
+    """
     """
     pass
