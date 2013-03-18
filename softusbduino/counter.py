@@ -35,7 +35,7 @@ class Counter(object):
         self.defines = defines
         self.mcu = mcu
 
-    def   counter_init(self):
+    def counter_init(self):
         reg = self.mcu.registers.proxy
         self.saveTCCR1A = reg.TCCR1A
         self.saveTCCR1B = reg.TCCR1B
@@ -53,41 +53,51 @@ class Counter(object):
         reg.TCCR2B = 0
         reg.TCCR2A = (1 << WGM21)
 
-        reg.OCR2A = 124                 # div 125
-        self.startTCCR2B = (1 << CS22) | (1 << CS20)   # div 128
+        reg.OCR2A = 124  # div 125
+        self.startTCCR2B = (1 << CS22) | (1 << CS20)  # div 128
 
         reg.TIFR2 = (1 << OCF2A)
         reg.TCNT2 = 0
+
+    def begin(self):
+        self.counter_init()
+        self.timer_init()
 
     def end(self):
         self.timer_shutdown()
         self.counter_shutdown()
 
-    def   timer_shutdown(self):
+    def __enter__(self):
+        self.begin()
+
+    def __exit__(self, type, value, traceback):
+        self.end()
+
+    def timer_shutdown(self):
         reg = self.mcu.registers.proxy
         reg.TCCR2B = 0
         reg.TIMSK2 = 0
         reg.TCCR2A = self.saveTCCR2A
         reg.TCCR2B = self.saveTCCR2B
 
-    def   counter_shutdown(self):
+    def counter_shutdown(self):
         reg = self.mcu.registers.proxy
         reg.TCCR1B = 0
         reg.TCCR1A = self.saveTCCR1A
         reg.TCCR1B = self.saveTCCR1B
 
     def run(self, gate_time_asked):
+#        self.counter_init()
+#        self.timer_init()
         self.gate_time_asked = gate_time_asked
         usb_disconnect = False
-        reg = self.mcu.registers.proxy
+#        reg = self.mcu.registers.proxy
 
         F_CPU = self.mcu.define('F_CPU')
         self.gate_freq = F_CPU / 125 / 128
         x = int(gate_time_asked * self.gate_freq)
         self.gate_time = x / self.gate_freq
 
-        self.counter_init()
-        self.timer_init()
         self.base.start_interrupt(
             x, self.startTCCR2B, usb_disconnect=usb_disconnect)
         time.sleep(self.gate_time + 0.1)

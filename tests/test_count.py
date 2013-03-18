@@ -1,4 +1,4 @@
-from nose.tools import ok_
+from nose.tools import ok_, eq_
 from softusbduino.arduino import Arduino
 from softusbduino.const import OUTPUT
 from uncertainties import nominal_value, std_dev
@@ -6,11 +6,12 @@ from uncertainties import nominal_value, std_dev
 
 def test_counter():
     mcu = Arduino()
+    reg = mcu.registers.proxy
     mcu.pins.reset()
+
     p = mcu.pin(5)
     p.write_mode(OUTPUT)
     p.pwm.write_value(128)
-
     print 'frequencies_available:', p.pwm.frequencies_available
     for fset in p.pwm.frequencies_available:
         p.pwm.frequency = fset
@@ -21,11 +22,14 @@ def test_counter():
         for ms in [10, 20, 50, 100, 200, 500, 1000]:
             for _ in range(1):
                 t = ms / 1000.0
+                with mcu.counter:
+                    mcu.counter.run(t)
+                    f = mcu.counter.frequency
+                    t = mcu.counter.gate_time
+                    err = f - fset
 
-                mcu.counter.run(t)
-                f = mcu.counter.frequency
-                t = mcu.counter.gate_time
-                err = f - fset
+                    print 't=%s  f=%s ' % (t, f)
+                    ok_(abs(nominal_value(err)) <= std_dev(err))
 
-                print 't=%s  f=%s ' % (t, f)
-                ok_(abs(nominal_value(err)) <= std_dev(err))
+    eq_(3, reg.TCCR1B)
+
