@@ -1,9 +1,7 @@
 from entrypoint2 import entrypoint
 from path import path
-from softusbduino.version import SOFTUSBDUINO_FIRMWARE_VERSION
+from softusbduino import version, const
 from textwrap import dedent
-import const
-import version
 
 
 def read_define(fname, name):
@@ -105,7 +103,7 @@ class Codegen(object):
     def ver(self, target):
         print '== generating code for version =='
         ls = [('SOFTUSBDUINO_VERSION', version.SOFTUSBDUINO_VERSION()),
-              ('SOFTUSBDUINO_FIRMWARE_VERSION', SOFTUSBDUINO_FIRMWARE_VERSION),
+              ('SOFTUSBDUINO_FIRMWARE_VERSION', version.SOFTUSBDUINO_FIRMWARE_VERSION),
               ]
         cpp = ''
         for name, value in ls:
@@ -146,18 +144,19 @@ class Codegen(object):
 
 @entrypoint
 def main():
-    root = path('/usr/lib/avr/include/avr/')
-    x = Codegen(root)
-    dir_ard = path(__file__).abspath().parent.parent / 'SoftUsb'
+    SoftUsb_path = path(__file__).abspath().parent.parent.parent / 'SoftUsb'
+    avr_include_path = path('/usr/lib/avr/include/avr/')
+
+    x = Codegen(avr_include_path)
 
     REGISTERS_CSV = path(const.REGISTERS_CSV)
-    x.regs(dir_ard / 'generated_registers.h', REGISTERS_CSV)
+    x.regs(SoftUsb_path / 'generated_registers.h', REGISTERS_CSV)
 
     INTDEFS_CSV = path(const.INTDEFS_CSV)
-    x.intdefs(INTDEFS_CSV, dir_ard / 'generated_intdefs.h')
+    x.intdefs(INTDEFS_CSV, SoftUsb_path / 'generated_intdefs.h')
 
-    x.mcu(dir_ard / 'generated_mcu.h')
+    x.mcu(SoftUsb_path / 'generated_mcu.h')
 
-    x.ver(dir_ard / 'generated_version.h')
+    x.ver(SoftUsb_path / 'generated_version.h')
 
     print 'done'

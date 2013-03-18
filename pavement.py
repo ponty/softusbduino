@@ -127,7 +127,9 @@ def boards():
 
 @task
 def codegen():
-    sh('python softusbduino/codegen.py')
+#    from softusbduino import codegen
+#    codegen.main()
+    sh('python softusbduino/codegen/__init__.py')
 
 
 @task
