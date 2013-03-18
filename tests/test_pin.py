@@ -1,4 +1,3 @@
-from measurement import AnalogIn
 from nose.tools import eq_, ok_
 from softusbduino.arduino import Arduino
 from softusbduino.const import *
@@ -131,7 +130,7 @@ def test_an():
     ok_an(pin.analog, pullup=True)
 
 #    ok_an(dev.pins.read_analog_obj(14).value, pullup=True)
-    ok_an(AnalogIn(pin).read().value, pullup=True)
+#    ok_an(AnalogIn(pin).read().value, pullup=True)
 #    ok_an(pin.analog_obj.value, pullup=True)
 
 #    ok_vcc(pin.analog_obj.voltage)

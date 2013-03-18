@@ -1,5 +1,5 @@
-from avrlib import avr_define_value, avr_define_value_list
 from nose.tools import eq_
+from softusbduino.codegen.avrlib import avr_define_value_list, avr_define_value
 
 
 def test_defines():

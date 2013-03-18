@@ -2,6 +2,7 @@ from nose.tools import eq_, ok_
 from softusbduino.arduino import Arduino
 from softusbduino.registers import RegisterError
 from util import exc_
+import time
 
 dev = None
 
@@ -70,26 +71,41 @@ def test_register():
 
 
 def test_16bit():
-    ICR1 = dev.register('ICR1')
+    reg = dev.registers.proxy
+    
+    # 9 bit
+    reg.EEAR = 511
+    eq_(reg.EEAR, 511)
+    
+#    OCR1A = dev.register('OCR1A')
+#    OCR1AH = dev.register('OCR1AH')
+#    OCR1AL = dev.register('OCR1AL')
+#
+#    old = OCR1A.value
+#
+#    OCR1A.value = 55
+#    eq_(OCR1A.value, 55)
+#    eq_(OCR1AH.value, 0)
+#    eq_(OCR1AL.value, 55)
+#
+#    OCR1A.value = 511
+#    eq_(OCR1A.value, 511)
+#    eq_(OCR1AH.value, 2)
+#    eq_(OCR1AL.value, 43)
+#
+#    OCR1A.value = 55555
+#    eq_(OCR1A.value, 55555)
+#    eq_(OCR1AH.value, 217)
+#    eq_(OCR1AL.value, 3)
 
-    ICR1.value = 55
-    eq_(ICR1.value, 55)
-
-    ICR1.value = 555
-    eq_(ICR1.value, 555)
-
-    ICR1.value = 5555
-    eq_(ICR1.value, 5555)
-
-    ICR1.value = 55555
-    eq_(ICR1.value, 55555)
+#    OCR1A.value = old
 
 
 def test_size():
-    ICR1 = dev.register('ICR1')
+    EEAR = dev.register('EEAR')
     DDRB = dev.register('DDRB')
 
-    eq_(ICR1.size, 2)
+    eq_(EEAR.size, 2)
     eq_(DDRB.size, 1)
 
 
