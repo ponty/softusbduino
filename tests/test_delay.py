@@ -11,7 +11,7 @@ def setup():
 
 def teardown():
     global dev
-    dev.hardreset()
+#    dev.hardreset()
 
 
 def test():

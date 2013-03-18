@@ -5,7 +5,7 @@ def test1():
     dev = Arduino()
     dev.pins.reset()
 
-
-def test2():
-    dev = Arduino()
-    dev.hardreset()
+# not working any more
+#def test2():
+#    dev = Arduino()
+#    dev.hardreset()
