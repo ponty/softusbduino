@@ -269,10 +269,10 @@ class Pwm(object):
         rega = self.timer_register_name(pin_nr, variant='A')
         regb = self.timer_register_name(pin_nr)
         if regb == 'TCCR1B':
-            maskb = 0b00011000
+            maskb = 24 # 0b00011000
         else:
-            maskb = 0b00001000
-        maska = 0b00000011
+            maskb = 8 # 0b00001000
+        maska = 3 #0b00000011
         a = self.registers.read_value(rega) & maska
         b = self.registers.read_value(regb) & maskb
         return a + (b >> 1)
@@ -295,8 +295,8 @@ class Pwm(object):
 #        self.registers.write_value('OCR1B', fill)
 
         reg = self.registers.proxy
-        reg.TCCR1A = 0b00000010 + (0b11110000 & reg.TCCR1A)
-        reg.TCCR1B = 0b00011001
+        reg.TCCR1A = 2 + (240 & reg.TCCR1A) # 0b00000010 + (0b11110000 & reg.TCCR1A)
+        reg.TCCR1B = 25 # 0b00011001
 
         reg.TCNT1 = 0
         reg.ICR1 = d

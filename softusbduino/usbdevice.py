@@ -1,6 +1,10 @@
 from decorator import decorator
 from memo import memoized
 from softusbduino.const import ID_VENDOR, ID_PRODUCT
+try:
+    from  __builtin__ import bytearray
+except ImportError:
+    bytearray=None
 import fcntl
 import logging
 import usb
@@ -130,8 +134,10 @@ class UsbDevice(object):
 
         # TODO: Refer to 'libusb_get_string_descriptor_ascii' for error
         # handling
-        return bytearray(response[2:]).decode("utf-16")
-        # return str(''.join(map(chr, response[2:])))
+        if bytearray:
+            return bytearray(response[2:]).decode("utf-16")
+        else:
+            return str(''.join(map(chr, response[2:])))
         #.decode('utf-16')
 
     #@reconnect_if_dropped
