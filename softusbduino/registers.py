@@ -1,11 +1,12 @@
 from bunch import Bunch
 from const import REGISTERS_CSV, REGISTER_SIZE
 from memo import memoized
-from path import path
 from softusbduino.const import REGISTER_CHECK, REGISTER_OK, REGISTER_MISSING, \
     REGISTER_READ, REGISTER_WRITE, REGISTER_ADDRESS
+from util import lines
+# from path import path
 
-REGISTERS_CSV = path(REGISTERS_CSV)
+# REGISTERS_CSV = path(REGISTERS_CSV)
 
 # def int16_p(x):
 #    return [x & 0xFF, x >> 8]
@@ -44,7 +45,7 @@ class RegisterError(Exception):
 
 
 def _register_id_map():
-    return Bunch([(x, i) for i, x in enumerate(REGISTERS_CSV.lines(retain=False))])
+    return Bunch([(x, i) for i, x in enumerate(lines(REGISTERS_CSV))])
 
 
 class RegistersLowLevel(object):

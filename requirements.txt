@@ -1,7 +1,4 @@
 uncertainties
-pyusb
 bunch
 dicts
-entrypoint2
-path.py
 decorator

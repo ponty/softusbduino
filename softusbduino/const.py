@@ -1,4 +1,5 @@
-from path import path
+# from path import path
+import os.path
 
 false = 0
 true = 1
@@ -28,5 +29,6 @@ MAGIC_NUMBER = 42
 ID_VENDOR = 0x16c0
 ID_PRODUCT = 0x05df
 
-REGISTERS_CSV = path(__file__).abspath().parent / 'generated_registers.csv'
-INTDEFS_CSV = path(__file__).abspath().parent / 'intdefs.csv'
+REGISTERS_CSV = os.path.join( os.path.dirname(__file__) , 'generated_registers.csv')
+INTDEFS_CSV = os.path.join( os.path.dirname(__file__) , 'intdefs.csv')
+

@@ -1,4 +1,3 @@
-from collections import OrderedDict
 from memo import memoized
 from softusbduino.const import *
 import logging

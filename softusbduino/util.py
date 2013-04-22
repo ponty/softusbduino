@@ -31,3 +31,8 @@ def an2pwm(an):
     if an is None:
         return
     return int(an / 1023 * 255 + 0.5)
+
+def lines(fname):
+    return map(str.strip, open(fname).readlines())
+
+

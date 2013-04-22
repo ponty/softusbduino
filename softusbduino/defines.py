@@ -1,9 +1,10 @@
 from bunch import Bunch
 from const import INTDEFS_CSV, MAGIC_NUMBER
-from path import path
 from memo import memoized
+from util import lines
+# from path import path
 
-INTDEFS_CSV = path(INTDEFS_CSV)
+# INTDEFS_CSV = path(INTDEFS_CSV)
 
 # class Define(object):
 #    def __init__(self, base, name):
@@ -25,7 +26,7 @@ class DefineError(Exception):
 
 def _intdef_ids():
     intdef_ids = Bunch([(x, i) for i, x in enumerate(
-        INTDEFS_CSV.lines(retain=False)) if x.strip()])
+        lines(INTDEFS_CSV)) if x.strip()])
     return intdef_ids
 
 
