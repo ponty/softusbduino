@@ -78,11 +78,11 @@ examples = support.find_examples(root)
     'codegen',
     'sloccount',
     'build_test',
-    'boards',
+#     'boards',
     'doxy',
     'cog',
     'html',
-    'pdf',
+    #'pdf',
     'sdist',
     'nose', 'tox',
 )
@@ -97,9 +97,9 @@ def doxy():
     sh('doxygen doxy.ini')
 
 ARDUINO_VERSIONS = [
-    '0022',
-    '0023',
-    '1.0',
+#     '0022',
+#     '0023',
+    '1.0.3',
 ]
 
 
@@ -117,12 +117,12 @@ def build_test():
         )
 
 
-@task
-def boards():
-    for ver in ARDUINO_VERSIONS:
-        support.set_arduino_path('~/opt/arduino-{0}'.format(ver))
-        csv = docroot / 'generated_boards_{0}.csv'.format(ver)
-        support.boards2csv(csv, logger=info)
+# @task
+# def boards():
+#     for ver in ARDUINO_VERSIONS:
+#         support.set_arduino_path('~/opt/arduino-{0}'.format(ver))
+#         csv = docroot / 'generated_boards_{0}.csv'.format(ver)
+#         support.boards2csv(csv, logger=info)
 
 
 @task
