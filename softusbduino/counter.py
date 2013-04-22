@@ -37,8 +37,7 @@ class Counter(object):
 
     def counter_init(self):
         reg = self.mcu.registers.proxy
-        self.saveTCCR1A = reg.TCCR1A
-        self.saveTCCR1B = reg.TCCR1B
+
         reg.TCCR1B = 0
         reg.TCCR1A = 0
         reg.TCNT1 = 0
@@ -48,8 +47,6 @@ class Counter(object):
     def timer_init(self):
         reg = self.mcu.registers.proxy
 
-        self.saveTCCR2A = reg.TCCR2A
-        self.saveTCCR2B = reg.TCCR2B
         reg.TCCR2B = 0
         reg.TCCR2A = (1 << WGM21)
 
@@ -60,12 +57,19 @@ class Counter(object):
         reg.TCNT2 = 0
 
     def begin(self):
-        self.counter_init()
-        self.timer_init()
+        reg = self.mcu.registers.proxy
+        self.saveTCCR1A = reg.TCCR1A
+        self.saveTCCR1B = reg.TCCR1B
+        self.saveTCCR2A = reg.TCCR2A
+        self.saveTCCR2B = reg.TCCR2B
 
     def end(self):
-        self.timer_shutdown()
-        self.counter_shutdown()
+        reg = self.mcu.registers.proxy
+        
+        reg.TCCR2A = self.saveTCCR2A
+        reg.TCCR2B = self.saveTCCR2B
+        reg.TCCR1A = self.saveTCCR1A
+        reg.TCCR1B = self.saveTCCR1B
 
     def __enter__(self):
         self.begin()
@@ -77,21 +81,17 @@ class Counter(object):
         reg = self.mcu.registers.proxy
         reg.TCCR2B = 0
         reg.TIMSK2 = 0
-        reg.TCCR2A = self.saveTCCR2A
-        reg.TCCR2B = self.saveTCCR2B
 
     def counter_shutdown(self):
         reg = self.mcu.registers.proxy
         reg.TCCR1B = 0
-        reg.TCCR1A = self.saveTCCR1A
-        reg.TCCR1B = self.saveTCCR1B
 
     def run(self, gate_time_asked):
-#        self.counter_init()
-#        self.timer_init()
         self.gate_time_asked = gate_time_asked
         usb_disconnect = False
-#        reg = self.mcu.registers.proxy
+
+        self.counter_init()
+        self.timer_init()
 
         F_CPU = self.mcu.define('F_CPU')
         self.gate_freq = F_CPU / 125 / 128
@@ -110,6 +110,10 @@ class Counter(object):
         n = self.base.read_count()
         n = ufloat((n, 1))
         self.frequency = n / self.gate_time
+        
+        self.timer_shutdown()
+        self.counter_shutdown()
+        
         return self.frequency
 
 
