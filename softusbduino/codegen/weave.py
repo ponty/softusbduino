@@ -1,9 +1,15 @@
-from confduino.util import tmpdir
 from path import path
-from scipy.weave.build_tools import CompileError
-from scipy.weave.inline_tools import inline
 import tempfile
 
+try:
+    from scipy.weave.inline_tools import inline
+except ImportError:
+    inline=None
+
+
+'''
+experimenting with scipy.weave
+'''
 # 'UDR0' can be bit or byte on differrent MCUs
 # just skip it (no better easy solution)
 # ignore = ['UDR0']
@@ -74,7 +80,6 @@ def avr_define_value_list(defines, mcu):
                     include_dirs=[clone_avrlib()],
                     #                  language='c',
                     )
-#    print 555,x
 #    dic=dict( [(n,v) for n,v in zip(names, values) if v is not None])
 
     return values
