@@ -1,0 +1,21 @@
+var searchData=
+[
+  ['read',['read',['../classFreqCountClass.html#a06f0e18fd8dd23a94a002700b0ad4f9a',1,'FreqCountClass']]],
+  ['read1',['read1',['../classFreqCountClass.html#ac45fc8f3d2da4b88404b47936a2f7aab',1,'FreqCountClass']]],
+  ['refresh',['refresh',['../classSoftUsb.html#aae154a58cef815b8dc9a35d49fb9b055',1,'SoftUsb']]],
+  ['reg_5fcount',['REG_COUNT',['../SoftUsb__const_8h.html#a44fd628f741b6d0ae9e373e76c84bb51',1,'SoftUsb_const.h']]],
+  ['register_5faddress',['REGISTER_ADDRESS',['../SoftUsb__const_8h.html#a546f6222a314aa97943d3ee703a6be3b',1,'SoftUsb_const.h']]],
+  ['register_5fcheck',['REGISTER_CHECK',['../SoftUsb__const_8h.html#a88cf852cd9f2ee9d54ce63d2f5455103',1,'SoftUsb_const.h']]],
+  ['register_5fmissing',['REGISTER_MISSING',['../SoftUsb__const_8h.html#ac34ef9e6cd8751e99f172cff7050b2a6',1,'SoftUsb_const.h']]],
+  ['register_5fok',['REGISTER_OK',['../SoftUsb__const_8h.html#aa773dc7edfb0cdf1089b50c3bd483109',1,'SoftUsb_const.h']]],
+  ['register_5fread',['REGISTER_READ',['../SoftUsb__const_8h.html#a9046020a735298efcb568edc15dcaf0e',1,'SoftUsb_const.h']]],
+  ['register_5fsize',['REGISTER_SIZE',['../SoftUsb__const_8h.html#abe2f7b6344bb4d51dfea9c9f58609427',1,'SoftUsb_const.h']]],
+  ['register_5fwrite',['REGISTER_WRITE',['../SoftUsb__const_8h.html#a02b3055bf1e9d37f01d0e9323af4319c',1,'SoftUsb_const.h']]],
+  ['return_5fbool',['return_bool',['../SoftUsb__return_8h.html#a4b943e143d1b79f8fb70203e4c6e3a53',1,'SoftUsb_return.h']]],
+  ['return_5fbyte_5farray',['return_byte_array',['../SoftUsb__return_8h.html#afcb4ed8b534e7b4849317228e841486d',1,'SoftUsb_return.h']]],
+  ['return_5fint16',['return_int16',['../SoftUsb__return_8h.html#a52a93e8dc943d35ad9ff076769a4f0cb',1,'SoftUsb_return.h']]],
+  ['return_5fint32',['return_int32',['../SoftUsb__return_8h.html#a79f8d30fd8091f07d4d945c5a32d8c1c',1,'SoftUsb_return.h']]],
+  ['return_5fint8',['return_int8',['../SoftUsb__return_8h.html#ac6d243a67049ba66dc8e3a7dbd356726',1,'SoftUsb_return.h']]],
+  ['return_5fstring',['return_string',['../SoftUsb__return_8h.html#a8e9651aeb2917610c4ec6a398928f9a4',1,'SoftUsb_return.h']]],
+  ['run_5fslow',['run_slow',['../SoftUsb_8h.html#ad900432b6bc74de9c21f73112a6fe45e',1,'SoftUsb.h']]]
+];

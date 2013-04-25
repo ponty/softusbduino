@@ -4,22 +4,16 @@
     float: left;
 }
 
-#searchli {
-    float: right;
-    display: block;
-    width: 170px;
-    height: 36px;
-}
-
 #MSearchBox {
     white-space : nowrap;
     position: absolute;
     float: none;
     display: inline;
-    margin-top: 8px;
+    margin-top: 0px;
     right: 0px;
     width: 170px;
     z-index: 102;
+    background-color: white;
 }
 
 #MSearchBox .left
@@ -222,6 +216,10 @@ a.SRScope {
 a.SRSymbol:focus, a.SRSymbol:active,
 a.SRScope:focus, a.SRScope:active {
     text-decoration: underline;
+}
+
+span.SRScope {
+    padding-left: 4px;
 }
 
 .SRPage .SRStatus {

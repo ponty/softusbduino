@@ -2,101 +2,64 @@
 stdout
 ----------
 scons: Reading SConscript files ...
-No Arduino version specified. Discovered version 0023 or below
-maximum size for hex file: 7168 bytes
+{   'ARDUINO_BOARD': ('dfl', 'atmega328'),
+    'ARDUINO_HOME': ('arg', '/home/titi/opt/arduino-1.0.3'),
+    'ARDUINO_PORT': ('dfl', None),
+    'ARDUINO_VER': ('dfl', 0),
+    'AVR_HOME': ('arg', '/home/titi/opt/arduino-1.0.3/hardware/tools/avr/bin'),
+    'EXTRA_LIB': ('dfl', None),
+    'RST_TRIGGER': ('dfl', None),
+    'SKETCHBOOK_HOME': ('dfl', '/home/titi/share/arduino/sketchbook/')}
+No Arduino version specified. Discovered version 100 or above
+maximum size for hex file: 30720 bytes
 scons: done reading SConscript files.
 scons: Building targets ...
 scons: building associated VariantDir targets: build/local build
-fnProcessing(["build/OneWire.cpp"], ["build/OneWire.pde"])
+fnProcessing(["build/OneWire.cpp"], ["build/OneWire.ino"])
 void setup();
 void loop();
-/tmp/pyavrutils_LsKKV6/OneWire/OneWire.pde OneWire
-avr-g++ -o build/OneWire.o -c -ffunction-sections -fdata-sections -fno-exceptions -Wall -funsigned-char -funsigned-bitfields -fpack-struct -fshort-enums -Os -mmcu=atmega8 -DARDUINO=23 -DF_CPU=16000000L -Ibuild/core -Ibuild/lib_00/OneWire -Ibuild/lib_00/SoftUsb build/OneWire.cpp
-avr-g++ -o build/core/HardwareSerial.o -c -ffunction-sections -fdata-sections -fno-exceptions -Wall -funsigned-char -funsigned-bitfields -fpack-struct -fshort-enums -Os -mmcu=atmega8 -DARDUINO=23 -DF_CPU=16000000L -Ibuild/core -Ibuild/lib_00/OneWire -Ibuild/lib_00/SoftUsb build/core/HardwareSerial.cpp
-avr-g++ -o build/core/Print.o -c -ffunction-sections -fdata-sections -fno-exceptions -Wall -funsigned-char -funsigned-bitfields -fpack-struct -fshort-enums -Os -mmcu=atmega8 -DARDUINO=23 -DF_CPU=16000000L -Ibuild/core -Ibuild/lib_00/OneWire -Ibuild/lib_00/SoftUsb build/core/Print.cpp
-avr-g++ -o build/core/Tone.o -c -ffunction-sections -fdata-sections -fno-exceptions -Wall -funsigned-char -funsigned-bitfields -fpack-struct -fshort-enums -Os -mmcu=atmega8 -DARDUINO=23 -DF_CPU=16000000L -Ibuild/core -Ibuild/lib_00/OneWire -Ibuild/lib_00/SoftUsb build/core/Tone.cpp
-avr-gcc -o build/core/WInterrupts.o -c -ffunction-sections -fdata-sections -fno-exceptions -Wall -funsigned-char -funsigned-bitfields -fpack-struct -fshort-enums -Os -mmcu=atmega8 -std=gnu99 -ffunction-sections -fdata-sections -fno-exceptions -Wall -funsigned-char -funsigned-bitfields -fpack-struct -fshort-enums -Os -mmcu=atmega8 -DARDUINO=23 -DF_CPU=16000000L -Ibuild/core -Ibuild/lib_00/OneWire -Ibuild/lib_00/SoftUsb build/core/WInterrupts.c
-avr-g++ -o build/core/WMath.o -c -ffunction-sections -fdata-sections -fno-exceptions -Wall -funsigned-char -funsigned-bitfields -fpack-struct -fshort-enums -Os -mmcu=atmega8 -DARDUINO=23 -DF_CPU=16000000L -Ibuild/core -Ibuild/lib_00/OneWire -Ibuild/lib_00/SoftUsb build/core/WMath.cpp
-avr-g++ -o build/core/WString.o -c -ffunction-sections -fdata-sections -fno-exceptions -Wall -funsigned-char -funsigned-bitfields -fpack-struct -fshort-enums -Os -mmcu=atmega8 -DARDUINO=23 -DF_CPU=16000000L -Ibuild/core -Ibuild/lib_00/OneWire -Ibuild/lib_00/SoftUsb build/core/WString.cpp
-avr-gcc -o build/core/pins_arduino.o -c -ffunction-sections -fdata-sections -fno-exceptions -Wall -funsigned-char -funsigned-bitfields -fpack-struct -fshort-enums -Os -mmcu=atmega8 -std=gnu99 -ffunction-sections -fdata-sections -fno-exceptions -Wall -funsigned-char -funsigned-bitfields -fpack-struct -fshort-enums -Os -mmcu=atmega8 -DARDUINO=23 -DF_CPU=16000000L -Ibuild/core -Ibuild/lib_00/OneWire -Ibuild/lib_00/SoftUsb build/core/pins_arduino.c
-avr-gcc -o build/core/wiring.o -c -ffunction-sections -fdata-sections -fno-exceptions -Wall -funsigned-char -funsigned-bitfields -fpack-struct -fshort-enums -Os -mmcu=atmega8 -std=gnu99 -ffunction-sections -fdata-sections -fno-exceptions -Wall -funsigned-char -funsigned-bitfields -fpack-struct -fshort-enums -Os -mmcu=atmega8 -DARDUINO=23 -DF_CPU=16000000L -Ibuild/core -Ibuild/lib_00/OneWire -Ibuild/lib_00/SoftUsb build/core/wiring.c
-avr-gcc -o build/core/wiring_analog.o -c -ffunction-sections -fdata-sections -fno-exceptions -Wall -funsigned-char -funsigned-bitfields -fpack-struct -fshort-enums -Os -mmcu=atmega8 -std=gnu99 -ffunction-sections -fdata-sections -fno-exceptions -Wall -funsigned-char -funsigned-bitfields -fpack-struct -fshort-enums -Os -mmcu=atmega8 -DARDUINO=23 -DF_CPU=16000000L -Ibuild/core -Ibuild/lib_00/OneWire -Ibuild/lib_00/SoftUsb build/core/wiring_analog.c
-avr-gcc -o build/core/wiring_digital.o -c -ffunction-sections -fdata-sections -fno-exceptions -Wall -funsigned-char -funsigned-bitfields -fpack-struct -fshort-enums -Os -mmcu=atmega8 -std=gnu99 -ffunction-sections -fdata-sections -fno-exceptions -Wall -funsigned-char -funsigned-bitfields -fpack-struct -fshort-enums -Os -mmcu=atmega8 -DARDUINO=23 -DF_CPU=16000000L -Ibuild/core -Ibuild/lib_00/OneWire -Ibuild/lib_00/SoftUsb build/core/wiring_digital.c
-avr-gcc -o build/core/wiring_pulse.o -c -ffunction-sections -fdata-sections -fno-exceptions -Wall -funsigned-char -funsigned-bitfields -fpack-struct -fshort-enums -Os -mmcu=atmega8 -std=gnu99 -ffunction-sections -fdata-sections -fno-exceptions -Wall -funsigned-char -funsigned-bitfields -fpack-struct -fshort-enums -Os -mmcu=atmega8 -DARDUINO=23 -DF_CPU=16000000L -Ibuild/core -Ibuild/lib_00/OneWire -Ibuild/lib_00/SoftUsb build/core/wiring_pulse.c
-avr-gcc -o build/core/wiring_shift.o -c -ffunction-sections -fdata-sections -fno-exceptions -Wall -funsigned-char -funsigned-bitfields -fpack-struct -fshort-enums -Os -mmcu=atmega8 -std=gnu99 -ffunction-sections -fdata-sections -fno-exceptions -Wall -funsigned-char -funsigned-bitfields -fpack-struct -fshort-enums -Os -mmcu=atmega8 -DARDUINO=23 -DF_CPU=16000000L -Ibuild/core -Ibuild/lib_00/OneWire -Ibuild/lib_00/SoftUsb build/core/wiring_shift.c
-fnCompressCore(["build/core.a"], ["build/core/WInterrupts.o", "build/core/wiring_digital.o", "build/core/wiring_shift.o", "build/core/wiring_pulse.o", "build/core/pins_arduino.o", "build/core/wiring_analog.o", "build/core/wiring.o", "build/core/WString.o", "build/core/WMath.o", "build/core/HardwareSerial.o", "build/core/Tone.o", "build/core/Print.o"])
-avr-ar rcs build/core.a build/core/WInterrupts.o
-avr-ar rcs build/core.a build/core/wiring_digital.o
-avr-ar rcs build/core.a build/core/wiring_shift.o
-avr-ar rcs build/core.a build/core/wiring_pulse.o
-avr-ar rcs build/core.a build/core/pins_arduino.o
-avr-ar rcs build/core.a build/core/wiring_analog.o
-avr-ar rcs build/core.a build/core/wiring.o
-avr-ar rcs build/core.a build/core/WString.o
-avr-ar rcs build/core.a build/core/WMath.o
-avr-ar rcs build/core.a build/core/HardwareSerial.o
-avr-ar rcs build/core.a build/core/Tone.o
-avr-ar rcs build/core.a build/core/Print.o
-avr-g++ -o build/lib_00/OneWire/OneWire.o -c -ffunction-sections -fdata-sections -fno-exceptions -Wall -funsigned-char -funsigned-bitfields -fpack-struct -fshort-enums -Os -mmcu=atmega8 -DARDUINO=23 -DF_CPU=16000000L -Ibuild/core -Ibuild/lib_00/OneWire -Ibuild/lib_00/SoftUsb build/lib_00/OneWire/OneWire.cpp
-avr-g++ -o build/lib_00/SoftUsb/UsbMain.o -c -ffunction-sections -fdata-sections -fno-exceptions -Wall -funsigned-char -funsigned-bitfields -fpack-struct -fshort-enums -Os -mmcu=atmega8 -DARDUINO=23 -DF_CPU=16000000L -Ibuild/core -Ibuild/lib_00/OneWire -Ibuild/lib_00/SoftUsb build/lib_00/SoftUsb/UsbMain.cpp
-avr-gcc -o build/lib_00/SoftUsb/oddebug.o -c -ffunction-sections -fdata-sections -fno-exceptions -Wall -funsigned-char -funsigned-bitfields -fpack-struct -fshort-enums -Os -mmcu=atmega8 -std=gnu99 -ffunction-sections -fdata-sections -fno-exceptions -Wall -funsigned-char -funsigned-bitfields -fpack-struct -fshort-enums -Os -mmcu=atmega8 -DARDUINO=23 -DF_CPU=16000000L -Ibuild/core -Ibuild/lib_00/OneWire -Ibuild/lib_00/SoftUsb build/lib_00/SoftUsb/oddebug.c
-avr-gcc -o build/lib_00/SoftUsb/usbdrv.o -c -ffunction-sections -fdata-sections -fno-exceptions -Wall -funsigned-char -funsigned-bitfields -fpack-struct -fshort-enums -Os -mmcu=atmega8 -std=gnu99 -ffunction-sections -fdata-sections -fno-exceptions -Wall -funsigned-char -funsigned-bitfields -fpack-struct -fshort-enums -Os -mmcu=atmega8 -DARDUINO=23 -DF_CPU=16000000L -Ibuild/core -Ibuild/lib_00/OneWire -Ibuild/lib_00/SoftUsb build/lib_00/SoftUsb/usbdrv.c
-avr-gcc -assembler-with-cpp -mmcu=atmega8 -DARDUINO=23 -DF_CPU=16000000L -Ibuild/core -Ibuild/lib_00/OneWire -Ibuild/lib_00/SoftUsb -c -o build/lib_00/SoftUsb/usbdrvasm.o build/lib_00/SoftUsb/usbdrvasm.S
-avr-gcc -mmcu=atmega8 -Os -Wl,--gc-sections -o OneWire.elf build/OneWire.o build/lib_00/OneWire/OneWire.o build/lib_00/SoftUsb/oddebug.o build/lib_00/SoftUsb/usbdrv.o build/lib_00/SoftUsb/UsbMain.o build/lib_00/SoftUsb/usbdrvasm.o build/core.a -lm
-avr-objcopy -O ihex -R .eeprom OneWire.elf OneWire.hex
-avr-size --target=ihex OneWire.hex
-   text	   data	    bss	    dec	    hex	filename
-      0	   5964	      0	   5964	   174c	OneWire.hex
-scons: done building targets.
+/tmp/pyavrutils_TWzToN/OneWire/OneWire.ino OneWire
+/home/titi/opt/arduino-1.0.3/hardware/tools/avr/bin/avr-g++ -o build/OneWire.o -c -ffunction-sections -fdata-sections -fno-exceptions -funsigned-char -funsigned-bitfields -fpack-struct -fshort-enums -Os -Wall -mmcu=atmega8 -DARDUINO=100 -DF_CPU=16000000 -Ibuild/core -I/home/titi/opt/arduino-1.0.3/hardware/arduino/variants/standard -Ibuild/lib_00/SoftUsb -Ibuild/lib_00/OneWire build/OneWire.cpp
+scons: building terminated because of errors.
 
 ----------
 stderr
 ----------
-In file included from build/OneWire.pde:4:0:
-build/lib_00/SoftUsb/SoftUsb.h:30:0: warning: "PE" redefined
-/usr/lib/gcc/avr/4.5.3/../../../avr/include/avr/iom8.h:516:0: note: this is the location of the previous definition
-build/lib_00/SoftUsb/SoftUsb.h:109:32: warning: only initialized variables can be placed into program memory area
-In file included from build/OneWire.pde:4:0:
-build/lib_00/SoftUsb/SoftUsb.h:118:38: warning: only initialized variables can be placed into program memory area
-In file included from build/OneWire.pde:4:0:
-build/lib_00/SoftUsb/SoftUsb.h:127:35: warning: only initialized variables can be placed into program memory area
-In file included from build/core/wiring_private.h:30:0,
-                 from build/core/HardwareSerial.cpp:28:
-/usr/lib/gcc/avr/4.5.3/../../../avr/include/avr/delay.h:36:2: warning: #warning "This file has been moved to <util/delay.h>."
-build/core/Print.cpp: In member function 'void Print::print(const String&)':
-build/core/Print.cpp:48:32: warning: comparison between signed and unsigned integer expressions
-build/core/Tone.cpp:100:45: warning: only initialized variables can be placed into program memory area
-In file included from build/core/wiring_private.h:30:0,
-                 from build/core/WInterrupts.c:34:
-/usr/lib/gcc/avr/4.5.3/../../../avr/include/avr/delay.h:36:2: warning: #warning "This file has been moved to <util/delay.h>."
-In file included from build/core/wiring_private.h:30:0,
-                 from build/core/pins_arduino.c:26:
-/usr/lib/gcc/avr/4.5.3/../../../avr/include/avr/delay.h:36:2: warning: #warning "This file has been moved to <util/delay.h>."
-build/core/pins_arduino.c:72:0: warning: "PE" redefined
-/usr/lib/gcc/avr/4.5.3/../../../avr/include/avr/iom8.h:516:0: note: this is the location of the previous definition
-build/core/pins_arduino.c:361:2: warning: initialization makes integer from pointer without a cast
-build/core/pins_arduino.c:362:2: warning: initialization makes integer from pointer without a cast
-build/core/pins_arduino.c:363:2: warning: initialization makes integer from pointer without a cast
-build/core/pins_arduino.c:369:2: warning: initialization makes integer from pointer without a cast
-build/core/pins_arduino.c:370:2: warning: initialization makes integer from pointer without a cast
-build/core/pins_arduino.c:371:2: warning: initialization makes integer from pointer without a cast
-build/core/pins_arduino.c:377:2: warning: initialization makes integer from pointer without a cast
-build/core/pins_arduino.c:378:2: warning: initialization makes integer from pointer without a cast
-build/core/pins_arduino.c:379:2: warning: initialization makes integer from pointer without a cast
-In file included from build/core/wiring_private.h:30:0,
-                 from build/core/wiring.c:25:
-/usr/lib/gcc/avr/4.5.3/../../../avr/include/avr/delay.h:36:2: warning: #warning "This file has been moved to <util/delay.h>."
-In file included from build/core/wiring_private.h:30:0,
-                 from build/core/wiring_analog.c:27:
-/usr/lib/gcc/avr/4.5.3/../../../avr/include/avr/delay.h:36:2: warning: #warning "This file has been moved to <util/delay.h>."
-In file included from build/core/wiring_private.h:30:0,
-                 from build/core/wiring_digital.c:27:
-/usr/lib/gcc/avr/4.5.3/../../../avr/include/avr/delay.h:36:2: warning: #warning "This file has been moved to <util/delay.h>."
-In file included from build/core/wiring_private.h:30:0,
-                 from build/core/wiring_pulse.c:25:
-/usr/lib/gcc/avr/4.5.3/../../../avr/include/avr/delay.h:36:2: warning: #warning "This file has been moved to <util/delay.h>."
-In file included from build/core/wiring_private.h:30:0,
-                 from build/core/wiring_shift.c:25:
-/usr/lib/gcc/avr/4.5.3/../../../avr/include/avr/delay.h:36:2: warning: #warning "This file has been moved to <util/delay.h>."
-build/lib_00/OneWire/OneWire.cpp:442:42: warning: only initialized variables can be placed into program memory area
-build/lib_00/SoftUsb/UsbMain.cpp:9:39: warning: only initialized variables can be placed into program memory area
+In file included from build/lib_00/SoftUsb/SoftUsb.h:22,
+                 from build/OneWire.ino:4:
+build/lib_00/SoftUsb/SoftUsb_const.h:9:1: warning: "PE" redefined
+In file included from /home/titi/opt/arduino-1.0.3/hardware/tools/avr/bin/../lib/gcc/avr/4.3.2/../../../avr/include/avr/io.h:236,
+                 from /home/titi/opt/arduino-1.0.3/hardware/tools/avr/bin/../lib/gcc/avr/4.3.2/../../../avr/include/avr/pgmspace.h:82,
+                 from build/core/Arduino.h:8,
+                 from build/OneWire.cpp:1:
+/home/titi/opt/arduino-1.0.3/hardware/tools/avr/bin/../lib/gcc/avr/4.3.2/../../../avr/include/avr/iom8.h:516:1: warning: this is the location of the previous definition
+In file included from build/lib_00/SoftUsb/SoftUsb.h:22,
+                 from build/OneWire.ino:4:
+build/lib_00/SoftUsb/SoftUsb_const.h:32: warning: only initialized variables can be placed into program memory area
+In file included from build/lib_00/SoftUsb/SoftUsb.h:22,
+                 from build/OneWire.ino:4:
+build/lib_00/SoftUsb/SoftUsb_const.h:41: warning: only initialized variables can be placed into program memory area
+In file included from build/lib_00/SoftUsb/SoftUsb.h:22,
+                 from build/OneWire.ino:4:
+build/lib_00/SoftUsb/SoftUsb_const.h:51: warning: only initialized variables can be placed into program memory area
+In file included from build/lib_00/SoftUsb/SoftUsb.h:22,
+                 from build/OneWire.ino:4:
+build/lib_00/SoftUsb/SoftUsb_const.h:61: warning: only initialized variables can be placed into program memory area
+In file included from build/lib_00/SoftUsb/SoftUsb.h:23,
+                 from build/OneWire.ino:4:
+build/lib_00/SoftUsb/SoftUsb_timer.h: In function 'uint8_t counter_overflow()':
+build/lib_00/SoftUsb/SoftUsb_timer.h:39: error: 'TIFR1' was not declared in this scope
+build/lib_00/SoftUsb/SoftUsb_timer.h: In function 'uint8_t counter_overflow_reset()':
+build/lib_00/SoftUsb/SoftUsb_timer.h:44: error: 'TIFR1' was not declared in this scope
+build/lib_00/SoftUsb/SoftUsb_timer.h: In function 'void timer_start()':
+build/lib_00/SoftUsb/SoftUsb_timer.h:104: error: 'GTCCR' was not declared in this scope
+build/lib_00/SoftUsb/SoftUsb_timer.h:104: error: 'PSRASY' was not declared in this scope
+build/lib_00/SoftUsb/SoftUsb_timer.h:105: error: 'TCCR2B' was not declared in this scope
+build/lib_00/SoftUsb/SoftUsb_timer.h:106: error: 'TIMSK2' was not declared in this scope
+build/lib_00/SoftUsb/SoftUsb_timer.h:106: error: 'OCIE2A' was not declared in this scope
+build/lib_00/SoftUsb/SoftUsb_timer.h: At global scope:
+build/lib_00/SoftUsb/SoftUsb_timer.h:236: warning: 'TIMER2_COMPA_vect' appears to be a misspelled signal handler
+In file included from build/OneWire.ino:4:
+build/lib_00/SoftUsb/SoftUsb.h: In function 'unsigned char SoftUsb_UsbFunctionSetup(unsigned char*)':
+build/lib_00/SoftUsb/SoftUsb.h:258: warning: comparison between signed and unsigned integer expressions
+scons: *** [build/OneWire.o] Error 1

@@ -8,7 +8,7 @@
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     
-    <title>Examples &mdash; softusbduino 1.1.1 documentation</title>
+    <title>Examples &mdash; softusbduino 1.1.7 documentation</title>
     
     <link rel="stylesheet" href="_static/default.css" type="text/css" />
     <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
@@ -16,7 +16,7 @@
     <script type="text/javascript">
       var DOCUMENTATION_OPTIONS = {
         URL_ROOT:    '',
-        VERSION:     '1.1.1',
+        VERSION:     '1.1.7',
         COLLAPSE_INDEX: false,
         FILE_SUFFIX: '.html',
         HAS_SOURCE:  true
@@ -25,8 +25,8 @@
     <script type="text/javascript" src="_static/jquery.js"></script>
     <script type="text/javascript" src="_static/underscore.js"></script>
     <script type="text/javascript" src="_static/doctools.js"></script>
-    <link rel="top" title="softusbduino 1.1.1 documentation" href="index.html" />
-    <link rel="next" title="1Wire examples" href="examples1wire.html" />
+    <link rel="top" title="softusbduino 1.1.7 documentation" href="index.html" />
+    <link rel="next" title="Tests" href="check.html" />
     <link rel="prev" title="Usage" href="usage.html" /> 
   </head>
   <body>
@@ -37,12 +37,12 @@
           <a href="genindex.html" title="General Index"
              accesskey="I">index</a></li>
         <li class="right" >
-          <a href="examples1wire.html" title="1Wire examples"
+          <a href="check.html" title="Tests"
              accesskey="N">next</a> |</li>
         <li class="right" >
           <a href="usage.html" title="Usage"
              accesskey="P">previous</a> |</li>
-        <li><a href="index.html">softusbduino 1.1.1 documentation</a> &raquo;</li> 
+        <li><a href="index.html">softusbduino 1.1.7 documentation</a> &raquo;</li> 
       </ul>
     </div>  
 
@@ -74,11 +74,13 @@ DDRC= 0
 </div>
 <div class="section" id="plot">
 <h2>Plot<a class="headerlink" href="#plot" title="Permalink to this headline">¶</a></h2>
-<div class="highlight-python"><div class="highlight"><pre><span class="kn">from</span> <span class="nn">entrypoint2</span> <span class="kn">import</span> <span class="n">entrypoint</span>
+<div class="highlight-python"><div class="highlight"><pre><span class="kn">from</span> <span class="nn">softusbduino.const</span> <span class="kn">import</span> <span class="n">INPUT</span>
+<span class="kn">from</span> <span class="nn">entrypoint2</span> <span class="kn">import</span> <span class="n">entrypoint</span>
 <span class="kn">from</span> <span class="nn">matplotlib.ticker</span> <span class="kn">import</span> <span class="n">FuncFormatter</span>
 <span class="kn">from</span> <span class="nn">softusbduino.arduino</span> <span class="kn">import</span> <span class="n">Arduino</span>
 <span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="kn">as</span> <span class="nn">plt</span>
 <span class="kn">import</span> <span class="nn">time</span>
+
 
 <span class="nd">@entrypoint</span>
 <span class="k">def</span> <span class="nf">main</span><span class="p">(</span><span class="n">n</span><span class="o">=</span><span class="mi">40</span><span class="p">,</span> <span class="n">pin_nr</span><span class="o">=</span><span class="mi">13</span><span class="p">,</span> <span class="n">reset</span><span class="o">=</span><span class="bp">False</span><span class="p">):</span>
@@ -87,7 +89,7 @@ DDRC= 0
 <span class="sd">    &#39;&#39;&#39;</span>
     <span class="n">mcu</span> <span class="o">=</span> <span class="n">Arduino</span><span class="p">(</span><span class="n">reset</span><span class="o">=</span><span class="n">reset</span><span class="p">)</span>
     <span class="n">pin</span> <span class="o">=</span> <span class="n">mcu</span><span class="o">.</span><span class="n">pin</span><span class="p">(</span><span class="n">pin_nr</span><span class="p">)</span>
-    
+    <span class="n">pin</span><span class="o">.</span><span class="n">write_mode</span><span class="p">(</span><span class="n">INPUT</span><span class="p">)</span>
     <span class="n">x</span> <span class="o">=</span> <span class="p">[]</span>
     <span class="n">y</span> <span class="o">=</span> <span class="p">[]</span>
     <span class="n">start</span> <span class="o">=</span> <span class="n">time</span><span class="o">.</span><span class="n">time</span><span class="p">()</span>
@@ -99,14 +101,14 @@ DDRC= 0
     <span class="n">fig</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">()</span>
     <span class="n">ax</span> <span class="o">=</span> <span class="n">fig</span><span class="o">.</span><span class="n">add_subplot</span><span class="p">(</span><span class="mi">111</span><span class="p">)</span>
     <span class="n">ax</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="s">&#39;b-o&#39;</span><span class="p">)</span>
-    
+
     <span class="n">ax</span><span class="o">.</span><span class="n">yaxis</span><span class="o">.</span><span class="n">set_major_formatter</span><span class="p">(</span><span class="n">FuncFormatter</span><span class="p">(</span><span class="k">lambda</span> <span class="n">x</span><span class="p">,</span> <span class="n">pos</span><span class="p">:</span> <span class="p">(</span><span class="s">&#39;</span><span class="si">%d</span><span class="s">&#39;</span><span class="p">)</span> <span class="o">%</span> <span class="p">(</span><span class="n">x</span><span class="p">)))</span>
     <span class="n">ax</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="s">&#39;analog value&#39;</span><span class="p">)</span>
-    
-    <span class="n">ax</span><span class="o">.</span><span class="n">xaxis</span><span class="o">.</span><span class="n">set_major_formatter</span><span class="p">(</span><span class="n">FuncFormatter</span><span class="p">(</span><span class="k">lambda</span> <span class="n">x</span><span class="p">,</span> <span class="n">pos</span><span class="p">:</span> <span class="s">&#39;</span><span class="si">%.0f</span><span class="s">&#39;</span> <span class="o">%</span> <span class="p">(</span><span class="mi">1000</span> <span class="o">*</span> <span class="n">x</span><span class="p">)))</span>
+
+    <span class="n">ax</span><span class="o">.</span><span class="n">xaxis</span><span class="o">.</span><span class="n">set_major_formatter</span><span class="p">(</span>
+        <span class="n">FuncFormatter</span><span class="p">(</span><span class="k">lambda</span> <span class="n">x</span><span class="p">,</span> <span class="n">pos</span><span class="p">:</span> <span class="s">&#39;</span><span class="si">%.0f</span><span class="s">&#39;</span> <span class="o">%</span> <span class="p">(</span><span class="mi">1000</span> <span class="o">*</span> <span class="n">x</span><span class="p">)))</span>
     <span class="n">ax</span><span class="o">.</span><span class="n">set_xlabel</span><span class="p">(</span><span class="s">&#39;milliseconds&#39;</span><span class="p">)</span>
     <span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
-      
 </pre></div>
 </div>
 <div class="highlight-text"><div class="highlight"><pre>$ python -m softusbduino.examples.analogplot --help
@@ -125,14 +127,14 @@ optional arguments:
 <div class="highlight-python"><pre>$ python -m softusbduino.examples.analogplot
 </pre>
 </div>
-<img alt="_images/screenshot_id0.png" src="_images/screenshot_id0.png" />
+<img alt="_images/generated_screenshot_id0.png" src="_images/generated_screenshot_id0.png" />
 </div>
 <div class="section" id="demo-gui">
 <h2>Demo GUI<a class="headerlink" href="#demo-gui" title="Permalink to this headline">¶</a></h2>
 <div class="highlight-python"><pre>$ python -m softusbduino.examples.guidemo
 </pre>
 </div>
-<img alt="_images/screenshot_id1.png" src="_images/screenshot_id1.png" />
+<img alt="_images/generated_screenshot_id1.png" src="_images/generated_screenshot_id1.png" />
 </div>
 <div class="section" id="prototyping">
 <h2>prototyping<a class="headerlink" href="#prototyping" title="Permalink to this headline">¶</a></h2>
@@ -140,21 +142,22 @@ optional arguments:
 <div class="highlight-python"><div class="highlight"><pre><span class="sd">&#39;&#39;&#39;</span>
 <span class="sd">  Blink</span>
 <span class="sd">  Turns on an LED on for one second, then off for one second, repeatedly.</span>
-<span class="sd">  </span>
+
 <span class="sd">  Converted from Arduino example.</span>
 <span class="sd">&#39;&#39;&#39;</span>
 
 <span class="kn">from</span> <span class="nn">softusbduino.protoapi</span> <span class="kn">import</span> <span class="o">*</span>
 
-<span class="k">def</span> <span class="nf">setup</span><span class="p">():</span>
-    <span class="n">pinMode</span><span class="p">(</span><span class="mi">13</span><span class="p">,</span> <span class="n">OUTPUT</span><span class="p">);</span>   
-      
-<span class="k">def</span> <span class="nf">loop</span><span class="p">():</span>
-    <span class="n">digitalWrite</span><span class="p">(</span><span class="mi">13</span><span class="p">,</span> <span class="n">HIGH</span><span class="p">);</span>   
-    <span class="n">delay</span><span class="p">(</span><span class="mi">1000</span><span class="p">);</span>              
-    <span class="n">digitalWrite</span><span class="p">(</span><span class="mi">13</span><span class="p">,</span> <span class="n">LOW</span><span class="p">);</span>    
-    <span class="n">delay</span><span class="p">(</span><span class="mi">1000</span><span class="p">);</span>              
 
+<span class="k">def</span> <span class="nf">setup</span><span class="p">():</span>
+    <span class="n">pinMode</span><span class="p">(</span><span class="mi">13</span><span class="p">,</span> <span class="n">OUTPUT</span><span class="p">)</span>
+
+
+<span class="k">def</span> <span class="nf">loop</span><span class="p">():</span>
+    <span class="n">digitalWrite</span><span class="p">(</span><span class="mi">13</span><span class="p">,</span> <span class="n">HIGH</span><span class="p">)</span>
+    <span class="n">delay</span><span class="p">(</span><span class="mi">1000</span><span class="p">)</span>
+    <span class="n">digitalWrite</span><span class="p">(</span><span class="mi">13</span><span class="p">,</span> <span class="n">LOW</span><span class="p">)</span>
+    <span class="n">delay</span><span class="p">(</span><span class="mi">1000</span><span class="p">)</span>
 
 
 <span class="n">sketch</span> <span class="o">=</span> <span class="n">Sketch</span><span class="p">(</span><span class="n">setup</span><span class="p">,</span> <span class="n">loop</span><span class="p">)</span>
@@ -164,17 +167,17 @@ optional arguments:
 <p>softusbduino/examples/proto/AnalogInOutSerial.py</p>
 <div class="highlight-python"><div class="highlight"><pre><span class="sd">&#39;&#39;&#39;</span>
 <span class="sd">  Analog input, analog output, serial output</span>
-<span class="sd"> </span>
+
 <span class="sd"> Reads an analog input pin, maps the result to a range from 0 to 255</span>
 <span class="sd"> and uses the result to set the pulsewidth modulation (PWM) of an output pin.</span>
 <span class="sd"> Also prints the results to the serial monitor.</span>
-<span class="sd"> </span>
+
 <span class="sd"> The circuit:</span>
 <span class="sd"> * potentiometer connected to analog pin 0.</span>
 <span class="sd">   Center pin of the potentiometer goes to the analog pin.</span>
 <span class="sd">   side pins of the potentiometer go to +5V and ground</span>
 <span class="sd"> * LED connected from digital pin 9 to ground</span>
-<span class="sd"> </span>
+
 <span class="sd">  Converted from Arduino example.</span>
 <span class="sd">&#39;&#39;&#39;</span>
 
@@ -182,35 +185,40 @@ optional arguments:
 
 <span class="c"># These constants won&#39;t change.  They&#39;re used to give names</span>
 <span class="c"># to the pins used:</span>
-<span class="n">analogInPin</span> <span class="o">=</span> <span class="n">A0</span><span class="p">;</span>  <span class="c"># Analog input pin that the potentiometer is attached to</span>
-<span class="n">analogOutPin</span> <span class="o">=</span> <span class="mi">9</span><span class="p">;</span> <span class="c"># Analog output pin that the LED is attached to</span>
+<span class="n">analogInPin</span> <span class="o">=</span> <span class="mi">0</span>
+<span class="c"># Analog input pin that the potentiometer is attached to</span>
+<span class="n">analogOutPin</span> <span class="o">=</span> <span class="mi">9</span>
+<span class="c"># Analog output pin that the LED is attached to</span>
 
-<span class="n">sensorValue</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>        <span class="c"># value read from the pot</span>
-<span class="n">outputValue</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>        <span class="c"># value output to the PWM (analog out)</span>
+<span class="n">sensorValue</span> <span class="o">=</span> <span class="mi">0</span>
+<span class="c"># value read from the pot</span>
+<span class="n">outputValue</span> <span class="o">=</span> <span class="mi">0</span>
+<span class="c"># value output to the PWM (analog out)</span>
+
 
 <span class="k">def</span> <span class="nf">setup</span><span class="p">():</span>
     <span class="c"># initialize serial communications at 9600 bps:</span>
-    <span class="n">Serial</span><span class="o">.</span><span class="n">begin</span><span class="p">(</span><span class="mi">9600</span><span class="p">);</span> 
-
+    <span class="n">Serial</span><span class="o">.</span><span class="n">begin</span><span class="p">(</span><span class="mi">9600</span><span class="p">)</span>
+    <span class="n">pinMode</span><span class="p">(</span><span class="n">analogOutPin</span><span class="p">,</span> <span class="n">OUTPUT</span><span class="p">)</span>
 
 <span class="k">def</span> <span class="nf">loop</span><span class="p">():</span>
     <span class="c"># read the analog in value:</span>
-    <span class="n">sensorValue</span> <span class="o">=</span> <span class="n">analogRead</span><span class="p">(</span><span class="n">analogInPin</span><span class="p">);</span>            
+    <span class="n">sensorValue</span> <span class="o">=</span> <span class="n">analogRead</span><span class="p">(</span><span class="n">analogInPin</span><span class="p">)</span>
     <span class="c"># map it to the range of the analog out:</span>
-    <span class="n">outputValue</span> <span class="o">=</span> <span class="nb">map</span><span class="p">(</span><span class="n">sensorValue</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">1023</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">255</span><span class="p">);</span>  
+    <span class="n">outputValue</span> <span class="o">=</span> <span class="nb">map</span><span class="p">(</span><span class="n">sensorValue</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">1023</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">255</span><span class="p">)</span>
     <span class="c"># change the analog out value:</span>
-    <span class="n">analogWrite</span><span class="p">(</span><span class="n">analogOutPin</span><span class="p">,</span> <span class="n">outputValue</span><span class="p">);</span>           
-    
+    <span class="n">analogWrite</span><span class="p">(</span><span class="n">analogOutPin</span><span class="p">,</span> <span class="n">outputValue</span><span class="p">)</span>
+
     <span class="c"># print the results to the serial monitor:</span>
-    <span class="n">Serial</span><span class="o">.</span><span class="n">print_</span><span class="p">(</span><span class="s">&quot;sensor = &quot;</span> <span class="p">);</span>                       
-    <span class="n">Serial</span><span class="o">.</span><span class="n">print_</span><span class="p">(</span><span class="n">sensorValue</span><span class="p">);</span>      
-    <span class="n">Serial</span><span class="o">.</span><span class="n">print_</span><span class="p">(</span><span class="s">&quot;</span><span class="se">\t</span><span class="s"> output = &quot;</span><span class="p">);</span>      
-    <span class="n">Serial</span><span class="o">.</span><span class="n">println</span><span class="p">(</span><span class="n">outputValue</span><span class="p">);</span>   
-    
+    <span class="n">Serial</span><span class="o">.</span><span class="n">print_</span><span class="p">(</span><span class="s">&quot;sensor = &quot;</span><span class="p">)</span>
+    <span class="n">Serial</span><span class="o">.</span><span class="n">print_</span><span class="p">(</span><span class="n">sensorValue</span><span class="p">)</span>
+    <span class="n">Serial</span><span class="o">.</span><span class="n">print_</span><span class="p">(</span><span class="s">&quot;</span><span class="se">\t</span><span class="s"> output = &quot;</span><span class="p">)</span>
+    <span class="n">Serial</span><span class="o">.</span><span class="n">println</span><span class="p">(</span><span class="n">outputValue</span><span class="p">)</span>
+
     <span class="c"># wait 10 milliseconds before the next loop</span>
     <span class="c"># for the analog-to-digital converter to settle</span>
     <span class="c"># after the last reading:</span>
-    <span class="n">delay</span><span class="p">(</span><span class="mi">10</span><span class="p">);</span>                     
+    <span class="n">delay</span><span class="p">(</span><span class="mi">10</span><span class="p">)</span>
 
 <span class="n">sketch</span> <span class="o">=</span> <span class="n">Sketch</span><span class="p">(</span><span class="n">setup</span><span class="p">,</span> <span class="n">loop</span><span class="p">)</span>
 <span class="n">sketch</span><span class="o">.</span><span class="n">run</span><span class="p">()</span>
@@ -240,8 +248,8 @@ optional arguments:
   <p class="topless"><a href="usage.html"
                         title="previous chapter">Usage</a></p>
   <h4>Next topic</h4>
-  <p class="topless"><a href="examples1wire.html"
-                        title="next chapter">1Wire examples</a></p>
+  <p class="topless"><a href="check.html"
+                        title="next chapter">Tests</a></p>
   <h3>This Page</h3>
   <ul class="this-page-menu">
     <li><a href="_sources/examples.txt"
@@ -271,17 +279,17 @@ optional arguments:
           <a href="genindex.html" title="General Index"
              >index</a></li>
         <li class="right" >
-          <a href="examples1wire.html" title="1Wire examples"
+          <a href="check.html" title="Tests"
              >next</a> |</li>
         <li class="right" >
           <a href="usage.html" title="Usage"
              >previous</a> |</li>
-        <li><a href="index.html">softusbduino 1.1.1 documentation</a> &raquo;</li> 
+        <li><a href="index.html">softusbduino 1.1.7 documentation</a> &raquo;</li> 
       </ul>
     </div>
     <div class="footer">
         &copy; Copyright 2011, ponty.
-      Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 1.1.2.
+      Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 1.1.3.
     </div>
   </body>
 </html>
