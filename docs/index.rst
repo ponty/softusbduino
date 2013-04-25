@@ -1,7 +1,6 @@
 **softusbduino**
 
 :Date: |today|
-:PDF: `softusbduino.pdf <softusbduino.pdf>`_
 
 Table of Contents
 ------------------------

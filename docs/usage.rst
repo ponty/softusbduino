@@ -49,9 +49,9 @@ Usage
     >>> print mcu.pin('A2').analog
     >>>
     >>> # digital read
-    >>> print mcu.pins.read_digital(8)
-    >>> print mcu.pin('D8').read_digital()
-    >>> print mcu.pin('D8').digital
+    >>> print mcu.pins.read_digital_in(8)
+    >>> print mcu.pin('D8').read_digital_in()
+    >>> print mcu.pin('D8').digital_in
     >>>
     >>> # pullup
     >>> mcu.pins.write_pullup(8, HIGH)
@@ -59,9 +59,9 @@ Usage
     >>>
     >>> # digital write
     >>> mcu.pins.write_mode(8, OUTPUT)
-    >>> mcu.pins.write_digital(8, HIGH)
-    >>> mcu.pin('D8').write_digital(HIGH)
-    >>> mcu.pin('D8').digital = HIGH
+    >>> mcu.pins.write_digital_out(8, HIGH)
+    >>> mcu.pin('D8').write_digital_out(HIGH)
+    >>> mcu.pin('D8').digital_out = HIGH
     >>>
     >>> # PWM
     >>> print mcu.pin('D9').pwm.available
@@ -76,7 +76,7 @@ Usage
     >>> mcu.pin('D9').pwm.frequency = 38
     >>> print mcu.pin('D9').pwm.frequency
     >>> print mcu.pin('D9').pwm.divisor
-    >>> mcu.pins.pwm.write_value(9, 54)
+    >>> mcu.pin('D9').write_mode(OUTPUT)
     >>> mcu.pin('D9').pwm.write_value(44)
     >>> mcu.pin('D9').pwm.value = 34
     >>>
