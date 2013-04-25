@@ -1,6 +1,7 @@
-from softusbduino.check import performance, delay, dump
-from softusbduino.examples import simple
 from softusbduino.arduino import Arduino
+from softusbduino.check import performance, delay, dump, vcc, version, watchdog
+from softusbduino.examples import simple
+import sys
 
 
 def setup():
@@ -25,6 +26,22 @@ def test_simple():
 def test_perf():
     performance.main()
 
+
+def test_vcc():
+    vcc.main()
+
+
+def test_version():
+    version.main()
+
+
+def test_watchdog():
+    watchdog.main()
+
 # very slow
-# def test_delay():
-#    delay.main()
+def test_delay():
+#     if (sys.version_info < (2, 6, 0)):
+    if 1:
+        from nose.plugins.skip import SkipTest
+        raise SkipTest    
+    delay.main()

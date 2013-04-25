@@ -1,6 +1,6 @@
 from nose.tools import eq_
-from softusbduino.arduino import Arduino, OUTPUT, INPUT
-from util import exc_
+from softusbduino.arduino import Arduino
+# from util import exc_
 
 dev = None
 
@@ -8,12 +8,12 @@ dev = None
 def setup():
     global dev
     dev = Arduino()
-    dev.pins.reset()
-
-
-def teardown():
-    global dev
-    dev.pins.reset()
+#     dev.pins.reset()
+ 
+ 
+# def teardown():
+#     global dev
+#     dev.pins.reset()
 
 
 def test_defs():

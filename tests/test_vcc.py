@@ -19,7 +19,7 @@ def teardown():
 def  ok_vcc(vcc):
     print 'vcc=', vcc
     ok_(vcc < 5.5)
-    ok_(vcc > 3.5)
+    ok_(vcc > 3)
 
 
 def test_vcc():

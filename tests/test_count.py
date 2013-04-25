@@ -13,7 +13,6 @@ def test_counter():
     mcu = Arduino()
     reg = mcu.registers.proxy
     mcu.pins.reset()
-
     p = mcu.pin(5)
     p.write_mode(OUTPUT)
     p.pwm.write_value(128)
@@ -34,7 +33,9 @@ def test_counter():
                     err = f - fset
 
                     print 't=%s  f=%s ' % (t, f)
-                    ok_(abs(nominal_value(err)) <= std_dev(err))
+                    ok_(abs(nominal_value(err)) <= 0.1+std_dev(err), 
+                        (abs(nominal_value(err)),std_dev(err)))
 
 #     eq_(3, reg.TCCR1B)
+
 
