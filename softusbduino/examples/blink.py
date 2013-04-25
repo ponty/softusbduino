@@ -1,3 +1,4 @@
+from softusbduino.const import OUTPUT
 from entrypoint2 import entrypoint
 from softusbduino.arduino import Arduino
 import time
@@ -9,6 +10,10 @@ def main(
     t=0.1,
 ):
     mcu = Arduino()
+    p=mcu.pin(pin)
+    p.write_mode(OUTPUT)
+    x=0
     while 1:
-        mcu.pin(pin).digital_out = not mcu.pin(pin).digital_out
+        x=1-x
+        p.write_digital_out(x)
         time.sleep(t)

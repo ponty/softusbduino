@@ -70,8 +70,9 @@ def check_delay(
             step *= 10
         else:
             break
-        if step > 10 * 1e6:
-            break
+        if step >= 2 * 1e6:
+            return step 
+#             break
     return max_good
 
 TEMPL_usbPoll = '''
@@ -108,7 +109,8 @@ def pseudocode(func, disable_interrupts, **kw):
     elif func == 'usbPoll':
         s = TEMPL_usbPoll % s
     return s
-TEMPL = '''--------------------------------------------------------
+TEMPL = '''
+--------------------------------------------------------
 disable interrupts={disable_interrupts}
 delay position in code={func}
 number of measurements={count}
@@ -133,7 +135,7 @@ def print_delay(count, **kw):
 @entrypoint
 def main():
     mcu = Arduino()
-    mcu.reset()
+    mcu.pins.reset()
 
     kw = dict(
         mcu=mcu,

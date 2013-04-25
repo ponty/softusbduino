@@ -1,3 +1,4 @@
+from softusbduino.const import INPUT
 from entrypoint2 import entrypoint
 from matplotlib.ticker import FuncFormatter
 from softusbduino.arduino import Arduino
@@ -12,7 +13,7 @@ def main(n=40, pin_nr=13, reset=False):
     '''
     mcu = Arduino(reset=reset)
     pin = mcu.pin(pin_nr)
-
+    pin.write_mode(INPUT)
     x = []
     y = []
     start = time.time()

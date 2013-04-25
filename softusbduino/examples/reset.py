@@ -9,5 +9,5 @@ def main():
     print p.read_mode()
     p.write_mode(1)
     print p.read_mode()
-    mcu.reset()
+    mcu.pins.reset()
     print p.read_mode()

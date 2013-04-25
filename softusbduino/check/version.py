@@ -16,7 +16,7 @@ except ImportError:
 
 
 @entrypoint
-def list_versions():
+def main():
     ''' print versions
     '''
 

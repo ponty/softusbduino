@@ -18,7 +18,7 @@ def main(
     delay=0.001,
 ):
     mcu = Arduino()
-    mcu.reset()
+    mcu.pins.reset()
 
     count = 0
     fail = 0

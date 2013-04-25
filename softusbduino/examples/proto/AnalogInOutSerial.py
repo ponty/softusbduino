@@ -32,7 +32,7 @@ outputValue = 0
 def setup():
     # initialize serial communications at 9600 bps:
     Serial.begin(9600)
-
+    pinMode(analogOutPin, OUTPUT)
 
 def loop():
     # read the analog in value:
