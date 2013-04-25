@@ -51,8 +51,10 @@ class Codegen(object):
                 x = x.replace('#', '').strip()
                 ls = x.split() + [''] * 4
                 if 'define' == ls[0]:
-                    if '_SFR_IO8' in ls[2] or '_SFR_MEM8' in ls[2]:
-                        if '_struct' not in ls[1]:
+                    if '_struct' not in ls[1]:
+                        if '_SFR_IO8' in ls[2] or '_SFR_MEM8' in ls[2]:
+                            valid.add(ls[1])
+                        if '_SFR_IO16' in ls[2] or '_SFR_MEM16' in ls[2]:
                             valid.add(ls[1])
 
                     ok = True

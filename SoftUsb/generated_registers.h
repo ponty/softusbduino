@@ -161,6 +161,24 @@
     MISSING(ACSRB)
 #endif
 
+#ifdef ADC
+    DEFINE(ADC)
+#else
+    MISSING(ADC)
+#endif
+
+#ifdef ADCA_CAL
+    DEFINE(ADCA_CAL)
+#else
+    MISSING(ADCA_CAL)
+#endif
+
+#ifdef ADCA_CH0RES
+    DEFINE(ADCA_CH0RES)
+#else
+    MISSING(ADCA_CH0RES)
+#endif
+
 #ifdef ADCA_CH0_CTRL
     DEFINE(ADCA_CH0_CTRL)
 #else
@@ -183,6 +201,18 @@
     DEFINE(ADCA_CH0_MUXCTRL)
 #else
     MISSING(ADCA_CH0_MUXCTRL)
+#endif
+
+#ifdef ADCA_CH0_RES
+    DEFINE(ADCA_CH0_RES)
+#else
+    MISSING(ADCA_CH0_RES)
+#endif
+
+#ifdef ADCA_CH1RES
+    DEFINE(ADCA_CH1RES)
+#else
+    MISSING(ADCA_CH1RES)
 #endif
 
 #ifdef ADCA_CH1_CTRL
@@ -209,6 +239,18 @@
     MISSING(ADCA_CH1_MUXCTRL)
 #endif
 
+#ifdef ADCA_CH1_RES
+    DEFINE(ADCA_CH1_RES)
+#else
+    MISSING(ADCA_CH1_RES)
+#endif
+
+#ifdef ADCA_CH2RES
+    DEFINE(ADCA_CH2RES)
+#else
+    MISSING(ADCA_CH2RES)
+#endif
+
 #ifdef ADCA_CH2_CTRL
     DEFINE(ADCA_CH2_CTRL)
 #else
@@ -233,6 +275,18 @@
     MISSING(ADCA_CH2_MUXCTRL)
 #endif
 
+#ifdef ADCA_CH2_RES
+    DEFINE(ADCA_CH2_RES)
+#else
+    MISSING(ADCA_CH2_RES)
+#endif
+
+#ifdef ADCA_CH3RES
+    DEFINE(ADCA_CH3RES)
+#else
+    MISSING(ADCA_CH3RES)
+#endif
+
 #ifdef ADCA_CH3_CTRL
     DEFINE(ADCA_CH3_CTRL)
 #else
@@ -255,6 +309,18 @@
     DEFINE(ADCA_CH3_MUXCTRL)
 #else
     MISSING(ADCA_CH3_MUXCTRL)
+#endif
+
+#ifdef ADCA_CH3_RES
+    DEFINE(ADCA_CH3_RES)
+#else
+    MISSING(ADCA_CH3_RES)
+#endif
+
+#ifdef ADCA_CMP
+    DEFINE(ADCA_CMP)
+#else
+    MISSING(ADCA_CMP)
 #endif
 
 #ifdef ADCA_CTRLA
@@ -299,6 +365,18 @@
     MISSING(ADCA_TEMP)
 #endif
 
+#ifdef ADCB_CAL
+    DEFINE(ADCB_CAL)
+#else
+    MISSING(ADCB_CAL)
+#endif
+
+#ifdef ADCB_CH0RES
+    DEFINE(ADCB_CH0RES)
+#else
+    MISSING(ADCB_CH0RES)
+#endif
+
 #ifdef ADCB_CH0_CTRL
     DEFINE(ADCB_CH0_CTRL)
 #else
@@ -321,6 +399,18 @@
     DEFINE(ADCB_CH0_MUXCTRL)
 #else
     MISSING(ADCB_CH0_MUXCTRL)
+#endif
+
+#ifdef ADCB_CH0_RES
+    DEFINE(ADCB_CH0_RES)
+#else
+    MISSING(ADCB_CH0_RES)
+#endif
+
+#ifdef ADCB_CH1RES
+    DEFINE(ADCB_CH1RES)
+#else
+    MISSING(ADCB_CH1RES)
 #endif
 
 #ifdef ADCB_CH1_CTRL
@@ -347,6 +437,18 @@
     MISSING(ADCB_CH1_MUXCTRL)
 #endif
 
+#ifdef ADCB_CH1_RES
+    DEFINE(ADCB_CH1_RES)
+#else
+    MISSING(ADCB_CH1_RES)
+#endif
+
+#ifdef ADCB_CH2RES
+    DEFINE(ADCB_CH2RES)
+#else
+    MISSING(ADCB_CH2RES)
+#endif
+
 #ifdef ADCB_CH2_CTRL
     DEFINE(ADCB_CH2_CTRL)
 #else
@@ -371,6 +473,18 @@
     MISSING(ADCB_CH2_MUXCTRL)
 #endif
 
+#ifdef ADCB_CH2_RES
+    DEFINE(ADCB_CH2_RES)
+#else
+    MISSING(ADCB_CH2_RES)
+#endif
+
+#ifdef ADCB_CH3RES
+    DEFINE(ADCB_CH3RES)
+#else
+    MISSING(ADCB_CH3RES)
+#endif
+
 #ifdef ADCB_CH3_CTRL
     DEFINE(ADCB_CH3_CTRL)
 #else
@@ -393,6 +507,18 @@
     DEFINE(ADCB_CH3_MUXCTRL)
 #else
     MISSING(ADCB_CH3_MUXCTRL)
+#endif
+
+#ifdef ADCB_CH3_RES
+    DEFINE(ADCB_CH3_RES)
+#else
+    MISSING(ADCB_CH3_RES)
+#endif
+
+#ifdef ADCB_CMP
+    DEFINE(ADCB_CMP)
+#else
+    MISSING(ADCB_CMP)
 #endif
 
 #ifdef ADCB_CTRLA
@@ -503,6 +629,12 @@
     MISSING(ADCSRC)
 #endif
 
+#ifdef ADCW
+    DEFINE(ADCW)
+#else
+    MISSING(ADCW)
+#endif
+
 #ifdef ADCWH
     DEFINE(ADCWH)
 #else
@@ -531,6 +663,12 @@
     DEFINE(ADMUX)
 #else
     MISSING(ADMUX)
+#endif
+
+#ifdef ADRSLT
+    DEFINE(ADRSLT)
+#else
+    MISSING(ADRSLT)
 #endif
 
 #ifdef ADRSLTH
@@ -1061,6 +1199,12 @@
     MISSING(CADCSRC)
 #endif
 
+#ifdef CADIC
+    DEFINE(CADIC)
+#else
+    MISSING(CADIC)
+#endif
+
 #ifdef CADICH
     DEFINE(CADICH)
 #else
@@ -1083,6 +1227,12 @@
     DEFINE(CADRCC)
 #else
     MISSING(CADRCC)
+#endif
+
+#ifdef CADRCL
+    DEFINE(CADRCL)
+#else
+    MISSING(CADRCL)
 #endif
 
 #ifdef CADRCLH
@@ -1125,6 +1275,12 @@
     DEFINE(CANCDMOB)
 #else
     MISSING(CANCDMOB)
+#endif
+
+#ifdef CANEN
+    DEFINE(CANEN)
+#else
+    MISSING(CANEN)
 #endif
 
 #ifdef CANEN1
@@ -1217,6 +1373,12 @@
     MISSING(CANIDT4)
 #endif
 
+#ifdef CANIE
+    DEFINE(CANIE)
+#else
+    MISSING(CANIE)
+#endif
+
 #ifdef CANIE1
     DEFINE(CANIE1)
 #else
@@ -1247,6 +1409,12 @@
     MISSING(CANREC)
 #endif
 
+#ifdef CANSIT
+    DEFINE(CANSIT)
+#else
+    MISSING(CANSIT)
+#endif
+
 #ifdef CANSIT1
     DEFINE(CANSIT1)
 #else
@@ -1257,6 +1425,12 @@
     DEFINE(CANSIT2)
 #else
     MISSING(CANSIT2)
+#endif
+
+#ifdef CANSTM
+    DEFINE(CANSTM)
+#else
+    MISSING(CANSTM)
 #endif
 
 #ifdef CANSTMH
@@ -1289,6 +1463,12 @@
     MISSING(CANTEC)
 #endif
 
+#ifdef CANTIM
+    DEFINE(CANTIM)
+#else
+    MISSING(CANTIM)
+#endif
+
 #ifdef CANTIMH
     DEFINE(CANTIMH)
 #else
@@ -1299,6 +1479,12 @@
     DEFINE(CANTIML)
 #else
     MISSING(CANTIML)
+#endif
+
+#ifdef CANTTC
+    DEFINE(CANTTC)
+#else
+    MISSING(CANTTC)
 #endif
 
 #ifdef CANTTCH
@@ -1715,10 +1901,28 @@
     MISSING(CURIRUN)
 #endif
 
+#ifdef CURRDLY
+    DEFINE(CURRDLY)
+#else
+    MISSING(CURRDLY)
+#endif
+
 #ifdef CVER
     DEFINE(CVER)
 #else
     MISSING(CVER)
+#endif
+
+#ifdef DAC
+    DEFINE(DAC)
+#else
+    MISSING(DAC)
+#endif
+
+#ifdef DACA_CH0DATA
+    DEFINE(DACA_CH0DATA)
+#else
+    MISSING(DACA_CH0DATA)
 #endif
 
 #ifdef DACA_CH0GAINCAL
@@ -1731,6 +1935,12 @@
     DEFINE(DACA_CH0OFFSETCAL)
 #else
     MISSING(DACA_CH0OFFSETCAL)
+#endif
+
+#ifdef DACA_CH1DATA
+    DEFINE(DACA_CH1DATA)
+#else
+    MISSING(DACA_CH1DATA)
 #endif
 
 #ifdef DACA_CH1GAINCAL
@@ -1793,6 +2003,12 @@
     MISSING(DACA_TIMCTRL)
 #endif
 
+#ifdef DACB_CH0DATA
+    DEFINE(DACB_CH0DATA)
+#else
+    MISSING(DACB_CH0DATA)
+#endif
+
 #ifdef DACB_CH0GAINCAL
     DEFINE(DACB_CH0GAINCAL)
 #else
@@ -1803,6 +2019,12 @@
     DEFINE(DACB_CH0OFFSETCAL)
 #else
     MISSING(DACB_CH0OFFSETCAL)
+#endif
+
+#ifdef DACB_CH1DATA
+    DEFINE(DACB_CH1DATA)
+#else
+    MISSING(DACB_CH1DATA)
 #endif
 
 #ifdef DACB_CH1GAINCAL
@@ -1887,6 +2109,12 @@
     DEFINE(DACON)
 #else
     MISSING(DACON)
+#endif
+
+#ifdef DACVAL
+    DEFINE(DACVAL)
+#else
+    MISSING(DACVAL)
 #endif
 
 #ifdef DACVALH
@@ -2165,6 +2393,12 @@
     MISSING(DMA_CH0_SRCADDR2)
 #endif
 
+#ifdef DMA_CH0_TRFCNT
+    DEFINE(DMA_CH0_TRFCNT)
+#else
+    MISSING(DMA_CH0_TRFCNT)
+#endif
+
 #ifdef DMA_CH0_TRIGSRC
     DEFINE(DMA_CH0_TRIGSRC)
 #else
@@ -2229,6 +2463,12 @@
     DEFINE(DMA_CH1_SRCADDR2)
 #else
     MISSING(DMA_CH1_SRCADDR2)
+#endif
+
+#ifdef DMA_CH1_TRFCNT
+    DEFINE(DMA_CH1_TRFCNT)
+#else
+    MISSING(DMA_CH1_TRFCNT)
 #endif
 
 #ifdef DMA_CH1_TRIGSRC
@@ -2297,6 +2537,12 @@
     MISSING(DMA_CH2_SRCADDR2)
 #endif
 
+#ifdef DMA_CH2_TRFCNT
+    DEFINE(DMA_CH2_TRFCNT)
+#else
+    MISSING(DMA_CH2_TRFCNT)
+#endif
+
 #ifdef DMA_CH2_TRIGSRC
     DEFINE(DMA_CH2_TRIGSRC)
 #else
@@ -2363,6 +2609,12 @@
     MISSING(DMA_CH3_SRCADDR2)
 #endif
 
+#ifdef DMA_CH3_TRFCNT
+    DEFINE(DMA_CH3_TRFCNT)
+#else
+    MISSING(DMA_CH3_TRFCNT)
+#endif
+
 #ifdef DMA_CH3_TRIGSRC
     DEFINE(DMA_CH3_TRIGSRC)
 #else
@@ -2385,6 +2637,12 @@
     DEFINE(DMA_STATUS)
 #else
     MISSING(DMA_STATUS)
+#endif
+
+#ifdef DMA_TEMP
+    DEFINE(DMA_TEMP)
+#else
+    MISSING(DMA_TEMP)
 #endif
 
 #ifdef DPDS0
@@ -2459,6 +2717,12 @@
     MISSING(DWDR)
 #endif
 
+#ifdef EBI_CS0_BASEADDR
+    DEFINE(EBI_CS0_BASEADDR)
+#else
+    MISSING(EBI_CS0_BASEADDR)
+#endif
+
 #ifdef EBI_CS0_CTRLA
     DEFINE(EBI_CS0_CTRLA)
 #else
@@ -2469,6 +2733,12 @@
     DEFINE(EBI_CS0_CTRLB)
 #else
     MISSING(EBI_CS0_CTRLB)
+#endif
+
+#ifdef EBI_CS1_BASEADDR
+    DEFINE(EBI_CS1_BASEADDR)
+#else
+    MISSING(EBI_CS1_BASEADDR)
 #endif
 
 #ifdef EBI_CS1_CTRLA
@@ -2483,6 +2753,12 @@
     MISSING(EBI_CS1_CTRLB)
 #endif
 
+#ifdef EBI_CS2_BASEADDR
+    DEFINE(EBI_CS2_BASEADDR)
+#else
+    MISSING(EBI_CS2_BASEADDR)
+#endif
+
 #ifdef EBI_CS2_CTRLA
     DEFINE(EBI_CS2_CTRLA)
 #else
@@ -2493,6 +2769,12 @@
     DEFINE(EBI_CS2_CTRLB)
 #else
     MISSING(EBI_CS2_CTRLB)
+#endif
+
+#ifdef EBI_CS3_BASEADDR
+    DEFINE(EBI_CS3_BASEADDR)
+#else
+    MISSING(EBI_CS3_BASEADDR)
 #endif
 
 #ifdef EBI_CS3_CTRLA
@@ -2511,6 +2793,18 @@
     DEFINE(EBI_CTRL)
 #else
     MISSING(EBI_CTRL)
+#endif
+
+#ifdef EBI_INITDLY
+    DEFINE(EBI_INITDLY)
+#else
+    MISSING(EBI_INITDLY)
+#endif
+
+#ifdef EBI_REFRESH
+    DEFINE(EBI_REFRESH)
+#else
+    MISSING(EBI_REFRESH)
 #endif
 
 #ifdef EBI_SDRAMCTRLA
@@ -2759,6 +3053,12 @@
     MISSING(EVSYS_STROBE)
 #endif
 
+#ifdef EXOCR1A
+    DEFINE(EXOCR1A)
+#else
+    MISSING(EXOCR1A)
+#endif
+
 #ifdef EXOCR1AH
     DEFINE(EXOCR1AH)
 #else
@@ -2769,6 +3069,12 @@
     DEFINE(EXOCR1AL)
 #else
     MISSING(EXOCR1AL)
+#endif
+
+#ifdef EXOCR1B
+    DEFINE(EXOCR1B)
+#else
+    MISSING(EXOCR1B)
 #endif
 
 #ifdef EXOCR1BH
@@ -2805,6 +3111,12 @@
     DEFINE(EXTCNT)
 #else
     MISSING(EXTCNT)
+#endif
+
+#ifdef EXTCNT1
+    DEFINE(EXTCNT1)
+#else
+    MISSING(EXTCNT1)
 #endif
 
 #ifdef EXTCNT1H
@@ -3383,6 +3695,12 @@
     MISSING(HSSPIDMACS)
 #endif
 
+#ifdef HSSPIDMAD
+    DEFINE(HSSPIDMAD)
+#else
+    MISSING(HSSPIDMAD)
+#endif
+
 #ifdef HSSPIDMADH
     DEFINE(HSSPIDMADH)
 #else
@@ -3431,6 +3749,12 @@
     MISSING(HSSPITDR)
 #endif
 
+#ifdef HSSPITO
+    DEFINE(HSSPITO)
+#else
+    MISSING(HSSPITO)
+#endif
+
 #ifdef HSSPITOH
     DEFINE(HSSPITOH)
 #else
@@ -3449,6 +3773,12 @@
     MISSING(ICR)
 #endif
 
+#ifdef ICR0
+    DEFINE(ICR0)
+#else
+    MISSING(ICR0)
+#endif
+
 #ifdef ICR0H
     DEFINE(ICR0H)
 #else
@@ -3459,6 +3789,12 @@
     DEFINE(ICR0L)
 #else
     MISSING(ICR0L)
+#endif
+
+#ifdef ICR1
+    DEFINE(ICR1)
+#else
+    MISSING(ICR1)
 #endif
 
 #ifdef ICR1H
@@ -3473,6 +3809,12 @@
     MISSING(ICR1L)
 #endif
 
+#ifdef ICR3
+    DEFINE(ICR3)
+#else
+    MISSING(ICR3)
+#endif
+
 #ifdef ICR3H
     DEFINE(ICR3H)
 #else
@@ -3485,6 +3827,12 @@
     MISSING(ICR3L)
 #endif
 
+#ifdef ICR4
+    DEFINE(ICR4)
+#else
+    MISSING(ICR4)
+#endif
+
 #ifdef ICR4H
     DEFINE(ICR4H)
 #else
@@ -3495,6 +3843,12 @@
     DEFINE(ICR4L)
 #else
     MISSING(ICR4L)
+#endif
+
+#ifdef ICR5
+    DEFINE(ICR5)
+#else
+    MISSING(ICR5)
 #endif
 
 #ifdef ICR5H
@@ -3525,6 +3879,12 @@
     DEFINE(IDXIMSK)
 #else
     MISSING(IDXIMSK)
+#endif
+
+#ifdef IDXMSDT
+    DEFINE(IDXMSDT)
+#else
+    MISSING(IDXMSDT)
 #endif
 
 #ifdef IDXSTRB
@@ -3587,6 +3947,12 @@
     MISSING(IFR)
 #endif
 
+#ifdef INOCR1A
+    DEFINE(INOCR1A)
+#else
+    MISSING(INOCR1A)
+#endif
+
 #ifdef INOCR1AH
     DEFINE(INOCR1AH)
 #else
@@ -3597,6 +3963,12 @@
     DEFINE(INOCR1AL)
 #else
     MISSING(INOCR1AL)
+#endif
+
+#ifdef INOCR1B
+    DEFINE(INOCR1B)
+#else
+    MISSING(INOCR1B)
 #endif
 
 #ifdef INOCR1BH
@@ -3633,6 +4005,12 @@
     DEFINE(INTCNT)
 #else
     MISSING(INTCNT)
+#endif
+
+#ifdef INTCNT1
+    DEFINE(INTCNT1)
+#else
+    MISSING(INTCNT1)
 #endif
 
 #ifdef INTCNT1H
@@ -3683,6 +4061,12 @@
     MISSING(IO_ENAB)
 #endif
 
+#ifdef IPA
+    DEFINE(IPA)
+#else
+    MISSING(IPA)
+#endif
+
 #ifdef IPAH
     DEFINE(IPAH)
 #else
@@ -3699,6 +4083,12 @@
     DEFINE(IPCR)
 #else
     MISSING(IPCR)
+#endif
+
+#ifdef IPD
+    DEFINE(IPD)
+#else
+    MISSING(IPD)
 #endif
 
 #ifdef IPDH
@@ -3977,6 +4367,12 @@
     MISSING(LEDCR)
 #endif
 
+#ifdef LFCAL
+    DEFINE(LFCAL)
+#else
+    MISSING(LFCAL)
+#endif
+
 #ifdef LFCALH
     DEFINE(LFCALH)
 #else
@@ -4005,6 +4401,12 @@
     DEFINE(LFHCR)
 #else
     MISSING(LFHCR)
+#endif
+
+#ifdef LFIDC
+    DEFINE(LFIDC)
+#else
+    MISSING(LFIDC)
 #endif
 
 #ifdef LFIDCH
@@ -4065,6 +4467,12 @@
     DEFINE(LFSR3)
 #else
     MISSING(LFSR3)
+#endif
+
+#ifdef LINBRR
+    DEFINE(LINBRR)
+#else
+    MISSING(LINBRR)
 #endif
 
 #ifdef LINBRRH
@@ -4313,6 +4721,12 @@
     MISSING(MSVCAL)
 #endif
 
+#ifdef MUBRR
+    DEFINE(MUBRR)
+#else
+    MISSING(MUBRR)
+#endif
+
 #ifdef MUBRRH
     DEFINE(MUBRRH)
 #else
@@ -4475,6 +4889,12 @@
     MISSING(OCR0BL)
 #endif
 
+#ifdef OCR0RA
+    DEFINE(OCR0RA)
+#else
+    MISSING(OCR0RA)
+#endif
+
 #ifdef OCR0RAH
     DEFINE(OCR0RAH)
 #else
@@ -4485,6 +4905,12 @@
     DEFINE(OCR0RAL)
 #else
     MISSING(OCR0RAL)
+#endif
+
+#ifdef OCR0RB
+    DEFINE(OCR0RB)
+#else
+    MISSING(OCR0RB)
 #endif
 
 #ifdef OCR0RBH
@@ -4499,6 +4925,12 @@
     MISSING(OCR0RBL)
 #endif
 
+#ifdef OCR0SA
+    DEFINE(OCR0SA)
+#else
+    MISSING(OCR0SA)
+#endif
+
 #ifdef OCR0SAH
     DEFINE(OCR0SAH)
 #else
@@ -4511,6 +4943,12 @@
     MISSING(OCR0SAL)
 #endif
 
+#ifdef OCR0SB
+    DEFINE(OCR0SB)
+#else
+    MISSING(OCR0SB)
+#endif
+
 #ifdef OCR0SBH
     DEFINE(OCR0SBH)
 #else
@@ -4521,6 +4959,12 @@
     DEFINE(OCR0SBL)
 #else
     MISSING(OCR0SBL)
+#endif
+
+#ifdef OCR1
+    DEFINE(OCR1)
+#else
+    MISSING(OCR1)
 #endif
 
 #ifdef OCR1A
@@ -4595,6 +5039,12 @@
     MISSING(OCR1L)
 #endif
 
+#ifdef OCR1RA
+    DEFINE(OCR1RA)
+#else
+    MISSING(OCR1RA)
+#endif
+
 #ifdef OCR1RAH
     DEFINE(OCR1RAH)
 #else
@@ -4605,6 +5055,12 @@
     DEFINE(OCR1RAL)
 #else
     MISSING(OCR1RAL)
+#endif
+
+#ifdef OCR1RB
+    DEFINE(OCR1RB)
+#else
+    MISSING(OCR1RB)
 #endif
 
 #ifdef OCR1RBH
@@ -4619,6 +5075,12 @@
     MISSING(OCR1RBL)
 #endif
 
+#ifdef OCR1SA
+    DEFINE(OCR1SA)
+#else
+    MISSING(OCR1SA)
+#endif
+
 #ifdef OCR1SAH
     DEFINE(OCR1SAH)
 #else
@@ -4629,6 +5091,12 @@
     DEFINE(OCR1SAL)
 #else
     MISSING(OCR1SAL)
+#endif
+
+#ifdef OCR1SB
+    DEFINE(OCR1SB)
+#else
+    MISSING(OCR1SB)
 #endif
 
 #ifdef OCR1SBH
@@ -4661,6 +5129,12 @@
     MISSING(OCR2B)
 #endif
 
+#ifdef OCR2RA
+    DEFINE(OCR2RA)
+#else
+    MISSING(OCR2RA)
+#endif
+
 #ifdef OCR2RAH
     DEFINE(OCR2RAH)
 #else
@@ -4671,6 +5145,12 @@
     DEFINE(OCR2RAL)
 #else
     MISSING(OCR2RAL)
+#endif
+
+#ifdef OCR2RB
+    DEFINE(OCR2RB)
+#else
+    MISSING(OCR2RB)
 #endif
 
 #ifdef OCR2RBH
@@ -4685,6 +5165,12 @@
     MISSING(OCR2RBL)
 #endif
 
+#ifdef OCR2SA
+    DEFINE(OCR2SA)
+#else
+    MISSING(OCR2SA)
+#endif
+
 #ifdef OCR2SAH
     DEFINE(OCR2SAH)
 #else
@@ -4695,6 +5181,12 @@
     DEFINE(OCR2SAL)
 #else
     MISSING(OCR2SAL)
+#endif
+
+#ifdef OCR2SB
+    DEFINE(OCR2SB)
+#else
+    MISSING(OCR2SB)
 #endif
 
 #ifdef OCR2SBH
@@ -4709,6 +5201,12 @@
     MISSING(OCR2SBL)
 #endif
 
+#ifdef OCR3A
+    DEFINE(OCR3A)
+#else
+    MISSING(OCR3A)
+#endif
+
 #ifdef OCR3AH
     DEFINE(OCR3AH)
 #else
@@ -4721,6 +5219,12 @@
     MISSING(OCR3AL)
 #endif
 
+#ifdef OCR3B
+    DEFINE(OCR3B)
+#else
+    MISSING(OCR3B)
+#endif
+
 #ifdef OCR3BH
     DEFINE(OCR3BH)
 #else
@@ -4731,6 +5235,12 @@
     DEFINE(OCR3BL)
 #else
     MISSING(OCR3BL)
+#endif
+
+#ifdef OCR3C
+    DEFINE(OCR3C)
+#else
+    MISSING(OCR3C)
 #endif
 
 #ifdef OCR3CH
@@ -4805,6 +5315,12 @@
     MISSING(OCR4D)
 #endif
 
+#ifdef OCR5A
+    DEFINE(OCR5A)
+#else
+    MISSING(OCR5A)
+#endif
+
 #ifdef OCR5AH
     DEFINE(OCR5AH)
 #else
@@ -4815,6 +5331,12 @@
     DEFINE(OCR5AL)
 #else
     MISSING(OCR5AL)
+#endif
+
+#ifdef OCR5B
+    DEFINE(OCR5B)
+#else
+    MISSING(OCR5B)
 #endif
 
 #ifdef OCR5BH
@@ -4829,6 +5351,12 @@
     MISSING(OCR5BL)
 #endif
 
+#ifdef OCR5C
+    DEFINE(OCR5C)
+#else
+    MISSING(OCR5C)
+#endif
+
 #ifdef OCR5CH
     DEFINE(OCR5CH)
 #else
@@ -4841,6 +5369,12 @@
     MISSING(OCR5CL)
 #endif
 
+#ifdef OCRA1
+    DEFINE(OCRA1)
+#else
+    MISSING(OCRA1)
+#endif
+
 #ifdef OCRA1H
     DEFINE(OCRA1H)
 #else
@@ -4851,6 +5385,12 @@
     DEFINE(OCRA1L)
 #else
     MISSING(OCRA1L)
+#endif
+
+#ifdef OCRB1
+    DEFINE(OCRB1)
+#else
+    MISSING(OCRB1)
 #endif
 
 #ifdef OCRB1H
@@ -5141,6 +5681,12 @@
     MISSING(PHY_TX_PWR)
 #endif
 
+#ifdef PICR0
+    DEFINE(PICR0)
+#else
+    MISSING(PICR0)
+#endif
+
 #ifdef PICR0H
     DEFINE(PICR0H)
 #else
@@ -5153,6 +5699,12 @@
     MISSING(PICR0L)
 #endif
 
+#ifdef PICR1
+    DEFINE(PICR1)
+#else
+    MISSING(PICR1)
+#endif
+
 #ifdef PICR1H
     DEFINE(PICR1H)
 #else
@@ -5163,6 +5715,12 @@
     DEFINE(PICR1L)
 #else
     MISSING(PICR1L)
+#endif
+
+#ifdef PICR2
+    DEFINE(PICR2)
+#else
+    MISSING(PICR2)
 #endif
 
 #ifdef PICR2H
@@ -5363,6 +5921,12 @@
     MISSING(POC)
 #endif
 
+#ifdef POCR0RA
+    DEFINE(POCR0RA)
+#else
+    MISSING(POCR0RA)
+#endif
+
 #ifdef POCR0RAH
     DEFINE(POCR0RAH)
 #else
@@ -5373,6 +5937,12 @@
     DEFINE(POCR0RAL)
 #else
     MISSING(POCR0RAL)
+#endif
+
+#ifdef POCR0SA
+    DEFINE(POCR0SA)
+#else
+    MISSING(POCR0SA)
 #endif
 
 #ifdef POCR0SAH
@@ -5387,6 +5957,12 @@
     MISSING(POCR0SAL)
 #endif
 
+#ifdef POCR0SB
+    DEFINE(POCR0SB)
+#else
+    MISSING(POCR0SB)
+#endif
+
 #ifdef POCR0SBH
     DEFINE(POCR0SBH)
 #else
@@ -5397,6 +5973,12 @@
     DEFINE(POCR0SBL)
 #else
     MISSING(POCR0SBL)
+#endif
+
+#ifdef POCR1RA
+    DEFINE(POCR1RA)
+#else
+    MISSING(POCR1RA)
 #endif
 
 #ifdef POCR1RAH
@@ -5411,6 +5993,12 @@
     MISSING(POCR1RAL)
 #endif
 
+#ifdef POCR1SA
+    DEFINE(POCR1SA)
+#else
+    MISSING(POCR1SA)
+#endif
+
 #ifdef POCR1SAH
     DEFINE(POCR1SAH)
 #else
@@ -5421,6 +6009,12 @@
     DEFINE(POCR1SAL)
 #else
     MISSING(POCR1SAL)
+#endif
+
+#ifdef POCR1SB
+    DEFINE(POCR1SB)
+#else
+    MISSING(POCR1SB)
 #endif
 
 #ifdef POCR1SBH
@@ -5435,6 +6029,12 @@
     MISSING(POCR1SBL)
 #endif
 
+#ifdef POCR2RA
+    DEFINE(POCR2RA)
+#else
+    MISSING(POCR2RA)
+#endif
+
 #ifdef POCR2RAH
     DEFINE(POCR2RAH)
 #else
@@ -5445,6 +6045,12 @@
     DEFINE(POCR2RAL)
 #else
     MISSING(POCR2RAL)
+#endif
+
+#ifdef POCR2SA
+    DEFINE(POCR2SA)
+#else
+    MISSING(POCR2SA)
 #endif
 
 #ifdef POCR2SAH
@@ -5459,6 +6065,12 @@
     MISSING(POCR2SAL)
 #endif
 
+#ifdef POCR2SB
+    DEFINE(POCR2SB)
+#else
+    MISSING(POCR2SB)
+#endif
+
 #ifdef POCR2SBH
     DEFINE(POCR2SBH)
 #else
@@ -5471,6 +6083,12 @@
     MISSING(POCR2SBL)
 #endif
 
+#ifdef POCR_RB
+    DEFINE(POCR_RB)
+#else
+    MISSING(POCR_RB)
+#endif
+
 #ifdef POCR_RBH
     DEFINE(POCR_RBH)
 #else
@@ -5481,6 +6099,12 @@
     DEFINE(POCR_RBL)
 #else
     MISSING(POCR_RBL)
+#endif
+
+#ifdef POCRxRB
+    DEFINE(POCRxRB)
+#else
+    MISSING(POCRxRB)
 #endif
 
 #ifdef POCRxRBH
@@ -7247,6 +7871,18 @@
     MISSING(RTC32_SYNCCTRL)
 #endif
 
+#ifdef RTC_CNT
+    DEFINE(RTC_CNT)
+#else
+    MISSING(RTC_CNT)
+#endif
+
+#ifdef RTC_COMP
+    DEFINE(RTC_COMP)
+#else
+    MISSING(RTC_COMP)
+#endif
+
 #ifdef RTC_CTRL
     DEFINE(RTC_CTRL)
 #else
@@ -7263,6 +7899,12 @@
     DEFINE(RTC_INTFLAGS)
 #else
     MISSING(RTC_INTFLAGS)
+#endif
+
+#ifdef RTC_PER
+    DEFINE(RTC_PER)
+#else
+    MISSING(RTC_PER)
 #endif
 
 #ifdef RTC_STATUS
@@ -7367,6 +8009,12 @@
     MISSING(SCCR1)
 #endif
 
+#ifdef SCETU
+    DEFINE(SCETU)
+#else
+    MISSING(SCETU)
+#endif
+
 #ifdef SCETUH
     DEFINE(SCETUH)
 #else
@@ -7377,6 +8025,12 @@
     DEFINE(SCETUL)
 #else
     MISSING(SCETUL)
+#endif
+
+#ifdef SCGT
+    DEFINE(SCGT)
+#else
+    MISSING(SCGT)
 #endif
 
 #ifdef SCGTH
@@ -7617,6 +8271,12 @@
     DEFINE(SIMSK)
 #else
     MISSING(SIMSK)
+#endif
+
+#ifdef SINDAC
+    DEFINE(SINDAC)
+#else
+    MISSING(SINDAC)
 #endif
 
 #ifdef SINDACH
@@ -7871,6 +8531,12 @@
     MISSING(T1CR)
 #endif
 
+#ifdef T2COR
+    DEFINE(T2COR)
+#else
+    MISSING(T2COR)
+#endif
+
 #ifdef T2CORH
     DEFINE(T2CORH)
 #else
@@ -7893,6 +8559,12 @@
     DEFINE(T2CRB)
 #else
     MISSING(T2CRB)
+#endif
+
+#ifdef T2ICR
+    DEFINE(T2ICR)
+#else
+    MISSING(T2ICR)
 #endif
 
 #ifdef T2ICRH
@@ -7937,6 +8609,12 @@
     MISSING(T2MRB)
 #endif
 
+#ifdef T3CORA
+    DEFINE(T3CORA)
+#else
+    MISSING(T3CORA)
+#endif
+
 #ifdef T3CORAH
     DEFINE(T3CORAH)
 #else
@@ -7947,6 +8625,12 @@
     DEFINE(T3CORAL)
 #else
     MISSING(T3CORAL)
+#endif
+
+#ifdef T3CORB
+    DEFINE(T3CORB)
+#else
+    MISSING(T3CORB)
 #endif
 
 #ifdef T3CORBH
@@ -7971,6 +8655,12 @@
     DEFINE(T3CRB)
 #else
     MISSING(T3CRB)
+#endif
+
+#ifdef T3ICR
+    DEFINE(T3ICR)
+#else
+    MISSING(T3ICR)
 #endif
 
 #ifdef T3ICRH
@@ -8019,6 +8709,60 @@
     DEFINE(TC4H)
 #else
     MISSING(TC4H)
+#endif
+
+#ifdef TCC0_CCA
+    DEFINE(TCC0_CCA)
+#else
+    MISSING(TCC0_CCA)
+#endif
+
+#ifdef TCC0_CCABUF
+    DEFINE(TCC0_CCABUF)
+#else
+    MISSING(TCC0_CCABUF)
+#endif
+
+#ifdef TCC0_CCB
+    DEFINE(TCC0_CCB)
+#else
+    MISSING(TCC0_CCB)
+#endif
+
+#ifdef TCC0_CCBBUF
+    DEFINE(TCC0_CCBBUF)
+#else
+    MISSING(TCC0_CCBBUF)
+#endif
+
+#ifdef TCC0_CCC
+    DEFINE(TCC0_CCC)
+#else
+    MISSING(TCC0_CCC)
+#endif
+
+#ifdef TCC0_CCCBUF
+    DEFINE(TCC0_CCCBUF)
+#else
+    MISSING(TCC0_CCCBUF)
+#endif
+
+#ifdef TCC0_CCD
+    DEFINE(TCC0_CCD)
+#else
+    MISSING(TCC0_CCD)
+#endif
+
+#ifdef TCC0_CCDBUF
+    DEFINE(TCC0_CCDBUF)
+#else
+    MISSING(TCC0_CCDBUF)
+#endif
+
+#ifdef TCC0_CNT
+    DEFINE(TCC0_CNT)
+#else
+    MISSING(TCC0_CNT)
 #endif
 
 #ifdef TCC0_CTRLA
@@ -8093,10 +8837,52 @@
     MISSING(TCC0_INTFLAGS)
 #endif
 
+#ifdef TCC0_PER
+    DEFINE(TCC0_PER)
+#else
+    MISSING(TCC0_PER)
+#endif
+
+#ifdef TCC0_PERBUF
+    DEFINE(TCC0_PERBUF)
+#else
+    MISSING(TCC0_PERBUF)
+#endif
+
 #ifdef TCC0_TEMP
     DEFINE(TCC0_TEMP)
 #else
     MISSING(TCC0_TEMP)
+#endif
+
+#ifdef TCC1_CCA
+    DEFINE(TCC1_CCA)
+#else
+    MISSING(TCC1_CCA)
+#endif
+
+#ifdef TCC1_CCABUF
+    DEFINE(TCC1_CCABUF)
+#else
+    MISSING(TCC1_CCABUF)
+#endif
+
+#ifdef TCC1_CCB
+    DEFINE(TCC1_CCB)
+#else
+    MISSING(TCC1_CCB)
+#endif
+
+#ifdef TCC1_CCBBUF
+    DEFINE(TCC1_CCBBUF)
+#else
+    MISSING(TCC1_CCBBUF)
+#endif
+
+#ifdef TCC1_CNT
+    DEFINE(TCC1_CNT)
+#else
+    MISSING(TCC1_CNT)
 #endif
 
 #ifdef TCC1_CTRLA
@@ -8169,6 +8955,18 @@
     DEFINE(TCC1_INTFLAGS)
 #else
     MISSING(TCC1_INTFLAGS)
+#endif
+
+#ifdef TCC1_PER
+    DEFINE(TCC1_PER)
+#else
+    MISSING(TCC1_PER)
+#endif
+
+#ifdef TCC1_PERBUF
+    DEFINE(TCC1_PERBUF)
+#else
+    MISSING(TCC1_PERBUF)
 #endif
 
 #ifdef TCC1_TEMP
@@ -8321,6 +9119,60 @@
     MISSING(TCCR5C)
 #endif
 
+#ifdef TCD0_CCA
+    DEFINE(TCD0_CCA)
+#else
+    MISSING(TCD0_CCA)
+#endif
+
+#ifdef TCD0_CCABUF
+    DEFINE(TCD0_CCABUF)
+#else
+    MISSING(TCD0_CCABUF)
+#endif
+
+#ifdef TCD0_CCB
+    DEFINE(TCD0_CCB)
+#else
+    MISSING(TCD0_CCB)
+#endif
+
+#ifdef TCD0_CCBBUF
+    DEFINE(TCD0_CCBBUF)
+#else
+    MISSING(TCD0_CCBBUF)
+#endif
+
+#ifdef TCD0_CCC
+    DEFINE(TCD0_CCC)
+#else
+    MISSING(TCD0_CCC)
+#endif
+
+#ifdef TCD0_CCCBUF
+    DEFINE(TCD0_CCCBUF)
+#else
+    MISSING(TCD0_CCCBUF)
+#endif
+
+#ifdef TCD0_CCD
+    DEFINE(TCD0_CCD)
+#else
+    MISSING(TCD0_CCD)
+#endif
+
+#ifdef TCD0_CCDBUF
+    DEFINE(TCD0_CCDBUF)
+#else
+    MISSING(TCD0_CCDBUF)
+#endif
+
+#ifdef TCD0_CNT
+    DEFINE(TCD0_CNT)
+#else
+    MISSING(TCD0_CNT)
+#endif
+
 #ifdef TCD0_CTRLA
     DEFINE(TCD0_CTRLA)
 #else
@@ -8393,10 +9245,52 @@
     MISSING(TCD0_INTFLAGS)
 #endif
 
+#ifdef TCD0_PER
+    DEFINE(TCD0_PER)
+#else
+    MISSING(TCD0_PER)
+#endif
+
+#ifdef TCD0_PERBUF
+    DEFINE(TCD0_PERBUF)
+#else
+    MISSING(TCD0_PERBUF)
+#endif
+
 #ifdef TCD0_TEMP
     DEFINE(TCD0_TEMP)
 #else
     MISSING(TCD0_TEMP)
+#endif
+
+#ifdef TCD1_CCA
+    DEFINE(TCD1_CCA)
+#else
+    MISSING(TCD1_CCA)
+#endif
+
+#ifdef TCD1_CCABUF
+    DEFINE(TCD1_CCABUF)
+#else
+    MISSING(TCD1_CCABUF)
+#endif
+
+#ifdef TCD1_CCB
+    DEFINE(TCD1_CCB)
+#else
+    MISSING(TCD1_CCB)
+#endif
+
+#ifdef TCD1_CCBBUF
+    DEFINE(TCD1_CCBBUF)
+#else
+    MISSING(TCD1_CCBBUF)
+#endif
+
+#ifdef TCD1_CNT
+    DEFINE(TCD1_CNT)
+#else
+    MISSING(TCD1_CNT)
 #endif
 
 #ifdef TCD1_CTRLA
@@ -8471,10 +9365,76 @@
     MISSING(TCD1_INTFLAGS)
 #endif
 
+#ifdef TCD1_PER
+    DEFINE(TCD1_PER)
+#else
+    MISSING(TCD1_PER)
+#endif
+
+#ifdef TCD1_PERBUF
+    DEFINE(TCD1_PERBUF)
+#else
+    MISSING(TCD1_PERBUF)
+#endif
+
 #ifdef TCD1_TEMP
     DEFINE(TCD1_TEMP)
 #else
     MISSING(TCD1_TEMP)
+#endif
+
+#ifdef TCE0_CCA
+    DEFINE(TCE0_CCA)
+#else
+    MISSING(TCE0_CCA)
+#endif
+
+#ifdef TCE0_CCABUF
+    DEFINE(TCE0_CCABUF)
+#else
+    MISSING(TCE0_CCABUF)
+#endif
+
+#ifdef TCE0_CCB
+    DEFINE(TCE0_CCB)
+#else
+    MISSING(TCE0_CCB)
+#endif
+
+#ifdef TCE0_CCBBUF
+    DEFINE(TCE0_CCBBUF)
+#else
+    MISSING(TCE0_CCBBUF)
+#endif
+
+#ifdef TCE0_CCC
+    DEFINE(TCE0_CCC)
+#else
+    MISSING(TCE0_CCC)
+#endif
+
+#ifdef TCE0_CCCBUF
+    DEFINE(TCE0_CCCBUF)
+#else
+    MISSING(TCE0_CCCBUF)
+#endif
+
+#ifdef TCE0_CCD
+    DEFINE(TCE0_CCD)
+#else
+    MISSING(TCE0_CCD)
+#endif
+
+#ifdef TCE0_CCDBUF
+    DEFINE(TCE0_CCDBUF)
+#else
+    MISSING(TCE0_CCDBUF)
+#endif
+
+#ifdef TCE0_CNT
+    DEFINE(TCE0_CNT)
+#else
+    MISSING(TCE0_CNT)
 #endif
 
 #ifdef TCE0_CTRLA
@@ -8549,10 +9509,52 @@
     MISSING(TCE0_INTFLAGS)
 #endif
 
+#ifdef TCE0_PER
+    DEFINE(TCE0_PER)
+#else
+    MISSING(TCE0_PER)
+#endif
+
+#ifdef TCE0_PERBUF
+    DEFINE(TCE0_PERBUF)
+#else
+    MISSING(TCE0_PERBUF)
+#endif
+
 #ifdef TCE0_TEMP
     DEFINE(TCE0_TEMP)
 #else
     MISSING(TCE0_TEMP)
+#endif
+
+#ifdef TCE1_CCA
+    DEFINE(TCE1_CCA)
+#else
+    MISSING(TCE1_CCA)
+#endif
+
+#ifdef TCE1_CCABUF
+    DEFINE(TCE1_CCABUF)
+#else
+    MISSING(TCE1_CCABUF)
+#endif
+
+#ifdef TCE1_CCB
+    DEFINE(TCE1_CCB)
+#else
+    MISSING(TCE1_CCB)
+#endif
+
+#ifdef TCE1_CCBBUF
+    DEFINE(TCE1_CCBBUF)
+#else
+    MISSING(TCE1_CCBBUF)
+#endif
+
+#ifdef TCE1_CNT
+    DEFINE(TCE1_CNT)
+#else
+    MISSING(TCE1_CNT)
 #endif
 
 #ifdef TCE1_CTRLA
@@ -8627,10 +9629,76 @@
     MISSING(TCE1_INTFLAGS)
 #endif
 
+#ifdef TCE1_PER
+    DEFINE(TCE1_PER)
+#else
+    MISSING(TCE1_PER)
+#endif
+
+#ifdef TCE1_PERBUF
+    DEFINE(TCE1_PERBUF)
+#else
+    MISSING(TCE1_PERBUF)
+#endif
+
 #ifdef TCE1_TEMP
     DEFINE(TCE1_TEMP)
 #else
     MISSING(TCE1_TEMP)
+#endif
+
+#ifdef TCF0_CCA
+    DEFINE(TCF0_CCA)
+#else
+    MISSING(TCF0_CCA)
+#endif
+
+#ifdef TCF0_CCABUF
+    DEFINE(TCF0_CCABUF)
+#else
+    MISSING(TCF0_CCABUF)
+#endif
+
+#ifdef TCF0_CCB
+    DEFINE(TCF0_CCB)
+#else
+    MISSING(TCF0_CCB)
+#endif
+
+#ifdef TCF0_CCBBUF
+    DEFINE(TCF0_CCBBUF)
+#else
+    MISSING(TCF0_CCBBUF)
+#endif
+
+#ifdef TCF0_CCC
+    DEFINE(TCF0_CCC)
+#else
+    MISSING(TCF0_CCC)
+#endif
+
+#ifdef TCF0_CCCBUF
+    DEFINE(TCF0_CCCBUF)
+#else
+    MISSING(TCF0_CCCBUF)
+#endif
+
+#ifdef TCF0_CCD
+    DEFINE(TCF0_CCD)
+#else
+    MISSING(TCF0_CCD)
+#endif
+
+#ifdef TCF0_CCDBUF
+    DEFINE(TCF0_CCDBUF)
+#else
+    MISSING(TCF0_CCDBUF)
+#endif
+
+#ifdef TCF0_CNT
+    DEFINE(TCF0_CNT)
+#else
+    MISSING(TCF0_CNT)
 #endif
 
 #ifdef TCF0_CTRLA
@@ -8705,10 +9773,52 @@
     MISSING(TCF0_INTFLAGS)
 #endif
 
+#ifdef TCF0_PER
+    DEFINE(TCF0_PER)
+#else
+    MISSING(TCF0_PER)
+#endif
+
+#ifdef TCF0_PERBUF
+    DEFINE(TCF0_PERBUF)
+#else
+    MISSING(TCF0_PERBUF)
+#endif
+
 #ifdef TCF0_TEMP
     DEFINE(TCF0_TEMP)
 #else
     MISSING(TCF0_TEMP)
+#endif
+
+#ifdef TCF1_CCA
+    DEFINE(TCF1_CCA)
+#else
+    MISSING(TCF1_CCA)
+#endif
+
+#ifdef TCF1_CCABUF
+    DEFINE(TCF1_CCABUF)
+#else
+    MISSING(TCF1_CCABUF)
+#endif
+
+#ifdef TCF1_CCB
+    DEFINE(TCF1_CCB)
+#else
+    MISSING(TCF1_CCB)
+#endif
+
+#ifdef TCF1_CCBBUF
+    DEFINE(TCF1_CCBBUF)
+#else
+    MISSING(TCF1_CCBBUF)
+#endif
+
+#ifdef TCF1_CNT
+    DEFINE(TCF1_CNT)
+#else
+    MISSING(TCF1_CNT)
 #endif
 
 #ifdef TCF1_CTRLA
@@ -8783,6 +9893,18 @@
     MISSING(TCF1_INTFLAGS)
 #endif
 
+#ifdef TCF1_PER
+    DEFINE(TCF1_PER)
+#else
+    MISSING(TCF1_PER)
+#endif
+
+#ifdef TCF1_PERBUF
+    DEFINE(TCF1_PERBUF)
+#else
+    MISSING(TCF1_PERBUF)
+#endif
+
 #ifdef TCF1_TEMP
     DEFINE(TCF1_TEMP)
 #else
@@ -8831,6 +9953,12 @@
     MISSING(TCNT2)
 #endif
 
+#ifdef TCNT3
+    DEFINE(TCNT3)
+#else
+    MISSING(TCNT3)
+#endif
+
 #ifdef TCNT3H
     DEFINE(TCNT3H)
 #else
@@ -8859,6 +9987,12 @@
     DEFINE(TCNT4L)
 #else
     MISSING(TCNT4L)
+#endif
+
+#ifdef TCNT5
+    DEFINE(TCNT5)
+#else
+    MISSING(TCNT5)
 #endif
 
 #ifdef TCNT5H
@@ -9503,6 +10637,12 @@
     MISSING(UBRR1L)
 #endif
 
+#ifdef UBRR2
+    DEFINE(UBRR2)
+#else
+    MISSING(UBRR2)
+#endif
+
 #ifdef UBRR2H
     DEFINE(UBRR2H)
 #else
@@ -9513,6 +10653,12 @@
     DEFINE(UBRR2L)
 #else
     MISSING(UBRR2L)
+#endif
+
+#ifdef UBRR3
+    DEFINE(UBRR3)
+#else
+    MISSING(UBRR3)
 #endif
 
 #ifdef UBRR3H
@@ -9677,6 +10823,12 @@
     MISSING(UDCON)
 #endif
 
+#ifdef UDFNUM
+    DEFINE(UDFNUM)
+#else
+    MISSING(UDFNUM)
+#endif
+
 #ifdef UDFNUMH
     DEFINE(UDFNUMH)
 #else
@@ -9705,6 +10857,12 @@
     DEFINE(UDMFN)
 #else
     MISSING(UDMFN)
+#endif
+
+#ifdef UDPADD
+    DEFINE(UDPADD)
+#else
+    MISSING(UDPADD)
 #endif
 
 #ifdef UDPADDH
@@ -9765,6 +10923,12 @@
     DEFINE(UEBCLX)
 #else
     MISSING(UEBCLX)
+#endif
+
+#ifdef UEBCX
+    DEFINE(UEBCX)
+#else
+    MISSING(UEBCX)
 #endif
 
 #ifdef UECFG0X
@@ -9857,6 +11021,12 @@
     MISSING(UHFLEN)
 #endif
 
+#ifdef UHFNUM
+    DEFINE(UHFNUM)
+#else
+    MISSING(UHFNUM)
+#endif
+
 #ifdef UHFNUMH
     DEFINE(UHFNUMH)
 #else
@@ -9903,6 +11073,12 @@
     DEFINE(UPBCLX)
 #else
     MISSING(UPBCLX)
+#endif
+
+#ifdef UPBCX
+    DEFINE(UPBCX)
+#else
+    MISSING(UPBCX)
 #endif
 
 #ifdef UPBCXH
@@ -10379,6 +11555,12 @@
     MISSING(USBDMACS)
 #endif
 
+#ifdef USBDMAD
+    DEFINE(USBDMAD)
+#else
+    MISSING(USBDMAD)
+#endif
+
 #ifdef USBDMADH
     DEFINE(USBDMADH)
 #else
@@ -10419,6 +11601,12 @@
     DEFINE(USBFCEX)
 #else
     MISSING(USBFCEX)
+#endif
+
+#ifdef USBFN
+    DEFINE(USBFN)
+#else
+    MISSING(USBFN)
 #endif
 
 #ifdef USBFNH
@@ -10497,6 +11685,12 @@
     DEFINE(USB_CTRLB)
 #else
     MISSING(USB_CTRLB)
+#endif
+
+#ifdef USB_EPPTR
+    DEFINE(USB_EPPTR)
+#else
+    MISSING(USB_EPPTR)
 #endif
 
 #ifdef USB_EP_TABLE_EP0IN_AUXDATAH
@@ -12179,6 +13373,12 @@
     MISSING(VADAC3)
 #endif
 
+#ifdef VADC
+    DEFINE(VADC)
+#else
+    MISSING(VADC)
+#endif
+
 #ifdef VADCH
     DEFINE(VADCH)
 #else
@@ -12195,6 +13395,12 @@
     DEFINE(VADCSR)
 #else
     MISSING(VADCSR)
+#endif
+
+#ifdef VADIC
+    DEFINE(VADIC)
+#else
+    MISSING(VADIC)
 #endif
 
 #ifdef VADICH
