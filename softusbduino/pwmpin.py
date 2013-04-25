@@ -21,13 +21,17 @@ class BiDict():
         self.inv = dict([(v, k) for k, v in dic.items()])
 
 _div1 = BiDict({
+#                0: None,
                1: 1,
                2: 8,
                3: 64,
                4: 256,
                5: 1024,
+#                6: None,
+#                7: None,
                })
 _div2 = BiDict({
+#                0: None,
                1: 1,
                2: 8,
                3: 32,
@@ -100,10 +104,16 @@ timer_mask = 7  # 0b111
 
 
 class PwmPin(object):
+    DEFAULT_DIVISOR=64
     def __init__(self, pin):
         self.pin = pin
         self.base = pin.mcu.pwm
 
+    def reset(self):
+        if not self.available:
+            return
+        self.write_divisor(self.DEFAULT_DIVISOR)
+        
     @property
     def available(self):
         return self.base.available(self.pin.nr)
@@ -177,6 +187,7 @@ class Pwm(object):
         self.mcu = mcu
         self.registers = mcu.registers
         self.F_CPU = mcu.define('F_CPU')
+        
 
     def available(self, pin_nr):
         timer_id = self._timer_id(pin_nr)

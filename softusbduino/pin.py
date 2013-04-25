@@ -115,8 +115,13 @@ class Pin(PwmPinMixin):
     def is_usb_minus(self):
         return self.nr == self.base.usb_minus_pin
 
+#     def reset(self):
+#         return self.base.reset(self.nr)
     def reset(self):
-        return self.base.reset(self.nr)
+        self.write_mode(INPUT)
+        self.write_pullup(LOW)
+        if self.pwm.available:
+            self.pwm.reset()
 
     def write_pullup(self, value):
         return self.base.write_pullup(self.nr, value)
@@ -164,6 +169,13 @@ class Pins(object):
         self.base = base
         self.defines = defines
         self.mcu = mcu
+        
+    @memoized
+    def _pin(self, pin_nr):
+        return Pin(self, self.mcu, nr=pin_nr)
+    
+    def pin(self, pin_name):
+        return self._pin(name2int(pin_name, self.mcu.define('A0')))
 
     @property
     def range_all(self):
@@ -277,8 +289,11 @@ class Pins(object):
         if pin_nr is None:
             self.reset_all_pins()
         else:
-            self.write_mode(pin_nr, INPUT)
-            self.write_pullup(pin_nr, LOW)
+            self.pin(pin_nr).reset()
+#             self.write_mode(pin_nr, INPUT)
+#             self.write_pullup(pin_nr, LOW)
+#             if self.pwm.available():
+#                 self.pwm.reset()
 
     def reset_all_pins(self):
         minus = self.usb_minus_pin
@@ -389,9 +404,6 @@ class PinMixin(object):
     def pins(self):
         return Pins(self.lowlevel_pins, self.defines, self)
 
-    @memoized
-    def _pin(self, pin_nr):
-        return Pin(self.pins, self, nr=pin_nr)
 
     def pin(self, pin_name):
-        return self._pin(name2int(pin_name, self.define('A0')))
+        return self.pins.pin(pin_name)
