@@ -75,11 +75,11 @@ class Watchdog(object):
         'atmega8: max 2 sec'
         i = self.values.index(sec)
         self.base.enable(i)
-        self.base.write_auto_reset(False)
+        self.write_auto_reset(False)
 
     def stop(self):
-        self.base.enable(self.values[1])
-        self.base.write_auto_reset(True)
+        self.base.disable()
+        self.write_auto_reset(True)
 
 #    def write_timeout(self, sec):
 ##        self.WDTCSR.value |= (1 << WDE)
@@ -94,8 +94,8 @@ class Watchdog(object):
         self.base.reconnect()
         time.sleep(2)
 
-#    def write_auto_reset(self, value):
-#        self.base.write_auto_reset(value)
+    def write_auto_reset(self, value):
+        self.base.write_auto_reset(value)
 
 
 class WatchdogMixin(object):
