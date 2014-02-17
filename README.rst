@@ -33,9 +33,11 @@ similar projects:
  - https://github.com/HashNuke/Python-Arduino-Prototyping-API
  - http://code.google.com/p/vusb-for-arduino/
  - http://code.google.com/p/pyduino/
-
+ - https://github.com/thearn/Python-Arduino-Command-API
+ - https://github.com/nanpy/nanpy
+ 
 Basic usage of prototyping
-==============================
+==========================
 ::
 	
 	from softusbduino.protoapi import *
@@ -54,10 +56,10 @@ Basic usage of prototyping
 
 
 Installation
-=======================
+============
 
 General
-----------
+-------
 
  * install Python_
  * install pip_
@@ -74,7 +76,7 @@ General
     pip install https://github.com/ponty/softusbduino/zipball/master    
  
 Ubuntu
-----------
+------
 ::
 
     sudo apt-get install arduino python-pip libusb-1.0-0 python-usb
@@ -86,14 +88,14 @@ Ubuntu
     sudo pip install http://github.com/petervizi/python-eeml/zipball/master
 	
 Upload firmware
-----------------
+---------------
 
   1. start Arduino
   2. open examples > SoftUsb > Simple
   3. upload to board 
 
 Set permission (Linux)
------------------------
+----------------------
 
 The permission should be changed::
 
