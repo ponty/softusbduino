@@ -183,10 +183,12 @@ class BoardWrapper(HasTraits):
 #    x = Str()
     defines = List(Define)
     update_interval = Int(1000, desc='interval in msec')
+    update_enable=Bool(True)
 
     def update(self):
-        for x in self.pins:
-            x.update()
+        if self.update_enable:
+            for x in self.pins:
+                x.update()
         time.sleep(self.update_interval / 1000.0)
 
     traits_view = View(
@@ -213,6 +215,7 @@ class BoardWrapper(HasTraits):
 #             ),
 #                   ),
             Group(
+                  'update_enable',
                 Item(name='update_interval',
                      editor=RangeEditor(
                      mode='slider',
